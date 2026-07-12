@@ -48,3 +48,48 @@ implementation/PPV state, filed status). Write authorization for this lane
 is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
+
+# GitHub Change Control Rule — Claude Code Read/Write Discipline
+
+This repo's Claude GitHub App installation grants full read/write scope
+(code, actions, checks, issues, PRs, hooks, workflows). That access exists;
+this section is the discipline for using it. Full rationale, verified
+access-state evidence, and gap register in
+`11_WORKING_MEMORY/07_SYSTEM_DEVELOPMENT_LIBRARY/GITHUB_CHANGE_CONTROL_RULE_v0.1.md`
+(SHA-256 `7fad82d8726e90dece665e9d83b34762ca313ac79ef5f2f888ea736b7d7faaab`,
+independently re-verified byte-for-byte against that hash before this
+section was written — not taken on the filing lane's word for it).
+Registered in SynapSys CR control as CHG-2026-410.
+
+**Read access**: unrestricted, no CR needed — code, issues, PRs,
+discussions, Actions runs/logs, commit history, workflow files, any time,
+for any SynapSys-related purpose.
+
+**No CR needed** (git's own staging is the safety mechanism): pushing to a
+non-default branch, opening a PR, commenting on issues/PRs/discussions,
+triggering an existing Actions workflow via its normal trigger (not editing
+the workflow file).
+
+**CR required before the action** (same discipline as this ecosystem's N8N
+change-control rule, scaled to git's mechanics): merging a PR into a
+default branch, direct push to a default branch, editing a
+`.github/workflows/*` file, any commit changing deployment-relevant
+config/secrets-references/CI-CD behaviour on a branch about to be merged.
+CR needs `x_test_evidence` and `x_rollback_plan` (name the actual git
+mechanism — revert SHA, branch to reset to) populated before the action, or
+retrospective emergency registration immediately after, same exception
+structure as every other CR-gated action this ecosystem uses.
+
+**Never, no CR overrides these**: modifying repo/org access controls
+(collaborator/team permissions, App installation scope, branch protection,
+org membership), deleting a repository, force-push or history rewrite on a
+shared/default branch, modifying or exfiltrating secrets, granting any app/
+user/token broader access than it currently has. If a task seems to need
+one of these, don't implement it — surface the conflict instead.
+
+**Open gaps, not yet resolved** (check before assuming coverage): branch
+protection status on this repo's default branch is unverified; whether
+every repo under the `pnyssen` account is actually in SynapSys scope for
+this rule (vs. personal/experimental) is unconfirmed; no GitHub Actions
+workflow inventory has been done yet, so the "editing a workflow file"
+trigger can't be checked against a concrete list.
