@@ -48,3 +48,66 @@ implementation/PPV state, filed status). Write authorization for this lane
 is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
+
+# AI Lane Roles
+
+What `claude_code` (this lane, in this repo) actually has, demonstrated not
+assumed:
+- Local git/GitHub push access via the installed Claude GitHub App —
+  verified by successfully pushing branches and opening PRs this session,
+  not merely granted-in-theory.
+- Local test execution (pytest) — demonstrated across three candidate
+  skills (8/8, 9/9, 15/15 passing, real output, not summarised).
+- Working Memory filing to `05_AI_RETURNS_HASHED` — demonstrated, multiple
+  receipts filed and independently re-verified this session.
+
+What this lane does **not** have: Odoo or N8N MCP access (explicit
+task-scope exclusion — see the standing requirement filed to address this
+gap at `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`),
+browser control, or any push/notification channel to another AI lane
+(Cowork, Codex T1, ChatGPT Hub, Gemini, Fable). Coordination with those
+lanes is relay-through-Phil or shared-Working-Memory-read only — the same
+constraint every lane in this ecosystem operates under, not a limitation
+specific to this one.
+
+Distinct value: this is the lane that can actually write and execute code
+with a real test runner and push it somewhere reviewable. Cowork has
+Odoo/N8N/browser access this lane doesn't. Neither substitutes for the
+other — route work to whichever lane's demonstrated capability actually
+matches the task, not by assumption.
+
+# Proactive Behaviors
+
+1. **Check before duplicating.** Before starting candidate-build or
+   CR-adjacent work, check Working Memory and any live change-request
+   register for existing coverage first, so this lane doesn't re-do work
+   another lane already has in flight.
+2. **File before referencing.** Every candidate artefact gets a filed
+   evidence receipt *before* it's referenced anywhere else (a PR, a chat
+   message, another document) — and that reference must cite the receipt's
+   exact filename and SHA-256 inline, not just describe what it contains.
+   A description without the citation is exactly what caused a real false
+   "no evidence exists" flag on this repo's own candidate-skill PRs.
+3. **Recompute before restating.** Never restate another lane's hash or
+   byte-count claim as settled without independently recomputing it first.
+   This is already this lane's practice (see the AgentBudget-receipt
+   correction and the CHG-2026-411 non-existence finding, both this
+   session) — this section exists to make it a written rule rather than an
+   incidental habit that could lapse under time pressure.
+
+# Change Request Cross-Reference
+
+| CR | Governs | Status |
+|---|---|---|
+| CHG-2026-410 | GitHub Change Control Rule (the section above this one in this file) | PR #4, pending merge — Phil's call |
+| CHG-2026-412 | This section and the two above it (AI Lane Roles, Proactive Behaviors) | Implemented via PR, this commit |
+| — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
+
+Note on CHG-2026-411: cited elsewhere as the standing rule requiring
+CHG-2026-412 to exist, but the document it names
+(`T1_CR_TRACEABILITY_RULE_v0.1.md`) does not appear in
+`05_AI_RETURNS_HASHED` as of this section being written — checked via full
+folder listing, not a single lookup. Recorded as an open discrepancy, not
+resolved by assumption in either direction. The four changes CHG-2026-412
+actually requested were implemented on their own merits regardless of
+whether CHG-2026-411 itself is real.
