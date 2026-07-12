@@ -59,6 +59,51 @@ lane — holds candidate system-development artefacts, rules, and templates
 "doesn't exist" from one folder's listing, check whether it belongs in the
 other.
 
+# GitHub Change Control Rule — Claude Code Read/Write Discipline
+
+This repo's Claude GitHub App installation grants full read/write scope
+(code, actions, checks, issues, PRs, hooks, workflows). That access exists;
+this section is the discipline for using it. Full rationale, verified
+access-state evidence, and gap register in
+`11_WORKING_MEMORY/07_SYSTEM_DEVELOPMENT_LIBRARY/GITHUB_CHANGE_CONTROL_RULE_v0.1.md`
+(SHA-256 `7fad82d8726e90dece665e9d83b34762ca313ac79ef5f2f888ea736b7d7faaab`,
+independently re-verified byte-for-byte against that hash before this
+section was written — not taken on the filing lane's word for it).
+Registered in SynapSys CR control as CHG-2026-410.
+
+**Read access**: unrestricted, no CR needed — code, issues, PRs,
+discussions, Actions runs/logs, commit history, workflow files, any time,
+for any SynapSys-related purpose.
+
+**No CR needed** (git's own staging is the safety mechanism): pushing to a
+non-default branch, opening a PR, commenting on issues/PRs/discussions,
+triggering an existing Actions workflow via its normal trigger (not editing
+the workflow file).
+
+**CR required before the action** (same discipline as this ecosystem's N8N
+change-control rule, scaled to git's mechanics): merging a PR into a
+default branch, direct push to a default branch, editing a
+`.github/workflows/*` file, any commit changing deployment-relevant
+config/secrets-references/CI-CD behaviour on a branch about to be merged.
+CR needs `x_test_evidence` and `x_rollback_plan` (name the actual git
+mechanism — revert SHA, branch to reset to) populated before the action, or
+retrospective emergency registration immediately after, same exception
+structure as every other CR-gated action this ecosystem uses.
+
+**Never, no CR overrides these**: modifying repo/org access controls
+(collaborator/team permissions, App installation scope, branch protection,
+org membership), deleting a repository, force-push or history rewrite on a
+shared/default branch, modifying or exfiltrating secrets, granting any app/
+user/token broader access than it currently has. If a task seems to need
+one of these, don't implement it — surface the conflict instead.
+
+**Open gaps, not yet resolved** (check before assuming coverage): branch
+protection status on this repo's default branch is unverified; whether
+every repo under the `pnyssen` account is actually in SynapSys scope for
+this rule (vs. personal/experimental) is unconfirmed; no GitHub Actions
+workflow inventory has been done yet, so the "editing a workflow file"
+trigger can't be checked against a concrete list.
+
 # AI Lane Roles
 
 What `claude_code` (this lane, in this repo) actually has, demonstrated not
@@ -120,9 +165,9 @@ matches the task, not by assumption.
 
 | CR | Governs | Status |
 |---|---|---|
-| CHG-2026-410 | GitHub Change Control Rule (the section above this one in this file) | Merged via PR #4, sha `ba79af87f651ae3d4f3f1b0aa95aea7df5e76241` |
+| CHG-2026-410 | GitHub Change Control Rule (the section above, in this file) | Merged via PR #4, sha `ba79af87f651ae3d4f3f1b0aa95aea7df5e76241` |
 | CHG-2026-411 | T1 CR-Traceability Rule — every state-mutating action must trace to a CR, direct or scoped | Binding, filed at `07_SYSTEM_DEVELOPMENT_LIBRARY/T1_CR_TRACEABILITY_RULE_v0.1.md`, hash `566ed210f56147120defbe51450cc68b045b4db9c9730eb27bedd9096624610f` |
-| CHG-2026-412 | This section and the two above it (AI Lane Roles, Proactive Behaviors) | Implemented via PR #5, pending merge — Phil's call |
+| CHG-2026-412 | AI Lane Roles + Proactive Behaviors sections (above) | Implemented via PR #5, pending merge — Phil's call |
 | — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
 | — | Claude/Code Odoo Service model (proposed service-access architecture for Odoo, replacing the flat "no Odoo access" boundary) | PROPOSED / NOT BUILT — see `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md` |
 
