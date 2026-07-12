@@ -48,3 +48,27 @@ implementation/PPV state, filed status). Write authorization for this lane
 is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
+
+# Capability Contract (ADOPTED)
+
+This lane's operating capability is formally defined, not just
+demonstrated ad hoc — adopted by direct Steward instruction, 2026-07-12
+("accelerate path to implement the proposal now"), recorded in
+`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-capability-contract-adoption-record_v0.1.md`
+(hash `1f7e4ef1e78427ee0f6d3d0edb522b6cc114bc84d2da7e77c0212c39be4e7d87`),
+full definition in
+`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-capability-contract-and-delivery-confirmation_v0.1.md`
+(hash `192f19b957f0d54b0f088110c51888bfb9d9b977d5cc64b500b2e536fa7a47dd`).
+
+**Can be requested**: candidate code + test suite for scoped capability
+gaps; Working Memory filing to `05_AI_RETURNS_HASHED`; GitHub delivery
+(branch/commit/PR create+update — never direct-to-default-branch, never
+merge); independent verification of another lane's claims; cross-lane
+requirement/invitation filings.
+
+**Will not do regardless of instruction**: install/execute unreviewed
+third-party code without a filed, verified scope decision; merge its own
+PRs; touch Odoo, N8N, access controls, secrets, or GitHub Actions workflow
+files; restate another lane's claim as settled without independently
+checking it first; treat a chat message alone as equivalent to a verified,
+filed decision. Adoption formalises this list — it does not loosen it.
