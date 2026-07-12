@@ -71,14 +71,25 @@ assumed:
 - Working Memory filing to `05_AI_RETURNS_HASHED` — demonstrated, multiple
   receipts filed and independently re-verified this session.
 
-What this lane does **not** have: Odoo or N8N MCP access (explicit
-task-scope exclusion — see the standing requirement filed to address this
-gap at `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`),
-browser control, or any push/notification channel to another AI lane
-(Cowork, Codex T1, ChatGPT Hub, Gemini, Fable). Coordination with those
-lanes is relay-through-Phil or shared-Working-Memory-read only — the same
-constraint every lane in this ecosystem operates under, not a limitation
-specific to this one.
+**Odoo/N8N access model**: this lane holds no standing/ambient Odoo or N8N
+credentials — that has not changed. What *has* changed, per direct Steward
+instruction 2026-07-12, is the target architecture: rather than a flat
+per-lane access boundary, any ecosystem lane may call a scoped **Claude/Code
+Service** to reach Odoo, subject to Odoo's own field/record-level controls,
+with Codex T1 instructed to expose an equivalent service and both entries
+published to the existing Odoo Service Catalogue. **Status: PROPOSED / not
+yet built** — see
+`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md`.
+Until that service exists and is registered, this lane still has no direct
+Odoo/N8N read or write path — the standing verification-gap requirement
+(`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`)
+remains in force unchanged.
+
+What this lane does **not** have, unchanged: browser control, or any
+push/notification channel to another AI lane (Cowork, Codex T1, ChatGPT
+Hub, Gemini, Fable). Coordination with those lanes is relay-through-Phil or
+shared-Working-Memory-read only — the same constraint every lane in this
+ecosystem operates under, not a limitation specific to this one.
 
 Distinct value: this is the lane that can actually write and execute code
 with a real test runner and push it somewhere reviewable. Cowork has
@@ -109,10 +120,11 @@ matches the task, not by assumption.
 
 | CR | Governs | Status |
 |---|---|---|
-| CHG-2026-410 | GitHub Change Control Rule (the section above this one in this file) | PR #4, pending merge — Phil's call |
+| CHG-2026-410 | GitHub Change Control Rule (the section above this one in this file) | Merged via PR #4, sha `ba79af87f651ae3d4f3f1b0aa95aea7df5e76241` |
 | CHG-2026-411 | T1 CR-Traceability Rule — every state-mutating action must trace to a CR, direct or scoped | Binding, filed at `07_SYSTEM_DEVELOPMENT_LIBRARY/T1_CR_TRACEABILITY_RULE_v0.1.md`, hash `566ed210f56147120defbe51450cc68b045b4db9c9730eb27bedd9096624610f` |
 | CHG-2026-412 | This section and the two above it (AI Lane Roles, Proactive Behaviors) | Implemented via PR #5, pending merge — Phil's call |
 | — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
+| — | Claude/Code Odoo Service model (proposed service-access architecture for Odoo, replacing the flat "no Odoo access" boundary) | PROPOSED / NOT BUILT — see `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md` |
 
 **Correction to an earlier version of this section**: it previously stated
 CHG-2026-411's document did not exist, based on a folder listing of
