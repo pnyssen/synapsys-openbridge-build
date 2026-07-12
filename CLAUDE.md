@@ -49,6 +49,16 @@ is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
 
+**Folder convention** (learned the hard way this session — a wrong-folder
+check produced a false "document doesn't exist" claim that had to be
+corrected publicly): `05_AI_RETURNS_HASHED` holds AI returns, receipts,
+audits, and decision records. `07_SYSTEM_DEVELOPMENT_LIBRARY` — a sibling
+folder, outside this lane's verified write scope, read-only for this
+lane — holds candidate system-development artefacts, rules, and templates
+(e.g. the GitHub and T1 CR-traceability rules). Before concluding something
+"doesn't exist" from one folder's listing, check whether it belongs in the
+other.
+
 # AI Lane Roles
 
 What `claude_code` (this lane, in this repo) actually has, demonstrated not
@@ -100,14 +110,18 @@ matches the task, not by assumption.
 | CR | Governs | Status |
 |---|---|---|
 | CHG-2026-410 | GitHub Change Control Rule (the section above this one in this file) | PR #4, pending merge — Phil's call |
-| CHG-2026-412 | This section and the two above it (AI Lane Roles, Proactive Behaviors) | Implemented via PR, this commit |
+| CHG-2026-411 | T1 CR-Traceability Rule — every state-mutating action must trace to a CR, direct or scoped | Binding, filed at `07_SYSTEM_DEVELOPMENT_LIBRARY/T1_CR_TRACEABILITY_RULE_v0.1.md`, hash `566ed210f56147120defbe51450cc68b045b4db9c9730eb27bedd9096624610f` |
+| CHG-2026-412 | This section and the two above it (AI Lane Roles, Proactive Behaviors) | Implemented via PR #5, pending merge — Phil's call |
 | — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
 
-Note on CHG-2026-411: cited elsewhere as the standing rule requiring
-CHG-2026-412 to exist, but the document it names
-(`T1_CR_TRACEABILITY_RULE_v0.1.md`) does not appear in
-`05_AI_RETURNS_HASHED` as of this section being written — checked via full
-folder listing, not a single lookup. Recorded as an open discrepancy, not
-resolved by assumption in either direction. The four changes CHG-2026-412
-actually requested were implemented on their own merits regardless of
-whether CHG-2026-411 itself is real.
+**Correction to an earlier version of this section**: it previously stated
+CHG-2026-411's document did not exist, based on a folder listing of
+`05_AI_RETURNS_HASHED` only. That conclusion was wrong, not the listing —
+the document lives in the sibling folder `07_SYSTEM_DEVELOPMENT_LIBRARY`,
+where candidate system-development artefacts and rules are filed (as
+distinct from `05_AI_RETURNS_HASHED`, which holds AI returns, receipts,
+audits, and decision records — a real, useful distinction that wasn't
+written down anywhere both lanes could see it before now). Independently
+re-verified byte-for-byte at the corrected path before this correction was
+written. Recording the correction plainly rather than quietly editing the
+original claim away — the same discipline this file already asks for.
