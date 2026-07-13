@@ -43,16 +43,65 @@ process, not by a different key. If true credential-level isolation is also
 wanted (recommended, per this file's own note above), issue a distinct
 read-only Odoo user/API key for this specific process.
 """
-import sys
+import http.client
 import json
-import xmlrpc.client
 import os
+import ssl
+import sys
+import urllib.parse
+import xmlrpc.client
 from typing import Any, Dict, List
 
 ODOO_URL = os.environ.get("ODOO_URL", "")
 ODOO_DB = os.environ.get("ODOO_DB", "")
 ODOO_LOGIN = os.environ.get("ODOO_LOGIN", "phil@synapsys.com.au")
 ODOO_API_KEY = os.environ.get("ODOO_API_KEY", "")
+
+# Some sandboxed execution environments (this one included) require ALL
+# outbound HTTPS to route through a local policy-enforcing proxy — direct
+# connections are not just discouraged, they're rejected at the network
+# layer with a non-XML-RPC response body, which xmlrpc.client surfaces as
+# a confusing "unsupported XML-RPC protocol" error rather than a clear
+# connection-refused. xmlrpc.client.Transport does not consult HTTPS_PROXY
+# by default (unlike requests/urllib), so it silently tries a direct
+# connection unless explicitly told to tunnel through the proxy below.
+_HTTPS_PROXY = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+_CA_BUNDLE = os.environ.get("SSL_CERT_FILE")
+if not _CA_BUNDLE:
+    _default_bundle = "/root/.ccr/ca-bundle.crt"
+    if os.path.exists(_default_bundle):
+        _CA_BUNDLE = _default_bundle
+
+
+class _ProxiedTransport(xmlrpc.client.Transport):
+    """xmlrpc.client Transport that tunnels through an HTTPS CONNECT proxy.
+
+    Only used when HTTPS_PROXY/https_proxy is actually set in the process
+    environment (e.g. this sandboxed environment) — falls back to the
+    stdlib default Transport everywhere else (e.g. a local Mac with no
+    proxy requirement), so this is additive, not a behaviour change for
+    environments that don't need it.
+    """
+
+    def __init__(self, proxy_url: str, ca_bundle: str | None, **kwargs):
+        super().__init__(**kwargs)
+        parsed = urllib.parse.urlparse(proxy_url)
+        self._proxy_host = parsed.hostname
+        self._proxy_port = parsed.port or 80
+        self._ca_bundle = ca_bundle
+
+    def make_connection(self, host):
+        real_host, _, _ = self.get_host_info(host)
+        context = ssl.create_default_context(cafile=self._ca_bundle) if self._ca_bundle else ssl.create_default_context()
+        conn = http.client.HTTPSConnection(self._proxy_host, self._proxy_port, context=context)
+        conn.set_tunnel(real_host)
+        return conn
+
+
+def _server_proxy(url: str) -> xmlrpc.client.ServerProxy:
+    transport = _ProxiedTransport(_HTTPS_PROXY, _CA_BUNDLE) if _HTTPS_PROXY else None
+    return xmlrpc.client.ServerProxy(url, transport=transport, allow_none=True)
+
 
 # ---- Connection cache (authenticate once per process) ---------------------
 
@@ -61,13 +110,13 @@ _cache: Dict[str, Any] = {"uid": None, "models": None, "common": None}
 
 def odoo_connect():
     if _cache["uid"] is None:
-        common = xmlrpc.client.ServerProxy(f"{ODOO_URL}/xmlrpc/2/common", allow_none=True)
+        common = _server_proxy(f"{ODOO_URL}/xmlrpc/2/common")
         uid = common.authenticate(ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {})
         if not uid:
             raise RuntimeError(
                 "Odoo authentication failed. Check ODOO_URL / ODOO_DB / ODOO_LOGIN / ODOO_API_KEY env vars."
             )
-        models = xmlrpc.client.ServerProxy(f"{ODOO_URL}/xmlrpc/2/object", allow_none=True)
+        models = _server_proxy(f"{ODOO_URL}/xmlrpc/2/object")
         _cache["uid"] = uid
         _cache["models"] = models
         _cache["common"] = common
