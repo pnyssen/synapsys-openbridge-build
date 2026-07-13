@@ -103,6 +103,56 @@ Two things this repo file cannot do, still outstanding:
    That approval step, like connector configuration generally, is not
    something this lane performs for itself.
 
+## Status update, 2026-07-13 — both connectors confirmed working in a live cloud session
+
+The "still outstanding" list above was accurate when written but is now
+resolved. Both `synapsys-odoo-readonly-code` and `synapsys-n8n-readonly-code`
+were live-verified this session in an actual `claude.ai/code` cloud session:
+`count_odoo` on `res.partner` returned 63 real records; `ping_n8n` returned
+`ok: true` with a valid paginated workflows response. Interactive approval
+(item 2 above) turned out not to be a separate blocker in practice once the
+items below were fixed.
+
+Getting there took four independent, unrelated fixes — recorded here so
+nobody has to rediscover them:
+
+1. **`ODOO_URL` was empty/scheme-less** in the environment's Environment
+   Variables panel. This fails at XML-RPC URL validation
+   (`urllib.parse.urlsplit(uri).scheme not in ("http", "https")`) with the
+   misleading error `unsupported XML-RPC protocol` — easy to misdiagnose as
+   a proxy/transport problem (as an earlier pass on this file did), when
+   it's actually pure URL validation, before any network code runs at all.
+2. **`ODOO_API_KEY` and `N8N_API_KEY` held literal placeholder text**
+   (`<the ...key>`-style) instead of real values, including the literal
+   angle brackets — those aren't delimiters, they're stored as part of the
+   value, same reason the panel's own docs warn against wrapping values in
+   quotes.
+3. **`fastmcp` (imported by `n8n_mcp_readonly.py`) isn't in the base cloud
+   image.** Fixing this needs the cloud environment's **Setup script**
+   (runs before Claude Code launches, before MCP servers spawn) — a repo-
+   committed `SessionStart` hook alone runs too late to catch the first
+   connection attempt on a fresh session, since MCP server spawning happens
+   as part of Claude Code's own launch.
+4. **A plain `pip install fastmcp` in that Setup script silently failed**
+   — `fastmcp`'s `pyjwt` dependency conflicts with a Debian/apt-installed
+   `PyJWT` already on the base image, and pip can't uninstall an apt-managed
+   package (no RECORD file). Fix: `pip install --ignore-installed fastmcp`.
+   Also: a Setup script only reruns when its own content or the allowed
+   network hosts change — every session in between reuses whatever got
+   cached the first time, silently including a broken install.
+
+On item 1 in the original list above (`anthropics/claude-code#63541`): that
+issue is real, but narrower than implied — it's specifically about env vars
+not being visible *during the Setup script's own execution*, not about
+whether a live session's MCP server subprocess can see them. In this case
+the env vars were visible to the subprocess the whole time; the actual
+values were just wrong (empty/scheme-less, then placeholder text).
+
+Full diagnostic chain and receipts:
+`05_AI_RETURNS_HASHED/20260713_RET_GEN_claude-code-odoo-n8n-readonly-connector-diagnosis_v0.1.md`
+and
+`05_AI_RETURNS_HASHED/20260713_RET_GEN_claude-code-odoo-n8n-readonly-connector-resolution_v0.1.md`.
+
 ## Both require secrets to run
 
 Neither file has default/embedded credentials. Both fail loudly (`odoo_mcp.py`

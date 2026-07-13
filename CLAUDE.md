@@ -254,3 +254,57 @@ lane's own environment, which this lane cannot do for itself per the
 clause above. Until that technical step happens, this lane still has no
 working Odoo/N8N tool in its session toolset, regardless of what this
 file says.
+
+**This applies specifically to the full-CRUD, user-scope grant described
+above** (`claude mcp add --scope user`, the same tool set Claude (Cowork)
+uses). It does not describe the read-only, project-scope connector pair —
+see the status update immediately below, which is a distinct connector
+pair with its own, separately-confirmed status. `claude mcp add
+--scope user` also does not persist into cloud/web sessions at all (each
+is a fresh VM — see `mcp-servers/README.md`), so this paragraph's "still
+outstanding" status may remain permanently true for cloud sessions
+specifically, independent of whether a credential ever gets issued for it.
+
+### Read-only project-scope connectors — confirmed working in a cloud session, 2026-07-13
+
+Distinct from the grant above: `synapsys-odoo-readonly-code` and
+`synapsys-n8n-readonly-code`, declared at **project scope** in this
+repo's `.mcp.json` (PR #11), backed by the dependency-free, read-only-by-
+construction scripts in `mcp-servers/` (PR #12). These are cloud-session-
+compatible by design, unlike the user-scope grant above.
+
+**Live-verified this session, in an actual `claude.ai/code` cloud
+session** (not a local/Mac terminal): `count_odoo` on `res.partner` with
+an empty domain returned 63 real records; `ping_n8n` returned `ok: true`
+against `https://n8n.srv1536619.hstgr.cloud` with a valid paginated
+workflows response. Both previously failed in this same class of
+environment; getting to a working state took four independent, unrelated
+fixes, recorded here so the next session doesn't have to rediscover them:
+
+1. `ODOO_URL` in the environment's Environment Variables panel was empty/
+   scheme-less, which fails at XML-RPC URL validation with the misleading
+   error `unsupported XML-RPC protocol` — not a proxy or transport issue,
+   despite that being the first, incorrect diagnosis.
+2. `ODOO_API_KEY` and `N8N_API_KEY` held literal placeholder text
+   (`<the ...key>`-style, including the literal angle brackets) instead of
+   the real credential values — the brackets were part of the stored
+   value, not delimiters, and corrupted the token.
+3. `n8n_mcp_readonly.py` imports `fastmcp`, which is not part of the base
+   cloud image — the fix has to run in the cloud environment's **Setup
+   script** (runs before Claude Code launches, before MCP servers are
+   spawned), not only a repo-committed `SessionStart` hook (runs after
+   launch — too late to catch the first connection attempt).
+4. A plain `pip install fastmcp` in that Setup script silently failed
+   (masked by a defensive `|| true`) because `fastmcp`'s `pyjwt` dependency
+   conflicts with a Debian/apt-installed `PyJWT` already on the base image
+   (pip can't uninstall an apt-managed package — no RECORD file). Fix:
+   `pip install --ignore-installed fastmcp`. Also worth knowing: a cloud
+   environment's Setup script only reruns when its content or allowed
+   network hosts actually change — every session in between silently
+   reuses whatever got cached the first time, including a broken install.
+
+Full diagnostic chain, evidence, and receipts:
+`05_AI_RETURNS_HASHED/20260713_RET_GEN_claude-code-odoo-n8n-readonly-connector-diagnosis_v0.1.md`
+(initial diagnosis) and
+`05_AI_RETURNS_HASHED/20260713_RET_GEN_claude-code-odoo-n8n-readonly-connector-resolution_v0.1.md`
+(this resolution).
