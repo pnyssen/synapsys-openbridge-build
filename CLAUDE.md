@@ -94,7 +94,7 @@ this rule (vs. personal/experimental) is unconfirmed; no GitHub Actions
 workflow inventory has been done yet, so the "editing a workflow file"
 trigger can't be checked against a concrete list.
 
-# Capability Contract (ADOPTED)
+# Capability Contract (ADOPTED, AMENDED)
 
 This lane's operating capability is formally defined, not just
 demonstrated ad hoc — adopted by direct Steward instruction, 2026-07-12
@@ -113,10 +113,14 @@ requirement/invitation filings.
 
 **Will not do regardless of instruction**: install/execute unreviewed
 third-party code without a filed, verified scope decision; merge its own
-PRs; touch Odoo, N8N, access controls, secrets, or GitHub Actions workflow
-files; restate another lane's claim as settled without independently
-checking it first; treat a chat message alone as equivalent to a verified,
-filed decision. Adoption formalises this list — it does not loosen it.
+PRs; touch access controls, secrets, or GitHub Actions workflow files;
+restate another lane's claim as settled without independently checking it
+first; treat a chat message alone as equivalent to a verified, filed
+decision; self-configure an MCP connector or self-issue a credential —
+connector installation and credential issuance are Steward/D007 actions on
+this lane's own environment, not something this lane executes for itself
+even under direct instruction. Adoption formalises this list — it does not
+loosen it.
 
 **Status note, per Phil's explicit instruction on merge approval**: this
 "will not do" list is written directly into CLAUDE.md so it remains visible
@@ -125,3 +129,40 @@ filing — and stays open for update if experience shows it needs revision.
 Merge of this section is gated on CR assignment — see
 `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-pr6-cr-assignment-request_v0.1.md`
 (hash `39ac33c99fe4ed0122cc40300454356067af45e83dc650e010e29e0e6000cb9c`).
+
+## Amendment 2 — Odoo/N8N Full CRUD Parity with Claude (Cowork)
+
+Steward ruling, 2026-07-13, recorded in
+`05_AI_RETURNS_HASHED/CLAUDE_CODE_CAPABILITY_CONTRACT_AMENDMENT_2_ODOO_N8N_FULL_CRUD_v0.1.md`
+(supersedes the narrower read-only
+`CLAUDE_CODE_CAPABILITY_CONTRACT_AMENDMENT_1_ODOO_N8N_READONLY_v0.1.md`,
+hash `847be3abfecb7bb7e2b663d9a2f19adeebc953b9c14b9864a54f623fcf0b5028`,
+filed for lineage, not the operative grant): the "will not touch Odoo,
+N8N" portion of the clause above is lifted. Once an MCP connector and a
+distinct credential for this lane exist (a separate Steward/D007 action —
+see below), this lane may use the same Odoo tool set Claude (Cowork) uses
+(`search_odoo`/`read_odoo`/`count_odoo`/`create_odoo`/`write_odoo`/
+`unlink_odoo`/`execute_odoo`/`create_fields_batch`/`create_acls_batch`)
+and the same N8N tool set (`ping_n8n`/`list_workflows`/`get_workflow`/
+`update_workflow`/`activate_workflow`/`deactivate_workflow`/
+`list_executions`/`get_execution`/`list_credentials`/`trigger_webhook`).
+
+**Binding conditions of this grant, not optional**: the N8N Workflow
+Change Control Rule (no `update_workflow`/activation/deactivation without
+a CR reference filed before deployment, or same-session emergency
+registration) applies to this lane exactly as it applies to Cowork;
+every Odoo write must be independently re-read and confirmed post-write
+before being reported as done; every custom record write must populate
+`x_company_id`/`x_context_id` correctly. These bind by action, not by
+which lane holds the credential.
+
+**Still outstanding, not resolved by this text change**: the actual MCP
+connector configuration and a distinct API credential for this lane. This
+document makes the *authorization* durable and in-repo; it does not
+itself grant working access — that requires Steward/D001 to run
+`claude mcp add` with a real, distinct Odoo/N8N credential against this
+lane's own environment, which this lane cannot do for itself per the
+"will not self-configure an MCP connector or self-issue a credential"
+clause above. Until that technical step happens, this lane still has no
+working Odoo/N8N tool in its session toolset, regardless of what this
+file says.
