@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "synapsys-n8n-readonly-code": {
+      "command": "python3",
+      "args": ["${CLAUDE_PROJECT_DIR:-.}/mcp-servers/n8n_mcp_readonly.py"],
+      "env": {
+        "N8N_URL": "${N8N_URL}",
+        "N8N_API_KEY": "${N8N_API_KEY}"
+      }
+    },
+    "synapsys-odoo-readonly-code": {
+      "command": "python3",
+      "args": ["${CLAUDE_PROJECT_DIR:-.}/mcp-servers/odoo_mcp_readonly.py"],
+      "env": {
+        "ODOO_URL": "${ODOO_URL}",
+        "ODOO_DB": "${ODOO_DB}",
+        "ODOO_LOGIN": "${ODOO_LOGIN}",
+        "ODOO_API_KEY": "${ODOO_API_KEY}"
+      }
+    }
+  }
+}

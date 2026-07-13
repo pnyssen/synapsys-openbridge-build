@@ -65,16 +65,43 @@ Odoo/N8N Full CRUD Parity with Cowork" section, once merged).
   determines how strong the enforcement actually is, not whether the code
   behaves.
 
-## What Neither Full-CRUD File Does On Its Own
+## What None Of These Files Do On Their Own
 
-Committing `odoo_mcp.py`/`n8n_mcp.py` does not configure any MCP connector or
-issue any credential for this repository's own Claude Code sessions. That
-remains a separate Steward/D007 action (`claude mcp add` against the target
-environment, with its own distinct, registered credential) — per the same
-"will not self-configure an MCP connector or self-issue a credential" clause
-that governs this lane regardless of what capability grants exist on paper.
-The same applies to `n8n_mcp_readonly.py`: its existence in this repo does
-not itself grant this lane N8N access.
+Committing these scripts does not configure any MCP connector or issue any
+credential for this repository's own Claude Code sessions. Declaring a
+server also isn't the same as it running — see "How This Actually Gets
+Configured" below for the corrected mechanism, and note the earlier,
+now-superseded assumption this repo's history briefly carried: `claude mcp
+add --scope user`, run inside a live cloud session, does **not** work for
+cloud/remote sessions — cloud sessions are fresh, ephemeral VMs each time,
+and anything `claude mcp add` writes to local user config on one VM does not
+survive to the next session. That was corrected once found; the project-scope
+`.mcp.json` mechanism below is what's actually durable.
+
+## How This Actually Gets Configured
+
+Per Claude Code's own docs (`code.claude.com/docs/en/claude-code-on-the-web`,
+`code.claude.com/docs/en/mcp`), cloud sessions clone `.mcp.json` from the repo
+(project scope) — that's what a fresh session actually has access to, unlike
+anything written by `claude mcp add --scope user`. The repo's `.mcp.json`
+(root of this repository) declares both `synapsys-n8n-readonly-code` and
+`synapsys-odoo-readonly-code`, each pointing at the matching read-only script
+here and referencing credentials via `${VAR}` environment-variable expansion,
+not hardcoded values.
+
+Two things this repo file cannot do, still outstanding:
+1. **The referenced env vars must be set in the cloud environment's own
+   "Environment variables" panel** (Settings → select the environment →
+   settings icon), not in a setup script — a real, filed platform bug means
+   setup scripts don't see those values
+   ([anthropics/claude-code#63541](https://github.com/anthropics/claude-code/issues/63541)).
+   `N8N_URL`/`N8N_API_KEY` for the N8N server; `ODOO_URL`/`ODOO_DB`/
+   `ODOO_LOGIN`/`ODOO_API_KEY` for the Odoo one, pending its own credential
+   decision.
+2. **Project-scoped servers require interactive approval** the first time a
+   session uses them (`⏸ Pending approval` in `claude mcp list` until then).
+   That approval step, like connector configuration generally, is not
+   something this lane performs for itself.
 
 ## Both require secrets to run
 
