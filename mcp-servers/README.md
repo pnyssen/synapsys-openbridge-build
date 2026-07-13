@@ -13,14 +13,17 @@ Odoo/N8N Full CRUD Parity with Cowork" section, once merged).
   tool in the file, since it can invoke any method on any model, not just the
   named CRUD helpers.
 
-- **`n8n_mcp.py`** — **the file's own docstring describes it as a REFERENCE
-  implementation** that "may differ" from whatever is actually deployed at
-  `~/synapsys-mcp/n8n_mcp.py`, and instructs whoever deploys it to diff and
-  merge rather than replace wholesale. Committed here unmodified, byte-for-byte
-  as supplied, specifically so that caveat travels with the file rather than
-  getting lost. **Do not treat this copy as authoritative for what's actually
-  running** — if the deployed version differs, that version should replace
-  this one via a follow-up PR, not the other way around.
+- **`n8n_mcp.py`** — originally committed as the file's own self-described
+  REFERENCE implementation (its docstring said it "may differ" from whatever
+  was actually deployed at `~/synapsys-mcp/n8n_mcp.py`). Superseded by a
+  byte-for-byte copy of the actually-deployed file, supplied directly and
+  independently SHA-256-verified after writing:
+  `a957007bc72a871230f49d9514b9aec7cb7dfbdd5bd2811cc95381b3eba01e73`. This
+  copy now matches production rather than a reference draft — the file's own
+  internal docstring still carries its original "reference implementation"
+  header text verbatim (untouched, since the replacement was a byte-for-byte
+  content swap), so treat this README note as the current status, not that
+  docstring.
 
 ## What neither file does on its own
 

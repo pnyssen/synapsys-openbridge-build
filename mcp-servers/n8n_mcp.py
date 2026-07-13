@@ -193,8 +193,17 @@ def list_workflows(
     name: str | None = None,
     limit: int = 50,
     cursor: str | None = None,
+    full: bool = False,
 ) -> dict:
-    """List N8N workflows with optional filters."""
+    """List N8N workflows with optional filters.
+
+    CLAUDE-LIST-WORKFLOWS-FRICTION-FIX-20260711: N8N's list endpoint returns
+    each workflow's full nodes+connections body regardless of `limit`, which
+    made even limit=5 return ~180KB. Summarised by default now (id, name,
+    active, tags, nodeCount, createdAt, updatedAt, isArchived). Pass
+    full=True for N8N's raw per-item bodies, or use get_workflow(id) for one
+    workflow's complete definition. Read-only change; no N8N mutation.
+    """
     params: list[str] = []
     if active is not None:
         params.append(f"active={'true' if active else 'false'}")
@@ -207,7 +216,36 @@ def list_workflows(
     if cursor:
         params.append(f"cursor={urllib.parse.quote(cursor)}")
     qs = ("?" + "&".join(params)) if params else ""
-    return _request("GET", f"/api/v1/workflows{qs}")
+    result = _request("GET", f"/api/v1/workflows{qs}")
+
+    if full or not isinstance(result, dict):
+        return result
+
+    data = result.get("data")
+    if not isinstance(data, list):
+        return result
+
+    summarised = []
+    for wf in data:
+        if not isinstance(wf, dict):
+            continue
+        summarised.append({
+            "id": wf.get("id"),
+            "name": wf.get("name"),
+            "active": wf.get("active"),
+            "tags": wf.get("tags"),
+            "nodeCount": len(wf.get("nodes", []) or []),
+            "createdAt": wf.get("createdAt"),
+            "updatedAt": wf.get("updatedAt"),
+            "isArchived": wf.get("isArchived"),
+        })
+
+    return {
+        "data": summarised,
+        "nextCursor": result.get("nextCursor"),
+        "_summarised": True,
+        "_note": "Pass full=True for raw N8N bodies (nodes+connections per item), or get_workflow(id) for one workflow's complete definition.",
+    }
 
 
 @mcp.tool()
