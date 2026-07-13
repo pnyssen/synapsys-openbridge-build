@@ -49,6 +49,16 @@ is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
 
+**Folder convention** (learned the hard way this session — a wrong-folder
+check produced a false "document doesn't exist" claim that had to be
+corrected publicly): `05_AI_RETURNS_HASHED` holds AI returns, receipts,
+audits, and decision records. `07_SYSTEM_DEVELOPMENT_LIBRARY` — a sibling
+folder, outside this lane's verified write scope, read-only for this
+lane — holds candidate system-development artefacts, rules, and templates
+(e.g. the GitHub and T1 CR-traceability rules). Before concluding something
+"doesn't exist" from one folder's listing, check whether it belongs in the
+other.
+
 # GitHub Change Control Rule — Claude Code Read/Write Discipline
 
 This repo's Claude GitHub App installation grants full read/write scope
@@ -94,6 +104,84 @@ this rule (vs. personal/experimental) is unconfirmed; no GitHub Actions
 workflow inventory has been done yet, so the "editing a workflow file"
 trigger can't be checked against a concrete list.
 
+# AI Lane Roles
+
+What `claude_code` (this lane, in this repo) actually has, demonstrated not
+assumed:
+- Local git/GitHub push access via the installed Claude GitHub App —
+  verified by successfully pushing branches and opening PRs this session,
+  not merely granted-in-theory.
+- Local test execution (pytest) — demonstrated across three candidate
+  skills (8/8, 9/9, 15/15 passing, real output, not summarised).
+- Working Memory filing to `05_AI_RETURNS_HASHED` — demonstrated, multiple
+  receipts filed and independently re-verified this session.
+
+**Odoo/N8N access model**: this lane holds no standing/ambient Odoo or N8N
+credentials — that has not changed. What *has* changed, per direct Steward
+instruction 2026-07-12, is the target architecture: rather than a flat
+per-lane access boundary, any ecosystem lane may call a scoped **Claude/Code
+Service** to reach Odoo, subject to Odoo's own field/record-level controls,
+with Codex T1 instructed to expose an equivalent service and both entries
+published to the existing Odoo Service Catalogue. **Status: PROPOSED / not
+yet built** — see
+`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md`.
+Until that service exists and is registered, this lane still has no direct
+Odoo/N8N read or write path — the standing verification-gap requirement
+(`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`)
+remains in force unchanged.
+
+What this lane does **not** have, unchanged: browser control, or any
+push/notification channel to another AI lane (Cowork, Codex T1, ChatGPT
+Hub, Gemini, Fable). Coordination with those lanes is relay-through-Phil or
+shared-Working-Memory-read only — the same constraint every lane in this
+ecosystem operates under, not a limitation specific to this one.
+
+Distinct value: this is the lane that can actually write and execute code
+with a real test runner and push it somewhere reviewable. Cowork has
+Odoo/N8N/browser access this lane doesn't. Neither substitutes for the
+other — route work to whichever lane's demonstrated capability actually
+matches the task, not by assumption.
+
+# Proactive Behaviors
+
+1. **Check before duplicating.** Before starting candidate-build or
+   CR-adjacent work, check Working Memory and any live change-request
+   register for existing coverage first, so this lane doesn't re-do work
+   another lane already has in flight.
+2. **File before referencing.** Every candidate artefact gets a filed
+   evidence receipt *before* it's referenced anywhere else (a PR, a chat
+   message, another document) — and that reference must cite the receipt's
+   exact filename and SHA-256 inline, not just describe what it contains.
+   A description without the citation is exactly what caused a real false
+   "no evidence exists" flag on this repo's own candidate-skill PRs.
+3. **Recompute before restating.** Never restate another lane's hash or
+   byte-count claim as settled without independently recomputing it first.
+   This is already this lane's practice (see the AgentBudget-receipt
+   correction and the CHG-2026-411 non-existence finding, both this
+   session) — this section exists to make it a written rule rather than an
+   incidental habit that could lapse under time pressure.
+
+# Change Request Cross-Reference
+
+| CR | Governs | Status |
+|---|---|---|
+| CHG-2026-410 | GitHub Change Control Rule (the section above, in this file) | Merged via PR #4, sha `ba79af87f651ae3d4f3f1b0aa95aea7df5e76241` |
+| CHG-2026-411 | T1 CR-Traceability Rule — every state-mutating action must trace to a CR, direct or scoped | Binding, filed at `07_SYSTEM_DEVELOPMENT_LIBRARY/T1_CR_TRACEABILITY_RULE_v0.1.md`, hash `566ed210f56147120defbe51450cc68b045b4db9c9730eb27bedd9096624610f` |
+| CHG-2026-412 | AI Lane Roles + Proactive Behaviors sections (above) | Implemented via PR #5, pending merge — Phil's call |
+| — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
+| — | Claude/Code Odoo Service model (proposed service-access architecture for Odoo, replacing the flat "no Odoo access" boundary) | PROPOSED / NOT BUILT — see `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md` |
+
+**Correction to an earlier version of this section**: it previously stated
+CHG-2026-411's document did not exist, based on a folder listing of
+`05_AI_RETURNS_HASHED` only. That conclusion was wrong, not the listing —
+the document lives in the sibling folder `07_SYSTEM_DEVELOPMENT_LIBRARY`,
+where candidate system-development artefacts and rules are filed (as
+distinct from `05_AI_RETURNS_HASHED`, which holds AI returns, receipts,
+audits, and decision records — a real, useful distinction that wasn't
+written down anywhere both lanes could see it before now). Independently
+re-verified byte-for-byte at the corrected path before this correction was
+written. Recording the correction plainly rather than quietly editing the
+original claim away — the same discipline this file already asks for.
 # Capability Contract (ADOPTED, AMENDED)
 
 This lane's operating capability is formally defined, not just
