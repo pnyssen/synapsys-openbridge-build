@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+# synapsys-n8n-readonly-code (declared in .mcp.json) imports fastmcp and
+# crashes on import without it. Cloud sessions are fresh VMs each time (see
+# mcp-servers/README.md), so this needs to run every session, not just once.
+# Best-effort: a failed/offline install here must not block session start.
+python3 -m pip install --user --quiet -r "$(dirname "${BASH_SOURCE[0]}")/../../mcp-servers/requirements.txt" >/dev/null 2>&1 || true
+
 cat <<'EOF'
 SYNAPSYS ECOSYSTEM STATE-AWARENESS REMINDER (from .claude/hooks/session-start.sh)
 

@@ -1,0 +1,5 @@
+# Only n8n_mcp_readonly.py needs this — it imports fastmcp (falling back to
+# mcp.server.fastmcp) to implement the MCP protocol. odoo_mcp.py,
+# odoo_mcp_readonly.py, and n8n_mcp.py are stdlib-only by design and need
+# nothing from this file.
+fastmcp
