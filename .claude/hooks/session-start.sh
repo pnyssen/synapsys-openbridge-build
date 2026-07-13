@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+# The mcp-servers/*.py scripts declared in .mcp.json (synapsys-n8n-readonly-code,
+# synapsys-odoo-readonly-code) import fastmcp.FastMCP. Install it here so those
+# servers can actually start in a fresh web session; `|| true` keeps session
+# startup from failing if the install has a transient failure.
+pip install --ignore-installed fastmcp || true
+
 cat <<'EOF'
 SYNAPSYS ECOSYSTEM STATE-AWARENESS REMINDER (from .claude/hooks/session-start.sh)
 
