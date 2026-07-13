@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+pip install --ignore-installed fastmcp || true
+
 cat <<'EOF'
 SYNAPSYS ECOSYSTEM STATE-AWARENESS REMINDER (from .claude/hooks/session-start.sh)
 
