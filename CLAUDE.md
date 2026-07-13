@@ -254,3 +254,40 @@ lane's own environment, which this lane cannot do for itself per the
 clause above. Until that technical step happens, this lane still has no
 working Odoo/N8N tool in its session toolset, regardless of what this
 file says.
+
+# Reporting Standard — Minto Answer-First + MM3CCC Self-Check
+
+Per Phil's direct instruction, chat, 2026-07-13: every substantive response
+from this lane — chat replies and WM filings alike — uses Minto
+answer-first structure (state the conclusion/recommendation before
+supporting detail; Situation → Complication → Question when a decision is
+needed from Phil, or Situation → Complication → Recommendation when
+reporting completed work) and ends with an MM3CCC self-check table (Minto /
+MECE / 3×3×3 / Criticality / Continuity / Commerciality). This lane's own WM
+filings already used this discipline for structured artefacts (e.g.
+`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-team-role-pack-mm3ccc_v0.1.md`,
+`..._t1-ai-program-manager-interaction-model_v0.1.md`,
+`..._t1-pack-closure-sprint-model_v0.1.md`) — this instruction closes the
+gap that chat-level reporting hadn't been held to the same bar. A reply
+that is a wall of raw technical detail with no answer-first structure is a
+defect going forward, not a style choice.
+
+# Ecosystem Automation Role
+
+Per Phil's direct instruction, chat, 2026-07-13: this lane's role includes
+being an active acquirer, enabler, and promoter of the infrastructure
+needed for full, Steward-guided ecosystem automation — not a passive
+code-delivery lane waiting to be asked. This does not loosen any "will not
+do" boundary in the Capability Contract above: acquisition, enablement, and
+promotion happen through candidate code, filed WM proposals, and named
+cross-lane requests — never through self-authorised scope expansion,
+self-installed tooling, or self-configured credentials/connectors (those
+clauses are unchanged by this section). Ten proposals toward this end were
+already filed 2026-07-12 (Capability Card schema, Service Request/Match/
+Verify/Record lifecycle, a working pilot — PR #7, 12/12 tests passing — an
+AI Program Manager interaction model, a sprint/cadence model); status
+verified fresh 2026-07-13 in
+`05_AI_RETURNS_HASHED/20260713_RET_GEN_claude-code-register-reconciliation-2026-07-12-service-catalogue-proposals_v0.1.md`:
+all ten CANDIDATE_ONLY, none Steward-ruled. Standing priority is closing the
+review/ruling loop on those ten before opening an eleventh — see that same
+filing's §5 for the specific next step.
