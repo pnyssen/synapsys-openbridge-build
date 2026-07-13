@@ -46,6 +46,25 @@ Odoo/N8N Full CRUD Parity with Cowork" section, once merged).
   reusing the existing full-access key with self-restraint only) that has a
   real cost implication and hasn't been decided.
 
+- **`odoo_mcp_readonly.py`** — new, the Odoo-side counterpart to
+  `n8n_mcp_readonly.py`, built the same session and for the same request,
+  without waiting on the credential-provisioning decision above (the code
+  doesn't depend on which credential it's eventually given). Read-only **by
+  construction**: only exposes `search_odoo`/`read_odoo`/`count_odoo`/
+  `search_multi`, all backed by a single `_exec_read` helper that hard-refuses
+  any Odoo ORM method outside `{search_read, read, search_count}` — so
+  `create_odoo`/`write_odoo`/`unlink_odoo`/`execute_odoo` (the full server's
+  broadest-privilege, generic-passthrough tool) and the two batch-write tools
+  are simply absent, not permission-gated. Notably weaker guarantee than the
+  N8N version in one specific way, disclosed rather than glossed over: Odoo
+  natively supports `res.groups`-based permission scoping and N8N does not,
+  so pairing this file with an actually-restricted Odoo user is a stronger
+  guarantee than code-only enforcement — that's the real tradeoff behind the
+  still-open dedicated-user-vs-shared-key decision, not a merely bureaucratic
+  choice. This file works correctly either way; the credential decision
+  determines how strong the enforcement actually is, not whether the code
+  behaves.
+
 ## What Neither Full-CRUD File Does On Its Own
 
 Committing `odoo_mcp.py`/`n8n_mcp.py` does not configure any MCP connector or
