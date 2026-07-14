@@ -1,0 +1,69 @@
+# Deploys odoo-mcp and n8n-mcp as two new, independent containers on the
+# SAME host already running n8n (per /docker/n8n/docker-compose.yml), without
+# editing that file. Joins its existing `n8n_default` Docker network as an
+# external network so the already-running Traefik container (part of that
+# other compose project) can discover and route to these via Docker-label
+# auto-configuration — the same mechanism n8n itself uses, not a new one.
+#
+# Deploy from the repo root:
+#   docker compose -f deploy/mcp-vps/docker-compose.yml up -d --build
+#
+# Requires a .env file in this directory (see .env.example) — never commit
+# a real one.
+
+services:
+  odoo-mcp:
+    build:
+      context: ../..
+      dockerfile: deploy/mcp-vps/Dockerfile
+    command: ["python3", "odoo_mcp.py"]
+    restart: always
+    environment:
+      - ODOO_URL=${ODOO_URL}
+      - ODOO_DB=${ODOO_DB}
+      - ODOO_LOGIN=${ODOO_LOGIN}
+      - ODOO_API_KEY=${ODOO_API_KEY}
+      - MCP_TRANSPORT=http
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN_ODOO}
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8000
+    networks:
+      - n8n_default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=n8n_default
+      - traefik.http.routers.odoo-mcp.rule=Host(`odoo-mcp.${DOMAIN_NAME}`)
+      - traefik.http.routers.odoo-mcp.tls=true
+      - traefik.http.routers.odoo-mcp.entrypoints=web,websecure
+      - traefik.http.routers.odoo-mcp.tls.certresolver=mytlschallenge
+      - traefik.http.services.odoo-mcp.loadbalancer.server.port=8000
+
+  n8n-mcp:
+    build:
+      context: ../..
+      dockerfile: deploy/mcp-vps/Dockerfile
+    command: ["python3", "n8n_mcp.py"]
+    restart: always
+    environment:
+      - N8N_URL=${N8N_URL}
+      - N8N_API_TOKEN=${N8N_API_TOKEN}
+      - MCP_TRANSPORT=http
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN_N8N}
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8000
+      - MCP_ALLOWED_HOSTS=n8n-mcp.${DOMAIN_NAME}
+      - MCP_PUBLIC_URL=https://n8n-mcp.${DOMAIN_NAME}
+    networks:
+      - n8n_default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=n8n_default
+      - traefik.http.routers.n8n-mcp.rule=Host(`n8n-mcp.${DOMAIN_NAME}`)
+      - traefik.http.routers.n8n-mcp.tls=true
+      - traefik.http.routers.n8n-mcp.entrypoints=web,websecure
+      - traefik.http.routers.n8n-mcp.tls.certresolver=mytlschallenge
+      - traefik.http.services.n8n-mcp.loadbalancer.server.port=8000
+
+networks:
+  n8n_default:
+    external: true
