@@ -109,3 +109,85 @@ Neither file has default/embedded credentials. Both fail loudly (`odoo_mcp.py`
 raises on missing/invalid Odoo credentials at first call; `n8n_mcp.py` exits
 at import time if `N8N_URL`/`N8N_API_TOKEN` are unset) rather than running
 with silent, unintended access.
+
+## Network (HTTP) deployment — candidate, not yet deployed
+
+`odoo_mcp.py` and `n8n_mcp.py` (not the `*_readonly.py` variants, which are
+unmodified) now support two transports, selected by `MCP_TRANSPORT`:
+
+- `MCP_TRANSPORT=stdio` (default) — unchanged behaviour: spawned locally by
+  a client over stdin/stdout, same as today.
+- `MCP_TRANSPORT=http` — runs as a persistent, network-reachable process
+  instead, so a Claude session anywhere (browser claude.ai, Claude Code,
+  Cowork) can reach the same live Odoo/N8N access without the client
+  spawning a local process on a specific machine.
+
+Built in response to a real operational problem: local MCP server processes
+running continuously on a laptop contribute to thermal/CPU load severe
+enough to trigger reboots. Moving them to a persistent host removes that
+local load — the actual motivating reason for this change, not a
+generic "let's support HTTP" exercise.
+
+**This is candidate code — authored, tested, not deployed.** Actually
+running this on internet-facing infrastructure with live Odoo/N8N write
+credentials is a platform/runtime change under this ecosystem's own
+change-control rules (Configuration Lane / D007 territory), needing a CR
+before real deployment — writing and testing the code itself doesn't
+require that, running it against production credentials on a public host
+does.
+
+### Required environment variables (HTTP mode only, in addition to the
+existing Odoo/N8N credential vars documented above)
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `MCP_TRANSPORT` | Yes (`http`) | Selects HTTP mode; omit or set `stdio` for unchanged local behaviour |
+| `MCP_AUTH_TOKEN` | Yes | Shared bearer-token secret. Both servers refuse to start in HTTP mode without one — no accidental unauthenticated network exposure. |
+| `MCP_HOST` | No (default `0.0.0.0`) | Bind address |
+| `MCP_PORT` | No (default `8000`) | Bind port |
+| `MCP_ALLOWED_HOSTS` | Yes, for `n8n_mcp.py` HTTP mode | Comma-separated hostnames expected in the `Host` header (e.g. the real deployment domain). Required, not defaulted — refuses to start rather than guess a safe value for a network-exposed, credential-bearing server. |
+| `MCP_ALLOWED_ORIGINS` | No | Comma-separated browser origins, if browser-JS clients ever need CORS |
+| `MCP_HTTP_TRANSPORT` | No | `odoo_mcp.py`: always the simplified stateless mode described below (this var isn't read by it). `n8n_mcp.py`: `http` (default), `sse`, or `streamable-http`. |
+
+### A real asymmetry between the two servers, disclosed not hidden
+
+- **`n8n_mcp.py`** already used `FastMCP` (the standalone `fastmcp` PyPI
+  package — confirmed via `pip show fastmcp`, not the bare SDK's bundled
+  `mcp.server.fastmcp`, which has a different, incompatible API). Its HTTP
+  mode is the framework's own, fully spec-compliant HTTP/streamable-HTTP
+  transport — real session management, not approximated.
+- **`odoo_mcp.py`** was hand-rolled JSON-RPC over stdin/stdout with no MCP
+  SDK involved at all. Its HTTP mode is a **simplified, stateless
+  JSON-RPC-over-HTTP endpoint** (`POST /mcp`, one request in, one response
+  out) built with Starlette, reusing the exact same tested dispatch
+  function (`build_response()`) the stdio path already used — not a full
+  spec-compliant streamable-HTTP transport with session resumability or
+  server-initiated SSE push. Adequate for straightforward tool-calling use;
+  a client that strictly requires the full streamable-HTTP spec would need
+  a further migration onto `mcp.server.Server` +
+  `StreamableHTTPSessionManager` (the same machinery FastMCP itself uses)
+  — named here as the honest follow-up, not silently assumed done.
+
+### Local smoke test (no live credentials, no deployment)
+
+```bash
+cd mcp-servers
+python3 -m pytest tests/test_transport.py -v   # 32 tests, all mocked/offline
+```
+
+### What deploying this for real would still need (not done here)
+
+1. A host to run it — a VPS/container with a persistent process and a
+   stable domain, not shared/PHP-only hosting (can't run a background
+   process). Confirm which Hostinger product this actually is before
+   assuming a VPS is available.
+2. A real secret-management decision for `ODOO_API_KEY`/`N8N_API_TOKEN`/
+   `MCP_AUTH_TOKEN` once they live on a remote host instead of a local
+   machine only — a genuine security-surface change, not a copy-paste.
+3. TLS termination — this process serves plain HTTP; a reverse proxy
+   (nginx/Caddy) or the platform's own TLS handling is expected in front of
+   it, not built into these files.
+4. The CR itself, with `x_test_evidence` (this test suite, plus a real
+   integration smoke test once deployed) and `x_rollback_plan` (stop the
+   process / revert to `MCP_TRANSPORT=stdio` — no data migration involved,
+   since this changes transport only, not what the tools do).

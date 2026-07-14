@@ -18,6 +18,14 @@ Env vars required:
   ODOO_LOGIN    e.g. phil@synapsys.com.au
   ODOO_API_KEY  the API key (NOT the password)
 
+Transport (added — network-hosted deployment candidate, not yet deployed):
+  MCP_TRANSPORT=stdio (default, unchanged behaviour) or MCP_TRANSPORT=http.
+  HTTP mode additionally requires MCP_AUTH_TOKEN (server refuses to start
+  without one) and reads MCP_HOST/MCP_PORT (default 0.0.0.0:8000). See
+  mcp-servers/README.md "Network (HTTP) deployment" for the full picture,
+  including what this does NOT yet cover (rate limiting, TLS termination —
+  expected to sit behind a reverse proxy, not handled by this process).
+
 CLAUDE.md canonical usage:
   - Read ops preferred via this server.
   - Write ops via this server eliminate Chrome CDP timeouts on bulk field creation.
@@ -505,67 +513,93 @@ TOOL_HANDLERS = {
 
 # ---- MCP JSON-RPC wiring --------------------------------------------------
 
-def respond(id_, result):
-    msg = {"jsonrpc": "2.0", "id": id_, "result": result}
-    sys.stdout.write(json.dumps(msg) + "\n")
-    sys.stdout.flush()
+def _result_msg(id_, result):
+    return {"jsonrpc": "2.0", "id": id_, "result": result}
 
 
-def respond_error(id_, code, message):
-    msg = {"jsonrpc": "2.0", "id": id_, "error": {"code": code, "message": message}}
-    sys.stdout.write(json.dumps(msg) + "\n")
-    sys.stdout.flush()
+def _error_msg(id_, code, message):
+    return {"jsonrpc": "2.0", "id": id_, "error": {"code": code, "message": message}}
 
 
-def handle(request):
+def build_response(request: Dict) -> Optional[Dict]:
+    """Pure JSON-RPC handler: request dict in, response dict out (or None
+    for notifications that have no response, e.g. notifications/initialized).
+
+    No I/O here — this is the exact same dispatch logic the original
+    stdio-only handle() contained, extracted so both the stdio loop and the
+    HTTP transport can share one tested code path instead of the HTTP mode
+    reimplementing tool dispatch.
+    """
     method = request.get("method", "")
     req_id = request.get("id")
 
     if method == "initialize":
-        respond(req_id, {
+        return _result_msg(req_id, {
             "protocolVersion": "2025-11-25",
             "capabilities": {"tools": {}},
             "serverInfo": {"name": "synapsys-odoo", "version": "2.0"},
         })
     elif method == "tools/list":
-        respond(req_id, {"tools": TOOLS})
+        return _result_msg(req_id, {"tools": TOOLS})
     elif method == "tools/call":
         params = request.get("params", {})
         tool_name = params.get("name")
         tool_args = params.get("arguments") or {}
         handler = TOOL_HANDLERS.get(tool_name)
         if handler is None:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Unknown tool: {tool_name}"}],
                 "isError": True,
             })
-            return
         try:
             result = handler(tool_args)
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": json.dumps(result, indent=2, default=str)}]
             })
         except xmlrpc.client.Fault as ex:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Odoo error: {ex.faultString}"}],
                 "isError": True,
             })
         except Exception as ex:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Error: {ex}"}],
                 "isError": True,
             })
     elif method == "notifications/initialized":
-        pass
+        return None
     elif method == "ping":
-        respond(req_id, {})
+        return _result_msg(req_id, {})
     else:
         # Unknown method — respond with empty result so MCP clients don't hang
         if req_id is not None:
-            respond_error(req_id, -32601, f"Method not found: {method}")
+            return _error_msg(req_id, -32601, f"Method not found: {method}")
+        return None
 
 
-def main():
+def respond(id_, result):
+    msg = _result_msg(id_, result)
+    sys.stdout.write(json.dumps(msg) + "\n")
+    sys.stdout.flush()
+
+
+def respond_error(id_, code, message):
+    msg = _error_msg(id_, code, message)
+    sys.stdout.write(json.dumps(msg) + "\n")
+    sys.stdout.flush()
+
+
+def handle(request):
+    """Stdio entry point: build_response() then write the line to stdout.
+    Unchanged behaviour from the original file — same dispatch, now shared
+    with the HTTP path instead of duplicated by it."""
+    response = build_response(request)
+    if response is not None:
+        sys.stdout.write(json.dumps(response) + "\n")
+        sys.stdout.flush()
+
+
+def main_stdio():
     for line in sys.stdin:
         line = line.strip()
         if not line:
@@ -577,6 +611,103 @@ def main():
             sys.stderr.write(f"JSON decode error: {ex}\n")
         except Exception as ex:
             sys.stderr.write(f"Handler error: {ex}\n")
+
+
+# ---- HTTP transport (added for network-hosted deployment) -----------------
+#
+# Deliberately a simple, stateless JSON-RPC-over-HTTP endpoint, not a full
+# spec-compliant streamable-HTTP transport with session management, SSE
+# upgrade, and resumability. It reuses build_response() — the exact same
+# dispatch logic the stdio path uses — over a single POST endpoint instead
+# of stdin/stdout lines. For most tool-calling use (request in, response
+# out, no server-initiated push needed) this is sufficient and much lower
+# risk than reimplementing the SDK's session manager from scratch. If a
+# client strictly requires the full streamable-HTTP spec (SSE upgrade,
+# resumable sessions), migrating this file onto mcp.server.Server +
+# StreamableHTTPSessionManager — the same machinery FastMCP itself uses —
+# is the honest follow-up, named here rather than silently assumed done.
+
+def build_http_app():
+    """Build the Starlette ASGI app. Imported lazily so stdio-mode callers
+    (including tests that only exercise build_response()) never need
+    starlette/uvicorn installed."""
+    from starlette.applications import Starlette
+    from starlette.middleware import Middleware
+    from starlette.middleware.base import BaseHTTPMiddleware
+    from starlette.requests import Request
+    from starlette.responses import JSONResponse, PlainTextResponse
+    from starlette.routing import Route
+
+    import sys as _sys
+    sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
+    from _bearer_auth import StaticBearerTokenVerifier, load_required_token  # noqa: E402
+
+    token = load_required_token()
+    verifier = StaticBearerTokenVerifier(token)
+
+    class BearerAuthMiddleware(BaseHTTPMiddleware):
+        async def dispatch(self, request: Request, call_next):
+            if request.url.path == "/health":
+                return await call_next(request)
+            auth_header = request.headers.get("authorization", "")
+            presented = auth_header[7:] if auth_header.lower().startswith("bearer ") else ""
+            if not verifier.verify_sync(presented):
+                return PlainTextResponse("Unauthorized", status_code=401)
+            return await call_next(request)
+
+    async def health(request: Request):
+        return PlainTextResponse("ok")
+
+    async def mcp_endpoint(request: Request):
+        try:
+            body = await request.json()
+        except Exception:
+            return JSONResponse(
+                _error_msg(None, -32700, "Parse error: request body is not valid JSON"),
+                status_code=400,
+            )
+        try:
+            response = build_response(body)
+        except Exception as ex:  # noqa: BLE001 - last-resort guard, mirrors stdio's own catch-all
+            return JSONResponse(
+                _error_msg(body.get("id"), -32603, f"Internal error: {ex}"),
+                status_code=500,
+            )
+        if response is None:
+            # Notification — no body expected in response, per JSON-RPC.
+            return PlainTextResponse("", status_code=204)
+        return JSONResponse(response)
+
+    app = Starlette(
+        routes=[
+            Route("/health", health, methods=["GET"]),
+            Route("/mcp", mcp_endpoint, methods=["POST"]),
+        ],
+        middleware=[Middleware(BearerAuthMiddleware)],
+    )
+    return app
+
+
+def main_http():
+    import uvicorn
+
+    app = build_http_app()
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_PORT", "8000"))
+    uvicorn.run(app, host=host, port=port)
+
+
+def main():
+    transport = os.environ.get("MCP_TRANSPORT", "stdio")
+    if transport == "stdio":
+        main_stdio()
+    elif transport == "http":
+        main_http()
+    else:
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_TRANSPORT={transport!r}; use 'stdio' or 'http'\n"
+        )
+        sys.exit(1)
 
 
 if __name__ == "__main__":
