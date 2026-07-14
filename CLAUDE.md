@@ -244,13 +244,42 @@ before being reported as done; every custom record write must populate
 `x_company_id`/`x_context_id` correctly. These bind by action, not by
 which lane holds the credential.
 
-**Still outstanding, not resolved by this text change**: the actual MCP
-connector configuration and a distinct API credential for this lane. This
-document makes the *authorization* durable and in-repo; it does not
-itself grant working access — that requires Steward/D001 to run
-`claude mcp add` with a real, distinct Odoo/N8N credential against this
-lane's own environment, which this lane cannot do for itself per the
-"will not self-configure an MCP connector or self-issue a credential"
-clause above. Until that technical step happens, this lane still has no
-working Odoo/N8N tool in its session toolset, regardless of what this
-file says.
+**Update 2026-07-14, verified end-to-end this session, correcting the
+paragraph below**: the connector and credential steps described as
+outstanding here are actually done. `.mcp.json` (repo root) declares
+`synapsys-n8n-readonly-code` and `synapsys-odoo-readonly-code`, backed by
+`mcp-servers/{n8n,odoo}_mcp_readonly.py`; `ODOO_URL`/`ODOO_DB`/
+`ODOO_LOGIN`/`ODOO_API_KEY`/`N8N_URL`/`N8N_API_KEY` are set as real env
+vars in this environment (confirmed via `env`, values redacted, not
+logged). The actual remaining blocker, isolated by direct reproduction
+(`claude mcp list` → both servers `⏸ Pending approval`, and every
+`tools/call` against either one failing
+`Tool permission stream closed before response received`): project-scoped
+`.mcp.json` servers require interactive first-use approval, and this is a
+fresh ephemeral cloud VM per session — an interactive approval in one
+session cannot survive to the next, so that gate can never durably clear
+itself here. The fix, applied this session and pending Steward
+merge-and-verify (a fresh session must confirm the servers come up
+pre-approved, since this session's own approval snapshot was already
+taken before the fix landed): `.claude/settings.json` now declares
+`"enabledMcpjsonServers": ["synapsys-n8n-readonly-code",
+"synapsys-odoo-readonly-code"]`, the repo-native, session-portable
+allowlist mechanism — scoped to only the two read-only servers already
+covered by the Amendment 1 read-only grant, not the write-capable
+`odoo_mcp.py`/`n8n_mcp.py` (which are reference copies only, not declared
+in `.mcp.json`, and stay un-auto-approved). See
+`05_AI_RETURNS_HASHED/20260714_RET_GEN_claude-code-odoo-n8n-mcp-approval-gate-diagnosis_v0.1.md` (SHA-256 `51689e08a276bff2eb07565018c254b7f9f8d50d114c63f80d9206093c094d07`)
+for the full reproduction trail and hash.
+
+**Formerly-stated outstanding items, now superseded by the update above**:
+this paragraph previously said the actual MCP connector configuration and
+a distinct API credential were still missing, and that `claude mcp add`
+against this lane's own environment was the needed step. That specific
+mechanism was itself later corrected in `mcp-servers/README.md` (cloud
+sessions are fresh VMs; `claude mcp add --scope user` does not persist —
+the project-scoped `.mcp.json` + environment-variable-panel mechanism is
+what's actually durable, and both are now confirmed in place). What was
+never actually resolved by either the connector/credential work or that
+correction is the approval-gate persistence problem fixed just above —
+recorded here so the lineage of what was wrong, and when it was fixed, stays
+legible rather than silently overwritten.
