@@ -81,4 +81,18 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
         base_url=entra["MCP_PUBLIC_URL"],
     )
 
+    # AzureProvider assumes one app plays both roles (OAuth client AND
+    # resource), so it only ever validates tokens against
+    # [connector_client_id, identifier_uri]. This deployment splits those
+    # roles across two app registrations (a "-connector" client app + a
+    # "-api" resource app), and Entra issues access tokens whose `aud` claim
+    # is the resource app's bare client ID (observed directly in
+    # AADSTS-free 401s: "audience mismatch (got '<api-app-guid>', expected
+    # [...])") rather than its api://... Application ID URI. Add that bare
+    # GUID as an accepted audience so tokens Entra actually issues verify.
+    bare_api_app_id = entra["MCP_API_AUDIENCE"].removeprefix("api://")
+    verifier = azure_provider._token_validator
+    if bare_api_app_id not in verifier.audience:
+        verifier.audience = [*verifier.audience, bare_api_app_id]
+
     return MultiAuth(server=azure_provider, verifiers=[bearer_verifier])

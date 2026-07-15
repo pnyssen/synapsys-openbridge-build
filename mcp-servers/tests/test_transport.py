@@ -375,3 +375,21 @@ def test_azure_auth_identifier_uri_matches_api_app_not_connector(monkeypatch):
     auth = _azure_auth.build_combined_auth("shared-token")
     assert auth.server.identifier_uri == ENTRA_VARS["MCP_API_AUDIENCE"]
     assert auth.server.identifier_uri != f"api://{ENTRA_VARS['OAUTH_CLIENT_ID']}"
+
+
+def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
+    """Entra issues access tokens with `aud` set to the resource (API) app's
+    bare client ID GUID, not its api://... Application ID URI — observed
+    directly in production 401s ("audience mismatch (got '<bare-guid>',
+    expected [...])"). AzureProvider's default audience list only contains
+    the connector's client_id and the api://... URI, so real tokens were
+    being rejected. The bare GUID must be added as an accepted audience."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    bare_guid = ENTRA_VARS["MCP_API_AUDIENCE"].removeprefix("api://")
+    verifier = auth.server._token_validator
+    assert bare_guid in verifier.audience
+    assert ENTRA_VARS["MCP_API_AUDIENCE"] in verifier.audience
+    assert ENTRA_VARS["OAUTH_CLIENT_ID"] in verifier.audience
