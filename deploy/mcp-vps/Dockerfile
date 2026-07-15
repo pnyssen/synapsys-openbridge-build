@@ -11,7 +11,7 @@ WORKDIR /app
 COPY mcp-servers/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY mcp-servers/odoo_mcp.py mcp-servers/n8n_mcp.py mcp-servers/_bearer_auth.py ./
+COPY mcp-servers/odoo_mcp.py mcp-servers/n8n_mcp.py mcp-servers/_bearer_auth.py mcp-servers/_azure_auth.py ./
 
 # Actual command (which script, which transport) is set per-service in
 # docker-compose.yml — this default just documents intent for a bare
