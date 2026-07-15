@@ -38,6 +38,8 @@ services:
       - OAUTH_CLIENT_ID=${ODOO_OAUTH_CLIENT_ID}
       - OAUTH_CLIENT_SECRET=${ODOO_OAUTH_CLIENT_SECRET}
       - MCP_API_AUDIENCE=${ODOO_MCP_API_AUDIENCE}
+    volumes:
+      - odoo-mcp-oauth-state:/root/.local/share/fastmcp
     networks:
       - n8n_default
     labels:
@@ -72,6 +74,8 @@ services:
       - OAUTH_CLIENT_ID=${N8N_OAUTH_CLIENT_ID}
       - OAUTH_CLIENT_SECRET=${N8N_OAUTH_CLIENT_SECRET}
       - MCP_API_AUDIENCE=${N8N_MCP_API_AUDIENCE}
+    volumes:
+      - n8n-mcp-oauth-state:/root/.local/share/fastmcp
     networks:
       - n8n_default
     labels:
@@ -82,6 +86,10 @@ services:
       - traefik.http.routers.n8n-mcp.entrypoints=web,websecure
       - traefik.http.routers.n8n-mcp.tls.certresolver=mytlschallenge
       - traefik.http.services.n8n-mcp.loadbalancer.server.port=8000
+
+volumes:
+  odoo-mcp-oauth-state:
+  n8n-mcp-oauth-state:
 
 networks:
   n8n_default:
