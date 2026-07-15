@@ -67,6 +67,13 @@ except ImportError:
 
 mcp = FastMCP("synapsys-n8n")
 
+
+@mcp.custom_route("/health", methods=["GET"])
+async def _health(request):
+    from starlette.responses import PlainTextResponse
+
+    return PlainTextResponse("ok")
+
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
