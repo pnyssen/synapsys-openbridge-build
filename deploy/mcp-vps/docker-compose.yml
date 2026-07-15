@@ -27,6 +27,16 @@ services:
       - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN_ODOO}
       - MCP_HOST=0.0.0.0
       - MCP_PORT=8000
+      - MCP_ALLOWED_HOSTS=odoo-mcp.${DOMAIN_NAME}
+      - MCP_PUBLIC_URL=https://odoo-mcp.${DOMAIN_NAME}
+      # Entra OAuth — optional. Leave all four blank/unset to stay bearer-only
+      # (odoo-mcp still works with just MCP_AUTH_TOKEN_ODOO above). Set all
+      # four together once the odoo-mcp-api / odoo-mcp-connector app pair
+      # exists — see mcp-servers/_azure_auth.py.
+      - ENTRA_TENANT_ID=${ENTRA_TENANT_ID}
+      - OAUTH_CLIENT_ID=${ODOO_OAUTH_CLIENT_ID}
+      - OAUTH_CLIENT_SECRET=${ODOO_OAUTH_CLIENT_SECRET}
+      - MCP_API_AUDIENCE=${ODOO_MCP_API_AUDIENCE}
     networks:
       - n8n_default
     labels:
@@ -53,6 +63,13 @@ services:
       - MCP_PORT=8000
       - MCP_ALLOWED_HOSTS=n8n-mcp.${DOMAIN_NAME}
       - MCP_PUBLIC_URL=https://n8n-mcp.${DOMAIN_NAME}
+      # Entra OAuth — optional, same pattern as odoo-mcp above. Leave blank
+      # to stay bearer-only; set all four together once the n8n-mcp-api /
+      # n8n-mcp-connector app pair exists.
+      - ENTRA_TENANT_ID=${ENTRA_TENANT_ID}
+      - OAUTH_CLIENT_ID=${N8N_OAUTH_CLIENT_ID}
+      - OAUTH_CLIENT_SECRET=${N8N_OAUTH_CLIENT_SECRET}
+      - MCP_API_AUDIENCE=${N8N_MCP_API_AUDIENCE}
     networks:
       - n8n_default
     labels:

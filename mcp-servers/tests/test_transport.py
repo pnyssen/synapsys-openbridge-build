@@ -103,74 +103,80 @@ def test_tools_call_wraps_xmlrpc_fault_as_error_content():
 
 
 # ---------------------------------------------------------------------------
-# odoo_mcp.py — HTTP transport wiring (auth + routing)
+# odoo_mcp.py — HTTP transport wiring (auth + tool registration)
+#
+# build_fastmcp_app() builds a real fastmcp.FastMCP app (replacing the old
+# hand-rolled Starlette /mcp endpoint tested above via TestClient). Full
+# request/response cycle testing now belongs to a live streamable-HTTP
+# handshake (as already verified manually against the deployed VPS — see
+# 05_AI_RETURNS_HASHED/..._mcp-hosting-deployment-session-closure_v0.1.md);
+# these unit tests cover what's actually under this repo's control: that
+# every tool got registered and that auth wiring picks bearer-only vs
+# combined (bearer + Entra) correctly, both via _azure_auth.py.
 # ---------------------------------------------------------------------------
 
+import asyncio
+
+
 @pytest.fixture
-def http_client(monkeypatch):
-    from starlette.testclient import TestClient
-
+def fastmcp_app(monkeypatch):
     monkeypatch.setenv("MCP_AUTH_TOKEN", "test-secret-token")
-    app = odoo_mcp.build_http_app()
-    return TestClient(app)
+    return odoo_mcp.build_fastmcp_app()
 
 
-def test_health_endpoint_requires_no_auth(http_client):
-    resp = http_client.get("/health")
-    assert resp.status_code == 200
+def test_fastmcp_app_registers_all_ten_tools(fastmcp_app):
+    tools = asyncio.run(fastmcp_app.list_tools())
+    names = {t.name for t in tools}
+    assert names == set(odoo_mcp.TOOL_HANDLERS.keys())
 
 
-def test_mcp_endpoint_rejects_missing_auth(http_client):
-    resp = http_client.post("/mcp", json={"jsonrpc": "2.0", "id": 1, "method": "ping"})
-    assert resp.status_code == 401
+def test_fastmcp_app_bearer_only_when_no_entra_vars(fastmcp_app):
+    import _bearer_auth
+
+    assert isinstance(fastmcp_app.auth, _bearer_auth.StaticBearerTokenVerifier)
 
 
-def test_mcp_endpoint_rejects_wrong_token(http_client):
-    resp = http_client.post(
-        "/mcp",
-        json={"jsonrpc": "2.0", "id": 1, "method": "ping"},
-        headers={"Authorization": "Bearer wrong-token"},
-    )
-    assert resp.status_code == 401
+def test_fastmcp_app_uses_multiauth_when_entra_configured(monkeypatch):
+    monkeypatch.setenv("MCP_AUTH_TOKEN", "test-secret-token")
+    monkeypatch.setenv("ENTRA_TENANT_ID", "test-tenant")
+    monkeypatch.setenv("OAUTH_CLIENT_ID", "test-client-id")
+    monkeypatch.setenv("OAUTH_CLIENT_SECRET", "test-client-secret")
+    monkeypatch.setenv("MCP_API_AUDIENCE", "api://test-api-app")
+    monkeypatch.setenv("MCP_PUBLIC_URL", "https://odoo-mcp.example.com")
+
+    from fastmcp.server.auth.auth import MultiAuth
+
+    app = odoo_mcp.build_fastmcp_app()
+    assert isinstance(app.auth, MultiAuth)
 
 
-def test_mcp_endpoint_accepts_correct_token(http_client):
-    resp = http_client.post(
-        "/mcp",
-        json={"jsonrpc": "2.0", "id": 1, "method": "ping"},
-        headers={"Authorization": "Bearer test-secret-token"},
-    )
-    assert resp.status_code == 200
-    assert resp.json()["result"] == {}
-
-
-def test_mcp_endpoint_dispatches_tools_list_over_http(http_client):
-    resp = http_client.post(
-        "/mcp",
-        json={"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
-        headers={"Authorization": "Bearer test-secret-token"},
-    )
-    assert resp.status_code == 200
-    names = {t["name"] for t in resp.json()["result"]["tools"]}
-    assert "search_odoo" in names
-
-
-def test_mcp_endpoint_rejects_malformed_json_body(http_client):
-    resp = http_client.post(
-        "/mcp",
-        content=b"not json",
-        headers={
-            "Authorization": "Bearer test-secret-token",
-            "Content-Type": "application/json",
-        },
-    )
-    assert resp.status_code == 400
-
-
-def test_http_app_refuses_to_build_without_auth_token(monkeypatch):
+def test_fastmcp_app_refuses_to_build_without_auth_token(monkeypatch):
     monkeypatch.delenv("MCP_AUTH_TOKEN", raising=False)
     with pytest.raises(SystemExit):
-        odoo_mcp.build_http_app()
+        odoo_mcp.build_fastmcp_app()
+
+
+def test_odoo_configure_http_kwargs_requires_allowed_hosts(monkeypatch):
+    monkeypatch.delenv("MCP_ALLOWED_HOSTS", raising=False)
+    with pytest.raises(SystemExit):
+        odoo_mcp._configure_http_kwargs()
+
+
+def test_odoo_configure_http_kwargs_respects_host_port_env(monkeypatch):
+    monkeypatch.setenv("MCP_ALLOWED_HOSTS", "odoo-mcp.example.com")
+    monkeypatch.setenv("MCP_HOST", "0.0.0.0")
+    monkeypatch.setenv("MCP_PORT", "9200")
+    kwargs = odoo_mcp._configure_http_kwargs()
+    assert kwargs["host"] == "0.0.0.0"
+    assert kwargs["port"] == 9200
+    assert kwargs["allowed_hosts"] == ["odoo-mcp.example.com"]
+
+
+def test_odoo_configure_http_kwargs_rejects_bad_http_transport(monkeypatch):
+    monkeypatch.setenv("MCP_ALLOWED_HOSTS", "odoo-mcp.example.com")
+    monkeypatch.setenv("MCP_HTTP_TRANSPORT", "carrier-pigeon")
+    with pytest.raises(SystemExit):
+        odoo_mcp._configure_http_kwargs()
 
 
 def test_stdio_transport_is_default(monkeypatch):
@@ -309,3 +315,63 @@ def test_n8n_configure_http_kwargs_parses_multiple_allowed_hosts(n8n_module, mon
     monkeypatch.setenv("MCP_ALLOWED_HOSTS", "n8n.example.com, secondary.example.com")
     kwargs = n8n_module._configure_http_kwargs()
     assert kwargs["allowed_hosts"] == ["n8n.example.com", "secondary.example.com"]
+
+
+# ---------------------------------------------------------------------------
+# _azure_auth.py — shared Entra OAuth wiring, used by both servers
+# ---------------------------------------------------------------------------
+
+import _azure_auth  # noqa: E402
+
+ENTRA_VARS = {
+    "ENTRA_TENANT_ID": "test-tenant",
+    "OAUTH_CLIENT_ID": "test-client-id",
+    "OAUTH_CLIENT_SECRET": "test-client-secret",
+    "MCP_API_AUDIENCE": "api://test-api-app",
+    "MCP_PUBLIC_URL": "https://mcp.example.com",
+}
+
+
+def test_azure_auth_bearer_only_when_no_entra_vars(monkeypatch):
+    for name in ENTRA_VARS:
+        monkeypatch.delenv(name, raising=False)
+    import _bearer_auth
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert isinstance(auth, _bearer_auth.StaticBearerTokenVerifier)
+
+
+def test_azure_auth_multiauth_when_fully_configured(monkeypatch):
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+    from fastmcp.server.auth.auth import MultiAuth
+    from fastmcp.server.auth.providers.azure import AzureProvider
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert isinstance(auth, MultiAuth)
+    assert isinstance(auth.server, AzureProvider)
+    assert len(auth.verifiers) == 1
+
+
+def test_azure_auth_fails_closed_on_partial_config(monkeypatch):
+    for name in ENTRA_VARS:
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("ENTRA_TENANT_ID", "test-tenant")
+    monkeypatch.setenv("OAUTH_CLIENT_ID", "test-client-id")
+    # OAUTH_CLIENT_SECRET / MCP_API_AUDIENCE / MCP_PUBLIC_URL deliberately unset
+    with pytest.raises(SystemExit):
+        _azure_auth.build_combined_auth("shared-token")
+
+
+def test_azure_auth_identifier_uri_matches_api_app_not_connector(monkeypatch):
+    """The connector app's client_id must NOT silently become the scope
+    prefix — required_scopes are validated against MCP_API_AUDIENCE (the
+    separate API app's Application ID URI), matching this deployment's
+    two-app registration pattern (API app + connector app), not
+    AzureProvider's single-app default (api://{client_id})."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.server.identifier_uri == ENTRA_VARS["MCP_API_AUDIENCE"]
+    assert auth.server.identifier_uri != f"api://{ENTRA_VARS['OAUTH_CLIENT_ID']}"

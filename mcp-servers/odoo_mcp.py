@@ -18,13 +18,18 @@ Env vars required:
   ODOO_LOGIN    e.g. phil@synapsys.com.au
   ODOO_API_KEY  the API key (NOT the password)
 
-Transport (added — network-hosted deployment candidate, not yet deployed):
+Transport:
   MCP_TRANSPORT=stdio (default, unchanged behaviour) or MCP_TRANSPORT=http.
-  HTTP mode additionally requires MCP_AUTH_TOKEN (server refuses to start
-  without one) and reads MCP_HOST/MCP_PORT (default 0.0.0.0:8000). See
-  mcp-servers/README.md "Network (HTTP) deployment" for the full picture,
-  including what this does NOT yet cover (rate limiting, TLS termination —
-  expected to sit behind a reverse proxy, not handled by this process).
+  HTTP mode now runs on the real `fastmcp` framework's own streamable-HTTP
+  transport (same as n8n_mcp.py — no longer a simplified stateless shim),
+  and requires MCP_AUTH_TOKEN + MCP_ALLOWED_HOSTS. Reads MCP_HOST/MCP_PORT
+  (default 0.0.0.0:8000), MCP_ALLOWED_ORIGINS, MCP_HTTP_TRANSPORT. Optional
+  Entra ID OAuth (for connector UIs that require OAuth, e.g. Cowork) via
+  ENTRA_TENANT_ID/OAUTH_CLIENT_ID/OAUTH_CLIENT_SECRET/MCP_API_AUDIENCE/
+  MCP_PUBLIC_URL — see mcp-servers/_azure_auth.py. See mcp-servers/README.md
+  "Network (HTTP) deployment" for the full picture, including what this does
+  NOT yet cover (rate limiting, TLS termination — expected to sit behind a
+  reverse proxy, not handled by this process).
 
 CLAUDE.md canonical usage:
   - Read ops preferred via this server.
@@ -615,86 +620,149 @@ def main_stdio():
 
 # ---- HTTP transport (added for network-hosted deployment) -----------------
 #
-# Deliberately a simple, stateless JSON-RPC-over-HTTP endpoint, not a full
-# spec-compliant streamable-HTTP transport with session management, SSE
-# upgrade, and resumability. It reuses build_response() — the exact same
-# dispatch logic the stdio path uses — over a single POST endpoint instead
-# of stdin/stdout lines. For most tool-calling use (request in, response
-# out, no server-initiated push needed) this is sufficient and much lower
-# risk than reimplementing the SDK's session manager from scratch. If a
-# client strictly requires the full streamable-HTTP spec (SSE upgrade,
-# resumable sessions), migrating this file onto mcp.server.Server +
-# StreamableHTTPSessionManager — the same machinery FastMCP itself uses —
-# is the honest follow-up, named here rather than silently assumed done.
+# Built on the real `fastmcp` framework (the same one n8n_mcp.py already
+# uses), not a hand-rolled Starlette endpoint — the prior version of this
+# file was a deliberately simplified, stateless JSON-RPC-over-HTTP shim,
+# documented at the time as needing this exact follow-up: migrating onto
+# the framework's own session manager so odoo-mcp is genuinely
+# spec-compliant streamable-HTTP (matching n8n-mcp) instead of an
+# approximation. It's also what lets it use FastMCP's official Entra ID
+# OAuth-Proxy support (`_azure_auth.py`) without hand-replicating that
+# machinery's routes/middleware — that machinery is exactly what this
+# module would otherwise need to reimplement by hand.
+#
+# The underlying tool_* functions and Odoo XML-RPC helpers above are
+# unchanged; this just exposes them as native FastMCP tools instead of the
+# hand-rolled TOOLS/TOOL_HANDLERS/build_response dispatch, which remains
+# in place unchanged for the stdio path (main_stdio(), handle()) and its
+# existing tests.
 
-def build_http_app():
-    """Build the Starlette ASGI app. Imported lazily so stdio-mode callers
-    (including tests that only exercise build_response()) never need
-    starlette/uvicorn installed."""
-    from starlette.applications import Starlette
-    from starlette.middleware import Middleware
-    from starlette.middleware.base import BaseHTTPMiddleware
-    from starlette.requests import Request
-    from starlette.responses import JSONResponse, PlainTextResponse
-    from starlette.routing import Route
-
-    import sys as _sys
+def build_fastmcp_app():
+    """Build the FastMCP app used for HTTP transport. Imported lazily so
+    stdio-mode callers (including tests that only exercise build_response())
+    never need fastmcp installed."""
     sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
-    from _bearer_auth import StaticBearerTokenVerifier, load_required_token  # noqa: E402
+    from fastmcp import FastMCP
+    from starlette.requests import Request
+    from starlette.responses import PlainTextResponse
+    from _bearer_auth import load_required_token  # noqa: E402
+    from _azure_auth import build_combined_auth  # noqa: E402
 
-    token = load_required_token()
-    verifier = StaticBearerTokenVerifier(token)
+    app_mcp = FastMCP("synapsys-odoo")
 
-    class BearerAuthMiddleware(BaseHTTPMiddleware):
-        async def dispatch(self, request: Request, call_next):
-            if request.url.path == "/health":
-                return await call_next(request)
-            auth_header = request.headers.get("authorization", "")
-            presented = auth_header[7:] if auth_header.lower().startswith("bearer ") else ""
-            if not verifier.verify_sync(presented):
-                return PlainTextResponse("Unauthorized", status_code=401)
-            return await call_next(request)
-
-    async def health(request: Request):
+    @app_mcp.custom_route("/health", methods=["GET"])
+    async def health(request: Request) -> PlainTextResponse:
         return PlainTextResponse("ok")
 
-    async def mcp_endpoint(request: Request):
-        try:
-            body = await request.json()
-        except Exception:
-            return JSONResponse(
-                _error_msg(None, -32700, "Parse error: request body is not valid JSON"),
-                status_code=400,
-            )
-        try:
-            response = build_response(body)
-        except Exception as ex:  # noqa: BLE001 - last-resort guard, mirrors stdio's own catch-all
-            return JSONResponse(
-                _error_msg(body.get("id"), -32603, f"Internal error: {ex}"),
-                status_code=500,
-            )
-        if response is None:
-            # Notification — no body expected in response, per JSON-RPC.
-            return PlainTextResponse("", status_code=204)
-        return JSONResponse(response)
+    @app_mcp.tool()
+    def search_odoo(
+        model: str,
+        domain: list | None = None,
+        fields: list | None = None,
+        limit: int = 1000,
+        offset: int = 0,
+        order: str | None = None,
+    ) -> Any:
+        """Search any Odoo model (search_read). Returns records matching domain."""
+        return tool_search_odoo({
+            "model": model, "domain": domain or [], "fields": fields,
+            "limit": limit, "offset": offset, "order": order,
+        })
 
-    app = Starlette(
-        routes=[
-            Route("/health", health, methods=["GET"]),
-            Route("/mcp", mcp_endpoint, methods=["POST"]),
-        ],
-        middleware=[Middleware(BearerAuthMiddleware)],
-    )
-    return app
+    @app_mcp.tool()
+    def read_odoo(model: str, ids: Any, fields: list | None = None) -> Any:
+        """Read specific records by id. Faster than search_read when ids are known."""
+        return tool_read_odoo({"model": model, "ids": ids, "fields": fields})
+
+    @app_mcp.tool()
+    def count_odoo(model: str, domain: list | None = None) -> Any:
+        """Return the count of records matching a domain (search_count)."""
+        return tool_count_odoo({"model": model, "domain": domain or []})
+
+    @app_mcp.tool()
+    def create_odoo(model: str, values: dict) -> Any:
+        """Create a single record. Returns the new id."""
+        return tool_create_odoo({"model": model, "values": values})
+
+    @app_mcp.tool()
+    def write_odoo(model: str, ids: Any, values: dict) -> Any:
+        """Update one or more records. Returns true on success."""
+        return tool_write_odoo({"model": model, "ids": ids, "values": values})
+
+    @app_mcp.tool()
+    def unlink_odoo(model: str, ids: Any) -> Any:
+        """Delete records by id. Odoo raises on records with protective constraints."""
+        return tool_unlink_odoo({"model": model, "ids": ids})
+
+    @app_mcp.tool()
+    def execute_odoo(
+        model: str, method: str, args: list | None = None, kwargs: dict | None = None
+    ) -> Any:
+        """Generic execute_kw passthrough for any Odoo model method."""
+        return tool_execute_odoo({
+            "model": model, "method": method, "args": args or [], "kwargs": kwargs or {},
+        })
+
+    @app_mcp.tool()
+    def search_multi(queries: list, labels: list | None = None) -> Any:
+        """Run multiple search_read queries in one call. Use for 3+ model fetches."""
+        return tool_search_multi({"queries": queries, "labels": labels})
+
+    @app_mcp.tool()
+    def create_fields_batch(model_id: int, fields: list, delay_ms: int = 400) -> Any:
+        """Sequentially create many ir.model.fields on a target model."""
+        return tool_create_fields_batch({"model_id": model_id, "fields": fields, "delay_ms": delay_ms})
+
+    @app_mcp.tool()
+    def create_acls_batch(model_id: int, acls: list) -> Any:
+        """Create multiple ir.model.access records on a model."""
+        return tool_create_acls_batch({"model_id": model_id, "acls": acls})
+
+    auth_token = load_required_token()
+    app_mcp.auth = build_combined_auth(auth_token)
+    return app_mcp
+
+
+def _configure_http_kwargs() -> dict:
+    """Build host/binding + hostname allow-list for HTTP transport, mirroring
+    n8n_mcp.py's equivalent so the two servers behave the same way here."""
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_PORT", "8000"))
+
+    allowed_hosts_raw = os.environ.get("MCP_ALLOWED_HOSTS", "")
+    if not allowed_hosts_raw:
+        sys.stderr.write(
+            "ERROR: MCP_TRANSPORT=http requires MCP_ALLOWED_HOSTS (comma-separated "
+            "hostnames expected in the Host header) — refusing to guess a safe "
+            "default for a network-exposed server.\n"
+        )
+        sys.exit(1)
+    allowed_hosts = [h.strip() for h in allowed_hosts_raw.split(",") if h.strip()]
+
+    allowed_origins_raw = os.environ.get("MCP_ALLOWED_ORIGINS", "")
+    allowed_origins = [o.strip() for o in allowed_origins_raw.split(",") if o.strip()] or None
+
+    http_transport = os.environ.get("MCP_HTTP_TRANSPORT", "http")
+    if http_transport not in ("http", "sse", "streamable-http"):
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_HTTP_TRANSPORT={http_transport!r}; "
+            "use 'http', 'sse', or 'streamable-http'\n"
+        )
+        sys.exit(1)
+
+    return {
+        "transport": http_transport,
+        "host": host,
+        "port": port,
+        "allowed_hosts": allowed_hosts,
+        "allowed_origins": allowed_origins,
+        "host_origin_protection": "auto",
+    }
 
 
 def main_http():
-    import uvicorn
-
-    app = build_http_app()
-    host = os.environ.get("MCP_HOST", "0.0.0.0")
-    port = int(os.environ.get("MCP_PORT", "8000"))
-    uvicorn.run(app, host=host, port=port)
+    app_mcp = build_fastmcp_app()
+    app_mcp.run(**_configure_http_kwargs())
 
 
 def main():

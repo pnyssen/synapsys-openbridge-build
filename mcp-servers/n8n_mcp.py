@@ -702,12 +702,11 @@ def _configure_http_kwargs() -> dict:
     """Build auth + host/binding + hostname allow-list for HTTP transport.
     Returns the kwarg dict to pass to mcp.run(transport=..., **kwargs)."""
     sys.path.insert(0, str(Path(__file__).parent))
-    from _bearer_auth import StaticBearerTokenVerifier, load_required_token  # noqa: E402
-    from fastmcp.server.auth.providers.debug import DebugTokenVerifier
+    from _bearer_auth import load_required_token  # noqa: E402
+    from _azure_auth import build_combined_auth  # noqa: E402
 
     auth_token = load_required_token()
-    verifier = StaticBearerTokenVerifier(auth_token)
-    mcp.auth = DebugTokenVerifier(validate=verifier.verify_sync, client_id="synapsys-n8n-http")
+    mcp.auth = build_combined_auth(auth_token)
 
     host = os.environ.get("MCP_HOST", "0.0.0.0")
     port = int(os.environ.get("MCP_PORT", "8000"))
