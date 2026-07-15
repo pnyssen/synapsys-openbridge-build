@@ -28,6 +28,7 @@ services:
       - MCP_HOST=0.0.0.0
       - MCP_PORT=8000
       - MCP_ALLOWED_HOSTS=odoo-mcp.${DOMAIN_NAME}
+      - MCP_ALLOWED_ORIGINS=${MCP_ALLOWED_ORIGINS}
       - MCP_PUBLIC_URL=https://odoo-mcp.${DOMAIN_NAME}
       # Entra OAuth — optional. Leave all four blank/unset to stay bearer-only
       # (odoo-mcp still works with just MCP_AUTH_TOKEN_ODOO above). Set all
@@ -62,6 +63,7 @@ services:
       - MCP_HOST=0.0.0.0
       - MCP_PORT=8000
       - MCP_ALLOWED_HOSTS=n8n-mcp.${DOMAIN_NAME}
+      - MCP_ALLOWED_ORIGINS=${MCP_ALLOWED_ORIGINS}
       - MCP_PUBLIC_URL=https://n8n-mcp.${DOMAIN_NAME}
       # Entra OAuth — optional, same pattern as odoo-mcp above. Leave blank
       # to stay bearer-only; set all four together once the n8n-mcp-api /
