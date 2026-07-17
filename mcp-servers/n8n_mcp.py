@@ -34,6 +34,13 @@ Behavioural compatibility:
     payloads (was previously: tolerated and merged silently).
 
 Deployment: see CHG-2026-271-deployment-runbook.md in outputs.
+
+Transport (added — network-hosted deployment candidate, not yet deployed):
+  MCP_TRANSPORT=stdio (default, unchanged behaviour) or MCP_TRANSPORT=http.
+  HTTP mode requires MCP_AUTH_TOKEN and uses FastMCP's own streamable-http
+  transport (spec-compliant, unlike odoo_mcp.py's simplified HTTP mode — see
+  mcp-servers/README.md). Also reads MCP_HOST/MCP_PORT/MCP_PUBLIC_URL/
+  MCP_ALLOWED_HOSTS/MCP_ALLOWED_ORIGINS/MCP_HTTP_TRANSPORT.
 """
 
 from __future__ import annotations
@@ -59,6 +66,13 @@ except ImportError:
     from mcp.server.fastmcp import FastMCP  # type: ignore
 
 mcp = FastMCP("synapsys-n8n")
+
+
+@mcp.custom_route("/health", methods=["GET"])
+async def _health(request):
+    from starlette.responses import PlainTextResponse
+
+    return PlainTextResponse("ok")
 
 # ---------------------------------------------------------------------------
 # Config
@@ -673,5 +687,82 @@ def bind_workflow_credentials_by_id(workflow_id: str, bindings: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# Transport selection — added for network-hosted deployment (candidate, not
+# yet deployed). Default is unchanged: stdio, spawned locally. HTTP mode
+# reuses FastMCP's own http/streamable-http transport (the framework's real
+# session manager, not a hand-rolled substitute) so this one is fully
+# spec-compliant where odoo_mcp.py's HTTP mode is a simplified stateless
+# approximation — that asymmetry is real, not an oversight, and is called
+# out in mcp-servers/README.md rather than left implicit.
+#
+# Note on the library itself: this file imports `fastmcp` (the standalone
+# PyPI package, `pip show fastmcp` — Jeremiah Lowin's actively-maintained
+# superset), not `mcp.server.fastmcp` (the bare SDK's own bundled minimal
+# version) — the `try/except ImportError` at the top of this file prefers
+# the former when both are installed. The two have materially different
+# APIs (no shared `.settings` object; auth and host/port are wired
+# differently) — this port targets the standalone package's actual API,
+# checked directly against the installed version rather than assumed.
+# ---------------------------------------------------------------------------
+def _configure_http_kwargs() -> dict:
+    """Build auth + host/binding + hostname allow-list for HTTP transport.
+    Returns the kwarg dict to pass to mcp.run(transport=..., **kwargs)."""
+    sys.path.insert(0, str(Path(__file__).parent))
+    from _bearer_auth import load_required_token  # noqa: E402
+    from _azure_auth import build_combined_auth  # noqa: E402
+
+    auth_token = load_required_token()
+    mcp.auth = build_combined_auth(auth_token)
+
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_PORT", "8000"))
+
+    # Required explicitly, not inferred from the library's own default
+    # protection behaviour (which differs from what a bare-SDK FastMCP
+    # would do, and wasn't independently confirmed this pass) — same
+    # fail-closed pattern as the auth token: refuse to start rather than
+    # guess at a safe default for a network-exposed, credential-bearing
+    # server.
+    allowed_hosts_raw = os.environ.get("MCP_ALLOWED_HOSTS", "")
+    if not allowed_hosts_raw:
+        sys.stderr.write(
+            "ERROR: MCP_TRANSPORT=http requires MCP_ALLOWED_HOSTS (comma-separated "
+            "hostnames expected in the Host header, e.g. the real deployment domain) "
+            "— refusing to guess a safe default for a network-exposed server.\n"
+        )
+        sys.exit(1)
+    allowed_hosts = [h.strip() for h in allowed_hosts_raw.split(",") if h.strip()]
+
+    allowed_origins_raw = os.environ.get("MCP_ALLOWED_ORIGINS", "")
+    allowed_origins = [o.strip() for o in allowed_origins_raw.split(",") if o.strip()] or None
+
+    http_transport = os.environ.get("MCP_HTTP_TRANSPORT", "http")
+    if http_transport not in ("http", "sse", "streamable-http"):
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_HTTP_TRANSPORT={http_transport!r}; "
+            "use 'http', 'sse', or 'streamable-http'\n"
+        )
+        sys.exit(1)
+
+    return {
+        "transport": http_transport,
+        "host": host,
+        "port": port,
+        "allowed_hosts": allowed_hosts,
+        "allowed_origins": allowed_origins,
+        "host_origin_protection": "auto",
+    }
+
+
 if __name__ == "__main__":
-    mcp.run()
+    _transport_mode = os.environ.get("MCP_TRANSPORT", "stdio")
+    if _transport_mode == "stdio":
+        mcp.run()
+    elif _transport_mode == "http":
+        mcp.run(**_configure_http_kwargs())
+    else:
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_TRANSPORT={_transport_mode!r}; use 'stdio' or 'http'\n"
+        )
+        sys.exit(1)

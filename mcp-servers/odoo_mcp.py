@@ -18,6 +18,19 @@ Env vars required:
   ODOO_LOGIN    e.g. phil@synapsys.com.au
   ODOO_API_KEY  the API key (NOT the password)
 
+Transport:
+  MCP_TRANSPORT=stdio (default, unchanged behaviour) or MCP_TRANSPORT=http.
+  HTTP mode now runs on the real `fastmcp` framework's own streamable-HTTP
+  transport (same as n8n_mcp.py — no longer a simplified stateless shim),
+  and requires MCP_AUTH_TOKEN + MCP_ALLOWED_HOSTS. Reads MCP_HOST/MCP_PORT
+  (default 0.0.0.0:8000), MCP_ALLOWED_ORIGINS, MCP_HTTP_TRANSPORT. Optional
+  Entra ID OAuth (for connector UIs that require OAuth, e.g. Cowork) via
+  ENTRA_TENANT_ID/OAUTH_CLIENT_ID/OAUTH_CLIENT_SECRET/MCP_API_AUDIENCE/
+  MCP_PUBLIC_URL — see mcp-servers/_azure_auth.py. See mcp-servers/README.md
+  "Network (HTTP) deployment" for the full picture, including what this does
+  NOT yet cover (rate limiting, TLS termination — expected to sit behind a
+  reverse proxy, not handled by this process).
+
 CLAUDE.md canonical usage:
   - Read ops preferred via this server.
   - Write ops via this server eliminate Chrome CDP timeouts on bulk field creation.
@@ -505,67 +518,93 @@ TOOL_HANDLERS = {
 
 # ---- MCP JSON-RPC wiring --------------------------------------------------
 
-def respond(id_, result):
-    msg = {"jsonrpc": "2.0", "id": id_, "result": result}
-    sys.stdout.write(json.dumps(msg) + "\n")
-    sys.stdout.flush()
+def _result_msg(id_, result):
+    return {"jsonrpc": "2.0", "id": id_, "result": result}
 
 
-def respond_error(id_, code, message):
-    msg = {"jsonrpc": "2.0", "id": id_, "error": {"code": code, "message": message}}
-    sys.stdout.write(json.dumps(msg) + "\n")
-    sys.stdout.flush()
+def _error_msg(id_, code, message):
+    return {"jsonrpc": "2.0", "id": id_, "error": {"code": code, "message": message}}
 
 
-def handle(request):
+def build_response(request: Dict) -> Optional[Dict]:
+    """Pure JSON-RPC handler: request dict in, response dict out (or None
+    for notifications that have no response, e.g. notifications/initialized).
+
+    No I/O here — this is the exact same dispatch logic the original
+    stdio-only handle() contained, extracted so both the stdio loop and the
+    HTTP transport can share one tested code path instead of the HTTP mode
+    reimplementing tool dispatch.
+    """
     method = request.get("method", "")
     req_id = request.get("id")
 
     if method == "initialize":
-        respond(req_id, {
+        return _result_msg(req_id, {
             "protocolVersion": "2025-11-25",
             "capabilities": {"tools": {}},
             "serverInfo": {"name": "synapsys-odoo", "version": "2.0"},
         })
     elif method == "tools/list":
-        respond(req_id, {"tools": TOOLS})
+        return _result_msg(req_id, {"tools": TOOLS})
     elif method == "tools/call":
         params = request.get("params", {})
         tool_name = params.get("name")
         tool_args = params.get("arguments") or {}
         handler = TOOL_HANDLERS.get(tool_name)
         if handler is None:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Unknown tool: {tool_name}"}],
                 "isError": True,
             })
-            return
         try:
             result = handler(tool_args)
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": json.dumps(result, indent=2, default=str)}]
             })
         except xmlrpc.client.Fault as ex:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Odoo error: {ex.faultString}"}],
                 "isError": True,
             })
         except Exception as ex:
-            respond(req_id, {
+            return _result_msg(req_id, {
                 "content": [{"type": "text", "text": f"Error: {ex}"}],
                 "isError": True,
             })
     elif method == "notifications/initialized":
-        pass
+        return None
     elif method == "ping":
-        respond(req_id, {})
+        return _result_msg(req_id, {})
     else:
         # Unknown method — respond with empty result so MCP clients don't hang
         if req_id is not None:
-            respond_error(req_id, -32601, f"Method not found: {method}")
+            return _error_msg(req_id, -32601, f"Method not found: {method}")
+        return None
 
 
-def main():
+def respond(id_, result):
+    msg = _result_msg(id_, result)
+    sys.stdout.write(json.dumps(msg) + "\n")
+    sys.stdout.flush()
+
+
+def respond_error(id_, code, message):
+    msg = _error_msg(id_, code, message)
+    sys.stdout.write(json.dumps(msg) + "\n")
+    sys.stdout.flush()
+
+
+def handle(request):
+    """Stdio entry point: build_response() then write the line to stdout.
+    Unchanged behaviour from the original file — same dispatch, now shared
+    with the HTTP path instead of duplicated by it."""
+    response = build_response(request)
+    if response is not None:
+        sys.stdout.write(json.dumps(response) + "\n")
+        sys.stdout.flush()
+
+
+def main_stdio():
     for line in sys.stdin:
         line = line.strip()
         if not line:
@@ -577,6 +616,166 @@ def main():
             sys.stderr.write(f"JSON decode error: {ex}\n")
         except Exception as ex:
             sys.stderr.write(f"Handler error: {ex}\n")
+
+
+# ---- HTTP transport (added for network-hosted deployment) -----------------
+#
+# Built on the real `fastmcp` framework (the same one n8n_mcp.py already
+# uses), not a hand-rolled Starlette endpoint — the prior version of this
+# file was a deliberately simplified, stateless JSON-RPC-over-HTTP shim,
+# documented at the time as needing this exact follow-up: migrating onto
+# the framework's own session manager so odoo-mcp is genuinely
+# spec-compliant streamable-HTTP (matching n8n-mcp) instead of an
+# approximation. It's also what lets it use FastMCP's official Entra ID
+# OAuth-Proxy support (`_azure_auth.py`) without hand-replicating that
+# machinery's routes/middleware — that machinery is exactly what this
+# module would otherwise need to reimplement by hand.
+#
+# The underlying tool_* functions and Odoo XML-RPC helpers above are
+# unchanged; this just exposes them as native FastMCP tools instead of the
+# hand-rolled TOOLS/TOOL_HANDLERS/build_response dispatch, which remains
+# in place unchanged for the stdio path (main_stdio(), handle()) and its
+# existing tests.
+
+def build_fastmcp_app():
+    """Build the FastMCP app used for HTTP transport. Imported lazily so
+    stdio-mode callers (including tests that only exercise build_response())
+    never need fastmcp installed."""
+    sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
+    from fastmcp import FastMCP
+    from starlette.requests import Request
+    from starlette.responses import PlainTextResponse
+    from _bearer_auth import load_required_token  # noqa: E402
+    from _azure_auth import build_combined_auth  # noqa: E402
+
+    app_mcp = FastMCP("synapsys-odoo")
+
+    @app_mcp.custom_route("/health", methods=["GET"])
+    async def health(request: Request) -> PlainTextResponse:
+        return PlainTextResponse("ok")
+
+    @app_mcp.tool()
+    def search_odoo(
+        model: str,
+        domain: list | None = None,
+        fields: list | None = None,
+        limit: int = 1000,
+        offset: int = 0,
+        order: str | None = None,
+    ) -> Any:
+        """Search any Odoo model (search_read). Returns records matching domain."""
+        return tool_search_odoo({
+            "model": model, "domain": domain or [], "fields": fields,
+            "limit": limit, "offset": offset, "order": order,
+        })
+
+    @app_mcp.tool()
+    def read_odoo(model: str, ids: Any, fields: list | None = None) -> Any:
+        """Read specific records by id. Faster than search_read when ids are known."""
+        return tool_read_odoo({"model": model, "ids": ids, "fields": fields})
+
+    @app_mcp.tool()
+    def count_odoo(model: str, domain: list | None = None) -> Any:
+        """Return the count of records matching a domain (search_count)."""
+        return tool_count_odoo({"model": model, "domain": domain or []})
+
+    @app_mcp.tool()
+    def create_odoo(model: str, values: dict) -> Any:
+        """Create a single record. Returns the new id."""
+        return tool_create_odoo({"model": model, "values": values})
+
+    @app_mcp.tool()
+    def write_odoo(model: str, ids: Any, values: dict) -> Any:
+        """Update one or more records. Returns true on success."""
+        return tool_write_odoo({"model": model, "ids": ids, "values": values})
+
+    @app_mcp.tool()
+    def unlink_odoo(model: str, ids: Any) -> Any:
+        """Delete records by id. Odoo raises on records with protective constraints."""
+        return tool_unlink_odoo({"model": model, "ids": ids})
+
+    @app_mcp.tool()
+    def execute_odoo(
+        model: str, method: str, args: list | None = None, kwargs: dict | None = None
+    ) -> Any:
+        """Generic execute_kw passthrough for any Odoo model method."""
+        return tool_execute_odoo({
+            "model": model, "method": method, "args": args or [], "kwargs": kwargs or {},
+        })
+
+    @app_mcp.tool()
+    def search_multi(queries: list, labels: list | None = None) -> Any:
+        """Run multiple search_read queries in one call. Use for 3+ model fetches."""
+        return tool_search_multi({"queries": queries, "labels": labels})
+
+    @app_mcp.tool()
+    def create_fields_batch(model_id: int, fields: list, delay_ms: int = 400) -> Any:
+        """Sequentially create many ir.model.fields on a target model."""
+        return tool_create_fields_batch({"model_id": model_id, "fields": fields, "delay_ms": delay_ms})
+
+    @app_mcp.tool()
+    def create_acls_batch(model_id: int, acls: list) -> Any:
+        """Create multiple ir.model.access records on a model."""
+        return tool_create_acls_batch({"model_id": model_id, "acls": acls})
+
+    auth_token = load_required_token()
+    app_mcp.auth = build_combined_auth(auth_token)
+    return app_mcp
+
+
+def _configure_http_kwargs() -> dict:
+    """Build host/binding + hostname allow-list for HTTP transport, mirroring
+    n8n_mcp.py's equivalent so the two servers behave the same way here."""
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_PORT", "8000"))
+
+    allowed_hosts_raw = os.environ.get("MCP_ALLOWED_HOSTS", "")
+    if not allowed_hosts_raw:
+        sys.stderr.write(
+            "ERROR: MCP_TRANSPORT=http requires MCP_ALLOWED_HOSTS (comma-separated "
+            "hostnames expected in the Host header) — refusing to guess a safe "
+            "default for a network-exposed server.\n"
+        )
+        sys.exit(1)
+    allowed_hosts = [h.strip() for h in allowed_hosts_raw.split(",") if h.strip()]
+
+    allowed_origins_raw = os.environ.get("MCP_ALLOWED_ORIGINS", "")
+    allowed_origins = [o.strip() for o in allowed_origins_raw.split(",") if o.strip()] or None
+
+    http_transport = os.environ.get("MCP_HTTP_TRANSPORT", "http")
+    if http_transport not in ("http", "sse", "streamable-http"):
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_HTTP_TRANSPORT={http_transport!r}; "
+            "use 'http', 'sse', or 'streamable-http'\n"
+        )
+        sys.exit(1)
+
+    return {
+        "transport": http_transport,
+        "host": host,
+        "port": port,
+        "allowed_hosts": allowed_hosts,
+        "allowed_origins": allowed_origins,
+        "host_origin_protection": "auto",
+    }
+
+
+def main_http():
+    app_mcp = build_fastmcp_app()
+    app_mcp.run(**_configure_http_kwargs())
+
+
+def main():
+    transport = os.environ.get("MCP_TRANSPORT", "stdio")
+    if transport == "stdio":
+        main_stdio()
+    elif transport == "http":
+        main_http()
+    else:
+        sys.stderr.write(
+            f"ERROR: unsupported MCP_TRANSPORT={transport!r}; use 'stdio' or 'http'\n"
+        )
+        sys.exit(1)
 
 
 if __name__ == "__main__":
