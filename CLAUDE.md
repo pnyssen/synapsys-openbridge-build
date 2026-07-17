@@ -116,19 +116,37 @@ assumed:
 - Working Memory filing to `05_AI_RETURNS_HASHED` — demonstrated, multiple
   receipts filed and independently re-verified this session.
 
-**Odoo/N8N access model**: this lane holds no standing/ambient Odoo or N8N
-credentials — that has not changed. What *has* changed, per direct Steward
-instruction 2026-07-12, is the target architecture: rather than a flat
+**Odoo/N8N access model**: **superseded in part, 2026-07-16/17 — verify
+before trusting the paragraph below as current.** A read-only connector pair
+(`synapsys-n8n-readonly-code`, `synapsys-odoo-readonly-code`) is now present
+in this lane's session toolset. N8N access independently confirmed working
+this session: `ping_n8n` → `{"ok": true, "url": "https://n8n.srv1536619.hstgr.cloud", ...}`,
+called directly, not taken on a sibling session's screenshot alone. Odoo
+readonly tools (`count_odoo`/`read_odoo`/`search_multi`/`search_odoo`) are
+present in the toolset per direct `ToolSearch` discovery this session, but no
+successful Odoo call has been independently completed by this lane as of
+this edit — do not treat Odoo access as confirmed-working until a call
+actually succeeds. This is a **read-only** surface, distinct from the
+full-CRUD tool set named in Amendment 2 below (`create_odoo`/`write_odoo`/
+`unlink_odoo`/`execute_odoo`/etc., `update_workflow`/`activate_workflow`/
+`deactivate_workflow`/etc.) — those full-CRUD-named servers
+(`SynapSys_Odoo_MCP`/`SynapSys_N8N_MCP`) have been observed connecting and
+disconnecting during this session but no successful call through them has
+been completed either. Do not conflate "a readonly connector now works" with
+"Amendment 2's full-CRUD grant is now operative" — they are two different
+things and only the first is confirmed as of this edit.
+
+Original paragraph, kept for lineage, now inaccurate in the "still has no
+direct Odoo/N8N read... path" claim specifically: rather than a flat
 per-lane access boundary, any ecosystem lane may call a scoped **Claude/Code
 Service** to reach Odoo, subject to Odoo's own field/record-level controls,
 with Codex T1 instructed to expose an equivalent service and both entries
 published to the existing Odoo Service Catalogue. **Status: PROPOSED / not
 yet built** — see
 `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md`.
-Until that service exists and is registered, this lane still has no direct
-Odoo/N8N read or write path — the standing verification-gap requirement
+The standing verification-gap requirement
 (`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`)
-remains in force unchanged.
+should be re-read fresh, not assumed unchanged, given the above.
 
 What this lane does **not** have, unchanged: browser control, or any
 push/notification channel to another AI lane (Cowork, Codex T1, ChatGPT
@@ -138,9 +156,12 @@ ecosystem operates under, not a limitation specific to this one.
 
 Distinct value: this is the lane that can actually write and execute code
 with a real test runner and push it somewhere reviewable. Cowork has
-Odoo/N8N/browser access this lane doesn't. Neither substitutes for the
-other — route work to whichever lane's demonstrated capability actually
-matches the task, not by assumption.
+browser access this lane doesn't, and (per prior sessions' own filings) a
+full-CRUD Odoo/N8N tool set — this lane's own Odoo/N8N access, as of
+2026-07-16/17, is a narrower, independently-confirmed-for-N8N-only readonly
+surface (see Amendment 2 section below), not full parity. Neither
+substitutes for the other — route work to whichever lane's demonstrated
+capability actually matches the task, not by assumption.
 
 # Proactive Behaviors
 
@@ -251,6 +272,17 @@ itself grant working access — that requires Steward/D001 to run
 `claude mcp add` with a real, distinct Odoo/N8N credential against this
 lane's own environment, which this lane cannot do for itself per the
 "will not self-configure an MCP connector or self-issue a credential"
-clause above. Until that technical step happens, this lane still has no
-working Odoo/N8N tool in its session toolset, regardless of what this
-file says.
+clause above.
+
+**Update, 2026-07-16/17**: the connector-configuration step has been
+partially completed by Steward/D001 — see the corrected "Odoo/N8N access
+model" paragraph above. A *readonly* connector pair now works (N8N
+independently verified this session; Odoo present but not yet independently
+call-verified). This is progress toward, but is **not** the same as, this
+Amendment 2 section's full-CRUD grant becoming operative — the specific
+tool names listed above (`create_odoo`/`write_odoo`/`unlink_odoo`/
+`execute_odoo`/`create_fields_batch`/`create_acls_batch`/`update_workflow`/
+`activate_workflow`/`deactivate_workflow`/`trigger_webhook`) have not been
+confirmed working by this lane as of this edit. Re-verify directly before
+relying on either claim — do not assume this note is still current by the
+time you read it.
