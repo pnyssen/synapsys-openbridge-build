@@ -103,6 +103,29 @@ Two things this repo file cannot do, still outstanding:
    That approval step, like connector configuration generally, is not
    something this lane performs for itself.
 
+   **Diagnosed and durably fixed 2026-07-14**: since every cloud session is
+   a fresh ephemeral VM, an interactive approval granted in one session
+   cannot carry over to the next — so this gate could never clear itself
+   through normal use, which is exactly what was observed (`claude mcp
+   list` showing both servers permanently `⏸ Pending approval`, and every
+   `tools/call` against either failing with `Tool permission stream closed
+   before response received`, reproduced repeatedly). The durable,
+   repo-native fix: `.claude/settings.json` now sets
+   `"enabledMcpjsonServers": ["synapsys-n8n-readonly-code",
+   "synapsys-odoo-readonly-code"]` — Claude Code's own allowlist field for
+   pre-approving specific `.mcp.json` servers, scoped to only these two
+   read-only servers (not a blanket `enableAllProjectMcpServers`, and not
+   covering the write-capable `odoo_mcp.py`/`n8n_mcp.py` reference copies,
+   which stay ungated since they aren't declared in `.mcp.json` at all).
+   Confirmed the field name/shape is correct against this environment's own
+   per-project runtime state (`~/.claude.json` → `projects["<repo
+   path>"].enabledMcpjsonServers`) — but this session's own approval
+   snapshot was already taken before the fix was committed, so full
+   end-to-end confirmation (a *fresh* session actually coming up
+   pre-approved) is still pending a merge + new session, not yet closed
+   the way the rest of this diagnosis was. See working memory
+   `05_AI_RETURNS_HASHED/20260714_RET_GEN_claude-code-odoo-n8n-mcp-approval-gate-diagnosis_v0.1.md` (SHA-256 `51689e08a276bff2eb07565018c254b7f9f8d50d114c63f80d9206093c094d07`).
+
 ## Both require secrets to run
 
 Neither file has default/embedded credentials. Both fail loudly (`odoo_mcp.py`
