@@ -283,3 +283,21 @@ never actually resolved by either the connector/credential work or that
 correction is the approval-gate persistence problem fixed just above —
 recorded here so the lineage of what was wrong, and when it was fixed, stays
 legible rather than silently overwritten.
+
+# Deliverable Filing Rule — Working Memory, Not Chat-Only Delivery
+
+Steward-ruled 2026-07-18, binding for the `claude_code` lane: every file this
+lane produces as a deliverable (scripts, configs, test fixtures, generated
+output — not just WM_03-style return documents) is filed to
+`11_WORKING_MEMORY/05_AI_RETURNS_HASHED` before or alongside handing it to the
+user, and every message that delivers or references those files states each
+file's WM link in the message itself. Chat-only delivery (e.g. sending files
+as local attachments with no WM copy) is no longer sufficient on its own —
+attach for convenience if useful, but the WM filing is the record that
+persists and that other lanes can reference.
+
+This sits inside the existing write-authorization boundary already
+documented above (new-file creation in `05_AI_RETURNS_HASHED` only — no
+overwriting canon/protocol/register files, no folder creation elsewhere): it
+changes *what gets filed* (now includes ordinary code/data deliverables, not
+only formal return packets) but not *where* or *what scope*.
