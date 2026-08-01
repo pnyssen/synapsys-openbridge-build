@@ -1,0 +1,249 @@
+{
+  "authority": "Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)",
+  "evidence": "LIVE_VERIFIED",
+  "objects": [
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,752",
+      "group": "Govern",
+      "id": "menu_489",
+      "kind": "odoo_menu_item",
+      "label": "Context Master",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,764",
+      "group": "Deliver_Govern",
+      "id": "menu_1009",
+      "kind": "odoo_menu_item",
+      "label": "Change Requests",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1396",
+      "group": "SynapSys_Value_Govern",
+      "id": "menu_1012",
+      "kind": "odoo_menu_item",
+      "label": "Governance Decisions",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_498",
+      "kind": "odoo_menu_item",
+      "label": "Service Control",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1396",
+      "group": "Deliver_Govern",
+      "id": "menu_1010",
+      "kind": "odoo_menu_item",
+      "label": "Governance Decisions",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1403",
+      "group": "SynapSys_Value_Govern",
+      "id": "menu_1013",
+      "kind": "odoo_menu_item",
+      "label": "DIM Cycles",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_542",
+      "kind": "odoo_menu_item",
+      "label": "Governed Entities",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_493",
+      "kind": "odoo_menu_item",
+      "label": "Controls & Exceptions",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1400",
+      "group": "Deliver_Govern",
+      "id": "menu_1011",
+      "kind": "odoo_menu_item",
+      "label": "Execution Gates",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1397",
+      "group": "SynapSys_Value_Govern",
+      "id": "menu_1014",
+      "kind": "odoo_menu_item",
+      "label": "Reviews",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_989",
+      "kind": "odoo_menu_item",
+      "label": "Risk & Integrity (Lens 2)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_992",
+      "kind": "odoo_menu_item",
+      "label": "Execution Control (Lens 3)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=ir.actions.act_window,1504",
+      "group": "Govern",
+      "id": "menu_1099",
+      "kind": "odoo_menu_item",
+      "label": "DIM Events",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "detail": "action=no_action_container_menu",
+      "group": "Govern",
+      "id": "menu_981",
+      "kind": "odoo_menu_item",
+      "label": "Traditional Board (Lens 1)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "group": "Deliver_Govern",
+      "id": "parent_Deliver_Govern",
+      "kind": "odoo_menu_parent",
+      "label": "Deliver/Govern",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "group": "Govern",
+      "id": "parent_Govern",
+      "kind": "odoo_menu_parent",
+      "label": "Govern",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "group": "SynapSys_Value_Govern",
+      "id": "parent_SynapSys_Value_Govern",
+      "kind": "odoo_menu_parent",
+      "label": "SynapSys/Value/Govern",
+      "lifecycle_state": "active"
+    }
+  ],
+  "ppv": "Potential — read-only projection; no Odoo record created/written/unlinked to produce it",
+  "reality": "IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)",
+  "relationships": [
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_489",
+      "to": "menu_489",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Deliver_Govern",
+      "id": "r_menu_1009",
+      "to": "menu_1009",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_SynapSys_Value_Govern",
+      "id": "r_menu_1012",
+      "to": "menu_1012",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_498",
+      "to": "menu_498",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Deliver_Govern",
+      "id": "r_menu_1010",
+      "to": "menu_1010",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_SynapSys_Value_Govern",
+      "id": "r_menu_1013",
+      "to": "menu_1013",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_542",
+      "to": "menu_542",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_493",
+      "to": "menu_493",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Deliver_Govern",
+      "id": "r_menu_1011",
+      "to": "menu_1011",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_SynapSys_Value_Govern",
+      "id": "r_menu_1014",
+      "to": "menu_1014",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_989",
+      "to": "menu_989",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_992",
+      "to": "menu_992",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_1099",
+      "to": "menu_1099",
+      "verb": "contains"
+    },
+    {
+      "from": "parent_Govern",
+      "id": "r_menu_981",
+      "to": "menu_981",
+      "verb": "contains"
+    }
+  ],
+  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+  "snapshot": "2026-08-02T02:15:00Z",
+  "source": "mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance",
+  "title": "Odoo — Govern Menu Tree (live, x_ss custom governance menus)",
+  "view_id": "odoo_app_menu_object"
+}

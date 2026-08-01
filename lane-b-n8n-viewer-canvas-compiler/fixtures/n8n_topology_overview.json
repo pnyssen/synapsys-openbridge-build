@@ -1,0 +1,462 @@
+{
+  "authority": "Read-only viewer projection; no activation/deactivation/update authority exercised",
+  "evidence": "LIVE_VERIFIED",
+  "objects": [
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "2CNI1RusyxvmOneX",
+      "kind": "n8n_workflow",
+      "label": "W6 — Partner Authority Validation (D005 Agreement Check)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "3K9itPD5Ehuw83en",
+      "kind": "n8n_workflow",
+      "label": "W4 — Benefits Tracking KPI Update (Scheduled/Event)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "3OXOZg6QRJlaBPVJ",
+      "kind": "n8n_workflow",
+      "label": "W10 — Change Request Lifecycle (Webhook + Scheduled)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "5GoMaZUrYmBaoJg0",
+      "kind": "n8n_workflow",
+      "label": "W5 — Compliance Routing (Regulated Programme Trigger)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "7L5tLWOPTeqRzw3r",
+      "kind": "n8n_workflow",
+      "label": "D007 — Navigator Static Adoption Production",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "7N5mIIiAbGWoFsS2",
+      "kind": "n8n_workflow",
+      "label": "WM_TO_GEMINI_SUBSTRATE_BUNDLE",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "8zrvRkMXpCqk5HqS",
+      "kind": "n8n_workflow",
+      "label": "verify · dispatch validation & gate (W15-CR1)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "96UoiUGM6VGfdK8M",
+      "kind": "n8n_workflow",
+      "label": "JQ003 CGPT Odoo Read-Only Facade",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=True",
+      "group": "utility_and_infra",
+      "id": "9YZ6CxMSunZukz2D",
+      "kind": "n8n_workflow",
+      "label": "MCP Hub",
+      "lifecycle_state": "retired"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "9jK9XPNLo6sgJOyQ",
+      "kind": "n8n_workflow",
+      "label": "W16 — SIAS Asset Spine Creation (Webhook from Asset Register)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "utility_and_infra",
+      "id": "AUnXWh43u0d4QSSW",
+      "kind": "n8n_workflow",
+      "label": "QIDIP-RuleE-LinkageIntegrity Trigger",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "cgpt_facade",
+      "id": "CmGOUh4shpeI6PM0",
+      "kind": "n8n_workflow",
+      "label": "H1_CGPT_N8N_Action_Facade_v2 copy",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "EhCDmEgWQuqHvNQt",
+      "kind": "n8n_workflow",
+      "label": "W1 - ITC Opportunity Intake v3.1.2 [RETIRED — superseded by rFiQbaLGVSqNHxzJ, CHG-2026-444]",
+      "lifecycle_state": "retired"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "GbSaoOuhfc2bZugL",
+      "kind": "n8n_workflow",
+      "label": "W2 — Programme Activation (Odoo CRM → Programme Register)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "KepYeU9sRGGVej9M",
+      "kind": "n8n_workflow",
+      "label": "D007 — Working Memory Static Release & Obsidian Adoption v2",
+      "lifecycle_state": "superseded"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "KpjCoiFNrjTNbbat",
+      "kind": "n8n_workflow",
+      "label": "W7 — ITC Exception Handling v2",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "L3uMe5mNd1UZVY1V",
+      "kind": "n8n_workflow",
+      "label": "BIND_TOOL_VALIDATION_THROWAWAY_DO_NOT_ACTIVATE",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "L6ZKFeA4eoKeTebx",
+      "kind": "n8n_workflow",
+      "label": "MCP_CREATE_WORKFLOW_CAPABILITY_TEST_DO_NOT_ACTIVATE",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "LUcJA7dPgr5VxsGa",
+      "kind": "n8n_workflow",
+      "label": "W13 — Service Linkage Enforcement (Weekly Scan)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "MQT2Nt7G2dZcQ7xI",
+      "kind": "n8n_workflow",
+      "label": "W12 — Configuration Register Sync (Scheduled/Webhook)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "Mn0mBl3whA0xgVB3",
+      "kind": "n8n_workflow",
+      "label": "W14 — Intelligence Signal Processing (Webhook)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "O99dGEBtgmph7qWb",
+      "kind": "n8n_workflow",
+      "label": "NAV_OBS_FND_04_ZLIB_PROBE_v0.1",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "OfE27WyEcHTOP6eb",
+      "kind": "n8n_workflow",
+      "label": "W11 — Release Validation & Deployment (Webhook)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "Q7dCfsw0t9DAbhFD",
+      "kind": "n8n_workflow",
+      "label": "route · dispatch routing (W15-CR2)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "RpZLHVrPu2WrGf3h",
+      "kind": "n8n_workflow",
+      "label": "W17 - AI-to-AI Structured Handoff Workflow",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "SYTkLSvDiHIHINnB",
+      "kind": "n8n_workflow",
+      "label": "W3 — Benefit Event Capture (Milestone → Benefits Register)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "U0DhJ3bqad1wZ1rc",
+      "kind": "n8n_workflow",
+      "label": "D007 — Working Memory Static Release & Obsidian Adoption",
+      "lifecycle_state": "superseded"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "Yv1GKWf11RF4I2MH",
+      "kind": "n8n_workflow",
+      "label": "W8 — Exception Escalation (To D007 Platform Lead)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "aRwXxftzB2K1JhPP",
+      "kind": "n8n_workflow",
+      "label": "sandbox_workflow",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "aUX0Ca07HSgzsdSJ",
+      "kind": "n8n_workflow",
+      "label": "W9 — Service Catalogue Validation (Webhook)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "cgpt_facade",
+      "id": "aqDmGinCTRutOr4Q",
+      "kind": "n8n_workflow",
+      "label": "H1_CGPT_N8N_Action_Facade_v2",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "cgpt_facade",
+      "id": "bcLCmdjwVl1wUpU8",
+      "kind": "n8n_workflow",
+      "label": "H1_CGPT_N8N_Action_Facade",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "cRSti9FpTZ998FKu",
+      "kind": "n8n_workflow",
+      "label": "D007 — Working Memory Static Release & Obsidian Adoption v3",
+      "lifecycle_state": "superseded"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "cum6pn5hVGmp8Prd",
+      "kind": "n8n_workflow",
+      "label": "DISPATCHER-V4 — Live Executor Pattern (10-Component Membrane)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=True",
+      "group": "core_wave_w1_w17",
+      "id": "iKG5vp2Grpt2qNT2",
+      "kind": "n8n_workflow",
+      "label": "W7 — ITC Exception Handling v2",
+      "lifecycle_state": "retired"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "lCYsb4MMKkpEBKeq",
+      "kind": "n8n_workflow",
+      "label": "D007 — Working Memory Static Release & Obsidian Adoption FINAL",
+      "lifecycle_state": "superseded"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "nnLmPirbJO8FD7Ow",
+      "kind": "n8n_workflow",
+      "label": "sense · dispatch read path (CR-4)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "nsOD1Khga9xwNUBX",
+      "kind": "n8n_workflow",
+      "label": "JQ003 Authenticated Self-Test — INACTIVE",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "portal_launch",
+      "id": "oUvOkSi0lvBkoUoH",
+      "kind": "n8n_workflow",
+      "label": "W-portal-intake",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "rFiQbaLGVSqNHxzJ",
+      "kind": "n8n_workflow",
+      "label": "W1 — Opportunity Intake (AVA Portal → Odoo CRM)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "te2vI1VSDXb24fFA",
+      "kind": "n8n_workflow",
+      "label": "W-CODEX-READINESS-PING",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "u036lOwnO8KGPZRa",
+      "kind": "n8n_workflow",
+      "label": "STG-WM-WRITE-GATEWAY",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "portal_launch",
+      "id": "uO5vYklSMooXMLpF",
+      "kind": "n8n_workflow",
+      "label": "W-lms-launch",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "upZOd9q78pjivkd8",
+      "kind": "n8n_workflow",
+      "label": "W2A — Value Module Initialisation",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "N8N_INSTANCE_READ_ONLY_SCOPE (owner confirmed personal-project phil@synapsys.com.au for D007 lineage only, via get_workflow)",
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "vKnnSxKIqJR9Qix7",
+      "kind": "n8n_workflow",
+      "label": "Test_CR-A_JSONRPC_RO_v0.1",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential — this projection does not itself promote or activate anything",
+  "reality": "IMPLEMENTED — reflects the live N8N instance's workflow set at snapshot time, not a design intent",
+  "relationships": [
+    {
+      "from": "U0DhJ3bqad1wZ1rc",
+      "id": "r_d007_v1_v2",
+      "lifecycle_state": "superseded",
+      "to": "KepYeU9sRGGVej9M",
+      "verb": "superseded_by"
+    },
+    {
+      "from": "KepYeU9sRGGVej9M",
+      "id": "r_d007_v2_v3",
+      "lifecycle_state": "superseded",
+      "to": "cRSti9FpTZ998FKu",
+      "verb": "superseded_by"
+    },
+    {
+      "from": "cRSti9FpTZ998FKu",
+      "id": "r_d007_v3_final",
+      "lifecycle_state": "superseded",
+      "to": "lCYsb4MMKkpEBKeq",
+      "verb": "superseded_by"
+    },
+    {
+      "from": "lCYsb4MMKkpEBKeq",
+      "id": "r_d007_final_prod",
+      "lifecycle_state": "superseded",
+      "to": "7L5tLWOPTeqRzw3r",
+      "verb": "superseded_by"
+    },
+    {
+      "from": "EhCDmEgWQuqHvNQt",
+      "id": "r_w1_retired",
+      "lifecycle_state": "retired",
+      "to": "rFiQbaLGVSqNHxzJ",
+      "verb": "superseded_by"
+    },
+    {
+      "from": "iKG5vp2Grpt2qNT2",
+      "id": "r_w7_archived",
+      "lifecycle_state": "retired",
+      "to": "KpjCoiFNrjTNbbat",
+      "verb": "superseded_by"
+    }
+  ],
+  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+  "snapshot": "2026-08-02T02:15:00Z",
+  "source": "mcp__synapsys-n8n-readonly-code__list_workflows(limit=50) — live SynapSys N8N instance",
+  "title": "N8N Workflow Overview — All Workflows (live)",
+  "view_id": "n8n_topology"
+}

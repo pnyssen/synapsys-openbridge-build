@@ -1,0 +1,135 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_triad",
+      "id": "verb_1_sense",
+      "kind": "operating_verb",
+      "label": "Sense",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_triad",
+      "id": "verb_2_route",
+      "kind": "operating_verb",
+      "label": "Route",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_triad",
+      "id": "verb_3_verify",
+      "kind": "operating_verb",
+      "label": "Verify",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_triad",
+      "id": "verb_4_decide",
+      "kind": "operating_verb",
+      "label": "Decide",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_triad",
+      "id": "verb_5_execute",
+      "kind": "operating_verb",
+      "label": "Execute",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_triad",
+      "id": "verb_6_record",
+      "kind": "operating_verb",
+      "label": "Record",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "3_triad",
+      "id": "verb_7_learn",
+      "kind": "operating_verb",
+      "label": "Learn",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "3_triad",
+      "id": "verb_8_escalate",
+      "kind": "operating_verb",
+      "label": "Escalate",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "3_triad",
+      "id": "verb_9_return",
+      "kind": "operating_verb",
+      "label": "Return",
+      "lifecycle_state": "active"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "verb_1_sense",
+      "id": "e1",
+      "to": "verb_2_route",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_2_route",
+      "id": "e2",
+      "to": "verb_3_verify",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_3_verify",
+      "id": "e3",
+      "to": "verb_4_decide",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_4_decide",
+      "id": "e4",
+      "to": "verb_5_execute",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_5_execute",
+      "id": "e5",
+      "to": "verb_6_record",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_6_record",
+      "id": "e6",
+      "to": "verb_7_learn",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_7_learn",
+      "id": "e7",
+      "to": "verb_8_escalate",
+      "verb": "sequences_to"
+    },
+    {
+      "from": "verb_8_escalate",
+      "id": "e8",
+      "to": "verb_9_return",
+      "verb": "sequences_to"
+    }
+  ],
+  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+  "snapshot": "2026-08-02T02:15:00Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the nine_verbs view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Nine-Verb Operating Model — labelled fixture",
+  "view_id": "nine_verbs"
+}

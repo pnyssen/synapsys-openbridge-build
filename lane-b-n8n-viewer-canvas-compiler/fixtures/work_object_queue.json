@@ -1,0 +1,71 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "wave_controller_v0.2",
+      "group": "1_active",
+      "id": "wo_b",
+      "kind": "work_object",
+      "label": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001 (this wave)",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "wave_controller_v0.2",
+      "group": "2_lanes",
+      "id": "wo_a",
+      "kind": "work_object_lane",
+      "label": "Stream A — Codex runtime/integration graph",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "wave_controller_v0.2",
+      "group": "2_lanes",
+      "id": "wo_c",
+      "kind": "work_object_lane",
+      "label": "Stream C — Claude CoWork/Fable visual system",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "wave_controller_v0.2",
+      "group": "3_held",
+      "id": "wo_d009",
+      "kind": "work_object_lane",
+      "label": "D009 integrated assurance",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "wo_b",
+      "id": "e1",
+      "to": "wo_a",
+      "verb": "runs_alongside"
+    },
+    {
+      "from": "wo_b",
+      "id": "e2",
+      "to": "wo_c",
+      "verb": "runs_alongside"
+    },
+    {
+      "from": "wo_a",
+      "id": "e3",
+      "to": "wo_d009",
+      "verb": "feeds"
+    },
+    {
+      "from": "wo_c",
+      "id": "e4",
+      "to": "wo_d009",
+      "verb": "feeds"
+    }
+  ],
+  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+  "snapshot": "2026-08-02T02:15:00Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the work_object_queue view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Current Work Object Queue — labelled fixture",
+  "view_id": "work_object_queue"
+}

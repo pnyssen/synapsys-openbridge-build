@@ -1,0 +1,712 @@
+{
+  "authority": "Read-only viewer; no N8N mutation call made to build this snapshot",
+  "evidence": "LIVE_VERIFIED",
+  "executions": [
+    {
+      "id": "1392",
+      "mode": "webhook",
+      "note": "legitimate adoption run; all 6 verification gates passed; 65/65 files uploaded",
+      "startedAt": "2026-08-01T14:21:23.044Z",
+      "status": "success",
+      "stoppedAt": "2026-08-01T14:21:28.490Z",
+      "workflowId": "7L5tLWOPTeqRzw3r"
+    },
+    {
+      "id": "1393",
+      "mode": "webhook",
+      "note": "replay/retry attempt correctly rejected (ROOT_HASH_DRIFT gate fires once the root pointer has already changed) — fails safe, not a defect",
+      "startedAt": "2026-08-01T14:49:50.736Z",
+      "status": "error",
+      "stoppedAt": "2026-08-01T14:49:50.748Z",
+      "workflowId": "7L5tLWOPTeqRzw3r"
+    }
+  ],
+  "ppv": "Potential",
+  "receipts": [
+    {
+      "name": "Adoption receipt",
+      "note": "filed by execution 1392; workspace_files=62, rollback_files=3",
+      "path": "Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/../.../NAVIGATOR_MVP_STATIC_OBSIDIAN_ADOPTION_RECEIPT_v0.2.1.md"
+    },
+    {
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption",
+      "note": "superseded_by v2 (KepYeU9sRGGVej9M)",
+      "path": "U0DhJ3bqad1wZ1rc"
+    },
+    {
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption v2",
+      "note": "superseded_by v3 (cRSti9FpTZ998FKu)",
+      "path": "KepYeU9sRGGVej9M"
+    },
+    {
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption v3",
+      "note": "superseded_by FINAL (lCYsb4MMKkpEBKeq)",
+      "path": "cRSti9FpTZ998FKu"
+    },
+    {
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption FINAL",
+      "note": "superseded_by production cutover (7L5tLWOPTeqRzw3r)",
+      "path": "lCYsb4MMKkpEBKeq"
+    },
+    {
+      "name": "W1 - ITC Opportunity Intake v3.1.2",
+      "note": "RETIRED per CHG-2026-444, superseded_by rFiQbaLGVSqNHxzJ (per its own self-declared name)",
+      "path": "EhCDmEgWQuqHvNQt"
+    },
+    {
+      "name": "W7 — ITC Exception Handling v2 (archived copy)",
+      "note": "isArchived=true, superseded_by the active KpjCoiFNrjTNbbat of the same name",
+      "path": "iKG5vp2Grpt2qNT2"
+    }
+  ],
+  "security": {
+    "findings": [
+      "GAP: the trigger webhook (node p01) has no transport-level authentication (no header-auth/basic-auth credential) — the only gate is exact-value matching against fields including payload/authority SHA-256, which are filed openly in Working Memory receipts. Recommended fix: add N8N header-auth or basic-auth to the webhook trigger node.",
+      "OBSERVATION: the workflow is single-use by construction (hardcoded authority_sha256/payload_sha256/payload_size/expected root hash) — safe-refuses rather than misfires on any future v0.3 adoption, but its generic name could invite a mistaken 'reusable' assumption.",
+      "OBSERVATION: no automated cleanup on a mid-upload partial failure — fails safe (blocks retry via the destination-empty precondition) rather than fails dangerous."
+    ],
+    "summary": "Node-by-node review confirms an exact-match request allowlist, dual authority check (hash + required substring), destination-empty precondition, root-hash-drift concurrency guard, path-traversal rejection, and exact-count upload assertions — all read directly from the live workflow JSON, not assumed.",
+    "validation_return": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md",
+    "verdict": "PASS_WITH_CONDITIONS"
+  },
+  "snapshot": "2026-08-02T02:15:00Z",
+  "source": "mcp__synapsys-n8n-readonly-code__{list_workflows,get_workflow,list_executions} — live SynapSys N8N instance",
+  "wave": "W-NAV-INT-MVP-20260802-01",
+  "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+  "workflow_detail": {
+    "active": true,
+    "edges": [
+      [
+        "p01",
+        "p02"
+      ],
+      [
+        "p02",
+        "p03"
+      ],
+      [
+        "p03",
+        "p04"
+      ],
+      [
+        "p04",
+        "p05"
+      ],
+      [
+        "p05",
+        "p06"
+      ],
+      [
+        "p06",
+        "p07"
+      ],
+      [
+        "p07",
+        "p08"
+      ],
+      [
+        "p08",
+        "p09"
+      ],
+      [
+        "p09",
+        "p10"
+      ],
+      [
+        "p10",
+        "p11"
+      ],
+      [
+        "p11",
+        "p12"
+      ],
+      [
+        "p12",
+        "p13"
+      ],
+      [
+        "p13",
+        "p14"
+      ],
+      [
+        "p14",
+        "p15"
+      ],
+      [
+        "p15",
+        "p16"
+      ],
+      [
+        "p16",
+        "p17"
+      ],
+      [
+        "p17",
+        "p18"
+      ],
+      [
+        "p18",
+        "p19"
+      ],
+      [
+        "p19",
+        "p20"
+      ],
+      [
+        "p20",
+        "p21"
+      ],
+      [
+        "p21",
+        "p22"
+      ],
+      [
+        "p22",
+        "p23"
+      ],
+      [
+        "p23",
+        "p24"
+      ],
+      [
+        "p24",
+        "p25"
+      ],
+      [
+        "p25",
+        "p26"
+      ]
+    ],
+    "id": "7L5tLWOPTeqRzw3r",
+    "name": "D007 — Navigator Static Adoption Production",
+    "nodes": [
+      {
+        "authority": "no_transport_auth_configured (see D007 validation return finding)",
+        "group": "0_trigger",
+        "id": "p01",
+        "kind": "webhook",
+        "label": "Webhook — Navigator Adoption",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p02",
+        "kind": "code",
+        "label": "Validate Request and Build Routes",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+        "group": "1_prepare_fetch",
+        "id": "p03",
+        "kind": "httpRequest",
+        "label": "Fetch Authority",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p04",
+        "kind": "crypto",
+        "label": "Hash Authority",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "2_verification_gate",
+        "id": "p05",
+        "kind": "code",
+        "label": "Validate Authority",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+        "group": "1_prepare_fetch",
+        "id": "p06",
+        "kind": "httpRequest",
+        "label": "Inspect Destination",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "2_verification_gate",
+        "id": "p07",
+        "kind": "code",
+        "label": "Validate Destination",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+        "group": "1_prepare_fetch",
+        "id": "p08",
+        "kind": "httpRequest",
+        "label": "Fetch Current Root",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p09",
+        "kind": "crypto",
+        "label": "Hash Current Root",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node); enforces ROOT_HASH_DRIFT gate",
+        "group": "2_verification_gate",
+        "id": "p10",
+        "kind": "code",
+        "label": "Validate Current Root",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+        "group": "3_write_action",
+        "id": "p11",
+        "kind": "httpRequest",
+        "label": "Provision Date Folder",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+        "group": "3_write_action",
+        "id": "p12",
+        "kind": "httpRequest",
+        "label": "Provision Rollback Folder",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+        "group": "3_write_action",
+        "id": "p13",
+        "kind": "httpRequest",
+        "label": "Provision Destination Folder",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p14",
+        "kind": "code",
+        "label": "Validate Folder Provisioning",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+        "group": "1_prepare_fetch",
+        "id": "p15",
+        "kind": "httpRequest",
+        "label": "Fetch Adoption ZIP",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p16",
+        "kind": "code",
+        "label": "Set ZIP Metadata",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p17",
+        "kind": "crypto",
+        "label": "Hash ZIP",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node); enforces PAYLOAD_HASH_MISMATCH gate",
+        "group": "2_verification_gate",
+        "id": "p18",
+        "kind": "code",
+        "label": "Validate ZIP Hash",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p19",
+        "kind": "compression",
+        "label": "Decompress ZIP",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node); enforces ARCHIVE_COUNT_MISMATCH gate + path-traversal rejection",
+        "group": "2_verification_gate",
+        "id": "p20",
+        "kind": "code",
+        "label": "Split Archive Files",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=false",
+        "group": "3_write_action",
+        "id": "p21",
+        "kind": "httpRequest",
+        "label": "Upload Deployment Files",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node); enforces UPLOAD_COUNT_MISMATCH / UPLOAD_FAILURES gate",
+        "group": "2_verification_gate",
+        "id": "p22",
+        "kind": "code",
+        "label": "Validate Uploads",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+        "group": "3_write_action",
+        "id": "p23",
+        "kind": "httpRequest",
+        "label": "Cut Over Root Pointer Last",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p24",
+        "kind": "code",
+        "label": "Build Receipt",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+        "group": "3_write_action",
+        "id": "p25",
+        "kind": "httpRequest",
+        "label": "Write Receipt",
+        "lifecycle_state": "active"
+      },
+      {
+        "authority": "no_credential (pure code node)",
+        "group": "1_prepare_fetch",
+        "id": "p26",
+        "kind": "respondToWebhook",
+        "label": "Respond Success",
+        "lifecycle_state": "active"
+      }
+    ],
+    "trigger_path": "POST /webhook/d007-navigator-static-adoption-prod-8a21c4",
+    "versionCounter": 4
+  },
+  "workflows": [
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "2CNI1RusyxvmOneX",
+      "lifecycle_state": "active",
+      "name": "W6 — Partner Authority Validation (D005 Agreement Check)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "3K9itPD5Ehuw83en",
+      "lifecycle_state": "active",
+      "name": "W4 — Benefits Tracking KPI Update (Scheduled/Event)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "3OXOZg6QRJlaBPVJ",
+      "lifecycle_state": "active",
+      "name": "W10 — Change Request Lifecycle (Webhook + Scheduled)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "5GoMaZUrYmBaoJg0",
+      "lifecycle_state": "active",
+      "name": "W5 — Compliance Routing (Regulated Programme Trigger)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "7L5tLWOPTeqRzw3r",
+      "lifecycle_state": "active",
+      "name": "D007 — Navigator Static Adoption Production"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "7N5mIIiAbGWoFsS2",
+      "lifecycle_state": "held",
+      "name": "WM_TO_GEMINI_SUBSTRATE_BUNDLE"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "8zrvRkMXpCqk5HqS",
+      "lifecycle_state": "active",
+      "name": "verify · dispatch validation & gate (W15-CR1)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "96UoiUGM6VGfdK8M",
+      "lifecycle_state": "held",
+      "name": "JQ003 CGPT Odoo Read-Only Facade"
+    },
+    {
+      "detail": "active=False isArchived=True",
+      "group": "utility_and_infra",
+      "id": "9YZ6CxMSunZukz2D",
+      "lifecycle_state": "retired",
+      "name": "MCP Hub"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "9jK9XPNLo6sgJOyQ",
+      "lifecycle_state": "active",
+      "name": "W16 — SIAS Asset Spine Creation (Webhook from Asset Register)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "utility_and_infra",
+      "id": "AUnXWh43u0d4QSSW",
+      "lifecycle_state": "active",
+      "name": "QIDIP-RuleE-LinkageIntegrity Trigger"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "cgpt_facade",
+      "id": "CmGOUh4shpeI6PM0",
+      "lifecycle_state": "held",
+      "name": "H1_CGPT_N8N_Action_Facade_v2 copy"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "EhCDmEgWQuqHvNQt",
+      "lifecycle_state": "retired",
+      "name": "W1 - ITC Opportunity Intake v3.1.2 [RETIRED — superseded by rFiQbaLGVSqNHxzJ, CHG-2026-444]"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "GbSaoOuhfc2bZugL",
+      "lifecycle_state": "active",
+      "name": "W2 — Programme Activation (Odoo CRM → Programme Register)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "KepYeU9sRGGVej9M",
+      "lifecycle_state": "superseded",
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption v2"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "KpjCoiFNrjTNbbat",
+      "lifecycle_state": "active",
+      "name": "W7 — ITC Exception Handling v2"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "L3uMe5mNd1UZVY1V",
+      "lifecycle_state": "held",
+      "name": "BIND_TOOL_VALIDATION_THROWAWAY_DO_NOT_ACTIVATE"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "L6ZKFeA4eoKeTebx",
+      "lifecycle_state": "held",
+      "name": "MCP_CREATE_WORKFLOW_CAPABILITY_TEST_DO_NOT_ACTIVATE"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "LUcJA7dPgr5VxsGa",
+      "lifecycle_state": "active",
+      "name": "W13 — Service Linkage Enforcement (Weekly Scan)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "MQT2Nt7G2dZcQ7xI",
+      "lifecycle_state": "active",
+      "name": "W12 — Configuration Register Sync (Scheduled/Webhook)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "Mn0mBl3whA0xgVB3",
+      "lifecycle_state": "active",
+      "name": "W14 — Intelligence Signal Processing (Webhook)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "O99dGEBtgmph7qWb",
+      "lifecycle_state": "held",
+      "name": "NAV_OBS_FND_04_ZLIB_PROBE_v0.1"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "OfE27WyEcHTOP6eb",
+      "lifecycle_state": "active",
+      "name": "W11 — Release Validation & Deployment (Webhook)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "Q7dCfsw0t9DAbhFD",
+      "lifecycle_state": "active",
+      "name": "route · dispatch routing (W15-CR2)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "RpZLHVrPu2WrGf3h",
+      "lifecycle_state": "held",
+      "name": "W17 - AI-to-AI Structured Handoff Workflow"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "SYTkLSvDiHIHINnB",
+      "lifecycle_state": "active",
+      "name": "W3 — Benefit Event Capture (Milestone → Benefits Register)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "U0DhJ3bqad1wZ1rc",
+      "lifecycle_state": "superseded",
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "Yv1GKWf11RF4I2MH",
+      "lifecycle_state": "active",
+      "name": "W8 — Exception Escalation (To D007 Platform Lead)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "aRwXxftzB2K1JhPP",
+      "lifecycle_state": "held",
+      "name": "sandbox_workflow"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "aUX0Ca07HSgzsdSJ",
+      "lifecycle_state": "active",
+      "name": "W9 — Service Catalogue Validation (Webhook)"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "cgpt_facade",
+      "id": "aqDmGinCTRutOr4Q",
+      "lifecycle_state": "active",
+      "name": "H1_CGPT_N8N_Action_Facade_v2"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "cgpt_facade",
+      "id": "bcLCmdjwVl1wUpU8",
+      "lifecycle_state": "held",
+      "name": "H1_CGPT_N8N_Action_Facade"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "cRSti9FpTZ998FKu",
+      "lifecycle_state": "superseded",
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption v3"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "cum6pn5hVGmp8Prd",
+      "lifecycle_state": "active",
+      "name": "DISPATCHER-V4 — Live Executor Pattern (10-Component Membrane)"
+    },
+    {
+      "detail": "active=False isArchived=True",
+      "group": "core_wave_w1_w17",
+      "id": "iKG5vp2Grpt2qNT2",
+      "lifecycle_state": "retired",
+      "name": "W7 — ITC Exception Handling v2"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "d007_static_release_lineage",
+      "id": "lCYsb4MMKkpEBKeq",
+      "lifecycle_state": "superseded",
+      "name": "D007 — Working Memory Static Release & Obsidian Adoption FINAL"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "dispatch_membrane",
+      "id": "nnLmPirbJO8FD7Ow",
+      "lifecycle_state": "active",
+      "name": "sense · dispatch read path (CR-4)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "nsOD1Khga9xwNUBX",
+      "lifecycle_state": "held",
+      "name": "JQ003 Authenticated Self-Test — INACTIVE"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "portal_launch",
+      "id": "oUvOkSi0lvBkoUoH",
+      "lifecycle_state": "active",
+      "name": "W-portal-intake"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "rFiQbaLGVSqNHxzJ",
+      "lifecycle_state": "active",
+      "name": "W1 — Opportunity Intake (AVA Portal → Odoo CRM)"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "test_and_throwaway",
+      "id": "te2vI1VSDXb24fFA",
+      "lifecycle_state": "held",
+      "name": "W-CODEX-READINESS-PING"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "u036lOwnO8KGPZRa",
+      "lifecycle_state": "held",
+      "name": "STG-WM-WRITE-GATEWAY"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "portal_launch",
+      "id": "uO5vYklSMooXMLpF",
+      "lifecycle_state": "active",
+      "name": "W-lms-launch"
+    },
+    {
+      "detail": "active=True isArchived=False",
+      "group": "core_wave_w1_w17",
+      "id": "upZOd9q78pjivkd8",
+      "lifecycle_state": "active",
+      "name": "W2A — Value Module Initialisation"
+    },
+    {
+      "detail": "active=False isArchived=False",
+      "group": "utility_and_infra",
+      "id": "vKnnSxKIqJR9Qix7",
+      "lifecycle_state": "held",
+      "name": "Test_CR-A_JSONRPC_RO_v0.1"
+    }
+  ]
+}

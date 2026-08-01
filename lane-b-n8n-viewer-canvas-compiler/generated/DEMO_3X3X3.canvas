@@ -1,0 +1,129 @@
+{
+  "edges": [
+    {
+      "fromNode": "f_form",
+      "fromSide": "right",
+      "id": "e1",
+      "label": "cross_maps",
+      "toNode": "s_strategic",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "f_flow",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "cross_maps",
+      "toNode": "s_business",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "f_evolve",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "cross_maps",
+      "toNode": "s_relational",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "LABELLED_FIXTURE",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge)",
+    "ppv": "Potential — fixture data, not a governed record",
+    "reality": "FIXTURE — not implemented/live; structural demonstration only",
+    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+    "snapshot": "2026-08-02T02:15:00Z",
+    "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the three_by_three_by_three view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+    "title": "3x3x3 (FFE/SBR) — labelled fixture",
+    "view_id": "three_by_three_by_three"
+  },
+  "nodes": [
+    {
+      "color": "4",
+      "height": 160,
+      "id": "f_evolve",
+      "text": "Evolve\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "f_flow",
+      "text": "Flow\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "f_form",
+      "text": "Form\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "s_business",
+      "text": "Business\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "s_relational",
+      "text": "Relational\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "s_strategic",
+      "text": "Strategic\nkind: 3x3x3_axis\nstate: active\nauthority: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 480
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — 3x3x3 (FFE/SBR) — labelled fixture\nsource: declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the three_by_three_by_three view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.\nfreshness (snapshot): 2026-08-02T02:15:00Z\nevidence: LABELLED_FIXTURE\nreality: FIXTURE — not implemented/live; structural demonstration only\nppv: Potential — fixture data, not a governed record\nauthority: No production authority claimed; fixture author is this candidate compiler pass\nview_id: three_by_three_by_three\nobjects: 6  relationships: 3",
+      "type": "text",
+      "width": 900,
+      "x": 0,
+      "y": 720
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\nObsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 980
+    }
+  ]
+}

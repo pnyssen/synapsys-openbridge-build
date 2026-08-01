@@ -1,0 +1,505 @@
+{
+  "edges": [
+    {
+      "fromNode": "p01",
+      "fromSide": "right",
+      "id": "r_p01_p02",
+      "label": "flows_to",
+      "toNode": "p02",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p02",
+      "fromSide": "bottom",
+      "id": "r_p02_p03",
+      "label": "flows_to",
+      "toNode": "p03",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p03",
+      "fromSide": "bottom",
+      "id": "r_p03_p04",
+      "label": "flows_to",
+      "toNode": "p04",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p04",
+      "fromSide": "right",
+      "id": "r_p04_p05",
+      "label": "flows_to",
+      "toNode": "p05",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p05",
+      "fromSide": "right",
+      "id": "r_p05_p06",
+      "label": "flows_to",
+      "toNode": "p06",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p06",
+      "fromSide": "right",
+      "id": "r_p06_p07",
+      "label": "flows_to",
+      "toNode": "p07",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p07",
+      "fromSide": "right",
+      "id": "r_p07_p08",
+      "label": "flows_to",
+      "toNode": "p08",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p08",
+      "fromSide": "bottom",
+      "id": "r_p08_p09",
+      "label": "flows_to",
+      "toNode": "p09",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p09",
+      "fromSide": "right",
+      "id": "r_p09_p10",
+      "label": "flows_to",
+      "toNode": "p10",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p10",
+      "fromSide": "right",
+      "id": "r_p10_p11",
+      "label": "flows_to",
+      "toNode": "p11",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p11",
+      "fromSide": "bottom",
+      "id": "r_p11_p12",
+      "label": "flows_to",
+      "toNode": "p12",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p12",
+      "fromSide": "bottom",
+      "id": "r_p12_p13",
+      "label": "flows_to",
+      "toNode": "p13",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p13",
+      "fromSide": "right",
+      "id": "r_p13_p14",
+      "label": "flows_to",
+      "toNode": "p14",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p14",
+      "fromSide": "bottom",
+      "id": "r_p14_p15",
+      "label": "flows_to",
+      "toNode": "p15",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p15",
+      "fromSide": "bottom",
+      "id": "r_p15_p16",
+      "label": "flows_to",
+      "toNode": "p16",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p16",
+      "fromSide": "bottom",
+      "id": "r_p16_p17",
+      "label": "flows_to",
+      "toNode": "p17",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "p17",
+      "fromSide": "right",
+      "id": "r_p17_p18",
+      "label": "flows_to",
+      "toNode": "p18",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p18",
+      "fromSide": "right",
+      "id": "r_p18_p19",
+      "label": "flows_to",
+      "toNode": "p19",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p19",
+      "fromSide": "right",
+      "id": "r_p19_p20",
+      "label": "flows_to",
+      "toNode": "p20",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p20",
+      "fromSide": "right",
+      "id": "r_p20_p21",
+      "label": "flows_to",
+      "toNode": "p21",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p21",
+      "fromSide": "right",
+      "id": "r_p21_p22",
+      "label": "flows_to",
+      "toNode": "p22",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p22",
+      "fromSide": "right",
+      "id": "r_p22_p23",
+      "label": "flows_to",
+      "toNode": "p23",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p23",
+      "fromSide": "right",
+      "id": "r_p23_p24",
+      "label": "flows_to",
+      "toNode": "p24",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p24",
+      "fromSide": "right",
+      "id": "r_p24_p25",
+      "label": "flows_to",
+      "toNode": "p25",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "p25",
+      "fromSide": "right",
+      "id": "r_p25_p26",
+      "label": "flows_to",
+      "toNode": "p26",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "Read-only viewer projection of a workflow this lane independently validated (NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md, verdict PASS_WITH_CONDITIONS)",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "LIVE_VERIFIED",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge)",
+    "ppv": "Potential — this projection is read-only; no workflow mutation performed to produce it",
+    "reality": "IMPLEMENTED — active production workflow; execution 1392 succeeded 2026-08-01T14:21Z, execution 1393 errored 2026-08-01T14:49Z (replay correctly rejected by the ROOT_HASH_DRIFT gate at node p10)",
+    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+    "snapshot": "2026-08-02T02:15:00Z",
+    "source": "mcp__synapsys-n8n-readonly-code__get_workflow(id=7L5tLWOPTeqRzw3r) — live, active=true, versionCounter=4",
+    "title": "D007 — Navigator Static Adoption Production (workflow 7L5tLWOPTeqRzw3r, live)",
+    "view_id": "n8n_workflow_detail"
+  },
+  "nodes": [
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p01",
+      "text": "Webhook — Navigator Adoption\nkind: webhook\nstate: active\nauthority: no_transport_auth_configured (see D007 validation return finding)",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p02",
+      "text": "Validate Request and Build Routes\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p03",
+      "text": "Fetch Authority\nkind: httpRequest\nstate: active\nauthority: credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p04",
+      "text": "Hash Authority\nkind: crypto\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p05",
+      "text": "Validate Authority\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p06",
+      "text": "Inspect Destination\nkind: httpRequest\nstate: active\nauthority: credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p07",
+      "text": "Validate Destination\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p08",
+      "text": "Fetch Current Root\nkind: httpRequest\nstate: active\nauthority: credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p09",
+      "text": "Hash Current Root\nkind: crypto\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1080
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p10",
+      "text": "Validate Current Root\nkind: code\nstate: active\nauthority: no_credential (pure code node); enforces ROOT_HASH_DRIFT gate",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p11",
+      "text": "Provision Date Folder\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p12",
+      "text": "Provision Rollback Folder\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p13",
+      "text": "Provision Destination Folder\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p14",
+      "text": "Validate Folder Provisioning\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p15",
+      "text": "Fetch Adoption ZIP\nkind: httpRequest\nstate: active\nauthority: credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p16",
+      "text": "Set ZIP Metadata\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p17",
+      "text": "Hash ZIP\nkind: crypto\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p18",
+      "text": "Validate ZIP Hash\nkind: code\nstate: active\nauthority: no_credential (pure code node); enforces PAYLOAD_HASH_MISMATCH gate",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p19",
+      "text": "Decompress ZIP\nkind: compression\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 2080
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p20",
+      "text": "Split Archive Files\nkind: code\nstate: active\nauthority: no_credential (pure code node); enforces ARCHIVE_COUNT_MISMATCH gate + path-traversal rejection",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p21",
+      "text": "Upload Deployment Files\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=false",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p22",
+      "text": "Validate Uploads\nkind: code\nstate: active\nauthority: no_credential (pure code node); enforces UPLOAD_COUNT_MISMATCH / UPLOAD_FAILURES gate",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 1080
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p23",
+      "text": "Cut Over Root Pointer Last\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p24",
+      "text": "Build Receipt\nkind: code\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 2280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p25",
+      "text": "Write Receipt\nkind: httpRequest\nstate: active\nauthority: credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 1080
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "p26",
+      "text": "Respond Success\nkind: respondToWebhook\nstate: active\nauthority: no_credential (pure code node)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 2480
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — D007 — Navigator Static Adoption Production (workflow 7L5tLWOPTeqRzw3r, live)\nsource: mcp__synapsys-n8n-readonly-code__get_workflow(id=7L5tLWOPTeqRzw3r) — live, active=true, versionCounter=4\nfreshness (snapshot): 2026-08-02T02:15:00Z\nevidence: LIVE_VERIFIED\nreality: IMPLEMENTED — active production workflow; execution 1392 succeeded 2026-08-01T14:21Z, execution 1393 errored 2026-08-01T14:49Z (replay correctly rejected by the ROOT_HASH_DRIFT gate at node p10)\nppv: Potential — this projection is read-only; no workflow mutation performed to produce it\nauthority: Read-only viewer projection of a workflow this lane independently validated (NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md, verdict PASS_WITH_CONDITIONS)\nview_id: n8n_workflow_detail\nobjects: 26  relationships: 25",
+      "type": "text",
+      "width": 1600,
+      "x": 0,
+      "y": 2720
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\nObsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 2980
+    }
+  ]
+}
