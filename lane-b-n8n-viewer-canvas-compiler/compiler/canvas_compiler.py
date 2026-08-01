@@ -105,6 +105,13 @@ def validate_graph(graph: dict, schema: dict | None = None) -> None:
         if not str(graph.get(required_field, "")).strip():
             raise GraphCompileError(f"MISSING_VIEW_AUTHORITY_METADATA: view field {required_field!r} is empty")
 
+    if "->" in graph.get("return_route", ""):
+        raise GraphCompileError(
+            "INVALID_RETURN_ROUTE: return_route contains literal arrow notation ('->'); "
+            "it must be a single stable path/URL, not two segments joined by an arrow "
+            "(this exact shape broke the viewer's Home-return hyperlink — see correction v0.1)"
+        )
+
 
 def _layout(graph: dict) -> dict[str, tuple[int, int]]:
     """Deterministic grid layout: objects are grouped into columns by their

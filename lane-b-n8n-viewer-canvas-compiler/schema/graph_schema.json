@@ -28,7 +28,12 @@
     "reality": { "type": "string", "minLength": 1 },
     "ppv": { "type": "string", "minLength": 1 },
     "authority": { "type": "string", "minLength": 1 },
-    "return_route": { "type": "string", "minLength": 1 },
+    "return_route": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*->).+$",
+      "description": "A single stable path or URL to the current Navigator primary interface. Must NOT contain literal arrow notation ('->') — that renders as an invalid hyperlink when reused as an href. Correction v0.1 (2026-08-01): was previously two segments joined by ' -> ', which broke the viewer's return link."
+    },
     "objects": {
       "type": "array",
       "minItems": 1,

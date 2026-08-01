@@ -25,10 +25,27 @@ import html
 import json
 import pathlib
 import sys
+import urllib.parse
 
 SNAPSHOT_PATH = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "n8n_viewer_snapshot.json"
 OUT_PATH = pathlib.Path(__file__).resolve().parent.parent / "generated" / "N8N_VIEWER.html"
-RETURN_ROUTE = "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md"
+
+# CORRECTION v0.1 (2026-08-01): the original RETURN_ROUTE was two path segments
+# joined by " -> " (a leftover from how the compiler's plain-text canvas node
+# formats a route for human reading) and was reused verbatim as an <a href="...">
+# value below — producing an invalid link containing a literal arrow and a space.
+# Fixed two ways: (1) ROUTE_PATH is now a single clean WM-relative path, matching
+# tools_build_live_fixtures.RETURN_ROUTE exactly (same primary-interface route
+# applied to the canvases' metadata/return nodes, per the correction); (2) the
+# HTML anchors use ROUTE_HREF, a stable absolute SharePoint URL *derived* from
+# ROUTE_PATH (not a second hand-typed duplicate), built the same way sp_write's
+# own webUrl responses are shaped (".../Shared%20Documents/SynapSys-Control/
+# 11_WORKING_MEMORY/..."), so the two never drift apart again. Verified live via
+# sp_list(Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT) immediately before this
+# correction: SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html exists.
+ROUTE_PATH = "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html"
+_SP_WM_BASE = "https://synapsysgroup.sharepoint.com/sites/SynapSys/Shared%20Documents/SynapSys-Control/11_WORKING_MEMORY"
+ROUTE_HREF = _SP_WM_BASE + "/" + urllib.parse.quote(ROUTE_PATH)
 
 CSS = """
 html, body { background: #ffffff !important; color: #111111 !important; font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -181,7 +198,7 @@ def build_html(snapshot: dict) -> str:
 <style>{CSS}</style></head>
 <body><div class="wrap">
 <div class="banner">This is a temporary candidate specimen. It is NOT the current Navigator control surface.
-Return to <a href="{esc(RETURN_ROUTE)}">Navigator Home / current delivery</a>. Read-only: no workflow create,
+Return to <a href="{esc(ROUTE_HREF)}">Navigator Home / current delivery</a>. Read-only: no workflow create,
 update, activate, deactivate, or credential-bind call was made to produce or by this page.</div>
 <h1>N8N Viewer — candidate (read-only)</h1>
 <p>Snapshot: <code>{esc(snapshot['snapshot'])}</code> &middot; Source: {esc(snapshot['source'])} &middot;
@@ -189,7 +206,7 @@ Evidence: <strong>{esc(snapshot['evidence'])}</strong></p>
 {''.join(sections)}
 <footer>Work Object <code>{esc(snapshot['work_object_id'])}</code> &middot; Wave <code>{esc(snapshot['wave'])}</code>
 &middot; PPV: {esc(snapshot['ppv'])} &middot; Authority: {esc(snapshot['authority'])}
-&middot; Return: <a href="{esc(RETURN_ROUTE)}">{esc(RETURN_ROUTE)}</a></footer>
+&middot; Return: <a href="{esc(ROUTE_HREF)}">{esc(ROUTE_PATH)}</a></footer>
 </div></body></html>
 """
 

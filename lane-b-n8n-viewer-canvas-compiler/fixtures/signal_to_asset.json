@@ -43,8 +43,8 @@
       "verb": "compounds_into"
     }
   ],
-  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
-  "snapshot": "2026-08-02T02:15:00Z",
+  "return_route": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html",
+  "snapshot": "2026-08-01T16:04:42Z",
   "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the signal_to_asset view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
   "title": "Signal-to-Asset Relationship — labelled fixture",
   "view_id": "signal_to_asset"

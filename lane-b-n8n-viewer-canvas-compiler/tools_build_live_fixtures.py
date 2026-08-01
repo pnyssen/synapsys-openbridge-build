@@ -17,7 +17,23 @@ of it is invented.
 import json
 import pathlib
 
-SNAPSHOT = "2026-08-02T02:15:00Z"  # this session's live-read window (UTC)
+# CORRECTION v0.1 (2026-08-01): the original SNAPSHOT value (2026-08-02T02:15:00Z)
+# was hand-typed and future-dated relative to the Hub intake time
+# (2026-08-02T01:56:00+10:00 = 2026-08-01T15:56:00Z) — not fabricated maliciously,
+# but not sourced from an actual clock read either, which is the defect. This value
+# IS a real clock read: `date -u +"%Y-%m-%dT%H:%M:%SZ"` run in this session's
+# terminal during the correction pass, explicit UTC ('Z'). The underlying N8N/Odoo
+# facts below are NOT re-fetched for this correction (per "do not restart
+# discovery") — they are carried over unchanged from the original capture in this
+# same session; this timestamp marks when this corrected artifact set was rebuilt,
+# which is what a "freshness (snapshot)" field on a rebuilt artifact should record.
+SNAPSHOT = "2026-08-01T16:04:42Z"
+# Single stable path to the current Navigator primary interface — no arrow notation,
+# so it is safe to reuse directly as an href (see viewer/n8n_viewer.py). Verified
+# live via sp_list(Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT) immediately before
+# this correction: SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html exists,
+# lastModified 2026-08-01T16:01:38Z.
+RETURN_ROUTE = "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html"
 OUT = pathlib.Path(__file__).resolve().parent / "fixtures"
 
 # --- raw capture: mcp__synapsys-n8n-readonly-code__list_workflows(limit=50) ---
@@ -130,7 +146,7 @@ n8n_topology_overview = {
     "reality": "IMPLEMENTED — reflects the live N8N instance's workflow set at snapshot time, not a design intent",
     "ppv": "Potential — this projection does not itself promote or activate anything",
     "authority": "Read-only viewer projection; no activation/deactivation/update authority exercised",
-    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+    "return_route": RETURN_ROUTE,
     "objects": objects,
     "relationships": relationships,
 }
@@ -210,7 +226,7 @@ d007_workflow_topology = {
     "reality": "IMPLEMENTED — active production workflow; execution 1392 succeeded 2026-08-01T14:21Z, execution 1393 errored 2026-08-01T14:49Z (replay correctly rejected by the ROOT_HASH_DRIFT gate at node p10)",
     "ppv": "Potential — this projection is read-only; no workflow mutation performed to produce it",
     "authority": "Read-only viewer projection of a workflow this lane independently validated (NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md, verdict PASS_WITH_CONDITIONS)",
-    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+    "return_route": RETURN_ROUTE,
     "objects": d007_objects,
     "relationships": d007_relationships,
 }
@@ -275,7 +291,7 @@ odoo_menu_govern = {
     "reality": "IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)",
     "ppv": "Potential — read-only projection; no Odoo record created/written/unlinked to produce it",
     "authority": "Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)",
-    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+    "return_route": RETURN_ROUTE,
     "objects": odoo_objects,
     "relationships": odoo_relationships,
 }

@@ -16,9 +16,16 @@ contract and labelled fixtures only."
 import json
 import pathlib
 
-SNAPSHOT = "2026-08-02T02:15:00Z"
+import tools_build_live_fixtures as live
+
+# CORRECTION v0.1 (2026-08-01): both constants now come from tools_build_live_fixtures
+# (single source of truth) instead of a second hand-typed copy — the original
+# duplication was exactly how SNAPSHOT and RETURN_ROUTE drifted out of sync with
+# their live-fixture counterparts in the first place. See that module's docstring
+# comments for the full correction rationale.
+SNAPSHOT = live.SNAPSHOT
 OUT = pathlib.Path(__file__).resolve().parent / "fixtures"
-RETURN_ROUTE = "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md"
+RETURN_ROUTE = live.RETURN_ROUTE
 
 FIXTURE_NOTE = (
     "LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the "

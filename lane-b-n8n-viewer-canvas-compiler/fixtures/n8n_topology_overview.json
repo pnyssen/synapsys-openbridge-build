@@ -454,8 +454,8 @@
       "verb": "superseded_by"
     }
   ],
-  "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
-  "snapshot": "2026-08-02T02:15:00Z",
+  "return_route": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html",
+  "snapshot": "2026-08-01T16:04:42Z",
   "source": "mcp__synapsys-n8n-readonly-code__list_workflows(limit=50) — live SynapSys N8N instance",
   "title": "N8N Workflow Overview — All Workflows (live)",
   "view_id": "n8n_topology"

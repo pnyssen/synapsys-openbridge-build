@@ -69,7 +69,7 @@
     "validation_return": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md",
     "verdict": "PASS_WITH_CONDITIONS"
   },
-  "snapshot": "2026-08-02T02:15:00Z",
+  "snapshot": "2026-08-01T16:04:42Z",
   "source": "mcp__synapsys-n8n-readonly-code__{list_workflows,get_workflow,list_executions} — live SynapSys N8N instance",
   "wave": "W-NAV-INT-MVP-20260802-01",
   "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",

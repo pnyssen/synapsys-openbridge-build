@@ -95,7 +95,33 @@ Per the presentation rule, the HTML page is explicit white-background/
 dark-text (no dark-mode CSS), states in its own banner that it is a
 **temporary candidate specimen, not the current Navigator control surface**,
 and links back to Navigator Home
-(`Obsidian/00_HOME.md` → `NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md`).
+(`Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html`,
+the current Navigator primary interface — corrected in Correction v0.1 from an
+earlier broken link, see below).
+
+## Correction v0.1 (2026-08-01)
+
+Two bounded fixes applied to the original candidate, both regression-tested
+(`tests/test_corrections.py`), nothing else changed:
+
+1. **Timestamp.** `SNAPSHOT` in `tools_build_live_fixtures.py` was
+   `2026-08-02T02:15:00Z` — hand-typed, future-dated relative to the Hub
+   intake time (`2026-08-02T01:56:00+10:00` = `2026-08-01T15:56:00Z`).
+   Replaced with an actual `date -u` clock read taken during the correction
+   pass, explicit UTC. Underlying N8N/Odoo facts were **not** re-fetched (no
+   rediscovery) — this timestamp marks when the corrected artifacts were
+   rebuilt, not a new live-data capture.
+2. **Return route.** The compiler's `return_route` field and the viewer's
+   `RETURN_ROUTE` constant were two path segments joined by `" -> "`, and the
+   viewer reused that literal string as an `<a href="...">` value — an
+   invalid link. Fixed to a single clean path
+   (`Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html`,
+   confirmed to exist via a live `sp_list` immediately before this
+   correction), applied identically to every fixture, both required
+   canvases, and the viewer's HTML anchors (derived into a stable absolute
+   SharePoint URL, not a second hand-typed duplicate). `graph_schema.json`
+   and `canvas_compiler.py` now also fail closed on any `return_route`
+   containing `"->"`, so this class of defect can't silently recur.
 
 ## Fail-closed behaviour (tested, not just claimed)
 

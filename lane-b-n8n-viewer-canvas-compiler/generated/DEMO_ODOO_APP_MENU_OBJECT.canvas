@@ -128,8 +128,8 @@
     "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge)",
     "ppv": "Potential — read-only projection; no Odoo record created/written/unlinked to produce it",
     "reality": "IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)",
-    "return_route": "Obsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
-    "snapshot": "2026-08-02T02:15:00Z",
+    "return_route": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html",
+    "snapshot": "2026-08-01T16:04:42Z",
     "source": "mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance",
     "title": "Odoo — Govern Menu Tree (live, x_ss custom governance menus)",
     "view_id": "odoo_app_menu_object"
@@ -308,7 +308,7 @@
     {
       "height": 220,
       "id": "__source_evidence_authority_panel__",
-      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Odoo — Govern Menu Tree (live, x_ss custom governance menus)\nsource: mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance\nfreshness (snapshot): 2026-08-02T02:15:00Z\nevidence: LIVE_VERIFIED\nreality: IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)\nppv: Potential — read-only projection; no Odoo record created/written/unlinked to produce it\nauthority: Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)\nview_id: odoo_app_menu_object\nobjects: 17  relationships: 14",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Odoo — Govern Menu Tree (live, x_ss custom governance menus)\nsource: mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance\nfreshness (snapshot): 2026-08-01T16:04:42Z\nevidence: LIVE_VERIFIED\nreality: IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)\nppv: Potential — read-only projection; no Odoo record created/written/unlinked to produce it\nauthority: Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)\nview_id: odoo_app_menu_object\nobjects: 17  relationships: 14",
       "type": "text",
       "width": 1180,
       "x": 0,
@@ -317,7 +317,7 @@
     {
       "height": 100,
       "id": "__return_to_navigator_home__",
-      "text": "Return to Navigator Home\nObsidian/00_HOME.md -> NAVIGATOR_MVP_v0.2/NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2.md",
+      "text": "Return to Navigator Home\nObsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html",
       "type": "text",
       "width": 360,
       "x": 0,
