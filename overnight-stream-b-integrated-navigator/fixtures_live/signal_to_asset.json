@@ -1,0 +1,51 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_capture",
+      "id": "s2a_signal",
+      "kind": "s2a_stage",
+      "label": "Signal",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_event",
+      "id": "s2a_event",
+      "kind": "s2a_stage",
+      "label": "Benefit Event",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "3_asset",
+      "id": "s2a_asset",
+      "kind": "s2a_stage",
+      "label": "Asset (X/Y/Z)",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "s2a_signal",
+      "id": "e1",
+      "to": "s2a_event",
+      "verb": "captured_as"
+    },
+    {
+      "from": "s2a_event",
+      "id": "e2",
+      "to": "s2a_asset",
+      "verb": "compounds_into"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the signal_to_asset view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Signal-to-Asset Relationship — labelled fixture",
+  "view_id": "signal_to_asset"
+}

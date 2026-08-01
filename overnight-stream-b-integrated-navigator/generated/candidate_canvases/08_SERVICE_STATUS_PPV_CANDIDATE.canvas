@@ -1,0 +1,156 @@
+{
+  "edges": [
+    {
+      "fromNode": "n1",
+      "fromSide": "bottom",
+      "id": "e1",
+      "label": "evidence",
+      "toNode": "n2",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "n2",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "validation",
+      "toNode": "n3",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n4",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "conservative proposal",
+      "toNode": "n2",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n5",
+      "fromSide": "bottom",
+      "id": "e4",
+      "label": "entry proposal",
+      "toNode": "n1",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "n6",
+      "fromSide": "bottom",
+      "id": "e5",
+      "label": "display rule",
+      "toNode": "n1",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "HELD",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential",
+    "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/08_SERVICE_STATUS_PPV.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/08_SERVICE_STATUS_PPV.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+    "title": "Service Status and PPV (candidate regeneration)",
+    "view_id": "08_service_status_ppv"
+  },
+  "nodes": [
+    {
+      "color": "3",
+      "height": 160,
+      "id": "control_v02",
+      "text": "NAVIGATOR CONTROL / RETURN\nkind: control_return_block\nstate: held\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nNAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "n1",
+      "text": "Potential\nkind: canvas_object\nstate: candidate\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nPotential\nCandidate value; evidence incomplete\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n2",
+      "text": "Probable\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nProbable\nBounded evidence supports repeatability\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n3",
+      "text": "Verified\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nVerified\nGoverned validation and outcome trace\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "3",
+      "height": 160,
+      "id": "n4",
+      "text": "SA-06 defect\nkind: canvas_object\nstate: held\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nSA-06 defect\nEntry Verified > ceiling Probable\nCorrection held\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n5",
+      "text": "GV-TEC-001 / 002\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nGV-TEC-001 / 002\nPPV fields missing\nProposed Potential to Probable ceiling\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n6",
+      "text": "No colour-only semantics\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nNo colour-only semantics\nState labels are explicit\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 880
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Service Status and PPV (candidate regeneration)\nsource: adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/08_SERVICE_STATUS_PPV.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: ADAPTED_FROM_ACCEPTED_CANVAS\nreality: CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/08_SERVICE_STATUS_PPV.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement\nppv: Potential\nauthority: HELD\nview_id: 08_service_status_ppv\nobjects: 7  relationships: 5",
+      "type": "text",
+      "width": 1180,
+      "x": 0,
+      "y": 1120
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 1380
+    }
+  ]
+}

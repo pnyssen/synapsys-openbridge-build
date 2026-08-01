@@ -1,0 +1,108 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Purpose\nWhy SynapSys exists",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Purpose",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Strategy\nHow value is captured and compounded",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Strategy",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Assets\nWhat persists and differentiates",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Assets",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Signal\nWhat changed or matters",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Signal",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Benefit\nWhat beneficial effect is expected or observed",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Benefit",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Realisation\nWhat is accepted as realised",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "Realisation",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/02_PURPOSE_STRATEGY_ASSETS.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n2",
+      "verb": "constrains"
+    },
+    {
+      "from": "n2",
+      "id": "e2",
+      "to": "n3",
+      "verb": "produces"
+    },
+    {
+      "from": "n4",
+      "id": "e3",
+      "to": "n2",
+      "verb": "informs"
+    },
+    {
+      "from": "n3",
+      "id": "e4",
+      "to": "n5",
+      "verb": "enables"
+    },
+    {
+      "from": "n5",
+      "id": "e5",
+      "to": "n6",
+      "verb": "evidence gate"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/02_PURPOSE_STRATEGY_ASSETS.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Purpose Strategy Assets (candidate regeneration)",
+  "view_id": "02_purpose_strategy_assets"
+}

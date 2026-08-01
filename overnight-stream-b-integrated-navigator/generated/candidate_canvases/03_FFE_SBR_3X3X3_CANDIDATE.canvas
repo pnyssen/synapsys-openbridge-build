@@ -1,0 +1,194 @@
+{
+  "edges": [
+    {
+      "fromNode": "n1",
+      "fromSide": "right",
+      "id": "e1",
+      "label": "activate",
+      "toNode": "n4",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n4",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "learn",
+      "toNode": "n7",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n2",
+      "fromSide": "bottom",
+      "id": "e3",
+      "label": "deliver",
+      "toNode": "n5",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "n5",
+      "fromSide": "right",
+      "id": "e4",
+      "label": "improve",
+      "toNode": "n8",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n3",
+      "fromSide": "right",
+      "id": "e5",
+      "label": "assure",
+      "toNode": "n6",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n6",
+      "fromSide": "bottom",
+      "id": "e6",
+      "label": "convert",
+      "toNode": "n9",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "HELD",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential",
+    "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+    "title": "Form Flow Evolve x Signal Benefits Realisation (candidate regeneration)",
+    "view_id": "03_ffe_sbr_3x3x3"
+  },
+  "nodes": [
+    {
+      "color": "3",
+      "height": 160,
+      "id": "control_v02",
+      "text": "NAVIGATOR CONTROL / RETURN\nkind: control_return_block\nstate: held\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nNAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n1",
+      "text": "FORM x SIGNAL\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFORM x SIGNAL\nOrient and describe\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n2",
+      "text": "FORM x BENEFITS\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFORM x BENEFITS\nDefine intended effects\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n3",
+      "text": "FORM x REALISATION\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFORM x REALISATION\nDefine acceptance\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n4",
+      "text": "FLOW x SIGNAL\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFLOW x SIGNAL\nRoute and prioritise\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n5",
+      "text": "FLOW x BENEFITS\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFLOW x BENEFITS\nDeliver and observe\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n6",
+      "text": "FLOW x REALISATION\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nFLOW x REALISATION\nValidate and accept\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n7",
+      "text": "EVOLVE x SIGNAL\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nEVOLVE x SIGNAL\nLearn from change\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n8",
+      "text": "EVOLVE x BENEFITS\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nEVOLVE x BENEFITS\nImprove effect pathways\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n9",
+      "text": "EVOLVE x REALISATION\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nEVOLVE x REALISATION\nConvert learning to assets\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 1080
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Form Flow Evolve x Signal Benefits Realisation (candidate regeneration)\nsource: adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: ADAPTED_FROM_ACCEPTED_CANVAS\nreality: CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement\nppv: Potential\nauthority: HELD\nview_id: 03_ffe_sbr_3x3x3\nobjects: 10  relationships: 6",
+      "type": "text",
+      "width": 1180,
+      "x": 0,
+      "y": 1320
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 1580
+    }
+  ]
+}

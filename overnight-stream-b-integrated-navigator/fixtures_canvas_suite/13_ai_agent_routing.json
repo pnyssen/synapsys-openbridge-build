@@ -1,0 +1,162 @@
+{
+  "authority": "BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Navigator / ChatGPT Hub\nController: priority, Work Object, manifest, arbitration and CURRENT_DELIVERY",
+      "group": "col_00",
+      "id": "hub",
+      "kind": "canvas_object",
+      "label": "Navigator / ChatGPT Hub",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "STREAM A — CODEX\nTarget: Codex code mode\nModel: highest available Codex agentic coding model\nGoal: runtime truth + integration graph\nState: READY_TO_SEND",
+      "group": "col_00",
+      "id": "a",
+      "kind": "canvas_object",
+      "label": "STREAM A — CODEX",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "STREAM B — CLAUDE CODE\nTarget: Claude Code\nModel: strongest tool-enabled coding model\nGoal: N8N viewer + Canvas compiler\nState: READY_TO_SEND",
+      "group": "col_01",
+      "id": "b",
+      "kind": "canvas_object",
+      "label": "STREAM B — CLAUDE CODE",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "STREAM C — CLAUDE COWORK / FABLE\nTarget: Claude CoWork\nModel: strongest interface-synthesis model; Fable only where beneficial\nGoal: unified visual system + Odoo skin + 2D→3D path\nState: READY_TO_SEND",
+      "group": "col_02",
+      "id": "c",
+      "kind": "canvas_object",
+      "label": "STREAM C — CLAUDE COWORK / FABLE",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "D009\nIndependent integrated assurance after A–C returns are consumed\nState: HELD_PENDING_INTEGRATED_CANDIDATE",
+      "group": "col_03",
+      "id": "d009",
+      "kind": "canvas_object",
+      "label": "D009",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "D001 / Steward\nDecision and authority",
+      "group": "col_03",
+      "id": "d001",
+      "kind": "canvas_object",
+      "label": "D001 / Steward",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "D007\nReleased implementation and mutation only",
+      "group": "col_02",
+      "id": "d007",
+      "kind": "canvas_object",
+      "label": "D007",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "N8N / Odoo / Working Memory / Obsidian\nRuntime, operational truth, evidence and current projection",
+      "group": "col_00",
+      "id": "runtime",
+      "kind": "canvas_object",
+      "label": "N8N / Odoo / Working Memory / Obsidian",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-02T00:45:00+10:00\nCurrent surface: [[CURRENT_DELIVERY]]\nEvidence: SUFFICIENT_FOR_CONTROLLED_LAUNCH_PREPARATION\nReality: Navigator implemented; A–C ready to send; not yet initiated\nPPV: Potential\nAuthority: bounded preparation active; production mutation held\nPresentation: white-background HTML only\nReplay-validity: PRESERVED\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/13_AI_AGENT_ROUTING.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "runtime",
+      "id": "e1",
+      "to": "hub",
+      "verb": "evidence/state"
+    },
+    {
+      "from": "hub",
+      "id": "e2",
+      "to": "a",
+      "verb": "dispatch"
+    },
+    {
+      "from": "hub",
+      "id": "e3",
+      "to": "b",
+      "verb": "dispatch"
+    },
+    {
+      "from": "hub",
+      "id": "e4",
+      "to": "c",
+      "verb": "dispatch"
+    },
+    {
+      "from": "a",
+      "id": "e5",
+      "to": "hub",
+      "verb": "filed return"
+    },
+    {
+      "from": "b",
+      "id": "e6",
+      "to": "hub",
+      "verb": "filed return"
+    },
+    {
+      "from": "c",
+      "id": "e7",
+      "to": "hub",
+      "verb": "filed return"
+    },
+    {
+      "from": "hub",
+      "id": "e8",
+      "to": "d009",
+      "verb": "integrated assurance"
+    },
+    {
+      "from": "d009",
+      "id": "e9",
+      "to": "d001",
+      "verb": "decision surface"
+    },
+    {
+      "from": "d001",
+      "id": "e10",
+      "to": "d007",
+      "verb": "release"
+    },
+    {
+      "from": "d007",
+      "id": "e11",
+      "to": "runtime",
+      "verb": "execute"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/13_AI_AGENT_ROUTING.canvas (read live via sp_read this session; original snapshot 2026-08-02T00:45:00+10:00)",
+  "title": "AI Family and Agent Routing — Current Three-Stream Wave (candidate regeneration)",
+  "view_id": "13_ai_agent_routing"
+}

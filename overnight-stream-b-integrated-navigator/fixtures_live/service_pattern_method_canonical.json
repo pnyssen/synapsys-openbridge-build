@@ -1,0 +1,65 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_service",
+      "id": "spmc_service",
+      "kind": "spmc_layer",
+      "label": "Service",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_pattern",
+      "id": "spmc_pattern",
+      "kind": "spmc_layer",
+      "label": "Pattern",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "3_method",
+      "id": "spmc_method",
+      "kind": "spmc_layer",
+      "label": "Method",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_ratified",
+      "group": "4_canonical",
+      "id": "spmc_canonical",
+      "kind": "spmc_layer",
+      "label": "Canonical",
+      "lifecycle_state": "active"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "spmc_service",
+      "id": "e1",
+      "to": "spmc_pattern",
+      "verb": "instantiates"
+    },
+    {
+      "from": "spmc_pattern",
+      "id": "e2",
+      "to": "spmc_method",
+      "verb": "operationalised_by"
+    },
+    {
+      "from": "spmc_method",
+      "id": "e3",
+      "to": "spmc_canonical",
+      "verb": "candidate_for_promotion_to"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the service_pattern_method_canonical view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Service / Pattern / Method / Canonical — labelled fixture",
+  "view_id": "service_pattern_method_canonical"
+}

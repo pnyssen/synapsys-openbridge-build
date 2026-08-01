@@ -1,0 +1,138 @@
+{
+  "authority": "BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Queue item\nLaunch and reconcile the controlled three-stream integrated Navigator MVP wave.",
+      "group": "col_00",
+      "id": "q",
+      "kind": "canvas_object",
+      "label": "Queue item",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Work Object\nWO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+      "group": "col_01",
+      "id": "wo",
+      "kind": "canvas_object",
+      "label": "Work Object",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Current control surface\n[[CURRENT_DELIVERY]]\nNo standalone status HTML",
+      "group": "col_02",
+      "id": "delivery",
+      "kind": "canvas_object",
+      "label": "Current control surface",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Reality\nNavigator implemented\nStreams A–C READY_TO_SEND\nExecution not yet started",
+      "group": "col_03",
+      "id": "state",
+      "kind": "canvas_object",
+      "label": "Reality",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Evidence\nSUFFICIENT_FOR_CONTROLLED_LAUNCH_PREPARATION",
+      "group": "col_00",
+      "id": "evidence",
+      "kind": "canvas_object",
+      "label": "Evidence",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "PPV\nPotential",
+      "group": "col_01",
+      "id": "ppv",
+      "kind": "canvas_object",
+      "label": "PPV",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Authority\nBounded preparation active\nProduction mutation HELD",
+      "group": "col_02",
+      "id": "authority",
+      "kind": "canvas_object",
+      "label": "Authority",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "Exactly one next action\nOpen the three correct tool-enabled sessions and paste the v0.2 packets; then mark SENT_REPORTED.",
+      "group": "col_03",
+      "id": "next",
+      "kind": "canvas_object",
+      "label": "Exactly one next action",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-02T00:45:00+10:00\nThree production lanes only; D009 later\nWhite-background HTML regression enforced\nInstalled skill controls updated\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]\nReplay-validity: PRESERVED",
+      "group": "col_00",
+      "id": "control",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "candidate"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "q",
+      "id": "e1",
+      "to": "wo",
+      "verb": "bound"
+    },
+    {
+      "from": "wo",
+      "id": "e2",
+      "to": "delivery",
+      "verb": "controlled through"
+    },
+    {
+      "from": "delivery",
+      "id": "e3",
+      "to": "state",
+      "verb": "relates_to"
+    },
+    {
+      "from": "state",
+      "id": "e4",
+      "to": "evidence",
+      "verb": "relates_to"
+    },
+    {
+      "from": "evidence",
+      "id": "e5",
+      "to": "ppv",
+      "verb": "relates_to"
+    },
+    {
+      "from": "ppv",
+      "id": "e6",
+      "to": "authority",
+      "verb": "relates_to"
+    },
+    {
+      "from": "authority",
+      "id": "e7",
+      "to": "next",
+      "verb": "route only"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas (read live via sp_read this session; original snapshot 2026-08-02T00:45:00+10:00)",
+  "title": "Current Work Object and Queue — Three-Stream Wave (candidate regeneration)",
+  "view_id": "14_current_work_object_queue"
+}

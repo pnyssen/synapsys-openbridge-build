@@ -1,0 +1,114 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Active Services\n18\nOperational core",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Active Services",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Future scoped\n1\nSC-06 reference-only",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Future scoped",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Deprecated\n16\nVisible lineage; not deleted",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Deprecated",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Active completeness\nContext + Method + membrane + validation: 18/18",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Active completeness",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Open gaps\n5 canonical links\n2 PPV fields\n1 invalid PPV ordering",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Open gaps",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Projection\n[[SERVICE_CATALOGUE_PROJECTION_v0.2]]",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "Projection",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/07_SERVICE_CATALOGUE_INTEGRATED.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n4",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n1",
+      "id": "e2",
+      "to": "n5",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n2",
+      "id": "e3",
+      "to": "n5",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n3",
+      "id": "e4",
+      "to": "n6",
+      "verb": "separate"
+    },
+    {
+      "from": "n4",
+      "id": "e5",
+      "to": "n6",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n5",
+      "id": "e6",
+      "to": "n6",
+      "verb": "visible"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/07_SERVICE_CATALOGUE_INTEGRATED.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Service Catalogue Integrated View (candidate regeneration)",
+  "view_id": "07_service_catalogue_integrated"
+}

@@ -1,0 +1,399 @@
+{
+  "authority": "Read-only viewer projection of a workflow this lane independently validated (NAVIGATOR_MVP_CLAUDE_CODE_D007_WORKFLOW_VALIDATION_RETURN_v0.1.md, verdict PASS_WITH_CONDITIONS)",
+  "evidence": "LIVE_VERIFIED",
+  "objects": [
+    {
+      "authority": "no_transport_auth_configured (see D007 validation return finding)",
+      "group": "0_trigger",
+      "id": "p01",
+      "kind": "webhook",
+      "label": "Webhook — Navigator Adoption",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p02",
+      "kind": "code",
+      "label": "Validate Request and Build Routes",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "group": "1_prepare_fetch",
+      "id": "p03",
+      "kind": "httpRequest",
+      "label": "Fetch Authority",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p04",
+      "kind": "crypto",
+      "label": "Hash Authority",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "2_verification_gate",
+      "id": "p05",
+      "kind": "code",
+      "label": "Validate Authority",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "group": "1_prepare_fetch",
+      "id": "p06",
+      "kind": "httpRequest",
+      "label": "Inspect Destination",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "2_verification_gate",
+      "id": "p07",
+      "kind": "code",
+      "label": "Validate Destination",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "group": "1_prepare_fetch",
+      "id": "p08",
+      "kind": "httpRequest",
+      "label": "Fetch Current Root",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p09",
+      "kind": "crypto",
+      "label": "Hash Current Root",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node); enforces ROOT_HASH_DRIFT gate",
+      "group": "2_verification_gate",
+      "id": "p10",
+      "kind": "code",
+      "label": "Validate Current Root",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "group": "3_write_action",
+      "id": "p11",
+      "kind": "httpRequest",
+      "label": "Provision Date Folder",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "group": "3_write_action",
+      "id": "p12",
+      "kind": "httpRequest",
+      "label": "Provision Rollback Folder",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope)",
+      "group": "3_write_action",
+      "id": "p13",
+      "kind": "httpRequest",
+      "label": "Provision Destination Folder",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p14",
+      "kind": "code",
+      "label": "Validate Folder Provisioning",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W18_SP_WorkingMemory_Audit_Read (read scope)",
+      "group": "1_prepare_fetch",
+      "id": "p15",
+      "kind": "httpRequest",
+      "label": "Fetch Adoption ZIP",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p16",
+      "kind": "code",
+      "label": "Set ZIP Metadata",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p17",
+      "kind": "crypto",
+      "label": "Hash ZIP",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node); enforces PAYLOAD_HASH_MISMATCH gate",
+      "group": "2_verification_gate",
+      "id": "p18",
+      "kind": "code",
+      "label": "Validate ZIP Hash",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p19",
+      "kind": "compression",
+      "label": "Decompress ZIP",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node); enforces ARCHIVE_COUNT_MISMATCH gate + path-traversal rejection",
+      "group": "2_verification_gate",
+      "id": "p20",
+      "kind": "code",
+      "label": "Split Archive Files",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=false",
+      "group": "3_write_action",
+      "id": "p21",
+      "kind": "httpRequest",
+      "label": "Upload Deployment Files",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node); enforces UPLOAD_COUNT_MISMATCH / UPLOAD_FAILURES gate",
+      "group": "2_verification_gate",
+      "id": "p22",
+      "kind": "code",
+      "label": "Validate Uploads",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+      "group": "3_write_action",
+      "id": "p23",
+      "kind": "httpRequest",
+      "label": "Cut Over Root Pointer Last",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p24",
+      "kind": "code",
+      "label": "Build Receipt",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "credential:W17_SP_WorkingMemory_Filing_Write (write scope); overwrite=true",
+      "group": "3_write_action",
+      "id": "p25",
+      "kind": "httpRequest",
+      "label": "Write Receipt",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    },
+    {
+      "authority": "no_credential (pure code node)",
+      "group": "1_prepare_fetch",
+      "id": "p26",
+      "kind": "respondToWebhook",
+      "label": "Respond Success",
+      "lifecycle_state": "active",
+      "source_tag": "N8N"
+    }
+  ],
+  "ppv": "Potential — this projection is read-only; no workflow mutation performed to produce it",
+  "reality": "IMPLEMENTED — active production workflow; execution 1392 succeeded 2026-08-01T14:21Z, execution 1393 errored 2026-08-01T14:49Z (replay correctly rejected by the ROOT_HASH_DRIFT gate at node p10)",
+  "relationships": [
+    {
+      "from": "p01",
+      "id": "r_p01_p02",
+      "to": "p02",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p02",
+      "id": "r_p02_p03",
+      "to": "p03",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p03",
+      "id": "r_p03_p04",
+      "to": "p04",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p04",
+      "id": "r_p04_p05",
+      "to": "p05",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p05",
+      "id": "r_p05_p06",
+      "to": "p06",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p06",
+      "id": "r_p06_p07",
+      "to": "p07",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p07",
+      "id": "r_p07_p08",
+      "to": "p08",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p08",
+      "id": "r_p08_p09",
+      "to": "p09",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p09",
+      "id": "r_p09_p10",
+      "to": "p10",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p10",
+      "id": "r_p10_p11",
+      "to": "p11",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p11",
+      "id": "r_p11_p12",
+      "to": "p12",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p12",
+      "id": "r_p12_p13",
+      "to": "p13",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p13",
+      "id": "r_p13_p14",
+      "to": "p14",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p14",
+      "id": "r_p14_p15",
+      "to": "p15",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p15",
+      "id": "r_p15_p16",
+      "to": "p16",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p16",
+      "id": "r_p16_p17",
+      "to": "p17",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p17",
+      "id": "r_p17_p18",
+      "to": "p18",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p18",
+      "id": "r_p18_p19",
+      "to": "p19",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p19",
+      "id": "r_p19_p20",
+      "to": "p20",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p20",
+      "id": "r_p20_p21",
+      "to": "p21",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p21",
+      "id": "r_p21_p22",
+      "to": "p22",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p22",
+      "id": "r_p22_p23",
+      "to": "p23",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p23",
+      "id": "r_p23_p24",
+      "to": "p24",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p24",
+      "id": "r_p24_p25",
+      "to": "p25",
+      "verb": "flows_to"
+    },
+    {
+      "from": "p25",
+      "id": "r_p25_p26",
+      "to": "p26",
+      "verb": "flows_to"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "mcp__synapsys-n8n-readonly-code__get_workflow(id=7L5tLWOPTeqRzw3r) — live, active=true, versionCounter=4",
+  "title": "D007 — Navigator Static Adoption Production (workflow 7L5tLWOPTeqRzw3r, live)",
+  "view_id": "n8n_workflow_detail"
+}

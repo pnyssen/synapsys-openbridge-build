@@ -1,0 +1,51 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_ratified",
+      "group": "1_purpose",
+      "id": "psa_purpose",
+      "kind": "psa_layer",
+      "label": "Purpose",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_strategy",
+      "id": "psa_strategy",
+      "kind": "psa_layer",
+      "label": "Strategy",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "d007_operational",
+      "group": "3_assets",
+      "id": "psa_assets",
+      "kind": "psa_layer",
+      "label": "Assets",
+      "lifecycle_state": "active"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "psa_purpose",
+      "id": "e1",
+      "to": "psa_strategy",
+      "verb": "informs"
+    },
+    {
+      "from": "psa_strategy",
+      "id": "e2",
+      "to": "psa_assets",
+      "verb": "compounds_into"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the psa view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Purpose / Strategy / Assets — labelled fixture",
+  "view_id": "psa"
+}

@@ -1,0 +1,118 @@
+{
+  "edges": [
+    {
+      "fromNode": "wo_b",
+      "fromSide": "right",
+      "id": "e1",
+      "label": "runs_alongside",
+      "toNode": "wo_a",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "wo_b",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "runs_alongside",
+      "toNode": "wo_c",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "wo_a",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "feeds",
+      "toNode": "wo_d009",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "wo_c",
+      "fromSide": "right",
+      "id": "e4",
+      "label": "feeds",
+      "toNode": "wo_d009",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "LABELLED_FIXTURE",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential — fixture data, not a governed record",
+    "reality": "FIXTURE — not implemented/live; structural demonstration only",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the work_object_queue view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+    "title": "Current Work Object Queue — labelled fixture",
+    "view_id": "work_object_queue"
+  },
+  "nodes": [
+    {
+      "color": "5",
+      "height": 160,
+      "id": "wo_a",
+      "text": "Stream A — Codex runtime/integration graph\nkind: work_object_lane\nstate: candidate\nauthority: wave_controller_v0.2\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: wave_controller_v0.2",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "wo_b",
+      "text": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001 (this wave)\nkind: work_object\nstate: active\nauthority: wave_controller_v0.2\nBORDER: solid · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: wave_controller_v0.2",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "wo_c",
+      "text": "Stream C — Claude CoWork/Fable visual system\nkind: work_object_lane\nstate: candidate\nauthority: wave_controller_v0.2\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: wave_controller_v0.2",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "3",
+      "height": 160,
+      "id": "wo_d009",
+      "text": "D009 integrated assurance\nkind: work_object_lane\nstate: held\nauthority: wave_controller_v0.2\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: wave_controller_v0.2",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Current Work Object Queue — labelled fixture\nsource: declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the work_object_queue view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: LABELLED_FIXTURE\nreality: FIXTURE — not implemented/live; structural demonstration only\nppv: Potential — fixture data, not a governed record\nauthority: No production authority claimed; fixture author is this candidate compiler pass\nview_id: work_object_queue\nobjects: 4  relationships: 4",
+      "type": "text",
+      "width": 1180,
+      "x": 0,
+      "y": 520
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 780
+    }
+  ]
+}

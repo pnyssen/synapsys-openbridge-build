@@ -1,0 +1,65 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_lifecycle",
+      "id": "mesh_signal",
+      "kind": "mesh_gate",
+      "label": "Signal",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_lifecycle",
+      "id": "mesh_qualify",
+      "kind": "mesh_gate",
+      "label": "Qualify",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_lifecycle",
+      "id": "mesh_bind",
+      "kind": "mesh_gate",
+      "label": "Bind",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "d001_decision_gate",
+      "group": "2_realisation",
+      "id": "mesh_realise",
+      "kind": "mesh_gate",
+      "label": "Realise",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "mesh_signal",
+      "id": "e1",
+      "to": "mesh_qualify",
+      "verb": "gates_to"
+    },
+    {
+      "from": "mesh_qualify",
+      "id": "e2",
+      "to": "mesh_bind",
+      "verb": "gates_to"
+    },
+    {
+      "from": "mesh_bind",
+      "id": "e3",
+      "to": "mesh_realise",
+      "verb": "gates_to"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the mesh view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "Mesh Lifecycle Gates — labelled fixture",
+  "view_id": "mesh"
+}

@@ -1,0 +1,153 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Signal\nProjection drift: Pattern count mismatch",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Signal",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Context\nCTX-SS",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Context",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Service\nSC-05 Assurance Audit and Learning",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Service",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Method\nD002-XOT Cross-Object Trace Evidence",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Method",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Pattern candidate\nPAT-A02 Implementation Trace Evidence",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Pattern candidate",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Canonical references\nData-lake evidence index; ESA catalogue index",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "Canonical references",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Work Object\nWO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+      "group": "col_01",
+      "id": "n7",
+      "kind": "canvas_object",
+      "label": "Work Object",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Benefit\nFresher, safer navigation",
+      "group": "col_02",
+      "id": "n8",
+      "kind": "canvas_object",
+      "label": "Benefit",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Asset candidate\nReusable projection-control pattern (HELD)",
+      "group": "col_00",
+      "id": "n9",
+      "kind": "canvas_object",
+      "label": "Asset candidate",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/06_SIGNAL_TO_ASSET_RELATIONSHIP.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n2",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n2",
+      "id": "e2",
+      "to": "n3",
+      "verb": "match"
+    },
+    {
+      "from": "n3",
+      "id": "e3",
+      "to": "n4",
+      "verb": "uses"
+    },
+    {
+      "from": "n4",
+      "id": "e4",
+      "to": "n5",
+      "verb": "candidate form"
+    },
+    {
+      "from": "n5",
+      "id": "e5",
+      "to": "n6",
+      "verb": "supported by"
+    },
+    {
+      "from": "n6",
+      "id": "e6",
+      "to": "n7",
+      "verb": "evidence"
+    },
+    {
+      "from": "n7",
+      "id": "e7",
+      "to": "n8",
+      "verb": "targets"
+    },
+    {
+      "from": "n8",
+      "id": "e8",
+      "to": "n9",
+      "verb": "qualification required"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/06_SIGNAL_TO_ASSET_RELATIONSHIP.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Signal to Asset Relationship (candidate regeneration)",
+  "view_id": "06_signal_to_asset_relationship"
+}

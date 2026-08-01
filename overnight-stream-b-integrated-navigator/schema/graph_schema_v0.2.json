@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "synapsys://overnight-stream-b/graph-adapter-contract-v0.2",
+  "title": "SynapSys Governed Object/Relationship Adapter Contract v0.2 (SCVS-extended)",
+  "description": "Additive extension of the Lane B v0.1 contract (lane-b-n8n-viewer-canvas-compiler/schema/graph_schema.json, UNCHANGED and still valid on its own). Every v0.1-valid graph is also v0.2-valid: nothing required in v0.1 was removed or made stricter except the return_route no-arrow rule, which v0.1 already carries (Correction v0.1). v0.2 adds four OPTIONAL per-object fields so the SCVS v0.2.1 visual standard (source tag, owner-lane bracket, per-object evidence/PPV chips) can be rendered without inventing data: an object that omits them falls back to the view-level evidence/ppv and an 'unspecified' owner/source tag, rather than failing.",
+  "type": "object",
+  "required": [
+    "view_id", "title", "snapshot", "source", "evidence",
+    "reality", "ppv", "authority", "return_route", "objects", "relationships"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "view_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "snapshot": { "type": "string" },
+    "source": { "type": "string", "minLength": 1 },
+    "evidence": {
+      "type": "string",
+      "enum": ["LIVE_VERIFIED", "LIVE_PARTIAL", "LABELLED_FIXTURE", "STREAM_A_CONTRACT_PENDING", "ADAPTED_FROM_ACCEPTED_CANVAS"]
+    },
+    "reality": { "type": "string", "minLength": 1 },
+    "ppv": { "type": "string", "minLength": 1 },
+    "authority": { "type": "string", "minLength": 1 },
+    "return_route": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*->).+$",
+      "description": "Single stable path/URL to the candidate Architecture v1.3 (or, for objects that must reference the CURRENT surface, v1.2) — never two segments joined by an arrow."
+    },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/object" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/relationship" }
+    }
+  },
+  "$defs": {
+    "object": {
+      "type": "object",
+      "required": ["id", "label", "kind", "lifecycle_state", "authority"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9_.:-]+$" },
+        "label": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "lifecycle_state": {
+          "type": "string",
+          "enum": ["active", "held", "superseded", "failed", "candidate", "proposed", "retired", "draft", "conceptual", "canonical"]
+        },
+        "authority": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string" },
+        "group": { "type": "string" },
+        "evidence": {
+          "type": "string",
+          "enum": ["SUFFICIENT", "PROBABLE", "INSUFFICIENT", "CONFLICTED", "STALE", "UNKNOWN"],
+          "description": "OPTIONAL per-object evidence chip (SCVS §2.1). Falls back to the view's evidence field when absent."
+        },
+        "ppv": {
+          "type": "string",
+          "enum": ["Potential", "Probable", "Verified"],
+          "description": "OPTIONAL per-object PPV chip. Falls back to the view's ppv field when absent. 'Verified' should only be used when authority names a quoted Steward/D001 record."
+        },
+        "owner_lane": {
+          "type": "string",
+          "description": "OPTIONAL bracket tag, e.g. '[D001]', '[Codex]', '[CoWork]', '[Steward]'. Omitted renders no owner-lane chip."
+        },
+        "source_tag": {
+          "type": "string",
+          "enum": ["ODOO", "N8N", "WM", "OBS", "EXT"],
+          "description": "OPTIONAL corner source tag per SCVS §2.1. Omitted renders no corner tag."
+        },
+        "stop_hold": {
+          "type": "string",
+          "description": "OPTIONAL. When present, this object renders the SCVS STOP/HOLD frame + ⚠ banner naming the holder, e.g. 'D001 decision pending'."
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["id", "from", "to", "verb"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "verb": { "type": "string", "minLength": 1 },
+        "lifecycle_state": { "type": "string" },
+        "line_style": {
+          "type": "string",
+          "enum": ["operational", "projection", "proposed"],
+          "description": "OPTIONAL, SCVS §2.2 line semantics: solid=operational flow, dashed=read-only projection ('does not authorise' edges are always verb-labelled as such), dotted=proposed. Defaults to 'operational' when absent."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Patterns\n15 total; 1 evidenced pilot; 14 candidates",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Patterns",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Methods\n12 total; 10 active",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Methods",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Canonical Library\n56 total; 5 promoted",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Canonical Library",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Concentration risk\nPAT-A05 links most Methods",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Concentration risk",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Qualification gaps\nContext, tests, authority, replay, observed effect",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Qualification gaps",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "No projection promotion\nCandidate remains candidate",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "No projection promotion",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/09_PATTERN_METHOD_CANONICAL.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n2",
+      "verb": "guides"
+    },
+    {
+      "from": "n2",
+      "id": "e2",
+      "to": "n3",
+      "verb": "references"
+    },
+    {
+      "from": "n4",
+      "id": "e3",
+      "to": "n1",
+      "verb": "weak differentiation"
+    },
+    {
+      "from": "n5",
+      "id": "e4",
+      "to": "n1",
+      "verb": "blocks admission"
+    },
+    {
+      "from": "n6",
+      "id": "e5",
+      "to": "n3",
+      "verb": "authority rule"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/09_PATTERN_METHOD_CANONICAL.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Pattern Method Canonical Relationship (candidate regeneration)",
+  "view_id": "09_pattern_method_canonical"
+}

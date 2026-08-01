@@ -1,0 +1,141 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FORM x SIGNAL\nOrient and describe",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "FORM x SIGNAL",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FORM x BENEFITS\nDefine intended effects",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "FORM x BENEFITS",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FORM x REALISATION\nDefine acceptance",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "FORM x REALISATION",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FLOW x SIGNAL\nRoute and prioritise",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "FLOW x SIGNAL",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FLOW x BENEFITS\nDeliver and observe",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "FLOW x BENEFITS",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "FLOW x REALISATION\nValidate and accept",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "FLOW x REALISATION",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "EVOLVE x SIGNAL\nLearn from change",
+      "group": "col_01",
+      "id": "n7",
+      "kind": "canvas_object",
+      "label": "EVOLVE x SIGNAL",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "EVOLVE x BENEFITS\nImprove effect pathways",
+      "group": "col_02",
+      "id": "n8",
+      "kind": "canvas_object",
+      "label": "EVOLVE x BENEFITS",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "EVOLVE x REALISATION\nConvert learning to assets",
+      "group": "col_00",
+      "id": "n9",
+      "kind": "canvas_object",
+      "label": "EVOLVE x REALISATION",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n4",
+      "verb": "activate"
+    },
+    {
+      "from": "n4",
+      "id": "e2",
+      "to": "n7",
+      "verb": "learn"
+    },
+    {
+      "from": "n2",
+      "id": "e3",
+      "to": "n5",
+      "verb": "deliver"
+    },
+    {
+      "from": "n5",
+      "id": "e4",
+      "to": "n8",
+      "verb": "improve"
+    },
+    {
+      "from": "n3",
+      "id": "e5",
+      "to": "n6",
+      "verb": "assure"
+    },
+    {
+      "from": "n6",
+      "id": "e6",
+      "to": "n9",
+      "verb": "convert"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Form Flow Evolve x Signal Benefits Realisation (candidate regeneration)",
+  "view_id": "03_ffe_sbr_3x3x3"
+}

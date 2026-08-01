@@ -1,0 +1,192 @@
+{
+  "edges": [
+    {
+      "fromNode": "q",
+      "fromSide": "right",
+      "id": "e1",
+      "label": "bound",
+      "toNode": "wo",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "wo",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "controlled through",
+      "toNode": "delivery",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "delivery",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "relates_to",
+      "toNode": "state",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "state",
+      "fromSide": "right",
+      "id": "e4",
+      "label": "relates_to",
+      "toNode": "evidence",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "evidence",
+      "fromSide": "right",
+      "id": "e5",
+      "label": "relates_to",
+      "toNode": "ppv",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "ppv",
+      "fromSide": "right",
+      "id": "e6",
+      "label": "relates_to",
+      "toNode": "authority",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "authority",
+      "fromSide": "right",
+      "id": "e7",
+      "label": "route only",
+      "toNode": "next",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential",
+    "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas (read live via sp_read this session; original snapshot 2026-08-02T00:45:00+10:00)",
+    "title": "Current Work Object and Queue — Three-Stream Wave (candidate regeneration)",
+    "view_id": "14_current_work_object_queue"
+  },
+  "nodes": [
+    {
+      "color": "3",
+      "height": 160,
+      "id": "authority",
+      "text": "Authority\nkind: canvas_object\nstate: held\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nAuthority\nBounded preparation active\nProduction mutation HELD\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "control",
+      "text": "NAVIGATOR CONTROL / RETURN\nkind: control_return_block\nstate: candidate\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nNAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-02T00:45:00+10:00\nThree production lanes only; D009 later\nWhite-background HTML regression enforced\nInstalled skill controls updated\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]\nReplay-validity: PRESERVED\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "delivery",
+      "text": "Current control surface\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nCurrent control surface\n[[CURRENT_DELIVERY]]\nNo standalone status HTML\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "evidence",
+      "text": "Evidence\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nEvidence\nSUFFICIENT_FOR_CONTROLLED_LAUNCH_PREPARATION\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "next",
+      "text": "Exactly one next action\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nExactly one next action\nOpen the three correct tool-enabled sessions and paste the v0.2 packets; then mark SENT_REPORTED.\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "ppv",
+      "text": "PPV\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nPPV\nPotential\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "q",
+      "text": "Queue item\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nQueue item\nLaunch and reconcile the controlled three-stream integrated Navigator MVP wave.\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "state",
+      "text": "Reality\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nReality\nNavigator implemented\nStreams A–C READY_TO_SEND\nExecution not yet started\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 1260,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "wo",
+      "text": "Work Object\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node\nWork Object\nWO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Current Work Object and Queue — Three-Stream Wave (candidate regeneration)\nsource: adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas (read live via sp_read this session; original snapshot 2026-08-02T00:45:00+10:00)\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: ADAPTED_FROM_ACCEPTED_CANVAS\nreality: CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement\nppv: Potential\nauthority: BOUNDED_PREPARATION_ACTIVE_PRODUCTION_HELD\nview_id: 14_current_work_object_queue\nobjects: 9  relationships: 7",
+      "type": "text",
+      "width": 1600,
+      "x": 0,
+      "y": 720
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 980
+    }
+  ]
+}

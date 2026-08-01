@@ -1,0 +1,184 @@
+{
+  "edges": [
+    {
+      "fromNode": "n1",
+      "fromSide": "bottom",
+      "id": "e1",
+      "label": "directs",
+      "toNode": "n2",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "n2",
+      "fromSide": "right",
+      "id": "e2",
+      "label": "builds",
+      "toNode": "n3",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n4",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "serves",
+      "toNode": "n1",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n5",
+      "fromSide": "right",
+      "id": "e4",
+      "label": "projects",
+      "toNode": "n7",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n6",
+      "fromSide": "right",
+      "id": "e5",
+      "label": "evidences",
+      "toNode": "n7",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "n7",
+      "fromSide": "right",
+      "id": "e6",
+      "label": "does not authorise",
+      "toNode": "n8",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "HELD",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential",
+    "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+    "title": "Enterprise Integrated View (candidate regeneration)",
+    "view_id": "01_enterprise_integrated"
+  },
+  "nodes": [
+    {
+      "color": "3",
+      "height": 160,
+      "id": "control_v02",
+      "text": "NAVIGATOR CONTROL / RETURN\nkind: control_return_block\nstate: held\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nNAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n1",
+      "text": "Purpose\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nPurpose\nGovern, deliver and realise value repeatedly.\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n2",
+      "text": "Strategy\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nStrategy\nCapture profitable markets; innovate incrementally; integrate sustainable supply chains.\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n3",
+      "text": "Assets\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nAssets\nPersistent financial, strategic, institutional and intergenerational value.\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n4",
+      "text": "Current Work Object\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nCurrent Work Object\nWO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n5",
+      "text": "Operational truth\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nOperational truth\nOdoo registers\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "n6",
+      "text": "Evidence\nkind: canvas_object\nstate: active\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nEvidence\nSharePoint Working Memory\nBORDER: solid · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 880
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "n7",
+      "text": "Human interface\nkind: canvas_object\nstate: candidate\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nHuman interface\nObsidian candidate projection\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "3",
+      "height": 160,
+      "id": "n8",
+      "text": "Runtime\nkind: canvas_object\nstate: held\nauthority: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node\nRuntime\nN8N held until release\nBORDER: dashed · E: ADAPTED_FROM_ACCEPTED_CANVAS · PPV: Potential · AUTH: carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 280
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Enterprise Integrated View (candidate regeneration)\nsource: adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: ADAPTED_FROM_ACCEPTED_CANVAS\nreality: CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement\nppv: Potential\nauthority: HELD\nview_id: 01_enterprise_integrated\nobjects: 9  relationships: 6",
+      "type": "text",
+      "width": 1180,
+      "x": 0,
+      "y": 1120
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 1380
+    }
+  ]
+}

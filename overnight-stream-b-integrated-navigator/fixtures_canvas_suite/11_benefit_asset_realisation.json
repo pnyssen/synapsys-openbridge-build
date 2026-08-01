@@ -1,0 +1,123 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Output\nCandidate Navigator suite",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Output",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Outcome\nSimpler access to integrated state",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Outcome",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Expected benefit\nFaster, safer Steward decisions",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Expected benefit",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Observed benefit\nStatic tests pass; surfaces navigable",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Observed benefit",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Realised benefit\nHELD pending use and acceptance",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Realised benefit",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Asset effect\nReusable interface pattern",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "Asset effect",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Qualified asset\nHELD pending AQG, reuse and authority",
+      "group": "col_01",
+      "id": "n7",
+      "kind": "canvas_object",
+      "label": "Qualified asset",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/11_BENEFIT_ASSET_REALISATION.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n2",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n2",
+      "id": "e2",
+      "to": "n3",
+      "verb": "relates_to"
+    },
+    {
+      "from": "n3",
+      "id": "e3",
+      "to": "n4",
+      "verb": "observe"
+    },
+    {
+      "from": "n4",
+      "id": "e4",
+      "to": "n5",
+      "verb": "acceptance gate"
+    },
+    {
+      "from": "n4",
+      "id": "e5",
+      "to": "n6",
+      "verb": "possible"
+    },
+    {
+      "from": "n6",
+      "id": "e6",
+      "to": "n7",
+      "verb": "AQG"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/11_BENEFIT_ASSET_REALISATION.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Benefit and Asset Realisation (candidate regeneration)",
+  "view_id": "11_benefit_asset_realisation"
+}

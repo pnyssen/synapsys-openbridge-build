@@ -1,0 +1,132 @@
+{
+  "authority": "HELD",
+  "evidence": "ADAPTED_FROM_ACCEPTED_CANVAS",
+  "objects": [
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Purpose\nGovern, deliver and realise value repeatedly.",
+      "group": "col_00",
+      "id": "n1",
+      "kind": "canvas_object",
+      "label": "Purpose",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Strategy\nCapture profitable markets; innovate incrementally; integrate sustainable supply chains.",
+      "group": "col_00",
+      "id": "n2",
+      "kind": "canvas_object",
+      "label": "Strategy",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Assets\nPersistent financial, strategic, institutional and intergenerational value.",
+      "group": "col_01",
+      "id": "n3",
+      "kind": "canvas_object",
+      "label": "Assets",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Current Work Object\nWO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+      "group": "col_02",
+      "id": "n4",
+      "kind": "canvas_object",
+      "label": "Current Work Object",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Operational truth\nOdoo registers",
+      "group": "col_00",
+      "id": "n5",
+      "kind": "canvas_object",
+      "label": "Operational truth",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Evidence\nSharePoint Working Memory",
+      "group": "col_00",
+      "id": "n6",
+      "kind": "canvas_object",
+      "label": "Evidence",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Human interface\nObsidian candidate projection",
+      "group": "col_01",
+      "id": "n7",
+      "kind": "canvas_object",
+      "label": "Human interface",
+      "lifecycle_state": "candidate"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "Runtime\nN8N held until release",
+      "group": "col_02",
+      "id": "n8",
+      "kind": "canvas_object",
+      "label": "Runtime",
+      "lifecycle_state": "held"
+    },
+    {
+      "authority": "carried from accepted canvas metadata.authority (HELD) — not independently re-derived per node",
+      "detail": "NAVIGATOR CONTROL / RETURN\nSnapshot: 2026-08-01T23:17:00+10:00\nProjection source: Odoo read-only registers + SharePoint Working Memory + v0.2 correction evidence\nFreshness: Odoo Canonical Library refreshed 2026-08-01; other register counts inherited from verified v0.1 snapshot\nEvidence: SUFFICIENT_FOR_CANDIDATE_REASSURANCE; live-vault route and independent cold-start remain open\nPPV: Potential\nAuthority: HELD — no adoption, runtime, register, canon, Service, Pattern, Method, asset or PPV mutation\nStatus: candidate / static / not current\nReplay-validity: PRESERVED_WITH_CONDITIONS\nReturn: [[NAVIGATOR_MVP_PRIMARY_HOME_CANDIDATE_v0.2]]",
+      "group": "col_00",
+      "id": "control_v02",
+      "kind": "control_return_block",
+      "label": "NAVIGATOR CONTROL / RETURN",
+      "lifecycle_state": "held"
+    }
+  ],
+  "ppv": "Potential",
+  "reality": "CANDIDATE_REGENERATION — the accepted canvas at Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas remains the current filed version and is UNCHANGED by this build; this is a compiler-regenerated candidate rendering of the same node/edge content through the SCVS-integrated compiler, not a replacement",
+  "relationships": [
+    {
+      "from": "n1",
+      "id": "e1",
+      "to": "n2",
+      "verb": "directs"
+    },
+    {
+      "from": "n2",
+      "id": "e2",
+      "to": "n3",
+      "verb": "builds"
+    },
+    {
+      "from": "n4",
+      "id": "e3",
+      "to": "n1",
+      "verb": "serves"
+    },
+    {
+      "from": "n5",
+      "id": "e4",
+      "to": "n7",
+      "verb": "projects"
+    },
+    {
+      "from": "n6",
+      "id": "e5",
+      "to": "n7",
+      "verb": "evidences"
+    },
+    {
+      "from": "n7",
+      "id": "e6",
+      "to": "n8",
+      "verb": "does not authorise"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "adapted from accepted canvas Obsidian/10_WORKSPACES/NAVIGATOR_MVP_v0.2/01_ENTERPRISE_INTEGRATED.canvas (read live via sp_read this session; original snapshot 2026-08-01T23:17:00+10:00)",
+  "title": "Enterprise Integrated View (candidate regeneration)",
+  "view_id": "01_enterprise_integrated"
+}

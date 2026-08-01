@@ -1,0 +1,328 @@
+{
+  "edges": [
+    {
+      "fromNode": "parent_Deliver_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1009",
+      "label": "contains",
+      "toNode": "menu_1009",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Deliver_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1010",
+      "label": "contains",
+      "toNode": "menu_1010",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Deliver_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1011",
+      "label": "contains",
+      "toNode": "menu_1011",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_SynapSys_Value_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1012",
+      "label": "contains",
+      "toNode": "menu_1012",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_SynapSys_Value_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1013",
+      "label": "contains",
+      "toNode": "menu_1013",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_SynapSys_Value_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1014",
+      "label": "contains",
+      "toNode": "menu_1014",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_1099",
+      "label": "contains",
+      "toNode": "menu_1099",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_489",
+      "label": "contains",
+      "toNode": "menu_489",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_493",
+      "label": "contains",
+      "toNode": "menu_493",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_498",
+      "label": "contains",
+      "toNode": "menu_498",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_542",
+      "label": "contains",
+      "toNode": "menu_542",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_981",
+      "label": "contains",
+      "toNode": "menu_981",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_989",
+      "label": "contains",
+      "toNode": "menu_989",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "parent_Govern",
+      "fromSide": "bottom",
+      "id": "r_menu_992",
+      "label": "contains",
+      "toNode": "menu_992",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "LIVE_VERIFIED",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential — read-only projection; no Odoo record created/written/unlinked to produce it",
+    "reality": "IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance",
+    "title": "Odoo — Govern Menu Tree (live, x_ss custom governance menus)",
+    "view_id": "odoo_app_menu_object"
+  },
+  "nodes": [
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1009",
+      "text": "[ODOO] Change Requests\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,764\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1010",
+      "text": "[ODOO] Governance Decisions\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1396\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1011",
+      "text": "[ODOO] Execution Gates\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1400\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1012",
+      "text": "[ODOO] Governance Decisions\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1396\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1013",
+      "text": "[ODOO] DIM Cycles\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1403\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1014",
+      "text": "[ODOO] Reviews\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1397\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_1099",
+      "text": "[ODOO] DIM Events\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,1504\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_489",
+      "text": "[ODOO] Context Master\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=ir.actions.act_window,752\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_493",
+      "text": "[ODOO] Controls & Exceptions\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_498",
+      "text": "[ODOO] Service Control\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_542",
+      "text": "[ODOO] Governed Entities\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 880
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_981",
+      "text": "[ODOO] Traditional Board (Lens 1)\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1080
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_989",
+      "text": "[ODOO] Risk & Integrity (Lens 2)\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1280
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "menu_992",
+      "text": "[ODOO] Execution Control (Lens 3)\nkind: odoo_menu_item\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\naction=no_action_container_menu\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1480
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "parent_Deliver_Govern",
+      "text": "[ODOO] Deliver/Govern\nkind: odoo_menu_parent\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "parent_Govern",
+      "text": "[ODOO] Govern\nkind: odoo_menu_parent\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 1680
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "parent_SynapSys_Value_Govern",
+      "text": "[ODOO] SynapSys/Value/Govern\nkind: odoo_menu_parent\nstate: active\nauthority: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)\nBORDER: solid · E: LIVE_VERIFIED · PPV: Potential — read-only projection; no Odoo record created/written/unlinked to produce it · AUTH: odoo_menu_visibility_group (not independently enumerated this session; menu structure only)",
+      "type": "text",
+      "width": 340,
+      "x": 840,
+      "y": 680
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Odoo — Govern Menu Tree (live, x_ss custom governance menus)\nsource: mcp__synapsys-odoo-readonly-code__search_odoo(model=ir.ui.menu, domain=[parent_id.name=Govern]) — live SynapSys Odoo instance\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: LIVE_VERIFIED\nreality: IMPLEMENTED — reflects live Odoo ir.ui.menu records under the Govern menu tree at snapshot time; not the full app/menu/object surface (partial, scoped to Govern for this candidate pass)\nppv: Potential — read-only projection; no Odoo record created/written/unlinked to produce it\nauthority: Read-only Odoo projection via synapsys-odoo-readonly-code (search_odoo only, no write tool called)\nview_id: odoo_app_menu_object\nobjects: 17  relationships: 14",
+      "type": "text",
+      "width": 1180,
+      "x": 0,
+      "y": 1920
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 2180
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+  "evidence": "LABELLED_FIXTURE",
+  "objects": [
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_ffe",
+      "id": "f_form",
+      "kind": "3x3x3_axis",
+      "label": "Form",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_ffe",
+      "id": "f_flow",
+      "kind": "3x3x3_axis",
+      "label": "Flow",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "1_ffe",
+      "id": "f_evolve",
+      "kind": "3x3x3_axis",
+      "label": "Evolve",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_sbr",
+      "id": "s_strategic",
+      "kind": "3x3x3_axis",
+      "label": "Strategic",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_sbr",
+      "id": "s_business",
+      "kind": "3x3x3_axis",
+      "label": "Business",
+      "lifecycle_state": "active"
+    },
+    {
+      "authority": "steward_directed_working_definition",
+      "group": "2_sbr",
+      "id": "s_relational",
+      "kind": "3x3x3_axis",
+      "label": "Relational",
+      "lifecycle_state": "active"
+    }
+  ],
+  "ppv": "Potential — fixture data, not a governed record",
+  "reality": "FIXTURE — not implemented/live; structural demonstration only",
+  "relationships": [
+    {
+      "from": "f_form",
+      "id": "e1",
+      "to": "s_strategic",
+      "verb": "cross_maps"
+    },
+    {
+      "from": "f_flow",
+      "id": "e2",
+      "to": "s_business",
+      "verb": "cross_maps"
+    },
+    {
+      "from": "f_evolve",
+      "id": "e3",
+      "to": "s_relational",
+      "verb": "cross_maps"
+    }
+  ],
+  "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+  "snapshot": "2026-08-01T16:48:19Z",
+  "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the three_by_three_by_three view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+  "title": "3x3x3 (FFE/SBR) — labelled fixture",
+  "view_id": "three_by_three_by_three"
+}

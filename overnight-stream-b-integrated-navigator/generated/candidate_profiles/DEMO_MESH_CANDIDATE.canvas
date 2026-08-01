@@ -1,0 +1,110 @@
+{
+  "edges": [
+    {
+      "fromNode": "mesh_signal",
+      "fromSide": "bottom",
+      "id": "e1",
+      "label": "gates_to",
+      "toNode": "mesh_qualify",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "mesh_qualify",
+      "fromSide": "bottom",
+      "id": "e2",
+      "label": "gates_to",
+      "toNode": "mesh_bind",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "mesh_bind",
+      "fromSide": "right",
+      "id": "e3",
+      "label": "gates_to",
+      "toNode": "mesh_realise",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "__source_evidence_authority_panel__",
+      "fromSide": "bottom",
+      "id": "__edge_meta_to_home__",
+      "label": "return",
+      "toNode": "__return_to_navigator_home__",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {
+    "authority": "No production authority claimed; fixture author is this candidate compiler pass",
+    "compiler": "lane-b-canvas-compiler v0.1",
+    "evidence": "LABELLED_FIXTURE",
+    "grammar": "synapsys-obsidian-canvas-v0.2 (nodes/edges per JSON Canvas + metadata panel node + Home return node/edge) + SCVS-v0.2.1-chip-line",
+    "ppv": "Potential — fixture data, not a governed record",
+    "reality": "FIXTURE — not implemented/live; structural demonstration only",
+    "return_route": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+    "scvs_version": "SCVS v0.2.1 (Lane C consumed)",
+    "snapshot": "2026-08-01T16:48:19Z",
+    "source": "declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the mesh view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.",
+    "title": "Mesh Lifecycle Gates — labelled fixture",
+    "view_id": "mesh"
+  },
+  "nodes": [
+    {
+      "color": "3",
+      "height": 160,
+      "id": "mesh_bind",
+      "text": "Bind\nkind: mesh_gate\nstate: held\nauthority: steward_directed_working_definition\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 80
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "mesh_qualify",
+      "text": "Qualify\nkind: mesh_gate\nstate: candidate\nauthority: steward_directed_working_definition\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 280
+    },
+    {
+      "color": "3",
+      "height": 160,
+      "id": "mesh_realise",
+      "text": "Realise\nkind: mesh_gate\nstate: held\nauthority: d001_decision_gate\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: d001_decision_gate",
+      "type": "text",
+      "width": 340,
+      "x": 420,
+      "y": 80
+    },
+    {
+      "color": "5",
+      "height": 160,
+      "id": "mesh_signal",
+      "text": "Signal\nkind: mesh_gate\nstate: candidate\nauthority: steward_directed_working_definition\nBORDER: dashed · E: LABELLED_FIXTURE · PPV: Potential — fixture data, not a governed record · AUTH: steward_directed_working_definition",
+      "type": "text",
+      "width": 340,
+      "x": 0,
+      "y": 480
+    },
+    {
+      "height": 220,
+      "id": "__source_evidence_authority_panel__",
+      "text": "SOURCE / FRESHNESS / EVIDENCE / REALITY / PPV / AUTHORITY — Mesh Lifecycle Gates — labelled fixture\nsource: declared_adapter_contract_fixture (schema/graph_schema.json) — LABELLED FIXTURE — placeholder structure demonstrating this compiler handles the mesh view profile through the same code path as the live views. Not a reproduction of any existing canvas's real content; awaits Stream A's governed object/relationship JSON.\nfreshness (snapshot): 2026-08-01T16:48:19Z\nevidence: LABELLED_FIXTURE\nreality: FIXTURE — not implemented/live; structural demonstration only\nppv: Potential — fixture data, not a governed record\nauthority: No production authority claimed; fixture author is this candidate compiler pass\nview_id: mesh\nobjects: 4  relationships: 3",
+      "type": "text",
+      "width": 900,
+      "x": 0,
+      "y": 720
+    },
+    {
+      "height": 100,
+      "id": "__return_to_navigator_home__",
+      "text": "Return to Navigator Home\n05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/OVERNIGHT_STREAM_B_OUTPUT_v0.1/SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.3_CANDIDATE.html",
+      "type": "text",
+      "width": 360,
+      "x": 0,
+      "y": 980
+    }
+  ]
+}
