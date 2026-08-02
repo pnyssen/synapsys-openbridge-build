@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "ML-PF",
+      "type": "text",
+      "text": "ML-PF | Purpose \u00d7 Form\nDefine repeatable ways of working that produce governed outcomes.\nDefine Method purpose, inputs, steps, outputs, controls and canonical basis.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "ML-SF",
+      "type": "text",
+      "text": "ML-SF | Strategy \u00d7 Form\nMatch the right Method to Service, Context, risk and evidence need.\nDefine Method purpose, inputs, steps, outputs, controls and canonical basis.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "ML-AF",
+      "type": "text",
+      "text": "ML-AF | Assets \u00d7 Form\nEncode reusable know-how while preserving provenance and limitations.\nDefine Method purpose, inputs, steps, outputs, controls and canonical basis.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "ML-PF",
+      "type": "text",
+      "text": "ML-PF | Purpose \u00d7 Flow\nDefine repeatable ways of working that produce governed outcomes.\nApply the Method within a Work Object through gates and evidence capture.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "ML-SF",
+      "type": "text",
+      "text": "ML-SF | Strategy \u00d7 Flow\nMatch the right Method to Service, Context, risk and evidence need.\nApply the Method within a Work Object through gates and evidence capture.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "ML-AF",
+      "type": "text",
+      "text": "ML-AF | Assets \u00d7 Flow\nEncode reusable know-how while preserving provenance and limitations.\nApply the Method within a Work Object through gates and evidence capture.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "ML-PE",
+      "type": "text",
+      "text": "ML-PE | Purpose \u00d7 Evolve\nDefine repeatable ways of working that produce governed outcomes.\nImprove, split, retire or reactivate Methods from observed performance.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "ML-SE",
+      "type": "text",
+      "text": "ML-SE | Strategy \u00d7 Evolve\nMatch the right Method to Service, Context, risk and evidence need.\nImprove, split, retire or reactivate Methods from observed performance.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "ML-AE",
+      "type": "text",
+      "text": "ML-AE | Assets \u00d7 Evolve\nEncode reusable know-how while preserving provenance and limitations.\nImprove, split, retire or reactivate Methods from observed performance.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Method Library\nDecision: Which Methods are available, active, canonicalised, differentiated and fit for Service use?\nOwns: Repeatable procedure, required inputs, steps, controls, outputs and fitness conditions.\nExcludes: Pattern recurrence, canonical authority, Service offer, runtime state, Benefit claim or Asset qualification.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_METHOD_LIBRARY_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "ML-PF",
+      "toNode": "ML-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "ML-SF",
+      "toNode": "ML-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "ML-PF",
+      "toNode": "ML-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "ML-PF",
+      "toNode": "ML-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "ML-SF",
+      "toNode": "ML-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "ML-SF",
+      "toNode": "ML-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "ML-AF",
+      "toNode": "ML-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "ML-PF",
+      "toNode": "ML-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "ML-PE",
+      "toNode": "ML-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "ML-SF",
+      "toNode": "ML-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "ML-SE",
+      "toNode": "ML-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "ML-AF",
+      "toNode": "ML-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "ML-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Method Library",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

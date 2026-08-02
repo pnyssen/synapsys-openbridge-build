@@ -1,0 +1,183 @@
+{
+  "schema_version": "1.3",
+  "snapshot_at": "2026-08-03T01:14:00+10:00",
+  "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+  "streams": [
+    {
+      "id": "STREAM-A",
+      "name": "Critical live relay and graph",
+      "owner_lane": "Closed technical stream / evidence retained",
+      "supporting_lanes": [
+        "D007",
+        "authorised credential bridge",
+        "Navigator",
+        "D009"
+      ],
+      "priority": "P0",
+      "status": "ASSURED_STREAM_A_COMPLETE",
+      "progress": 100,
+      "reality": "Run-04 completed the exact authenticated transport. Gateway execution 1415 and bridge execution 1414 succeeded. The target was persisted in Working Memory, independently downloaded, verified at 8,565 bytes and SHA-256 df535de7985e0d924008cf157241a060e51f28a30d5050231a6a3254a6d1c81f, and passed unzip testing. The graph was regenerated from that target and deterministic tests passed with 151 objects and 164 relationships. Both workflows finish inactive.",
+      "next_action": "None in Stream A. Retain the evidence chain, keep both workflows inactive and do not replay run-04.",
+      "acceptance": [
+        "Exact source and target SHA-256 match",
+        "Target bytes match 8,565",
+        "Target mount and readback verified",
+        "Graph regenerated from live-mounted bundle",
+        "Workflows deactivated and receipts filed"
+      ],
+      "stop_hold": [
+        "No replay of run-04",
+        "No broader Odoo/N8N mutation",
+        "No queue automation",
+        "No canon, Service, Method, Pattern, Asset or PPV movement without separate authority"
+      ],
+      "benefit": "Technical transport integrity evidence established; material Steward Benefit not yet declared realised",
+      "asset": "Candidate reusable privileged delivery pattern with one successful evidenced cycle",
+      "mm3ccc": {
+        "minto": "Can one exact governed bundle be delivered and independently read back?",
+        "mece": "One bundle, one target lane, one run, one receipt chain",
+        "criticality": "P0",
+        "continuity": "Run-04 authority → authenticated gateway execution 1415 → bridge execution 1414 → exact target persistence → independent hash/unzip readback → deterministic graph → filed receipts → D009 assurance",
+        "commerciality": "Reduces repeated setup and coordination friction"
+      }
+    },
+    {
+      "id": "STREAM-B",
+      "name": "Obsidian design consolidation",
+      "owner_lane": "Claude Cowork",
+      "supporting_lanes": [
+        "Navigator / ChatGPT",
+        "Codex"
+      ],
+      "priority": "P1",
+      "status": "IMPLEMENTED_PENDING_STEWARD_TEST",
+      "progress": 70,
+      "reality": "The current Navigator now uses direct SharePoint URLs for all nine Canvas and Page routes. The duplicate key-elements route is replaced by a nine-verb Form / Flow / Evolve Benefit route. Historical surface consolidation remains separate.",
+      "next_action": "Steward click-through test the nine Canvas links, nine Page links and the nine-verb Benefit route in the current browser/vault.",
+      "acceptance": [
+        "One current wrapper",
+        "One central topic HTML per element",
+        "Shared 3×3×3 layout",
+        "Canvas and Obsidian return links",
+        "Freshness, source, PPV and authority visible",
+        "No independent GV-TEC-003 Navigator domain"
+      ],
+      "stop_hold": [
+        "Do not create a competing Home",
+        "Do not silently overwrite historical projections",
+        "Do not imply operational truth from HTML"
+      ],
+      "benefit": "Faster Steward navigation and lower cognitive load",
+      "asset": "Reusable integrated design layer",
+      "mm3ccc": {
+        "minto": "What is the smallest coherent surface that supports the Steward decision?",
+        "mece": "One topic, one central page, one return route",
+        "criticality": "P1",
+        "continuity": "Existing projections → reconciled topic → current wrapper",
+        "commerciality": "Improves reuse and reduces redesign"
+      }
+    },
+    {
+      "id": "STREAM-C",
+      "name": "Register and relationship completion",
+      "owner_lane": "Claude Code / Cowork",
+      "supporting_lanes": [
+        "Navigator",
+        "D007"
+      ],
+      "priority": "P1",
+      "status": "READY_FOR_D007_RELEASE",
+      "progress": 35,
+      "reality": "The bounded D007 Work Object / Project / Service / Method schema and mutation packet is prepared, hashed and read back. No Odoo mutation has occurred.",
+      "next_action": "Obtain explicit D007 release and execute the exact packet once with duplicate, schema, rollback and readback gates.",
+      "acceptance": [
+        "Read-only schema verification",
+        "Exact record and field packet",
+        "No duplicate identities",
+        "Rollback and acceptance tests",
+        "D007 release surface"
+      ],
+      "stop_hold": [
+        "No live Odoo write without quoted D007 authority",
+        "No canon, Pattern, Method, Service or PPV movement"
+      ],
+      "benefit": "Reliable operational register and relationship truth",
+      "asset": "Reusable register reconciliation packet",
+      "mm3ccc": {
+        "minto": "Which minimum register changes close the proven relationship gaps?",
+        "mece": "Prepare-only packet separate from execution",
+        "criticality": "P1",
+        "continuity": "Projection gap → schema verification → packet → D007",
+        "commerciality": "Reduces repeated manual reconciliation"
+      }
+    },
+    {
+      "id": "STREAM-D",
+      "name": "MM3CCC queue and strategic continuity",
+      "owner_lane": "Navigator / ChatGPT Hub",
+      "supporting_lanes": [
+        "All specialist lanes"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "progress": 70,
+      "reality": "The strategy lock, delivery ledger, top priorities and parallel stream projection are installed. Mechanical refresh remains thread-led until released automation exists.",
+      "next_action": "Use the ledger for every dispatch and return; reject orphan tasks and rerank only from evidence-backed state changes.",
+      "acceptance": [
+        "Every task has objective, Program, Benefit and Work Object",
+        "Owner lane and acceptance tests explicit",
+        "One next action per stream",
+        "Receipts update strategic roll-up",
+        "Drift warnings visible"
+      ],
+      "stop_hold": [
+        "No thread-only state",
+        "No unbounded task expansion",
+        "No automation before one full proven cycle"
+      ],
+      "benefit": "Persistent strategic focus during parallel delivery",
+      "asset": "MM3CCC delivery control model",
+      "mm3ccc": {
+        "minto": "What is the next constraint that most advances the strategic objective?",
+        "mece": "Streams are non-overlapping and collectively cover delivery",
+        "criticality": "P1",
+        "continuity": "Dispatch → return → evidence → rerank → objective",
+        "commerciality": "Protects scarce Steward and specialist capacity"
+      }
+    },
+    {
+      "id": "STREAM-E",
+      "name": "Integrated assurance",
+      "owner_lane": "D009 / Gemini",
+      "supporting_lanes": [
+        "Navigator"
+      ],
+      "priority": "P1",
+      "status": "D009_PASS_WITH_CONDITIONS",
+      "progress": 80,
+      "reality": "Stream A target proof is complete and Navigator v1.5 is the current interface candidate. Integrated assurance can now test navigation, freshness, relationships, PPV, authority, usability, replay and the independent vertical slice.",
+      "next_action": "After the bounded Odoo correction and Steward link test, perform final read-only D009 acceptance; retain bridge Pattern qualification on HOLD.",
+      "acceptance": [
+        "Independent D009 challenge",
+        "Stream A integrity verified",
+        "One independent signal vertical slice",
+        "No stale/current ambiguity",
+        "Steward acceptance surface"
+      ],
+      "stop_hold": [
+        "D009 does not authorise",
+        "No acceptance while critical evidence is missing"
+      ],
+      "benefit": "Higher confidence and lower operational risk",
+      "asset": "Reusable integrated assurance pack",
+      "mm3ccc": {
+        "minto": "Does evidence support integrated MVP acceptance?",
+        "mece": "Independent assurance separate from production and authority",
+        "criticality": "P1",
+        "continuity": "Dependencies → challenge → correction → acceptance",
+        "commerciality": "Avoids costly false completion"
+      }
+    }
+  ],
+  "one_next_action": "Obtain explicit bounded D007 release for the filed Odoo Work Object / Project / Service / Method correction packet and execute it once under fail-closed acceptance and rollback controls."
+}

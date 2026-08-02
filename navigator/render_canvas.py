@@ -94,9 +94,10 @@ def render_svg(canvas_json):
         nw, nh = n.get("width", 200), n.get("height", 80)
         fill, stroke = _node_colors(n)
         is_group = n.get("type") == "group"
+        opacity_attr = 'fill-opacity="0.35" ' if is_group else ""
         parts.append(f'<rect x="{x}" y="{y}" width="{nw}" height="{nh}" rx="10" '
                      f'fill="{fill}" stroke="{stroke}" stroke-width="{2 if is_group else 1.5}" '
-                     f'{"fill-opacity=\"0.35\"" if is_group else ""}/>')
+                     f'{opacity_attr}/>')
         label = n.get("label") or n.get("text") or n.get("file") or n.get("url") or ""
         approx_chars = max(12, int(nw / 8.2))
         lines = _wrap(label, approx_chars)

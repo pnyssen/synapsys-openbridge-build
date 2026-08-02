@@ -109,6 +109,22 @@ def main():
             f'<div class="priority-list" id="priorityList">{btns}</div></aside>'
         ) + t[m.end(1):]
 
+    # 6. pre-existing JS defect: render() assigns
+    # window.navigatorStatus.deliveryState before navigatorStatus is defined,
+    # so the first render throws on every page load. Guard the assignment.
+    bad_js = "window.navigatorStatus.deliveryState=state;"
+    assert bad_js in t
+    t = t.replace(bad_js,
+                  "if(window.navigatorStatus){window.navigatorStatus.deliveryState=state;}")
+
+    # 7. narrow-viewport overflow: let wide sections scroll internally instead
+    # of widening the page body.
+    resp_css = ("<style>@media(max-width:700px){.wrap>section,.wrap>.hero>.card,"
+                ".element-scroll{overflow-x:auto}.wrap{overflow-x:hidden}"
+                ".action-stack{flex-wrap:wrap}}</style>")
+    assert "</head>" in t
+    t = t.replace("</head>", resp_css + "</head>", 1)
+
     # 3. insert the static L1/L2/L3 routes section before </main>
     rows = ""
     for e in model.ELEMENTS:

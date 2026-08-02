@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "AP-PF",
+      "type": "text",
+      "text": "AP-PF | Purpose \u00d7 Form\nRecognise reusable structures and persistent value without confusing recurrence with authority.\nDefine Pattern identity, recurrence, evidence threshold and Asset qualification criteria.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AP-SF",
+      "type": "text",
+      "text": "AP-SF | Strategy \u00d7 Form\nAccelerate repeatable delivery by reusing evidenced Patterns and qualified Assets.\nDefine Pattern identity, recurrence, evidence threshold and Asset qualification criteria.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AP-AF",
+      "type": "text",
+      "text": "AP-AF | Assets \u00d7 Form\nSeparate Pattern evidence from Asset qualification, maturity and reuse.\nDefine Pattern identity, recurrence, evidence threshold and Asset qualification criteria.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "AP-PF",
+      "type": "text",
+      "text": "AP-PF | Purpose \u00d7 Flow\nRecognise reusable structures and persistent value without confusing recurrence with authority.\nRoute observations through admission, reuse, maturity and asset-conversion gates.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AP-SF",
+      "type": "text",
+      "text": "AP-SF | Strategy \u00d7 Flow\nAccelerate repeatable delivery by reusing evidenced Patterns and qualified Assets.\nRoute observations through admission, reuse, maturity and asset-conversion gates.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AP-AF",
+      "type": "text",
+      "text": "AP-AF | Assets \u00d7 Flow\nSeparate Pattern evidence from Asset qualification, maturity and reuse.\nRoute observations through admission, reuse, maturity and asset-conversion gates.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "AP-PE",
+      "type": "text",
+      "text": "AP-PE | Purpose \u00d7 Evolve\nRecognise reusable structures and persistent value without confusing recurrence with authority.\nRefine, deprecate or compound Patterns and Assets from repeated evidence.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AP-SE",
+      "type": "text",
+      "text": "AP-SE | Strategy \u00d7 Evolve\nAccelerate repeatable delivery by reusing evidenced Patterns and qualified Assets.\nRefine, deprecate or compound Patterns and Assets from repeated evidence.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AP-AE",
+      "type": "text",
+      "text": "AP-AE | Assets \u00d7 Evolve\nSeparate Pattern evidence from Asset qualification, maturity and reuse.\nRefine, deprecate or compound Patterns and Assets from repeated evidence.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Asset & Pattern Library\nDecision: Which recurring configurations are evidenced Patterns, and which persistent value candidates qualify as Assets?\nOwns: Recurring structural pattern, admission evidence, Asset qualification, maturity and reuse.\nExcludes: Method steps, canonical authority, Service scope, Benefit measurement, Work Object queue or runtime execution.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_ASSET_PATTERN_LIBRARY_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "AP-PF",
+      "toNode": "AP-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "AP-SF",
+      "toNode": "AP-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "AP-PF",
+      "toNode": "AP-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "AP-PF",
+      "toNode": "AP-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "AP-SF",
+      "toNode": "AP-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "AP-SF",
+      "toNode": "AP-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "AP-AF",
+      "toNode": "AP-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "AP-PF",
+      "toNode": "AP-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "AP-PE",
+      "toNode": "AP-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "AP-SF",
+      "toNode": "AP-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "AP-SE",
+      "toNode": "AP-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "AP-AF",
+      "toNode": "AP-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "AP-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Asset & Pattern Library",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3",
+  "snapshot_at": "2026-08-03T01:14:00+10:00",
+  "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+  "priorities": [
+    {
+      "rank": 1,
+      "id": "P1-ODOO-IDENTITY",
+      "title": "Release and execute the bounded Odoo Work Object / Service / Method correction",
+      "summary": "The exact D007 packet is prepared and read back. Explicit release is now required to create the authoritative Work Object identity and native Project, Service and Method links.",
+      "criticality": "CRITICAL",
+      "status": "READY_FOR_D007_RELEASE",
+      "anchor": "stream-c",
+      "contribution": "Closes the remaining operational-register condition preventing final integrated Navigator acceptance."
+    },
+    {
+      "rank": 2,
+      "id": "P2-LINK-USABILITY",
+      "title": "Validate the corrected MVP-element and nine-verb routes",
+      "summary": "Direct SharePoint Canvas and Page URLs and the new Form / Flow / Evolve verb-to-Benefit route are installed. One Steward click-through confirms browser and vault behaviour.",
+      "criticality": "HIGH",
+      "status": "IMPLEMENTED_PENDING_STEWARD_TEST",
+      "anchor": "stream-b",
+      "contribution": "Reduces navigation failure, duplication and Steward reconstruction load."
+    },
+    {
+      "rank": 3,
+      "id": "P3-SERVICES",
+      "title": "Complete Service integration and remaining native relationships",
+      "summary": "Keep GV-TEC-003 inside the Service Catalogue and close only evidenced Service–Method–Pattern–Canonical–Benefit relationships.",
+      "criticality": "HIGH",
+      "status": "PARTIAL",
+      "anchor": "stream-c",
+      "contribution": "Connects operational Services to governed delivery, evidence and value."
+    },
+    {
+      "rank": 4,
+      "id": "P4-VALUE-KNOWLEDGE",
+      "title": "Prove Benefit → Evidence → Asset → Reuse",
+      "summary": "Define baselines, observations, attribution and persistent Asset reuse without treating technical outputs as realised Benefits.",
+      "criticality": "HIGH",
+      "status": "OPEN",
+      "anchor": "stream-d",
+      "contribution": "Converts delivery evidence into measurable strategic and reusable value."
+    },
+    {
+      "rank": 5,
+      "id": "P5-FINAL-ACCEPTANCE",
+      "title": "Close overall Navigator acceptance after the register correction",
+      "summary": "Stream A is finished and independently assured. Final acceptance now depends on the bounded Odoo correction, link usability confirmation and the remaining explicit Pattern HOLD.",
+      "criticality": "HIGH",
+      "status": "D009_PASS_WITH_CONDITIONS",
+      "anchor": "stream-e",
+      "contribution": "Prevents false completion while keeping completed Stream A out of the active queue."
+    }
+  ],
+  "one_next_action": "Obtain explicit bounded D007 release for the filed Odoo Work Object / Project / Service / Method correction packet and execute it once under fail-closed acceptance and rollback controls."
+}

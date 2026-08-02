@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "AR-PF",
+      "type": "text",
+      "text": "AR-PF | Purpose \u00d7 Form\nPlace each task in the correct human, AI and runtime lane.\nDefine lane mandate, inputs, outputs, permissions, credentials and prohibited actions.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AR-SF",
+      "type": "text",
+      "text": "AR-SF | Strategy \u00d7 Form\nExploit specialist capability while preserving separation of duties and evidence.\nDefine lane mandate, inputs, outputs, permissions, credentials and prohibited actions.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AR-AF",
+      "type": "text",
+      "text": "AR-AF | Assets \u00d7 Form\nCreate reusable routing patterns and receipts without embedding authority in automation.\nDefine lane mandate, inputs, outputs, permissions, credentials and prohibited actions.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "AR-PF",
+      "type": "text",
+      "text": "AR-PF | Purpose \u00d7 Flow\nPlace each task in the correct human, AI and runtime lane.\nRoute a Work Object through analysis, production, assurance, authority and execution.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AR-SF",
+      "type": "text",
+      "text": "AR-SF | Strategy \u00d7 Flow\nExploit specialist capability while preserving separation of duties and evidence.\nRoute a Work Object through analysis, production, assurance, authority and execution.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AR-AF",
+      "type": "text",
+      "text": "AR-AF | Assets \u00d7 Flow\nCreate reusable routing patterns and receipts without embedding authority in automation.\nRoute a Work Object through analysis, production, assurance, authority and execution.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "AR-PE",
+      "type": "text",
+      "text": "AR-PE | Purpose \u00d7 Evolve\nPlace each task in the correct human, AI and runtime lane.\nImprove routing from observed quality, latency, risk and reuse.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "AR-SE",
+      "type": "text",
+      "text": "AR-SE | Strategy \u00d7 Evolve\nExploit specialist capability while preserving separation of duties and evidence.\nImprove routing from observed quality, latency, risk and reuse.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "AR-AE",
+      "type": "text",
+      "text": "AR-AE | Assets \u00d7 Evolve\nCreate reusable routing patterns and receipts without embedding authority in automation.\nImprove routing from observed quality, latency, risk and reuse.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Agent & Runtime Routing\nDecision: Which lane may analyse, produce, assure, authorise or mutate, and through which released runtime?\nOwns: Lane mandate, routing decision, permissions, separation of duties, runtime release path and return receipt.\nExcludes: Enterprise authority itself, Service/Method/Pattern identity, Benefit claims, Asset qualification or operational register truth.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_AGENT_RUNTIME_ROUTING_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "AR-PF",
+      "toNode": "AR-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "AR-SF",
+      "toNode": "AR-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "AR-PF",
+      "toNode": "AR-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "AR-PF",
+      "toNode": "AR-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "AR-SF",
+      "toNode": "AR-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "AR-SF",
+      "toNode": "AR-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "AR-AF",
+      "toNode": "AR-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "AR-PF",
+      "toNode": "AR-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "AR-PE",
+      "toNode": "AR-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "AR-SF",
+      "toNode": "AR-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "AR-SE",
+      "toNode": "AR-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "AR-AF",
+      "toNode": "AR-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "AR-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Agent & Runtime Routing",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

@@ -1,0 +1,541 @@
+{
+ "passes": [
+  {
+   "check": "[desktop] navigator renders",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] L1L2L3 static route section present",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] Stream A completion visible",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] top five priorities visible",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] no gross horizontal overflow",
+   "detail": "scrollWidth=1440"
+  },
+  {
+   "check": "[desktop] E1 canvas view shows graphical SVG",
+   "detail": "texts=105"
+  },
+  {
+   "check": "[desktop] E1 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E1 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E1 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E2 canvas view shows graphical SVG",
+   "detail": "texts=78"
+  },
+  {
+   "check": "[desktop] E2 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E2 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E2 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E3 canvas view shows graphical SVG",
+   "detail": "texts=88"
+  },
+  {
+   "check": "[desktop] E3 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E3 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E3 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E4 canvas view shows graphical SVG",
+   "detail": "texts=75"
+  },
+  {
+   "check": "[desktop] E4 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E4 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E4 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E5 canvas view shows graphical SVG",
+   "detail": "texts=81"
+  },
+  {
+   "check": "[desktop] E5 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E5 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E5 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E6 canvas view shows graphical SVG",
+   "detail": "texts=91"
+  },
+  {
+   "check": "[desktop] E6 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E6 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E6 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E7 canvas view shows graphical SVG",
+   "detail": "texts=82"
+  },
+  {
+   "check": "[desktop] E7 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E7 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E7 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E8 canvas view shows graphical SVG",
+   "detail": "texts=84"
+  },
+  {
+   "check": "[desktop] E8 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E8 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E8 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E9 canvas view shows graphical SVG",
+   "detail": "texts=88"
+  },
+  {
+   "check": "[desktop] E9 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E9 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] E9 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Orient anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Canonicalise anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Structure anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Assure anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Navigate anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Compose anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Activate anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Transform anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verb Project anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E1",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E2",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E3",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E4",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E5",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E6",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E7",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E8",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] verbs page links element E9",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] start surface explains governed candidate",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] activation HOLD visible on start surface",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] fixtures section present",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] start surface returns to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[desktop] no page JS errors",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] navigator renders",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] L1L2L3 static route section present",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] Stream A completion visible",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] top five priorities visible",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] no gross horizontal overflow",
+   "detail": "scrollWidth=390"
+  },
+  {
+   "check": "[narrow] E1 canvas view shows graphical SVG",
+   "detail": "texts=105"
+  },
+  {
+   "check": "[narrow] E1 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E1 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E1 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E2 canvas view shows graphical SVG",
+   "detail": "texts=78"
+  },
+  {
+   "check": "[narrow] E2 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E2 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E2 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E3 canvas view shows graphical SVG",
+   "detail": "texts=88"
+  },
+  {
+   "check": "[narrow] E3 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E3 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E3 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E4 canvas view shows graphical SVG",
+   "detail": "texts=75"
+  },
+  {
+   "check": "[narrow] E4 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E4 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E4 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E5 canvas view shows graphical SVG",
+   "detail": "texts=81"
+  },
+  {
+   "check": "[narrow] E5 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E5 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E5 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E6 canvas view shows graphical SVG",
+   "detail": "texts=91"
+  },
+  {
+   "check": "[narrow] E6 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E6 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E6 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E7 canvas view shows graphical SVG",
+   "detail": "texts=82"
+  },
+  {
+   "check": "[narrow] E7 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E7 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E7 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E8 canvas view shows graphical SVG",
+   "detail": "texts=84"
+  },
+  {
+   "check": "[narrow] E8 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E8 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E8 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E9 canvas view shows graphical SVG",
+   "detail": "texts=88"
+  },
+  {
+   "check": "[narrow] E9 element page opens from canvas view",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E9 shows 27 L3 cells",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] E9 one-click return to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Orient anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Canonicalise anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Structure anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Assure anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Navigate anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Compose anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Activate anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Transform anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verb Project anchor navigates",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E1",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E2",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E3",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E4",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E5",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E6",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E7",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E8",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] verbs page links element E9",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] start surface explains governed candidate",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] activation HOLD visible on start surface",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] fixtures section present",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] start surface returns to Navigator",
+   "detail": ""
+  },
+  {
+   "check": "[narrow] no page JS errors",
+   "detail": ""
+  },
+  {
+   "check": "[nojs] static route table reachable without JavaScript",
+   "detail": ""
+  },
+  {
+   "check": "[nojs] canvas view SVG renders",
+   "detail": ""
+  },
+  {
+   "check": "[nojs] verbs page usable",
+   "detail": ""
+  },
+  {
+   "check": "[file://] canvas view renders",
+   "detail": ""
+  },
+  {
+   "check": "[file://] navigator renders",
+   "detail": ""
+  },
+  {
+   "check": "[file://] direct element entry with stale anchor still renders",
+   "detail": ""
+  }
+ ],
+ "failures": []
+}

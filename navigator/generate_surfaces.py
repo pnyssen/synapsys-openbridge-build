@@ -362,8 +362,9 @@ def gen_start_page(reg):
         f"<tr><th style='width:280px'>{esc(label)}</th>"
         f"<td><code>{esc(key)}</code>: <span class='pathnote'>fill in candidate packet</span></td></tr>"
         for key, label in CANDIDATE_FIELDS)
+    hold_badge = ' <span class="badge hold">HOLD</span>'
     route_rows = "".join(
-        f"<tr><td><b>{esc(step)}</b>{' <span class=\"badge hold\">HOLD</span>' if 'HOLD' in step else ''}</td>"
+        f"<tr><td><b>{esc(step)}</b>{hold_badge if 'HOLD' in step else ''}</td>"
         f"<td>{esc(desc)}</td></tr>"
         for step, desc in VERB_ROUTE_STEPS)
 

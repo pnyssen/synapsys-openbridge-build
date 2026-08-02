@@ -1,0 +1,32 @@
+{
+	"nodes":[
+		{"id":"SC-P-FM","type":"text","text":"SC-P-FM | Purpose × Form\nDefine the Service boundary: need served, beneficiary, outcome intent, exclusion and authority basis.\nExpands in HTML to: SC-P-FM-S / SC-P-FM-B / SC-P-FM-R","x":0,"y":40,"width":350,"height":180,"color":"1"},
+		{"id":"SC-S-FM","type":"text","text":"SC-S-FM | Strategy × Form\nDefine how the Service contributes to where-to-play / how-to-win and which Methods, Patterns and canonical references it requires.\nExpands in HTML to: SC-S-FM-S / SC-S-FM-B / SC-S-FM-R","x":390,"y":40,"width":350,"height":180,"color":"4"},
+		{"id":"SC-A-FM","type":"text","text":"SC-A-FM | Assets × Form\nDefine expected Benefit classes and potential persistent Asset effects without claiming realisation.\nExpands in HTML to: SC-A-FM-S / SC-A-FM-B / SC-A-FM-R","x":780,"y":40,"width":350,"height":180,"color":"6"},
+		{"id":"SC-P-FL","type":"text","text":"SC-P-FL | Purpose × Flow\nRoute a selected Service expression from Signal through Context, Work Object, gates and authorised action.\nExpands in HTML to: SC-P-FL-S / SC-P-FL-B / SC-P-FL-R","x":0,"y":300,"width":350,"height":180,"color":"1"},
+		{"id":"SC-S-FL","type":"text","text":"SC-S-FL | Strategy × Flow\nCompose Services and dependencies in a governed sequence that protects the strategic objective and queue priority.\nExpands in HTML to: SC-S-FL-S / SC-S-FL-B / SC-S-FL-R","x":390,"y":300,"width":350,"height":180,"color":"4"},
+		{"id":"SC-A-FL","type":"text","text":"SC-A-FL | Assets × Flow\nObserve Benefit evidence, attribution and reusable outputs while preserving operational truth in Odoo.\nExpands in HTML to: SC-A-FL-S / SC-A-FL-B / SC-A-FL-R","x":780,"y":300,"width":350,"height":180,"color":"6"},
+		{"id":"SC-P-EV","type":"text","text":"SC-P-EV | Purpose × Evolve\nUse observation and challenge to refine, retire or split a Service when its purpose is unclear or overlapping.\nExpands in HTML to: SC-P-EV-S / SC-P-EV-B / SC-P-EV-R","x":0,"y":560,"width":350,"height":180,"color":"1"},
+		{"id":"SC-S-EV","type":"text","text":"SC-S-EV | Strategy × Evolve\nUse portfolio learning and A/B evidence to change Service combinations, Methods or Patterns.\nExpands in HTML to: SC-S-EV-S / SC-S-EV-B / SC-S-EV-R","x":390,"y":560,"width":350,"height":180,"color":"4"},
+		{"id":"SC-A-EV","type":"text","text":"SC-A-EV | Assets × Evolve\nQualify repeated evidenced value for Asset conversion, reuse or canonical consideration under authority.\nExpands in HTML to: SC-A-EV-S / SC-A-EV-B / SC-A-EV-R","x":780,"y":560,"width":350,"height":180,"color":"6"},
+		{"id":"mesh","type":"text","text":"MESH INTEGRATION\nEntry: Signal / governed need\nValidation: identity, MECE, evidence, authority\nAction: authorised Service expression in a Work Object\nObservation: outcomes, exceptions, attribution\nAsset conversion: qualified reusable value\nFeedback: Service / Method / Pattern / Canonical / queue","x":0,"y":820,"width":1130,"height":210,"color":"3"},
+		{"id":"control","type":"text","text":"SERVICE CATALOGUE REFERENCE PACKAGE v1.2 (RUN-ELEMENT-01 corrected)\nDecision: Can the Steward see a MECE Service design and all design instances without duplicating Odoo operations?\nPattern: Need → Service → Method → Pattern → Canonical basis → Work Object → Benefit → Asset effect\nKinematics: creation, qualification, composition, activation, observation, transformation, asset conversion, feedback\nAuthority boundary: design projection only; operational mutation HELD (D007)\n\nCurrent Work Object: WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001\nNext action: complete RUN-ELEMENT-01 receipt readback; RUN-ELEMENT-02 only after PASS\n\nTrace scheme: SC-<P|S|A>-<FM|FL|EV>[-S|B|R] (FM=Form, FL=Flow, EV=Evolve)\nHTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_SERVICE_CATALOGUE_v1.2.html]]\nReturn: [[00_HOME]]\nSnapshot: 2026-08-03T01:35:00+10:00\nSource: Odoo read-only + Working Memory\nPPV: Potential | Operational mutation: HELD | Replay: PRESERVED","x":1340,"y":40,"width":360,"height":990,"color":"4"}
+	],
+	"edges":[
+		{"id":"r1a","fromNode":"SC-P-FM","fromSide":"right","toNode":"SC-S-FM","toSide":"left","label":"integrates"},
+		{"id":"r1b","fromNode":"SC-S-FM","fromSide":"right","toNode":"SC-A-FM","toSide":"left","label":"integrates"},
+		{"id":"r2a","fromNode":"SC-P-FL","fromSide":"right","toNode":"SC-S-FL","toSide":"left","label":"integrates"},
+		{"id":"r2b","fromNode":"SC-S-FL","fromSide":"right","toNode":"SC-A-FL","toSide":"left","label":"integrates"},
+		{"id":"r3a","fromNode":"SC-P-EV","fromSide":"right","toNode":"SC-S-EV","toSide":"left","label":"integrates"},
+		{"id":"r3b","fromNode":"SC-S-EV","fromSide":"right","toNode":"SC-A-EV","toSide":"left","label":"integrates"},
+		{"id":"c1a","fromNode":"SC-P-FM","fromSide":"bottom","toNode":"SC-P-FL","toSide":"top","label":"moves"},
+		{"id":"c1b","fromNode":"SC-P-FL","fromSide":"bottom","toNode":"SC-P-EV","toSide":"top","label":"moves"},
+		{"id":"c2a","fromNode":"SC-S-FM","fromSide":"bottom","toNode":"SC-S-FL","toSide":"top","label":"moves"},
+		{"id":"c2b","fromNode":"SC-S-FL","fromSide":"bottom","toNode":"SC-S-EV","toSide":"top","label":"moves"},
+		{"id":"c3a","fromNode":"SC-A-FM","fromSide":"bottom","toNode":"SC-A-FL","toSide":"top","label":"moves"},
+		{"id":"c3b","fromNode":"SC-A-FL","fromSide":"bottom","toNode":"SC-A-EV","toSide":"top","label":"moves"},
+		{"id":"m1","fromNode":"SC-S-FL","fromSide":"bottom","toNode":"mesh","toSide":"top","label":"enters Mesh"},
+		{"id":"m2","fromNode":"mesh","fromSide":"right","toNode":"control","toSide":"left","label":"evidence / return"}
+	],
+	"metadata":{"title":"Service Catalogue","version":"1.2","snapshot":"2026-08-03T01:35:00+10:00","correction":"RUN-ELEMENT-01 bounded correction: Form row added (9/9 cells), Form/Flow trace collision resolved via SC-<P|S|A>-<FM|FL|EV> scheme, duplicate and self-loop edges removed, Work Object / next action / kinematics / authority boundary made visible","work_object_id":"WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001","status":"reference_candidate","source":"Odoo read-only + Working Memory","ppv":"Potential","authority":"HELD_OPERATIONAL_MUTATION","replay_validity":"PRESERVED"}
+}

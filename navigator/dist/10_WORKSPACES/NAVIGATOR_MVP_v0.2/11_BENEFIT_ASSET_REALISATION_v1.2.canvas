@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "BA-PF",
+      "type": "text",
+      "text": "BA-PF | Purpose \u00d7 Form\nDefine the beneficial change SynapSys exists to create for identified beneficiaries.\nDefine Benefit identity, beneficiary, measure, baseline, target, attribution and Asset hypothesis.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "BA-SF",
+      "type": "text",
+      "text": "BA-SF | Strategy \u00d7 Form\nPrioritise measurable Benefits that support winning choices and sustained differentiation.\nDefine Benefit identity, beneficiary, measure, baseline, target, attribution and Asset hypothesis.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "BA-AF",
+      "type": "text",
+      "text": "BA-AF | Assets \u00d7 Form\nConvert repeated evidenced Benefits into persistent, reusable value without double counting.\nDefine Benefit identity, beneficiary, measure, baseline, target, attribution and Asset hypothesis.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "BA-PF",
+      "type": "text",
+      "text": "BA-PF | Purpose \u00d7 Flow\nDefine the beneficial change SynapSys exists to create for identified beneficiaries.\nObserve expected, observed and realised states through Work Objects and evidence.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "BA-SF",
+      "type": "text",
+      "text": "BA-SF | Strategy \u00d7 Flow\nPrioritise measurable Benefits that support winning choices and sustained differentiation.\nObserve expected, observed and realised states through Work Objects and evidence.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "BA-AF",
+      "type": "text",
+      "text": "BA-AF | Assets \u00d7 Flow\nConvert repeated evidenced Benefits into persistent, reusable value without double counting.\nObserve expected, observed and realised states through Work Objects and evidence.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "BA-PE",
+      "type": "text",
+      "text": "BA-PE | Purpose \u00d7 Evolve\nDefine the beneficial change SynapSys exists to create for identified beneficiaries.\nRefine Benefit definitions and qualify Asset candidates from repeated outcomes.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "BA-SE",
+      "type": "text",
+      "text": "BA-SE | Strategy \u00d7 Evolve\nPrioritise measurable Benefits that support winning choices and sustained differentiation.\nRefine Benefit definitions and qualify Asset candidates from repeated outcomes.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "BA-AE",
+      "type": "text",
+      "text": "BA-AE | Assets \u00d7 Evolve\nConvert repeated evidenced Benefits into persistent, reusable value without double counting.\nRefine Benefit definitions and qualify Asset candidates from repeated outcomes.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Benefits & Assets\nDecision: Are Benefits MECE, measurable and attributable, and when may persistent value become a qualified Asset?\nOwns: Benefit definition, beneficiary, measure, evidence, attribution and realised-state claim; Asset effect and qualification hypothesis.\nExcludes: Service scope, Method procedure, Pattern admission, canonical authority, Work Object execution or runtime configuration.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_BENEFITS_ASSETS_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "BA-PF",
+      "toNode": "BA-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "BA-SF",
+      "toNode": "BA-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "BA-PF",
+      "toNode": "BA-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "BA-PF",
+      "toNode": "BA-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "BA-SF",
+      "toNode": "BA-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "BA-SF",
+      "toNode": "BA-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "BA-AF",
+      "toNode": "BA-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "BA-PF",
+      "toNode": "BA-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "BA-PE",
+      "toNode": "BA-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "BA-SF",
+      "toNode": "BA-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "BA-SE",
+      "toNode": "BA-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "BA-AF",
+      "toNode": "BA-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "BA-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Benefits & Assets",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

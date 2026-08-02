@@ -1,0 +1,33 @@
+{
+ "schema_version": "1.3",
+ "snapshot_at": "2026-08-03T09:00:00+10:00",
+ "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+ "discipline": "Technical and interface outcomes are evidence inputs, not material Steward Benefits by default.",
+ "material_benefit_test": [
+  "Named Steward beneficiary and changed decision or operating condition",
+  "Material causal link to Purpose and authorised Strategy",
+  "Measurable baseline, target, observation period and evidence source",
+  "Explicit link to a persistent Asset created, strengthened or reused",
+  "Authority, PPV and acceptance state",
+  "No process-output substitution for Benefit realisation"
+ ],
+ "technical_outcomes_observed": [
+  "One current Navigator interface",
+  "Source-side authenticated Stream A transport proven",
+  "Ledger-driven parallel orchestration projection installed",
+  "Exact authenticated Stream A transport completed with source/target byte and SHA-256 identity",
+  "Independent target readback and archive integrity test passed",
+  "Deterministic integration graph regenerated from the target: 151 objects and 164 relationships",
+  "Bounded runtime closed with gateway and bridge inactive",
+  "Direct current-browser routes installed for all nine MVP Canvas and Page links",
+  "Nine verbs reorganised under Form / Flow / Evolve with explicit Benefit contribution",
+  "Registry-driven L1/L2/L3 integration: 9 Element pages, 9 browser-safe Canvas views, nine-verb route and 243 Level-3 positions generated from one route registry",
+  "All primary routes browser-safe (relative vault paths); obsidian:// reduced to secondary",
+  "Governed New Process & Offering candidate start surface installed with V7 Activate HELD",
+  "Synthetic fixtures TEST-PROCESS-001 and TEST-OFFERING-001 routed V1-V9 across all Mesh stages",
+  "Deterministic 35-test acceptance harness plus nested 9x9x27 assertion sweep passing"
+ ],
+ "material_steward_benefits_realised": [],
+ "asset_conversion_state": "Current interface and verb-to-Benefit route are implemented as operating assets; material Benefit realisation and reusable Pattern qualification remain unclaimed.",
+ "next_test": "Measure the Steward click-through success and time for the nine Canvas, nine Page and nine verb routes; after the Odoo correction, measure coordination time, decision error and assurance effort against a defined baseline."
+}

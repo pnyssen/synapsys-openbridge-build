@@ -1,0 +1,58 @@
+{
+ "schema_version": "1.3",
+ "snapshot_at": "2026-08-03T09:00:00+10:00",
+ "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+ "priorities": [
+  {
+   "rank": 1,
+   "id": "P1-NAV-ACCEPTANCE",
+   "title": "Accept the completed Navigator L1/L2/L3 integration",
+   "summary": "All nine Elements, nine verbs and 243 Level-3 positions are integrated, registry-validated, tested and deployed. Steward acceptance is the one open step.",
+   "criticality": "CRITICAL",
+   "status": "IMPLEMENTED_PENDING_STEWARD_ACCEPTANCE",
+   "anchor": "l1l2l3-routes",
+   "contribution": "Closes Priority 1 of the Work Object and unlocks Process/Offering delivery."
+  },
+  {
+   "rank": 2,
+   "id": "P2-ODOO-IDENTITY",
+   "title": "Release and execute the bounded Odoo Work Object / Service / Method correction",
+   "summary": "The exact D007 packet is prepared and read back. Separately held; explicit release is required to create the authoritative Work Object identity and native links.",
+   "criticality": "HIGH",
+   "status": "READY_FOR_D007_RELEASE",
+   "anchor": "stream-c",
+   "contribution": "Closes the remaining operational-register condition; not a blocker for the interface."
+  },
+  {
+   "rank": 3,
+   "id": "P3-NEW-PROCESS-OFFERING",
+   "title": "Begin defining new Processes and Offerings as governed candidates",
+   "summary": "Use the New Process & Offering start surface; candidates route V1-V9 with activation HELD until authorised.",
+   "criticality": "HIGH",
+   "status": "READY",
+   "anchor": "l1l2l3-routes",
+   "contribution": "Converts the completed Navigator into delivery capability."
+  },
+  {
+   "rank": 4,
+   "id": "P4-MESH-DISCIPLINE",
+   "title": "Maintain Mesh, Benefit and evidence discipline on every route",
+   "summary": "Every claim stays evidence-bound; realisation declarations remain with the Steward; regression tests guard the routes.",
+   "criticality": "MEDIUM",
+   "status": "ONGOING",
+   "anchor": "mesh",
+   "contribution": "Prevents recurrence of drift, false realisation and broken-route defect classes."
+  },
+  {
+   "rank": 5,
+   "id": "P5-ODOO-REGISTRATION",
+   "title": "Prepare bounded Odoo registration of accepted Navigator artefacts",
+   "summary": "Only after Steward acceptance, via CR, under existing change-control rules.",
+   "criticality": "MEDIUM",
+   "status": "HELD_PENDING_ACCEPTANCE",
+   "anchor": "stream-c",
+   "contribution": "Moves accepted artefacts toward the operational register without authority drift."
+  }
+ ],
+ "one_next_action": "Obtain explicit bounded D007 release for the filed Odoo Work Object / Project / Service / Method correction packet and execute it once under fail-closed acceptance and rollback controls."
+}

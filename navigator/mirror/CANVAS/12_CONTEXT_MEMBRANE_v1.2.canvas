@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "CM-PF",
+      "type": "text",
+      "text": "CM-PF | Purpose \u00d7 Form\nPreserve meaning, safety and accountability within a bounded environment.\nDefine Context identity, purpose, actors, objects, permissions, exclusions and source systems.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CM-SF",
+      "type": "text",
+      "text": "CM-SF | Strategy \u00d7 Form\nAdapt Services and Methods to local actors, constraints and opportunities without losing enterprise integrity.\nDefine Context identity, purpose, actors, objects, permissions, exclusions and source systems.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CM-AF",
+      "type": "text",
+      "text": "CM-AF | Assets \u00d7 Form\nProtect contextual knowledge and reusable boundary patterns.\nDefine Context identity, purpose, actors, objects, permissions, exclusions and source systems.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "CM-PF",
+      "type": "text",
+      "text": "CM-PF | Purpose \u00d7 Flow\nPreserve meaning, safety and accountability within a bounded environment.\nControl membrane crossings, handoffs, evidence and authority.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CM-SF",
+      "type": "text",
+      "text": "CM-SF | Strategy \u00d7 Flow\nAdapt Services and Methods to local actors, constraints and opportunities without losing enterprise integrity.\nControl membrane crossings, handoffs, evidence and authority.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CM-AF",
+      "type": "text",
+      "text": "CM-AF | Assets \u00d7 Flow\nProtect contextual knowledge and reusable boundary patterns.\nControl membrane crossings, handoffs, evidence and authority.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "CM-PE",
+      "type": "text",
+      "text": "CM-PE | Purpose \u00d7 Evolve\nPreserve meaning, safety and accountability within a bounded environment.\nRevise the boundary from observed changes while preserving lineage.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CM-SE",
+      "type": "text",
+      "text": "CM-SE | Strategy \u00d7 Evolve\nAdapt Services and Methods to local actors, constraints and opportunities without losing enterprise integrity.\nRevise the boundary from observed changes while preserving lineage.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CM-AE",
+      "type": "text",
+      "text": "CM-AE | Assets \u00d7 Evolve\nProtect contextual knowledge and reusable boundary patterns.\nRevise the boundary from observed changes while preserving lineage.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Context & Membrane\nDecision: What boundary applies, who and what may cross it, and which evidence and authority govern the crossing?\nOwns: Context identity, boundary, actors, permissions, exclusions and membrane crossing rules.\nExcludes: Service definition, Method steps, canonical state, Benefit claim, Asset maturity, Work Object priority or runtime execution.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_CONTEXT_MEMBRANE_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "CM-PF",
+      "toNode": "CM-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "CM-SF",
+      "toNode": "CM-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "CM-PF",
+      "toNode": "CM-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "CM-PF",
+      "toNode": "CM-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "CM-SF",
+      "toNode": "CM-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "CM-SF",
+      "toNode": "CM-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "CM-AF",
+      "toNode": "CM-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "CM-PF",
+      "toNode": "CM-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "CM-PE",
+      "toNode": "CM-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "CM-SF",
+      "toNode": "CM-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "CM-SE",
+      "toNode": "CM-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "CM-AF",
+      "toNode": "CM-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "CM-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Context & Membrane",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

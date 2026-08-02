@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "MG-PF",
+      "type": "text",
+      "text": "MG-PF | Purpose \u00d7 Form\nMove evidence-backed work from signal to reusable value without bypassing authority.\nDefine stages, gates, entry criteria, outputs and STOP/HOLD conditions.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "MG-SF",
+      "type": "text",
+      "text": "MG-SF | Strategy \u00d7 Form\nCoordinate all elements through one shared lifecycle and explicit gates.\nDefine stages, gates, entry criteria, outputs and STOP/HOLD conditions.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "MG-AF",
+      "type": "text",
+      "text": "MG-AF | Assets \u00d7 Form\nConvert observed learning into qualified reusable value only after evidence and authority.\nDefine stages, gates, entry criteria, outputs and STOP/HOLD conditions.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "MG-PF",
+      "type": "text",
+      "text": "MG-PF | Purpose \u00d7 Flow\nMove evidence-backed work from signal to reusable value without bypassing authority.\nRoute one Work Object through the valid next stage and owner lane.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "MG-SF",
+      "type": "text",
+      "text": "MG-SF | Strategy \u00d7 Flow\nCoordinate all elements through one shared lifecycle and explicit gates.\nRoute one Work Object through the valid next stage and owner lane.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "MG-AF",
+      "type": "text",
+      "text": "MG-AF | Assets \u00d7 Flow\nConvert observed learning into qualified reusable value only after evidence and authority.\nRoute one Work Object through the valid next stage and owner lane.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "MG-PE",
+      "type": "text",
+      "text": "MG-PE | Purpose \u00d7 Evolve\nMove evidence-backed work from signal to reusable value without bypassing authority.\nFeed observations and learning back into elements, controls and assets.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "MG-SE",
+      "type": "text",
+      "text": "MG-SE | Strategy \u00d7 Evolve\nCoordinate all elements through one shared lifecycle and explicit gates.\nFeed observations and learning back into elements, controls and assets.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "MG-AE",
+      "type": "text",
+      "text": "MG-AE | Assets \u00d7 Evolve\nConvert observed learning into qualified reusable value only after evidence and authority.\nFeed observations and learning back into elements, controls and assets.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Mesh & Control Gates\nDecision: Where does governed work enter, stop, progress, learn and convert value across the lifecycle?\nOwns: Lifecycle stage, transition criteria, gate result, STOP/HOLD and feedback route.\nExcludes: Element identity, Service definition, Method procedure, Benefit measure, Asset qualification decision or runtime authorisation.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_MESH_CONTROL_GATES_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "MG-PF",
+      "toNode": "MG-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "MG-SF",
+      "toNode": "MG-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "MG-PF",
+      "toNode": "MG-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "MG-PF",
+      "toNode": "MG-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "MG-SF",
+      "toNode": "MG-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "MG-SF",
+      "toNode": "MG-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "MG-AF",
+      "toNode": "MG-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "MG-PF",
+      "toNode": "MG-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "MG-PE",
+      "toNode": "MG-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "MG-SF",
+      "toNode": "MG-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "MG-SE",
+      "toNode": "MG-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "MG-AF",
+      "toNode": "MG-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "MG-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Mesh & Control Gates",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

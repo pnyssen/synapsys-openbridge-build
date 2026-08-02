@@ -1,0 +1,181 @@
+{
+ "packet": {
+  "candidate_id": "TEST-OFFERING-001",
+  "name": "Synthetic navigation test Offering",
+  "type": "Offering",
+  "synthetic": true,
+  "non_operational_notice": "SYNTHETIC TEST FIXTURE. Exists only to prove candidate routing. Must never be written to Odoo, N8N or any operational register.",
+  "purpose": "Prove that a new Offering can be initiated and routed as a governed candidate from the current Navigator.",
+  "strategic_contribution": "Demonstrates Priority 2 of WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001.",
+  "target_beneficiary": "Steward (cold-start user of the Navigator).",
+  "context": "Navigator interface validation context only.",
+  "initiating_signal": "WO instruction: prove Process/Offering candidate readiness.",
+  "problem_or_opportunity": "No governed route existed for starting a new Offering from the Navigator.",
+  "proposed_service": "GV-NAV-002 (navigation validation) — reference only, no catalogue mutation.",
+  "proposed_method": "Registry-driven candidate routing method (candidate).",
+  "proposed_pattern": "NONE (one cycle is evidence, not a Pattern).",
+  "canonical_basis": "Element, Verb, Mesh stage, Benefit, Asset, Candidate, PPV as per Canonical Library.",
+  "work_object": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+  "expected_benefits": "B2 Delivery speed (candidate packet without manual re-architecture); B5 Governance integrity (HOLD discipline visible).",
+  "baseline": "No governed candidate initiation surface existed.",
+  "target": "Complete candidate packet + full V1-V9 routing trace with V7 HOLD.",
+  "evidence_source": "NAVIGATOR_PROCESS_OFFERING_READINESS_RECEIPT_v0.1.md (Working Memory).",
+  "realisation_test": "All 28 fields populated and all 9 verb steps traced with correct Mesh stages; V7 parked HOLD.",
+  "potential_asset_effect": "Candidate packet format qualifies toward a reusable template Asset (Steward decision required).",
+  "owner_lane": "claude_code (interface); Steward (acceptance).",
+  "dependencies": "Route registry v0.1; Nine Verbs surface; Element surfaces.",
+  "risks": "Fixture mistaken for an operational record — mitigated by SYNTHETIC banner and non_operational_notice.",
+  "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+  "ppv": "Potential",
+  "stop_hold": "V7 Activate HELD; no Odoo/N8N write; no promotion; no realisation declaration.",
+  "next_action": "Steward reviews readiness receipt; fixture then remains as regression fixture.",
+  "replay_validity": "PRESERVED"
+ },
+ "verb_routing_trace": [
+  {
+   "verb": "V1",
+   "name": "Orient",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "elements": [
+    "E7",
+    "E5"
+   ],
+   "state": "COMPLETE",
+   "note": "Orient step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V2",
+   "name": "Canonicalise",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "elements": [
+    "E2"
+   ],
+   "state": "COMPLETE",
+   "note": "Canonicalise step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V3",
+   "name": "Structure",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "elements": [
+    "E4",
+    "E7"
+   ],
+   "state": "COMPLETE",
+   "note": "Structure step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V4",
+   "name": "Assure",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "elements": [
+    "E5",
+    "E8"
+   ],
+   "state": "COMPLETE",
+   "note": "Assure step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V5",
+   "name": "Navigate",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "elements": [
+    "E9",
+    "E7"
+   ],
+   "state": "COMPLETE",
+   "note": "Navigate step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V6",
+   "name": "Compose",
+   "mesh_stages": [
+    "Action"
+   ],
+   "elements": [
+    "E1",
+    "E3"
+   ],
+   "state": "COMPLETE",
+   "note": "Compose step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V7",
+   "name": "Activate",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "elements": [
+    "E5",
+    "E9"
+   ],
+   "state": "HOLD",
+   "note": "Activation parked HOLD pending Steward/CR authorisation."
+  },
+  {
+   "verb": "V8",
+   "name": "Transform",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "elements": [
+    "E3",
+    "E4"
+   ],
+   "state": "COMPLETE",
+   "note": "Transform step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  },
+  {
+   "verb": "V9",
+   "name": "Project",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "elements": [
+    "E6",
+    "E7"
+   ],
+   "state": "COMPLETE",
+   "note": "Project step completed for TEST-OFFERING-001 as a candidate-routing simulation."
+  }
+ ],
+ "mesh_stages_covered": [
+  "Signal",
+  "Interpretation",
+  "Structuring",
+  "Validation",
+  "Action",
+  "Observation",
+  "Learning",
+  "Asset Conversion",
+  "Feedback"
+ ],
+ "elements_touched": [
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "E9"
+ ],
+ "result": "CANDIDATE_ROUTING_COMPLETE_ACTIVATION_HELD"
+}

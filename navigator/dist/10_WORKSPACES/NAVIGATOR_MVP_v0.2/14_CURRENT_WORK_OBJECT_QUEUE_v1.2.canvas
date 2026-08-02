@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "WQ-PF",
+      "type": "text",
+      "text": "WQ-PF | Purpose \u00d7 Form\nBind work to one authorised objective and decision surface.\nDefine identity, Context, sources, authority, PPV, owner, acceptance and STOP/HOLD.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "WQ-SF",
+      "type": "text",
+      "text": "WQ-SF | Strategy \u00d7 Form\nSequence the highest-value valid move while protecting the critical path.\nDefine identity, Context, sources, authority, PPV, owner, acceptance and STOP/HOLD.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "WQ-AF",
+      "type": "text",
+      "text": "WQ-AF | Assets \u00d7 Form\nPreserve evidence, learning and reusable returns from each bounded action.\nDefine identity, Context, sources, authority, PPV, owner, acceptance and STOP/HOLD.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "WQ-PF",
+      "type": "text",
+      "text": "WQ-PF | Purpose \u00d7 Flow\nBind work to one authorised objective and decision surface.\nMove one queue item through the Mesh with one next action and receipt.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "WQ-SF",
+      "type": "text",
+      "text": "WQ-SF | Strategy \u00d7 Flow\nSequence the highest-value valid move while protecting the critical path.\nMove one queue item through the Mesh with one next action and receipt.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "WQ-AF",
+      "type": "text",
+      "text": "WQ-AF | Assets \u00d7 Flow\nPreserve evidence, learning and reusable returns from each bounded action.\nMove one queue item through the Mesh with one next action and receipt.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "WQ-PE",
+      "type": "text",
+      "text": "WQ-PE | Purpose \u00d7 Evolve\nBind work to one authorised objective and decision surface.\nClose, rerank or reshape work from observed evidence and learning.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "WQ-SE",
+      "type": "text",
+      "text": "WQ-SE | Strategy \u00d7 Evolve\nSequence the highest-value valid move while protecting the critical path.\nClose, rerank or reshape work from observed evidence and learning.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "WQ-AE",
+      "type": "text",
+      "text": "WQ-AE | Assets \u00d7 Evolve\nPreserve evidence, learning and reusable returns from each bounded action.\nClose, rerank or reshape work from observed evidence and learning.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Current Work Object & Queue\nDecision: What is the current governed objective, queue state, authority, risk and one next action?\nOwns: Bounded objective, queue state, owner lane, authority, evidence, risk, next action and replay validity.\nExcludes: Enterprise canon, Service identity, Method design, Benefit definition, Asset qualification or runtime execution.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_CURRENT_WORK_OBJECT_QUEUE_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "WQ-PF",
+      "toNode": "WQ-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "WQ-SF",
+      "toNode": "WQ-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "WQ-PF",
+      "toNode": "WQ-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "WQ-PF",
+      "toNode": "WQ-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "WQ-SF",
+      "toNode": "WQ-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "WQ-SF",
+      "toNode": "WQ-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "WQ-AF",
+      "toNode": "WQ-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "WQ-PF",
+      "toNode": "WQ-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "WQ-PE",
+      "toNode": "WQ-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "WQ-SF",
+      "toNode": "WQ-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "WQ-SE",
+      "toNode": "WQ-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "WQ-AF",
+      "toNode": "WQ-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "WQ-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Current Work Object & Queue",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

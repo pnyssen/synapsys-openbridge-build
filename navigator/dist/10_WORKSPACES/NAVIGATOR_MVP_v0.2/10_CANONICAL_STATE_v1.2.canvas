@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "CL-PF",
+      "type": "text",
+      "text": "CL-PF | Purpose \u00d7 Form\nPreserve one authoritative meaning for governed reuse.\nDefine identity, scope, version, authority and admissible relationships.",
+      "x": 0,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CL-SF",
+      "type": "text",
+      "text": "CL-SF | Strategy \u00d7 Form\nReduce ambiguity and coordination cost by resolving definitions before action.\nDefine identity, scope, version, authority and admissible relationships.",
+      "x": 380,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CL-AF",
+      "type": "text",
+      "text": "CL-AF | Assets \u00d7 Form\nProtect durable reference value and prevent false promotion.\nDefine identity, scope, version, authority and admissible relationships.",
+      "x": 760,
+      "y": 0,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "CL-PF",
+      "type": "text",
+      "text": "CL-PF | Purpose \u00d7 Flow\nPreserve one authoritative meaning for governed reuse.\nRoute candidates through evidence review, conflict resolution and promotion decisions.",
+      "x": 0,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CL-SF",
+      "type": "text",
+      "text": "CL-SF | Strategy \u00d7 Flow\nReduce ambiguity and coordination cost by resolving definitions before action.\nRoute candidates through evidence review, conflict resolution and promotion decisions.",
+      "x": 380,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CL-AF",
+      "type": "text",
+      "text": "CL-AF | Assets \u00d7 Flow\nProtect durable reference value and prevent false promotion.\nRoute candidates through evidence review, conflict resolution and promotion decisions.",
+      "x": 760,
+      "y": 230,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "CL-PE",
+      "type": "text",
+      "text": "CL-PE | Purpose \u00d7 Evolve\nPreserve one authoritative meaning for governed reuse.\nRetire, supersede or revise references from observed learning.",
+      "x": 0,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "1"
+    },
+    {
+      "id": "CL-SE",
+      "type": "text",
+      "text": "CL-SE | Strategy \u00d7 Evolve\nReduce ambiguity and coordination cost by resolving definitions before action.\nRetire, supersede or revise references from observed learning.",
+      "x": 380,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "4"
+    },
+    {
+      "id": "CL-AE",
+      "type": "text",
+      "text": "CL-AE | Assets \u00d7 Evolve\nProtect durable reference value and prevent false promotion.\nRetire, supersede or revise references from observed learning.",
+      "x": 760,
+      "y": 460,
+      "width": 330,
+      "height": 175,
+      "color": "6"
+    },
+    {
+      "id": "mesh",
+      "type": "text",
+      "text": "MESH INTEGRATION\nSignal \u2192 Interpretation \u2192 Structuring \u2192 Validation \u2192 Action \u2192 Observation \u2192 Learning \u2192 Asset Conversion \u2192 Feedback",
+      "x": 0,
+      "y": 720,
+      "width": 1090,
+      "height": 150,
+      "color": "3"
+    },
+    {
+      "id": "control",
+      "type": "text",
+      "text": "Canonical Library\nDecision: Which references are authoritative, candidate, conflicted or insufficient, and what use is permitted?\nOwns: Definition identity, scope, version, authority and canon state.\nExcludes: Method procedure, Pattern recurrence, Service offering, Work Object execution, Benefit claim or Asset qualification.\nOpen HTML: [[00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/COMPONENTS/ELEMENT_CANONICAL_LIBRARY_v1.2.html]]\nReturn: [[00_HOME]]\nPPV: Potential | Authority: HELD for operational mutation | Replay: PRESERVED",
+      "x": 1140,
+      "y": 0,
+      "width": 480,
+      "height": 470,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "fromNode": "CL-PF",
+      "toNode": "CL-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e1",
+      "fromNode": "CL-SF",
+      "toNode": "CL-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e2",
+      "fromNode": "CL-PF",
+      "toNode": "CL-PF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e3",
+      "fromNode": "CL-PF",
+      "toNode": "CL-SF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e4",
+      "fromNode": "CL-SF",
+      "toNode": "CL-SF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e5",
+      "fromNode": "CL-SF",
+      "toNode": "CL-AF",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e6",
+      "fromNode": "CL-AF",
+      "toNode": "CL-AF",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e7",
+      "fromNode": "CL-PF",
+      "toNode": "CL-PE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e8",
+      "fromNode": "CL-PE",
+      "toNode": "CL-SE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e9",
+      "fromNode": "CL-SF",
+      "toNode": "CL-SE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e10",
+      "fromNode": "CL-SE",
+      "toNode": "CL-AE",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "integrates"
+    },
+    {
+      "id": "e11",
+      "fromNode": "CL-AF",
+      "toNode": "CL-AE",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "moves"
+    },
+    {
+      "id": "e12",
+      "fromNode": "CL-SF",
+      "toNode": "mesh",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enters Mesh"
+    },
+    {
+      "id": "e13",
+      "fromNode": "mesh",
+      "toNode": "control",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "evidence / return"
+    }
+  ],
+  "metadata": {
+    "title": "Canonical Library",
+    "snapshot": "2026-08-02T23:57:00+10:00",
+    "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+    "status": "current_design_projection_v1.2",
+    "authority": "HELD_OPERATIONAL_MUTATION",
+    "source": "Odoo read-only + Working Memory",
+    "ppv": "Potential",
+    "replay_validity": "PRESERVED"
+  }
+}

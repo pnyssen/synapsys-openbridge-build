@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.2",
+  "snapshot_at": "2026-08-03T00:40:00+10:00",
+  "work_object_id": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+  "latest_return": {
+    "stream_id": "STREAM-E",
+    "control_marker": "D009-STREAM-A-RUN04-CORRECTION-REPLAY-v0.1",
+    "verdict": "D009_PASS_WITH_CONDITIONS",
+    "stream_a": "ASSURED_STREAM_A_COMPLETE",
+    "projection_corrections": "PASS",
+    "independent_vertical_slice": "PASS_WITH_ROUTING_CONDITIONS",
+    "remaining_conditions": [
+      "authoritative Odoo Work Object identity and native Service/Method relationships unresolved",
+      "reusable bridge Pattern qualification held because one-shot bridge ingress used authentication none"
+    ],
+    "vertical_slice_path": "05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/PARALLEL_DELIVERY/STREAM_A_CONTROLLED_CONTINUATION_COWORK_DISPATCH_v0.1/RETURNS/RUN04_EXECUTION/D009_INDEPENDENT_SIGNAL_VERTICAL_SLICE_BASIN_GEMLIFE_v0.1.md",
+    "vertical_slice_sha256": "b573cbe9091a5b91ee6c4027b62c121c48bae7f4237e29cb3f43dc950bbdfe52",
+    "stream_a_rerun": false,
+    "ppv": "Potential"
+  },
+  "replay_validity": "RUN04_CONSUMED_FIRST_USE_NO_RETRY; D009_REVIEW_REPLAY_VALID_FROM_FILED_INPUTS"
+}
