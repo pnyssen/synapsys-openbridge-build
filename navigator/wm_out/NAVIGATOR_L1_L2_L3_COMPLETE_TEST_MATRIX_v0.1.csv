@@ -1,0 +1,43 @@
+test_id,layer,description,result
+T1,static,Exactly one current Home,PASS
+T2,static,Exactly one current Navigator,PASS
+T3,static,Nine Element HTML pages,PASS
+T4,static,Nine browser-safe Canvas views render SVG,PASS
+T5,static,Nine Canvas source routes,PASS
+T6,static,Nine verb anchors,PASS
+T7,static,Three Form verbs,PASS
+T8,static,Three Flow verbs,PASS
+T9,static,Three Evolve verbs,PASS
+T10,static,"27 Level-3 cells per Element (243, all rendered)",PASS
+T11,static,No duplicate Level-3 IDs,PASS
+T12,static,81 Element x Verb mappings,PASS
+T13,static,All Mesh stages covered by verbs,PASS
+T14,static,All Elements participate in Mesh,PASS
+T15,static,Every verb has Benefit contribution,PASS
+T16,static,Every Benefit has evidence + Realisation condition,PASS
+T17,static,Asset qualification + authority conditions,PASS
+T18,static,All links resolve (dist + vault index),PASS
+T19,static,All internal anchors exist,PASS
+T20,static,All return routes resolve,PASS
+T21,static,No stale v1.4 active route,PASS
+T22,static,No invalid #status/mesh,PASS
+T23,static,No critical custom-protocol-only route,PASS
+T24,static,No primary route to raw Canvas JSON,PASS
+T25,static,No Stream A active next action,PASS
+T26,static,No Stream A rerun instruction,PASS
+T27,static,No false Benefit-realisation claim,PASS
+T28,static,No false Pattern/Asset qualification,PASS
+T29,static,PPV remains Potential (registry + 243 resolved cells),PASS
+T30,static,Bridge Pattern qualification remains held,PASS
+T31,static,TEST-PROCESS-001 completes candidate routing,PASS
+T32,static,TEST-OFFERING-001 completes candidate routing,PASS
+T33,static,No Odoo/N8N mutation,PASS
+T34,static,No secret-shaped value,PASS
+T35,static,Cold-start replay from Home,PASS
+NESTED,static,"Nested 9 Elements x 9 Verbs x 27 L3 sweep (routes, mappings, 23 fields/cell resolved)",PASS (6363 assertions)
+BROWSER,browser,"Visual interaction suite: desktop+narrow viewports, 9 canvas views visible SVG, 9 element pages, 9 verb anchors, element links, start surface, returns, no-JS, file://, stale-anchor, direct entry","PASS (134 checks, 0 failures)"
+ADV-duplicate_L3_id_detected,adversarial,duplicate L3 id detected,PASS
+ADV-fixture_missing_V7_HOLD_detected,adversarial,fixture missing V7 HOLD detected,PASS
+ADV-ppv_movement_detected,adversarial,ppv movement detected,PASS
+ADV-stream_a_reactivation_detected,adversarial,stream a reactivation detected,PASS
+ADV-clean_state_all_pass,adversarial,clean state all pass,PASS

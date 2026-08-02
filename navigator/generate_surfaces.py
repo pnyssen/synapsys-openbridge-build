@@ -147,33 +147,43 @@ def gen_element_page(reg, e):
             f"<td>{esc(', '.join(m['mesh_stages']))}</td>"
             f"<td>{esc(m['benefit'])} {esc(b['name'])}</td></tr>")
 
+    common = model.l3_common(elem)
+    stmts = model.l3_axis_statements(elem)
+    axis_c = model.axis_c_content()
+    defaults = model.L3_DEFAULTS
+    shared_rows = "".join(
+        f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in [
+            ("Incoming Signal", common["incoming_signal"]),
+            ("Interpretation", common["interpretation"]),
+            ("Required structure", common["required_structure"]),
+            ("Validation test", common["validation_test"]),
+            ("Permitted action", common["permitted_action"]),
+            ("Asset implication", common["asset_implication"]),
+            ("Return path", common["return_path"]),
+            ("Source system", defaults["source_system"]),
+            ("Reality", defaults["reality"]),
+            ("PPV", defaults["ppv"]),
+            ("Authority", defaults["authority"]),
+            ("Owner", defaults["owner"]),
+            ("Next action", defaults["next_action"]),
+            ("STOP/HOLD", defaults["stop_hold"]),
+            ("Replay-validity", defaults["replay_validity"]),
+        ])
+    stmt_rows = "".join(
+        f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in stmts.items())
+    axisc_rows = "".join(
+        f"<tr><th>{esc(c)}</th><td>{esc(d['expected_benefit'])}</td>"
+        f"<td>{esc(d['evidence_requirement'])}</td>"
+        f"<td>{esc(d['realisation_condition'])}</td>"
+        for c, d in axis_c.items())
     cells = ""
-    for c in model.l3_cells(elem):
+    for c in model.l3_cells_compact(elem):
         cells += f"""<details id="{esc(c['trace_id'])}"><summary>{esc(c['trace_id'])} — {esc(c['axis_a'])} × {esc(c['axis_b'])} × {esc(c['axis_c'])}</summary>
 <div class="body"><dl>
 <dt>Decision / question served</dt><dd>{esc(c['decision_served'])}</dd>
-<dt>Incoming Signal</dt><dd>{esc(c['incoming_signal'])}</dd>
-<dt>Interpretation</dt><dd>{esc(c['interpretation'])}</dd>
-<dt>Required structure</dt><dd>{esc(c['required_structure'])}</dd>
-<dt>Validation test</dt><dd>{esc(c['validation_test'])}</dd>
-<dt>Permitted action</dt><dd>{esc(c['permitted_action'])}</dd>
-<dt>{esc(c['axis_a'])} axis</dt><dd>{esc(c['axis_a_statement'])}</dd>
-<dt>{esc(c['axis_b'])} axis</dt><dd>{esc(c['axis_b_statement'])}</dd>
-<dt>{esc(c['axis_c'])} axis</dt><dd>{esc(c['axis_c_statement'])}</dd>
-<dt>Expected Benefit</dt><dd>{esc(c['expected_benefit'])}</dd>
-<dt>Evidence &amp; measurement</dt><dd>{esc(c['evidence_requirement'])}</dd>
-<dt>Realisation condition</dt><dd>{esc(c['realisation_condition'])}</dd>
-<dt>Asset implication</dt><dd>{esc(c['asset_implication'])}</dd>
-<dt>Source system</dt><dd>{esc(c['source_system'])}</dd>
-<dt>Reality</dt><dd>{esc(c['reality'])}</dd>
-<dt>PPV</dt><dd>{esc(c['ppv'])}</dd>
-<dt>Authority</dt><dd>{esc(c['authority'])}</dd>
-<dt>Owner</dt><dd>{esc(c['owner'])}</dd>
-<dt>Next action</dt><dd>{esc(c['next_action'])}</dd>
-<dt>STOP/HOLD</dt><dd>{esc(c['stop_hold'])}</dd>
-<dt>Replay-validity</dt><dd>{esc(c['replay_validity'])}</dd>
-<dt>Return path</dt><dd>{esc(c['return_path'])}</dd>
+<dt>Axis statements</dt><dd>{esc(c['axis_a'])} · {esc(c['axis_b'])} · {esc(c['axis_c'])} — full text in the three tables above; benefit/evidence/realisation from the {esc(c['axis_c'])} profile row.</dd>
 <dt>Verbs (Axis-B owners)</dt><dd>{esc(', '.join(c['verbs']))}</dd>
+<dt>Shared contract</dt><dd>Signal, interpretation, structure, validation, action, asset, source, reality, PPV, authority, owner, next action, STOP/HOLD, replay and return apply as stated in the shared-contract table above.</dd>
 </dl></div></details>"""
 
     body = f"""{provenance('· <b>Element state:</b> current — this file is the one principal current surface for this Element; earlier versions are historical lineage.')}
@@ -192,7 +202,15 @@ def gen_element_page(reg, e):
 <tbody>{verb_rows}</tbody></table></section>
 <section class="card" id="l3"><h2>Level-3 operating expression — 27 positions (3×3×3)</h2>
 <p>Axis A: Purpose/Strategy/Assets · Axis B: Form/Flow/Evolve · Axis C: Signal/Benefits/Realisation.
-Every position below is stated in full; none is silently empty.</p>
+Every position resolves as: shared contract + axis statements + Axis-C profile + the cell's own
+decision statement (same rule as the route registry's l3_resolution_rule). No cell is silently empty.</p>
+<h3>Shared contract for all 27 positions of this Element</h3>
+<table>{shared_rows}</table>
+<h3>Axis statements</h3>
+<table>{stmt_rows}</table>
+<h3>Axis-C profiles (Benefit · evidence · Realisation)</h3>
+<table><thead><tr><th>Axis C</th><th>Expected Benefit</th><th>Evidence requirement</th><th>Realisation condition</th></tr></thead>
+<tbody>{axisc_rows}</tbody></table>
 {cells}</section>
 {path_fallback([
     ("This page", f"{VAULT_CURRENT}/COMPONENTS/{elem['html']}"),

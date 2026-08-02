@@ -125,6 +125,96 @@ def main():
     assert "</head>" in t
     t = t.replace("</head>", resp_css + "</head>", 1)
 
+    # 10. CSP root cause: connect-src 'none' + frame-src 'none' blocked every
+    # same-origin subresource (the DATA fetch never worked, entrenching the
+    # embedded-state drift and srcdoc duplication). Allow same-origin only.
+    old_csp = ("default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; "
+               "img-src data:; connect-src 'none'; frame-src 'none'; object-src 'none'; "
+               "base-uri 'none'; form-action 'none'")
+    new_csp = ("default-src 'none'; style-src 'unsafe-inline'; "
+               "script-src 'unsafe-inline' 'self'; img-src data:; connect-src 'self'; "
+               "frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'")
+    assert old_csp in t, "expected v1.5 CSP not found"
+    t = t.replace(old_csp, new_csp)
+
+    # 8. externalize the three srcdoc iframes. The embedded copies had
+    # drifted from (or broken links relative to) their standalone component
+    # files - the duplicated-current-surface root cause. The operating and
+    # wave frames become new current component versions extracted from the
+    # live navigator; the delivery frame points at the corrected
+    # NAVIGATOR_PARALLEL_DELIVERY_CONTROL_v1.1.html.
+    import html as _html
+    import re as _re
+
+    def _extract(frame_id_attr, src_path):
+        nonlocal t
+        m = _re.search(r'(<iframe[^>]*?)srcdoc="((?:[^"])*?)"', t, _re.S)
+        while m:
+            head = m.group(1)
+            if frame_id_attr in head:
+                content = _html.unescape(m.group(2))
+                t = t[:m.start()] + head + f'src="{src_path}"' + t[m.end():]
+                return content
+            m = _re.search(r'(<iframe[^>]*?)srcdoc="((?:[^"])*?)"',
+                           t[m.end():], _re.S) and _re.search(
+                r'(<iframe[^>]*?)srcdoc="((?:[^"])*?)"', t, _re.S)
+            # fallthrough handled below
+        return None
+
+    # simpler deterministic pass: iterate all srcdoc iframes once
+    frames = {}
+    def _repl(m):
+        head = m.group(1)
+        content = _html.unescape(m.group(2))
+        if 'id="operatingFrame"' in head:
+            frames["operating"] = content
+            return head + 'src="COMPONENTS/NAVIGATOR_OPERATING_SURFACE_v4.6.html"'
+        if 'id="waveFrame"' in head:
+            frames["wave"] = content
+            return head + 'src="COMPONENTS/NAVIGATOR_WAVE_RUNNER_v0.3.html"'
+        frames["delivery"] = content
+        return head + 'src="COMPONENTS/NAVIGATOR_PARALLEL_DELIVERY_CONTROL_v1.1.html"'
+    t = _re.sub(r'(<iframe[^>]*?)srcdoc="((?:[^"])*?)"', _repl, t, flags=_re.S)
+    assert set(frames) == {"operating", "wave", "delivery"}, frames.keys()
+
+    comp_dir = DST.parent / "COMPONENTS"
+    comp_dir.mkdir(parents=True, exist_ok=True)
+    # operating frame: rewrite its obsidian://-only verb links to relative
+    op = frames["operating"]
+    op = op.replace(
+        "obsidian://open?vault=Obsidian&file=00_SYSTEM%2FNAVIGATOR_SUPPORT%2F"
+        "CURRENT%2FCOMPONENTS%2FNAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+        model.VERBS_FILE)
+    (comp_dir / "NAVIGATOR_OPERATING_SURFACE_v4.6.html").write_text(op, encoding="utf-8")
+    (comp_dir / "NAVIGATOR_WAVE_RUNNER_v0.3.html").write_text(frames["wave"], encoding="utf-8")
+    # delivery frame content intentionally dropped: superseded by the
+    # corrected standalone v1.1 file (drifted duplicate, broken ../ links)
+
+    # 9. move the embedded delivery-state literal to DATA/NAVIGATOR_DELIVERY_STATE.js
+    # (generated from the same refreshed JSON - one source, no embedded drift).
+    m = _re.search(r'const EMBEDDED_DELIVERY_STATE=\{.*?\};\n', t, _re.S)
+    assert m, "embedded delivery state literal not found"
+    t = t[:m.start()] + t[m.end():]
+    t = t.replace("let DELIVERY_STATE=EMBEDDED_DELIVERY_STATE;",
+                  "let DELIVERY_STATE=window.EMBEDDED_DELIVERY_STATE;")
+    import json as _json
+    state = _json.loads((HERE / "dist" / "00_SYSTEM" / "NAVIGATOR_SUPPORT" /
+                         "CURRENT" / "DATA" / "NAVIGATOR_DELIVERY_STATE.json"
+                         ).read_text(encoding="utf-8"))
+    js = ("// Generated from NAVIGATOR_DELIVERY_STATE.json - do not edit by hand.\n"
+          "window.EMBEDDED_DELIVERY_STATE=" + _json.dumps(state, ensure_ascii=False) + ";\n")
+    data_dir = DST.parent / "DATA"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "NAVIGATOR_DELIVERY_STATE.js").write_text(js, encoding="utf-8")
+    assert "</head>" in t
+    t = t.replace("</head>",
+                  '<script src="DATA/NAVIGATOR_DELIVERY_STATE.js"></script></head>', 1)
+    # The head script (no defer) executes before the inline body script, so
+    # EMBEDDED_DELIVERY_STATE is set in time. Guard anyway so a missing
+    # DATA .js file (adversarial case) degrades to the static route section:
+    t = t.replace("DELIVERY_STATE=applyCurrentUiPatch(DELIVERY_STATE);render(DELIVERY_STATE);",
+                  "if(DELIVERY_STATE){DELIVERY_STATE=applyCurrentUiPatch(DELIVERY_STATE);render(DELIVERY_STATE);}")
+
     # 3. insert the static L1/L2/L3 routes section before </main>
     rows = ""
     for e in model.ELEMENTS:

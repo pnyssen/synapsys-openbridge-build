@@ -1,0 +1,4814 @@
+{
+ "registry": "NAVIGATOR_L1_L2_L3_ROUTE_REGISTRY",
+ "version": "v0.1",
+ "work_object": "WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+ "snapshot": "2026-08-03T09:00:00+10:00",
+ "state": "current",
+ "nature": "Current navigation and validation projection only. Not an operational register; confers no authority; PPV Potential throughout.",
+ "home": {
+  "path": "00_HOME.md",
+  "state": "current"
+ },
+ "navigator": {
+  "path": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+  "state": "current"
+ },
+ "nine_verbs_route": {
+  "path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+  "state": "current"
+ },
+ "process_offering_start": {
+  "path": "COMPONENTS/NAVIGATOR_NEW_PROCESS_AND_OFFERING_START_v1.0.html",
+  "state": "current"
+ },
+ "verb_groups": {
+  "FORM": [
+   "V1",
+   "V2",
+   "V3"
+  ],
+  "FLOW": [
+   "V4",
+   "V5",
+   "V6"
+  ],
+  "EVOLVE": [
+   "V7",
+   "V8",
+   "V9"
+  ]
+ },
+ "mesh_stages": [
+  "Signal",
+  "Interpretation",
+  "Structuring",
+  "Validation",
+  "Action",
+  "Observation",
+  "Learning",
+  "Asset Conversion",
+  "Feedback"
+ ],
+ "mesh_stage_verb_coverage": {
+  "Signal": [
+   "V1"
+  ],
+  "Interpretation": [
+   "V1",
+   "V2"
+  ],
+  "Structuring": [
+   "V2",
+   "V3"
+  ],
+  "Validation": [
+   "V4"
+  ],
+  "Action": [
+   "V5",
+   "V6",
+   "V7"
+  ],
+  "Observation": [
+   "V5",
+   "V7",
+   "V9"
+  ],
+  "Learning": [
+   "V8"
+  ],
+  "Asset Conversion": [
+   "V8"
+  ],
+  "Feedback": [
+   "V9"
+  ]
+ },
+ "benefits": {
+  "B1": {
+   "name": "Decision clarity",
+   "meaning": "The Steward can see current state, objective and next valid action without reconstruction.",
+   "evidence": "Cold-start walkthrough receipt; priority projection freshness stamp.",
+   "realisation": "A cold-start user reaches the correct next action from Home in under five clicks, verified by replay receipt."
+  },
+  "B2": {
+   "name": "Delivery speed",
+   "meaning": "New Processes and Offerings move from idea to governed candidate without manual re-architecture.",
+   "evidence": "Candidate packet completeness check against the registry template; routing trace through the nine verbs.",
+   "realisation": "A complete candidate packet is produced through the start surface with all required fields and a verb-routing trace, no manual reconstruction."
+  },
+  "B3": {
+   "name": "Assurance confidence",
+   "meaning": "Claims about state are evidence-bound; validation gates precede action.",
+   "evidence": "Test-matrix results filed with SHA-256 receipts; independent re-verification entries.",
+   "realisation": "All applicable automated assertions pass and are filed; disputed claims recorded as conflicts, not accepted."
+  },
+  "B4": {
+   "name": "Asset compounding",
+   "meaning": "Qualified outcomes convert into reusable Patterns, Methods and Canonical objects instead of one-off narratives.",
+   "evidence": "Asset-qualification conditions recorded per candidate; Steward qualification decision reference.",
+   "realisation": "An outcome is only labelled an Asset after meeting written qualification conditions under Steward authority; until then it is recorded as candidate evidence."
+  },
+  "B5": {
+   "name": "Governance integrity",
+   "meaning": "Authority boundaries, STOP/HOLD states and PPV discipline remain visible and enforced on every route.",
+   "evidence": "Authority and HOLD blocks rendered on every surface; registry authority fields; held-item register.",
+   "realisation": "No surface implies an unauthorised mutation; every held action is labelled HOLD with the holding authority named."
+  }
+ },
+ "l3_defaults": {
+  "source_system": "Obsidian Navigator projection; Working Memory receipts",
+  "reality": "PROJECTION (interface view of governed state; Odoo remains operational register truth)",
+  "ppv": "Potential",
+  "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+  "owner": "claude_code (interface projection); Steward (acceptance)",
+  "next_action": "Steward review of this cell within Navigator acceptance; no operational action permitted from this cell.",
+  "stop_hold": "HOLD: Odoo/N8N/runtime mutation, promotion, PPV movement, Benefit-realisation declaration.",
+  "replay_validity": "PRESERVED",
+  "applicable": true
+ },
+ "l3_axis_c_content": {
+  "Signal": {
+   "expected_benefit": "B1 Decision clarity: The Steward can see current state, objective and next valid action without reconstruction.",
+   "evidence_requirement": "Cold-start walkthrough receipt; priority projection freshness stamp.",
+   "realisation_condition": "A cold-start user reaches the correct next action from Home in under five clicks, verified by replay receipt."
+  },
+  "Benefits": {
+   "expected_benefit": "B3 Assurance confidence: Claims about state are evidence-bound; validation gates precede action.",
+   "evidence_requirement": "Test-matrix results filed with SHA-256 receipts; independent re-verification entries.",
+   "realisation_condition": "All applicable automated assertions pass and are filed; disputed claims recorded as conflicts, not accepted."
+  },
+  "Realisation": {
+   "expected_benefit": "B4 Asset compounding: Qualified outcomes convert into reusable Patterns, Methods and Canonical objects instead of one-off narratives.",
+   "evidence_requirement": "Asset-qualification conditions recorded per candidate; Steward qualification decision reference.",
+   "realisation_condition": "An outcome is only labelled an Asset after meeting written qualification conditions under Steward authority; until then it is recorded as candidate evidence."
+  }
+ },
+ "l3_resolution_rule": "Full cell = l3_defaults + element.l3_common + axis statements from element.l3_axis_statements + l3_axis_c_content[axis_c] + the cell's own fields (cell fields win).",
+ "elements": [
+  {
+   "id": "E1",
+   "key": "service_catalogue",
+   "name": "Service Catalogue",
+   "state": "current",
+   "role": "the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_SERVICE_CATALOGUE_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_SERVICE_CATALOGUE_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/07_SERVICE_CATALOGUE_INTEGRATED_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F07_SERVICE_CATALOGUE_INTEGRATED_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "New Service ideas, Offering demands, coverage gaps and scoping defects arriving from any lane.",
+    "interprets": "Whether a demand maps to an existing Service, a variant, or a genuine catalogue gap.",
+    "structures": "Six-field scoped Service records and their MECE placement in the catalogue.",
+    "validated_by": "Scoping validator checks, MECE coverage review and Steward catalogue acceptance.",
+    "action": "Publish or amend catalogue entries as governed candidates; route Offering composition to Compose.",
+    "observes": "Usage of Services in Offerings and the coverage gaps candidates reveal.",
+    "learns": "Which scoping patterns survive assurance and which recur as defects.",
+    "asset_conversion": "Stable Service definitions and scoping patterns qualify toward the Pattern and Method libraries.",
+    "feedback_to": "Coverage and defect findings feed back to Orient as new Signals for the next catalogue cycle."
+   },
+   "purpose": "Hold one governed, non-duplicated definition of every Service the ecosystem can offer.",
+   "strategy": "Grow the catalogue only through governed candidates that pass scoping, assurance and Steward acceptance.",
+   "assets": "Service definitions, scoping templates and the MECE coverage model are the reusable assets this Element accumulates.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "New Service ideas, Offering demands, coverage gaps and scoping defects arriving from any lane.",
+    "interpretation": "Whether a demand maps to an existing Service, a variant, or a genuine catalogue gap.",
+    "required_structure": "Six-field scoped Service records and their MECE placement in the catalogue.",
+    "validation_test": "Scoping validator checks, MECE coverage review and Steward catalogue acceptance.",
+    "permitted_action": "Publish or amend catalogue entries as governed candidates; route Offering composition to Compose.",
+    "asset_implication": "Stable Service definitions and scoping patterns qualify toward the Pattern and Method libraries.",
+    "return_path": "COMPONENTS/ELEMENT_SERVICE_CATALOGUE_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Hold one governed, non-duplicated definition of every Service the ecosystem can offer.",
+    "Strategy": "Grow the catalogue only through governed candidates that pass scoping, assurance and Steward acceptance.",
+    "Assets": "Service definitions, scoping templates and the MECE coverage model are the reusable assets this Element accumulates.",
+    "Form": "Form (how this Element is given governed shape): Six-field scoped Service records and their MECE placement in the catalogue.",
+    "Flow": "Flow (how work moves through this Element): Publish or amend catalogue entries as governed candidates; route Offering composition to Compose.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which scoping patterns survive assurance and which recur as defects.",
+    "Signal": "Signal (the incoming Signal lens): New Service ideas, Offering demands, coverage gaps and scoping defects arriving from any lane.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether a demand maps to an existing Service, a variant, or a genuine catalogue gap.",
+    "Realisation": "Realisation (the Realisation-condition lens): Scoping validator checks, MECE coverage review and Steward catalogue acceptance."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E1-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Service Catalogue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Service Catalogue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E1-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Service Catalogue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "key": "canonical_library",
+   "name": "Canonical Library",
+   "state": "current",
+   "role": "the single agreed vocabulary and object model: canonical terms, definitions and their adoption state",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_CANONICAL_LIBRARY_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_CANONICAL_LIBRARY_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/10_CANONICAL_STATE_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F10_CANONICAL_STATE_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "New terms, contested meanings and vocabulary collisions surfaced by any artefact.",
+    "interprets": "Whether a term is new, a synonym, a collision, or a candidate canonical object.",
+    "structures": "Canonical entries with state (candidate/adopted/deprecated) and lineage.",
+    "validated_by": "Coherence checks against the corpus and Steward adoption decisions.",
+    "action": "Record candidate canonical entries; publish adopted vocabulary to all surfaces.",
+    "observes": "Where artefacts drift from canonical vocabulary in practice.",
+    "learns": "Which definitions hold under use and which keep producing collisions.",
+    "asset_conversion": "Adopted definitions become durable Canonical objects cited by every other Element.",
+    "feedback_to": "Drift observations return to Canonicalise as correction Signals."
+   },
+   "purpose": "Keep one agreed meaning per term so lanes cannot diverge on vocabulary.",
+   "strategy": "Canonicalise only after collision-checks against the existing corpus; never merge referents silently.",
+   "assets": "Canonical definitions, the object index and collision-resolution records.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "New terms, contested meanings and vocabulary collisions surfaced by any artefact.",
+    "interpretation": "Whether a term is new, a synonym, a collision, or a candidate canonical object.",
+    "required_structure": "Canonical entries with state (candidate/adopted/deprecated) and lineage.",
+    "validation_test": "Coherence checks against the corpus and Steward adoption decisions.",
+    "permitted_action": "Record candidate canonical entries; publish adopted vocabulary to all surfaces.",
+    "asset_implication": "Adopted definitions become durable Canonical objects cited by every other Element.",
+    "return_path": "COMPONENTS/ELEMENT_CANONICAL_LIBRARY_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Keep one agreed meaning per term so lanes cannot diverge on vocabulary.",
+    "Strategy": "Canonicalise only after collision-checks against the existing corpus; never merge referents silently.",
+    "Assets": "Canonical definitions, the object index and collision-resolution records.",
+    "Form": "Form (how this Element is given governed shape): Canonical entries with state (candidate/adopted/deprecated) and lineage.",
+    "Flow": "Flow (how work moves through this Element): Record candidate canonical entries; publish adopted vocabulary to all surfaces.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which definitions hold under use and which keep producing collisions.",
+    "Signal": "Signal (the incoming Signal lens): New terms, contested meanings and vocabulary collisions surfaced by any artefact.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether a term is new, a synonym, a collision, or a candidate canonical object.",
+    "Realisation": "Realisation (the Realisation-condition lens): Coherence checks against the corpus and Steward adoption decisions."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E2-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Canonical Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Canonical Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E2-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Canonical Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E3",
+   "key": "asset_pattern_library",
+   "name": "Asset & Pattern Library",
+   "state": "current",
+   "role": "the register of reusable Patterns and qualified Assets, with explicit qualification state",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_ASSET_PATTERN_LIBRARY_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_ASSET_PATTERN_LIBRARY_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/09_ASSET_PATTERN_LIBRARY_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F09_ASSET_PATTERN_LIBRARY_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "Candidate patterns and asset claims arriving from completed work.",
+    "interprets": "Whether a claim is narrative, candidate evidence, or meets qualification conditions.",
+    "structures": "Pattern records with qualification state, conditions and lineage.",
+    "validated_by": "Qualification condition checks and Steward qualification decisions.",
+    "action": "Register candidates; publish qualified Patterns for reuse by Compose.",
+    "observes": "Reuse outcomes: where Patterns hold, where they fail.",
+    "learns": "Which qualification conditions predict successful reuse.",
+    "asset_conversion": "This Element IS the conversion gate: candidates become Assets only here, under authority.",
+    "feedback_to": "Failed reuse returns to Transform as a re-design Signal."
+   },
+   "purpose": "Accumulate reusable Patterns and Assets under explicit qualification discipline.",
+   "strategy": "One successful cycle is evidence, not a Pattern; qualification requires repetition, written conditions and Steward authority.",
+   "assets": "Qualified Patterns, Asset records and their qualification condition sets.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "Candidate patterns and asset claims arriving from completed work.",
+    "interpretation": "Whether a claim is narrative, candidate evidence, or meets qualification conditions.",
+    "required_structure": "Pattern records with qualification state, conditions and lineage.",
+    "validation_test": "Qualification condition checks and Steward qualification decisions.",
+    "permitted_action": "Register candidates; publish qualified Patterns for reuse by Compose.",
+    "asset_implication": "This Element IS the conversion gate: candidates become Assets only here, under authority.",
+    "return_path": "COMPONENTS/ELEMENT_ASSET_PATTERN_LIBRARY_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Accumulate reusable Patterns and Assets under explicit qualification discipline.",
+    "Strategy": "One successful cycle is evidence, not a Pattern; qualification requires repetition, written conditions and Steward authority.",
+    "Assets": "Qualified Patterns, Asset records and their qualification condition sets.",
+    "Form": "Form (how this Element is given governed shape): Pattern records with qualification state, conditions and lineage.",
+    "Flow": "Flow (how work moves through this Element): Register candidates; publish qualified Patterns for reuse by Compose.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which qualification conditions predict successful reuse.",
+    "Signal": "Signal (the incoming Signal lens): Candidate patterns and asset claims arriving from completed work.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether a claim is narrative, candidate evidence, or meets qualification conditions.",
+    "Realisation": "Realisation (the Realisation-condition lens): Qualification condition checks and Steward qualification decisions."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E3-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Asset & Pattern Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Asset & Pattern Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E3-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Asset & Pattern Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E4",
+   "key": "method_library",
+   "name": "Method Library",
+   "state": "current",
+   "role": "the register of governed Methods: how work is done, step by step, with authority and evidence requirements",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_METHOD_LIBRARY_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_METHOD_LIBRARY_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/09B_METHOD_LIBRARY_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F09B_METHOD_LIBRARY_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "Demonstrated working practices, method gaps and execution defects.",
+    "interprets": "Whether a practice is a one-off, a variant of an existing Method, or a candidate Method.",
+    "structures": "Stepwise Method records with inputs, outputs, evidence points and authority boundaries.",
+    "validated_by": "Method comparison review and assurance of demonstrated runs.",
+    "action": "Register and publish Methods for routing by Navigate and use by Compose.",
+    "observes": "Method adherence and deviation during delivery.",
+    "learns": "Which steps are load-bearing and which are ceremony.",
+    "asset_conversion": "Proven Methods qualify as reusable Assets referenced by Services and Offerings.",
+    "feedback_to": "Deviations feed back to Structure as method-refinement Signals."
+   },
+   "purpose": "Hold the agreed way each class of work is executed.",
+   "strategy": "Methods enter as candidates from demonstrated practice and are promoted only with evidence.",
+   "assets": "Method definitions, their step structures and comparison matrices.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "Demonstrated working practices, method gaps and execution defects.",
+    "interpretation": "Whether a practice is a one-off, a variant of an existing Method, or a candidate Method.",
+    "required_structure": "Stepwise Method records with inputs, outputs, evidence points and authority boundaries.",
+    "validation_test": "Method comparison review and assurance of demonstrated runs.",
+    "permitted_action": "Register and publish Methods for routing by Navigate and use by Compose.",
+    "asset_implication": "Proven Methods qualify as reusable Assets referenced by Services and Offerings.",
+    "return_path": "COMPONENTS/ELEMENT_METHOD_LIBRARY_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Hold the agreed way each class of work is executed.",
+    "Strategy": "Methods enter as candidates from demonstrated practice and are promoted only with evidence.",
+    "Assets": "Method definitions, their step structures and comparison matrices.",
+    "Form": "Form (how this Element is given governed shape): Stepwise Method records with inputs, outputs, evidence points and authority boundaries.",
+    "Flow": "Flow (how work moves through this Element): Register and publish Methods for routing by Navigate and use by Compose.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which steps are load-bearing and which are ceremony.",
+    "Signal": "Signal (the incoming Signal lens): Demonstrated working practices, method gaps and execution defects.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether a practice is a one-off, a variant of an existing Method, or a candidate Method.",
+    "Realisation": "Realisation (the Realisation-condition lens): Method comparison review and assurance of demonstrated runs."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E4-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Method Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Method Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Method Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Method Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Method Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Method Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Method Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Method Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Method Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Method Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Method Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Method Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Method Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Method Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Method Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Method Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Method Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Method Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Method Library is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Method Library is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Method Library is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Method Library is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Method Library is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Method Library is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Method Library is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Method Library is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E4-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Method Library is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E5",
+   "key": "mesh_control_gates",
+   "name": "Mesh & Control Gates",
+   "state": "current",
+   "role": "the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_MESH_CONTROL_GATES_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_MESH_CONTROL_GATES_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/05_MESH_LIFECYCLE_GATES_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F05_MESH_LIFECYCLE_GATES_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "All work entering the ecosystem: every Signal crosses this Element first.",
+    "interprets": "Which Mesh stage a work item is genuinely at, versus where it claims to be.",
+    "structures": "Stage assignments and gate conditions for each work object.",
+    "validated_by": "Gate condition checks; Assure verbs run here before any Action gate opens.",
+    "action": "Open or hold gates; route work to the verb that owns its next stage.",
+    "observes": "Gate outcomes, blocked items and recurring gate failures.",
+    "learns": "Which gate conditions actually predict safe progression.",
+    "asset_conversion": "Stable gate designs qualify as governance Patterns.",
+    "feedback_to": "Gate statistics return to Orient to reprioritise systemic fixes."
+   },
+   "purpose": "Make every piece of work traverse Signal through Feedback under visible gates.",
+   "strategy": "Gates block by default; movement requires evidence and named authority, never assumption.",
+   "assets": "Gate definitions, gate-decision records and the Mesh stage map.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "All work entering the ecosystem: every Signal crosses this Element first.",
+    "interpretation": "Which Mesh stage a work item is genuinely at, versus where it claims to be.",
+    "required_structure": "Stage assignments and gate conditions for each work object.",
+    "validation_test": "Gate condition checks; Assure verbs run here before any Action gate opens.",
+    "permitted_action": "Open or hold gates; route work to the verb that owns its next stage.",
+    "asset_implication": "Stable gate designs qualify as governance Patterns.",
+    "return_path": "COMPONENTS/ELEMENT_MESH_CONTROL_GATES_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Make every piece of work traverse Signal through Feedback under visible gates.",
+    "Strategy": "Gates block by default; movement requires evidence and named authority, never assumption.",
+    "Assets": "Gate definitions, gate-decision records and the Mesh stage map.",
+    "Form": "Form (how this Element is given governed shape): Stage assignments and gate conditions for each work object.",
+    "Flow": "Flow (how work moves through this Element): Open or hold gates; route work to the verb that owns its next stage.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which gate conditions actually predict safe progression.",
+    "Signal": "Signal (the incoming Signal lens): All work entering the ecosystem: every Signal crosses this Element first.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Which Mesh stage a work item is genuinely at, versus where it claims to be.",
+    "Realisation": "Realisation (the Realisation-condition lens): Gate condition checks; Assure verbs run here before any Action gate opens."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E5-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Mesh & Control Gates is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Mesh & Control Gates is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E5-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Mesh & Control Gates is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E6",
+   "key": "benefits_assets",
+   "name": "Benefits & Assets",
+   "state": "current",
+   "role": "the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_BENEFITS_ASSETS_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_BENEFITS_ASSETS_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/11_BENEFIT_ASSET_REALISATION_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F11_BENEFIT_ASSET_REALISATION_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "Benefit claims and realisation evidence arriving from completed verb cycles.",
+    "interprets": "Whether a claim is output, contribution, or realised Benefit.",
+    "structures": "Benefit entries with baseline, target, evidence source and realisation test.",
+    "validated_by": "Evidence-binding checks; realisation declarations remain HELD to Steward authority.",
+    "action": "Record contributions; stage realisation candidates for Steward declaration.",
+    "observes": "Whether declared conditions are approached over successive cycles.",
+    "learns": "Which Benefit definitions are measurable and which need redesign.",
+    "asset_conversion": "Realised, repeatable Benefits with stable evidence chains qualify toward Assets.",
+    "feedback_to": "Realisation gaps feed back to Project as objective-setting Signals."
+   },
+   "purpose": "Bind every claimed Benefit to evidence and an explicit realisation condition.",
+   "strategy": "Technical output is never labelled Benefit realisation; realisation is declared only when its written condition is met under authority.",
+   "assets": "The Benefit model (B1-B5), realisation conditions and the realisation ledger.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "Benefit claims and realisation evidence arriving from completed verb cycles.",
+    "interpretation": "Whether a claim is output, contribution, or realised Benefit.",
+    "required_structure": "Benefit entries with baseline, target, evidence source and realisation test.",
+    "validation_test": "Evidence-binding checks; realisation declarations remain HELD to Steward authority.",
+    "permitted_action": "Record contributions; stage realisation candidates for Steward declaration.",
+    "asset_implication": "Realised, repeatable Benefits with stable evidence chains qualify toward Assets.",
+    "return_path": "COMPONENTS/ELEMENT_BENEFITS_ASSETS_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Bind every claimed Benefit to evidence and an explicit realisation condition.",
+    "Strategy": "Technical output is never labelled Benefit realisation; realisation is declared only when its written condition is met under authority.",
+    "Assets": "The Benefit model (B1-B5), realisation conditions and the realisation ledger.",
+    "Form": "Form (how this Element is given governed shape): Benefit entries with baseline, target, evidence source and realisation test.",
+    "Flow": "Flow (how work moves through this Element): Record contributions; stage realisation candidates for Steward declaration.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which Benefit definitions are measurable and which need redesign.",
+    "Signal": "Signal (the incoming Signal lens): Benefit claims and realisation evidence arriving from completed verb cycles.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether a claim is output, contribution, or realised Benefit.",
+    "Realisation": "Realisation (the Realisation-condition lens): Evidence-binding checks; realisation declarations remain HELD to Steward authority."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E6-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Benefits & Assets is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Benefits & Assets is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E6-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Benefits & Assets is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E7",
+   "key": "work_object_queue",
+   "name": "Current Work Object & Queue",
+   "state": "current",
+   "role": "the single current Work Object, the delivery queue behind it, and stream state including completed Stream A",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_CURRENT_WORK_OBJECT_QUEUE_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_CURRENT_WORK_OBJECT_QUEUE_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F14_CURRENT_WORK_OBJECT_QUEUE_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "New work requests, priority changes and stream completion events.",
+    "interprets": "Whether new work belongs to the current object, the queue, or a held stream.",
+    "structures": "The 15-field Work Object contract and ordered queue entries.",
+    "validated_by": "Queue-state consistency checks; Stream A remains ASSURED_STREAM_A_COMPLETE, never re-queued.",
+    "action": "Advance the current Work Object; admit or defer queue entries.",
+    "observes": "Throughput, blocked items and queue ageing.",
+    "learns": "Which queue disciplines keep exactly-one-current true in practice.",
+    "asset_conversion": "The Work Object contract format itself is a qualified reusable Asset.",
+    "feedback_to": "Completion evidence returns to Benefits & Assets and to Orient for the next objective."
+   },
+   "purpose": "Keep exactly one current Work Object visible with its queue, so focus cannot silently fork.",
+   "strategy": "Work enters the queue as scoped objects; streams complete and are retired as evidence, never silently reactivated.",
+   "assets": "Work Object contracts, queue projections and stream completion records.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "New work requests, priority changes and stream completion events.",
+    "interpretation": "Whether new work belongs to the current object, the queue, or a held stream.",
+    "required_structure": "The 15-field Work Object contract and ordered queue entries.",
+    "validation_test": "Queue-state consistency checks; Stream A remains ASSURED_STREAM_A_COMPLETE, never re-queued.",
+    "permitted_action": "Advance the current Work Object; admit or defer queue entries.",
+    "asset_implication": "The Work Object contract format itself is a qualified reusable Asset.",
+    "return_path": "COMPONENTS/ELEMENT_CURRENT_WORK_OBJECT_QUEUE_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Keep exactly one current Work Object visible with its queue, so focus cannot silently fork.",
+    "Strategy": "Work enters the queue as scoped objects; streams complete and are retired as evidence, never silently reactivated.",
+    "Assets": "Work Object contracts, queue projections and stream completion records.",
+    "Form": "Form (how this Element is given governed shape): The 15-field Work Object contract and ordered queue entries.",
+    "Flow": "Flow (how work moves through this Element): Advance the current Work Object; admit or defer queue entries.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which queue disciplines keep exactly-one-current true in practice.",
+    "Signal": "Signal (the incoming Signal lens): New work requests, priority changes and stream completion events.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Whether new work belongs to the current object, the queue, or a held stream.",
+    "Realisation": "Realisation (the Realisation-condition lens): Queue-state consistency checks; Stream A remains ASSURED_STREAM_A_COMPLETE, never re-queued."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E7-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Current Work Object & Queue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Current Work Object & Queue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E7-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Current Work Object & Queue is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E8",
+   "key": "context_membrane",
+   "name": "Context & Membrane",
+   "state": "current",
+   "role": "the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_CONTEXT_MEMBRANE_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_CONTEXT_MEMBRANE_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/12_CONTEXT_MEMBRANE_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F12_CONTEXT_MEMBRANE_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "Inbound artefacts, claims and instructions from other lanes and external sources.",
+    "interprets": "Which Context an item belongs to and whether it may cross.",
+    "structures": "Context labels, crossing records and quarantine states.",
+    "validated_by": "Identity restatement and hash verification of crossing artefacts.",
+    "action": "Admit, quarantine or reject crossings; bind admitted items to Context.",
+    "observes": "Crossing volumes and quarantine outcomes.",
+    "learns": "Which sources and shapes of claim need hardened verification.",
+    "asset_conversion": "Stable membrane rules qualify as governance Patterns.",
+    "feedback_to": "Verification failures return to Assure as systemic Signals."
+   },
+   "purpose": "Keep every work item bound to its correct Context and stop unauthorised crossings.",
+   "strategy": "Everything crossing the membrane is inspected, labelled and receipted; nothing crosses by assumption.",
+   "assets": "Context definitions, membrane rules and crossing receipts.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "Inbound artefacts, claims and instructions from other lanes and external sources.",
+    "interpretation": "Which Context an item belongs to and whether it may cross.",
+    "required_structure": "Context labels, crossing records and quarantine states.",
+    "validation_test": "Identity restatement and hash verification of crossing artefacts.",
+    "permitted_action": "Admit, quarantine or reject crossings; bind admitted items to Context.",
+    "asset_implication": "Stable membrane rules qualify as governance Patterns.",
+    "return_path": "COMPONENTS/ELEMENT_CONTEXT_MEMBRANE_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Keep every work item bound to its correct Context and stop unauthorised crossings.",
+    "Strategy": "Everything crossing the membrane is inspected, labelled and receipted; nothing crosses by assumption.",
+    "Assets": "Context definitions, membrane rules and crossing receipts.",
+    "Form": "Form (how this Element is given governed shape): Context labels, crossing records and quarantine states.",
+    "Flow": "Flow (how work moves through this Element): Admit, quarantine or reject crossings; bind admitted items to Context.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Which sources and shapes of claim need hardened verification.",
+    "Signal": "Signal (the incoming Signal lens): Inbound artefacts, claims and instructions from other lanes and external sources.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Which Context an item belongs to and whether it may cross.",
+    "Realisation": "Realisation (the Realisation-condition lens): Identity restatement and hash verification of crossing artefacts."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E8-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Context & Membrane is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Context & Membrane is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E8-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Context & Membrane is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E9",
+   "key": "agent_runtime_routing",
+   "name": "Agent & Runtime Routing",
+   "state": "current",
+   "role": "the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability",
+   "routes": {
+    "html": "COMPONENTS/ELEMENT_AGENT_RUNTIME_ROUTING_v1.2.html",
+    "canvas_view": "COMPONENTS/CANVAS_VIEW_AGENT_RUNTIME_ROUTING_v1.0.html",
+    "canvas_source": "../../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/13_AI_AGENT_ROUTING_v1.2.canvas",
+    "canvas_source_obsidian": "obsidian://open?vault=Obsidian&file=10_WORKSPACES%2FNAVIGATOR_MVP_v0.2%2F13_AI_AGENT_ROUTING_v1.2.canvas",
+    "return_verbs": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
+    "return_navigator": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html"
+   },
+   "mesh": {
+    "enters": "Work needing execution, lane capability changes and routing failures.",
+    "interprets": "Which lane/runtime is capable and authorised for a task.",
+    "structures": "Routing entries binding task class to lane with authority notes.",
+    "validated_by": "Capability evidence checks; no route asserts access a lane has not demonstrated.",
+    "action": "Dispatch work to lanes; record handoffs with packets.",
+    "observes": "Handoff outcomes, lane failures and capability drift.",
+    "learns": "Where routing assumptions failed and which need re-verification.",
+    "asset_conversion": "Proven routing rules qualify toward the Method library.",
+    "feedback_to": "Routing outcomes return to Orient and the Work Object queue."
+   },
+   "purpose": "Route each task to the lane whose demonstrated capability matches it.",
+   "strategy": "Route by demonstrated capability, never assumption; runtime activation stays HELD to its own authority.",
+   "assets": "The lane capability register and routing decision records.",
+   "evidence_requirement": "Every state shown on this Element's surfaces carries source, snapshot and freshness; claims bind to filed receipts.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "freshness": "2026-08-03T09:00:00+10:00",
+   "source": "navigator/model.py (single-source model), deployed via Working Memory",
+   "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
+   "l3_common": {
+    "incoming_signal": "Work needing execution, lane capability changes and routing failures.",
+    "interpretation": "Which lane/runtime is capable and authorised for a task.",
+    "required_structure": "Routing entries binding task class to lane with authority notes.",
+    "validation_test": "Capability evidence checks; no route asserts access a lane has not demonstrated.",
+    "permitted_action": "Dispatch work to lanes; record handoffs with packets.",
+    "asset_implication": "Proven routing rules qualify toward the Method library.",
+    "return_path": "COMPONENTS/ELEMENT_AGENT_RUNTIME_ROUTING_v1.2.html#l3 -> Nine Verbs -> Navigator"
+   },
+   "l3_axis_statements": {
+    "Purpose": "Route each task to the lane whose demonstrated capability matches it.",
+    "Strategy": "Route by demonstrated capability, never assumption; runtime activation stays HELD to its own authority.",
+    "Assets": "The lane capability register and routing decision records.",
+    "Form": "Form (how this Element is given governed shape): Routing entries binding task class to lane with authority notes.",
+    "Flow": "Flow (how work moves through this Element): Dispatch work to lanes; record handoffs with packets.",
+    "Evolve": "Evolve (how this Element changes shape from learning): Where routing assumptions failed and which need re-verification.",
+    "Signal": "Signal (the incoming Signal lens): Work needing execution, lane capability changes and routing failures.",
+    "Benefits": "Benefits (the Benefit-contribution lens): Which lane/runtime is capable and authorised for a task.",
+    "Realisation": "Realisation (the Realisation-condition lens): Capability evidence checks; no route asserts access a lane has not demonstrated."
+   },
+   "level3": [
+    {
+     "trace_id": "L3-E9-PUR-FOR-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-FOR-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-FOR-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-FLO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-FLO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-FLO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-EVO-SIG",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-EVO-BEN",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-PUR-EVO-REA",
+     "axis_a": "Purpose",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Purpose of Agent & Runtime Routing is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FOR-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FOR-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FOR-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FLO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FLO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-FLO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-EVO-SIG",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-EVO-BEN",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-STR-EVO-REA",
+     "axis_a": "Strategy",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Strategy of Agent & Runtime Routing is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FOR-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Form mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FOR-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Form mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FOR-REA",
+     "axis_a": "Assets",
+     "axis_b": "Form",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Form mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V1",
+      "V2",
+      "V3"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FLO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Flow mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FLO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Flow mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-FLO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Flow",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Flow mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V4",
+      "V5",
+      "V6"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-EVO-SIG",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Signal",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Evolve mode, read through the incoming Signal lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-EVO-BEN",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Benefits",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Evolve mode, read through the Benefit-contribution lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    },
+    {
+     "trace_id": "L3-E9-ASS-EVO-REA",
+     "axis_a": "Assets",
+     "axis_b": "Evolve",
+     "axis_c": "Realisation",
+     "decision_served": "How the Assets of Agent & Runtime Routing is expressed in its Evolve mode, read through the Realisation-condition lens.",
+     "verbs": [
+      "V7",
+      "V8",
+      "V9"
+     ]
+    }
+   ]
+  }
+ ],
+ "verbs": [
+  {
+   "id": "V1",
+   "key": "orient",
+   "name": "Orient",
+   "group": "FORM",
+   "controlling_question": "Where are we, and what matters now?",
+   "purpose": "Establish current state, objective and priorities before any structuring or action.",
+   "inputs": "Fresh state projections, priority model, inbound Signals, completed-work evidence.",
+   "outputs": "A current objective, top-five priorities and the next valid action.",
+   "elements_primary": [
+    "E7",
+    "E5"
+   ],
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "benefit_statement": "The Steward can see current state, objective and next valid action without reconstruction.",
+   "evidence_requirement": "Priority projection freshness stamp and source reference on every orientation surface.",
+   "asset_implication": "Priority and state projections become reusable orientation surfaces.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#orient -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "orient"
+  },
+  {
+   "id": "V2",
+   "key": "canonicalise",
+   "name": "Canonicalise",
+   "group": "FORM",
+   "controlling_question": "What does this mean, in the one agreed vocabulary?",
+   "purpose": "Resolve every term and object to its single canonical meaning before structure is built on it.",
+   "inputs": "New terms, contested meanings, collision reports.",
+   "outputs": "Canonical entries with state and lineage; collision resolutions.",
+   "elements_primary": [
+    "E2"
+   ],
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "benefit_statement": "Authority boundaries, STOP/HOLD states and PPV discipline remain visible and enforced on every route.",
+   "evidence_requirement": "Coherence-check record against the corpus for every new canonical entry.",
+   "asset_implication": "Adopted canonical definitions are durable Assets cited everywhere.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#canonicalise -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "canonicalise"
+  },
+  {
+   "id": "V3",
+   "key": "structure",
+   "name": "Structure",
+   "group": "FORM",
+   "controlling_question": "What shape must this take to be governable?",
+   "purpose": "Give work its governed shape: records, contracts, schemas, queues and packets.",
+   "inputs": "Canonicalised meaning, method requirements, contract templates.",
+   "outputs": "Structured records and packets that gates can evaluate.",
+   "elements_primary": [
+    "E4",
+    "E7"
+   ],
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "benefit_statement": "New Processes and Offerings move from idea to governed candidate without manual re-architecture.",
+   "evidence_requirement": "Structured record validates against its registry template.",
+   "asset_implication": "Contract and packet formats become reusable structural Assets.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#structure -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "structure"
+  },
+  {
+   "id": "V4",
+   "key": "assure",
+   "name": "Assure",
+   "group": "FLOW",
+   "controlling_question": "Is this claim true, and how do we know?",
+   "purpose": "Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open.",
+   "inputs": "Claims, artefacts, hashes, test results.",
+   "outputs": "Verified evidence records, or recorded conflicts where verification fails.",
+   "elements_primary": [
+    "E5",
+    "E8"
+   ],
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "benefit_statement": "Claims about state are evidence-bound; validation gates precede action.",
+   "evidence_requirement": "Independent recomputation record (hash, test output) filed with receipt.",
+   "asset_implication": "Test harnesses and verification receipts are reusable assurance Assets.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#assure -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "assure"
+  },
+  {
+   "id": "V5",
+   "key": "navigate",
+   "name": "Navigate",
+   "group": "FLOW",
+   "controlling_question": "What is the route from here to the objective?",
+   "purpose": "Move through the system without losing context: route work and people to the right surface, lane and next action.",
+   "inputs": "Route registry, lane capability map, current Work Object.",
+   "outputs": "Working routes, drill-downs and returns; correct lane dispatch.",
+   "elements_primary": [
+    "E9",
+    "E7"
+   ],
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "benefit_statement": "The Steward can see current state, objective and next valid action without reconstruction.",
+   "evidence_requirement": "Route resolution test results across all registered routes.",
+   "asset_implication": "The route registry itself is the navigational Asset.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#navigate -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "navigate"
+  },
+  {
+   "id": "V6",
+   "key": "compose",
+   "name": "Compose",
+   "group": "FLOW",
+   "controlling_question": "What do we assemble from governed parts?",
+   "purpose": "Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns.",
+   "inputs": "Service Catalogue entries, qualified Patterns, Methods, candidate fields.",
+   "outputs": "Composed candidates: Offerings, Processes, packets.",
+   "elements_primary": [
+    "E1",
+    "E3"
+   ],
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "benefit_statement": "New Processes and Offerings move from idea to governed candidate without manual re-architecture.",
+   "evidence_requirement": "Composition trace listing every governed part used, with registry references.",
+   "asset_implication": "Compositions that repeat successfully become Pattern candidates.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#compose -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "compose"
+  },
+  {
+   "id": "V7",
+   "key": "activate",
+   "name": "Activate",
+   "group": "EVOLVE",
+   "controlling_question": "May this run, and under whose authority?",
+   "purpose": "Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle.",
+   "inputs": "Assured candidates, authority decisions, CR references.",
+   "outputs": "Activation records where authorised; explicit HOLD records otherwise.",
+   "elements_primary": [
+    "E5",
+    "E9"
+   ],
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "benefit_statement": "Authority boundaries, STOP/HOLD states and PPV discipline remain visible and enforced on every route.",
+   "evidence_requirement": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise.",
+   "asset_implication": "Activation checklists become governance Assets.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#activate -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "activate"
+  },
+  {
+   "id": "V8",
+   "key": "transform",
+   "name": "Transform",
+   "group": "EVOLVE",
+   "controlling_question": "What did we learn, and what should change shape?",
+   "purpose": "Convert observation into structural change: refine Methods, redesign gates, evolve candidates.",
+   "inputs": "Observations, defect logs, realisation gaps.",
+   "outputs": "Revised structures and qualified learning records.",
+   "elements_primary": [
+    "E3",
+    "E4"
+   ],
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "benefit_statement": "Qualified outcomes convert into reusable Patterns, Methods and Canonical objects instead of one-off narratives.",
+   "evidence_requirement": "Before/after structural diff plus the observation records that motivated it.",
+   "asset_implication": "This verb feeds the Asset conversion gate: learning becomes candidate Assets.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#transform -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "transform"
+  },
+  {
+   "id": "V9",
+   "key": "project",
+   "name": "Project",
+   "group": "EVOLVE",
+   "controlling_question": "What does the system say about itself, forward?",
+   "purpose": "Publish current-state and forward projections so every lane and the Steward see the same reality.",
+   "inputs": "State data, realisation ledger, queue state.",
+   "outputs": "Projections: Navigator surfaces, state JSON, receipts, forward objectives.",
+   "elements_primary": [
+    "E6",
+    "E7"
+   ],
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "benefit_statement": "The Steward can see current state, objective and next valid action without reconstruction.",
+   "evidence_requirement": "Every projection carries source, snapshot timestamp and freshness state.",
+   "asset_implication": "Projection formats and surfaces are reusable Assets.",
+   "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+   "ppv": "Potential",
+   "owner": "claude_code (interface projection); Steward (acceptance)",
+   "next_action": "Select the primary Element surface for this verb and continue the Mesh route.",
+   "stop_hold": "HOLD: Activate performs no runtime activation in this cycle; all operational mutation held.",
+   "replay_validity": "PRESERVED",
+   "return_path": "COMPONENTS/NAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html#project -> SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html",
+   "anchor": "project"
+  }
+ ],
+ "element_verb_mappings": [
+  {
+   "element": "E1",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Service Catalogue: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E1",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Service Catalogue: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E1",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Service Catalogue: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E1",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Service Catalogue: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E1",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Service Catalogue: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E1",
+   "verb": "V6",
+   "relationship": "PRIMARY",
+   "statement": "Compose at Service Catalogue: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E1",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Service Catalogue: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E1",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Service Catalogue: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E1",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Service Catalogue: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the governed register of what SynapSys offers: Services, their scoping fields, PPV state and catalogue lineage.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E2",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Canonical Library: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E2",
+   "verb": "V2",
+   "relationship": "PRIMARY",
+   "statement": "Canonicalise at Canonical Library: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E2",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Canonical Library: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E2",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Canonical Library: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E2",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Canonical Library: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E2",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Canonical Library: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E2",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Canonical Library: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E2",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Canonical Library: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E2",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Canonical Library: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the single agreed vocabulary and object model: canonical terms, definitions and their adoption state.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E3",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Asset & Pattern Library: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E3",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Asset & Pattern Library: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E3",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Asset & Pattern Library: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E3",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Asset & Pattern Library: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E3",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Asset & Pattern Library: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E3",
+   "verb": "V6",
+   "relationship": "PRIMARY",
+   "statement": "Compose at Asset & Pattern Library: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E3",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Asset & Pattern Library: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E3",
+   "verb": "V8",
+   "relationship": "PRIMARY",
+   "statement": "Transform at Asset & Pattern Library: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E3",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Asset & Pattern Library: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the register of reusable Patterns and qualified Assets, with explicit qualification state.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E4",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Method Library: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E4",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Method Library: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E4",
+   "verb": "V3",
+   "relationship": "PRIMARY",
+   "statement": "Structure at Method Library: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E4",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Method Library: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E4",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Method Library: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E4",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Method Library: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E4",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Method Library: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E4",
+   "verb": "V8",
+   "relationship": "PRIMARY",
+   "statement": "Transform at Method Library: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E4",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Method Library: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the register of governed Methods: how work is done, step by step, with authority and evidence requirements.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E5",
+   "verb": "V1",
+   "relationship": "PRIMARY",
+   "statement": "Orient at Mesh & Control Gates: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E5",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Mesh & Control Gates: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E5",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Mesh & Control Gates: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E5",
+   "verb": "V4",
+   "relationship": "PRIMARY",
+   "statement": "Assure at Mesh & Control Gates: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E5",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Mesh & Control Gates: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E5",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Mesh & Control Gates: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E5",
+   "verb": "V7",
+   "relationship": "PRIMARY",
+   "statement": "Activate at Mesh & Control Gates: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E5",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Mesh & Control Gates: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E5",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Mesh & Control Gates: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the operating Mesh itself: the nine-stage loop and the control gates that govern movement between stages.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E6",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Benefits & Assets: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E6",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Benefits & Assets: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E6",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Benefits & Assets: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E6",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Benefits & Assets: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E6",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Benefits & Assets: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E6",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Benefits & Assets: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E6",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Benefits & Assets: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E6",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Benefits & Assets: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E6",
+   "verb": "V9",
+   "relationship": "PRIMARY",
+   "statement": "Project at Benefits & Assets: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the Benefit model and realisation ledger: what value each verb and Element claims, with evidence and realisation state.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E7",
+   "verb": "V1",
+   "relationship": "PRIMARY",
+   "statement": "Orient at Current Work Object & Queue: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E7",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Current Work Object & Queue: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E7",
+   "verb": "V3",
+   "relationship": "PRIMARY",
+   "statement": "Structure at Current Work Object & Queue: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E7",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Current Work Object & Queue: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E7",
+   "verb": "V5",
+   "relationship": "PRIMARY",
+   "statement": "Navigate at Current Work Object & Queue: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E7",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Current Work Object & Queue: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E7",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Current Work Object & Queue: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E7",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Current Work Object & Queue: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E7",
+   "verb": "V9",
+   "relationship": "PRIMARY",
+   "statement": "Project at Current Work Object & Queue: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the single current Work Object, the delivery queue behind it, and stream state including completed Stream A.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E8",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Context & Membrane: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E8",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Context & Membrane: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E8",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Context & Membrane: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E8",
+   "verb": "V4",
+   "relationship": "PRIMARY",
+   "statement": "Assure at Context & Membrane: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E8",
+   "verb": "V5",
+   "relationship": "PARTICIPATING",
+   "statement": "Navigate at Context & Membrane: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E8",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Context & Membrane: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E8",
+   "verb": "V7",
+   "relationship": "PARTICIPATING",
+   "statement": "Activate at Context & Membrane: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E8",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Context & Membrane: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E8",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Context & Membrane: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the boundary layer: which Context work runs in, what crosses between contexts, and what the membrane holds out.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  },
+  {
+   "element": "E9",
+   "verb": "V1",
+   "relationship": "PARTICIPATING",
+   "statement": "Orient at Agent & Runtime Routing: Establish current state, objective and priorities before any structuring or action. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Signal",
+    "Interpretation"
+   ],
+   "benefit": "B1",
+   "evidence": "Priority projection freshness stamp and source reference on every orientation surface."
+  },
+  {
+   "element": "E9",
+   "verb": "V2",
+   "relationship": "PARTICIPATING",
+   "statement": "Canonicalise at Agent & Runtime Routing: Resolve every term and object to its single canonical meaning before structure is built on it. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Interpretation",
+    "Structuring"
+   ],
+   "benefit": "B5",
+   "evidence": "Coherence-check record against the corpus for every new canonical entry."
+  },
+  {
+   "element": "E9",
+   "verb": "V3",
+   "relationship": "PARTICIPATING",
+   "statement": "Structure at Agent & Runtime Routing: Give work its governed shape: records, contracts, schemas, queues and packets. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Structuring"
+   ],
+   "benefit": "B2",
+   "evidence": "Structured record validates against its registry template."
+  },
+  {
+   "element": "E9",
+   "verb": "V4",
+   "relationship": "PARTICIPATING",
+   "statement": "Assure at Agent & Runtime Routing: Independently verify claims, recompute hashes, and bind every assertion to evidence before gates open. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Validation"
+   ],
+   "benefit": "B3",
+   "evidence": "Independent recomputation record (hash, test output) filed with receipt."
+  },
+  {
+   "element": "E9",
+   "verb": "V5",
+   "relationship": "PRIMARY",
+   "statement": "Navigate at Agent & Runtime Routing: Move through the system without losing context: route work and people to the right surface, lane and next action. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Route resolution test results across all registered routes."
+  },
+  {
+   "element": "E9",
+   "verb": "V6",
+   "relationship": "PARTICIPATING",
+   "statement": "Compose at Agent & Runtime Routing: Assemble Offerings, packets and deliverables from catalogued Services, Methods and Patterns. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Action"
+   ],
+   "benefit": "B2",
+   "evidence": "Composition trace listing every governed part used, with registry references."
+  },
+  {
+   "element": "E9",
+   "verb": "V7",
+   "relationship": "PRIMARY",
+   "statement": "Activate at Agent & Runtime Routing: Move a governed candidate into operation - only under explicit authority; activation is HELD in this cycle. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Action",
+    "Observation"
+   ],
+   "benefit": "B5",
+   "evidence": "Named authority reference (CR / Steward decision) on every activation; HOLD label otherwise."
+  },
+  {
+   "element": "E9",
+   "verb": "V8",
+   "relationship": "PARTICIPATING",
+   "statement": "Transform at Agent & Runtime Routing: Convert observation into structural change: refine Methods, redesign gates, evolve candidates. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Learning",
+    "Asset Conversion"
+   ],
+   "benefit": "B4",
+   "evidence": "Before/after structural diff plus the observation records that motivated it."
+  },
+  {
+   "element": "E9",
+   "verb": "V9",
+   "relationship": "PARTICIPATING",
+   "statement": "Project at Agent & Runtime Routing: Publish current-state and forward projections so every lane and the Steward see the same reality. Applied here, it acts on the lane and runtime map: which AI lane or runtime executes which class of work, under which demonstrated capability.",
+   "mesh_stages": [
+    "Feedback",
+    "Observation"
+   ],
+   "benefit": "B1",
+   "evidence": "Every projection carries source, snapshot timestamp and freshness state."
+  }
+ ],
+ "stream_a": {
+  "state": "ASSURED_STREAM_A_COMPLETE",
+  "disposition": "Completed evidence only. No rerun, no reactivation, no active next action."
+ },
+ "held": [
+  "Odoo mutation",
+  "N8N mutation or activation",
+  "credential access",
+  "runtime deployment",
+  "production automation",
+  "Stream A replay",
+  "Service/Method/Pattern/Canonical/Asset promotion",
+  "Benefit-realisation declaration",
+  "PPV movement",
+  "Bridge Pattern qualification"
+ ],
+ "authority": "Obsidian interface + Working Memory filing only; Odoo/N8N/runtime/canon/Service/Method/Pattern/Asset/PPV mutation HELD",
+ "ppv": "Potential",
+ "replay_validity": "PRESERVED",
+ "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE"
+}
