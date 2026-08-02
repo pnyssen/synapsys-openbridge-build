@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SynapSys Navigator</title>
+<style>
+:root{--bg:#fff;--surface:#fff;--ink:#13242f;--muted:#5f707a;--line:#ccd8df;--nav:#103447;--accent:#176b89;--soft:#e6f1f5;--warn:#fff4d8;--good:#eaf6ed;--hold:#fbe9e7;--info:#eef4ff}
+*{box-sizing:border-box}html,body{background:#fff}body{margin:0;background:#fff;color:var(--ink);font-family:Arial,sans-serif;line-height:1.45}
+a{color:#075f85}.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#13242f;padding:10px;z-index:100}.skip:focus{left:10px;top:10px}.top{background:var(--nav);color:#fff;padding:14px 22px;position:sticky;top:0;z-index:50}.top h1{margin:0;font-size:23px}.top p{margin:3px 0 0;color:#d9e7ed;font-size:13px}.wrap{max-width:1720px;margin:auto;padding:16px}.hero{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:14px;align-items:stretch}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.title{font-size:28px;line-height:1.15;margin:0 0 8px}.muted{color:var(--muted)}.objective{font-size:16px;margin:12px 0 0}.action-stack{display:grid;grid-template-columns:1fr;gap:9px;margin-top:16px}.btn{border:1px solid var(--accent);border-radius:10px;background:#fff;color:var(--ink);padding:12px 14px;font-weight:700;cursor:pointer;text-align:left}.btn.primary,.btn.active{background:var(--accent);color:#fff}.btn:hover{filter:brightness(.97)}.btn:focus,a:focus,.status-link:focus,.priority-link:focus{outline:3px solid #f5b942;outline-offset:2px}.truth{margin-top:12px;padding:10px 12px;border-radius:9px;background:var(--soft);font-size:12px}.card h2{margin:0 0 8px;font-size:18px}.priority-list,.status-list{display:grid}.priority-link,.status-link{appearance:none;width:100%;border:0;border-bottom:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 0;display:grid;grid-template-columns:auto 1fr auto;gap:9px;text-align:left;cursor:pointer;font:inherit;align-items:start}.status-link{grid-template-columns:1fr auto}.priority-link:last-child,.status-link:last-child{border-bottom:0}.priority-link:hover,.status-link:hover{background:#f8fbfc}.rank{width:24px;height:24px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:12px;font-weight:800}.priority-copy b{display:block}.priority-copy small{display:block;color:var(--muted);margin-top:2px}.state{font-size:10px;font-weight:800;letter-spacing:.02em;border-radius:999px;padding:4px 7px;white-space:nowrap}.current{background:var(--good);color:#205d31}.partial{background:var(--warn);color:#765400}.held{background:var(--hold);color:#8b2e24}.info{background:var(--info);color:#244a7d}.overall{margin-bottom:8px;padding:9px 10px;border-radius:9px;background:var(--warn);font-size:12px}.panel{display:none;margin-top:16px}.panel.active{display:block}.panel-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:10px}.panel-head h2{margin:0}.iframe{width:100%;height:1120px;border:1px solid var(--line);border-radius:14px;background:#fff}.waveframe{height:1280px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff}.metric b{display:block;font-size:20px;margin-bottom:3px}.metric small{color:var(--muted)}.section{margin-top:14px}.section h3{margin:0 0 8px}.mesh-route{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-top:10px}.mesh-route div{padding:9px 5px;text-align:center;border-radius:8px;background:var(--soft);font-size:11px;font-weight:700}.gate-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.gate{border:1px solid var(--line);border-radius:9px;padding:9px;background:#fff}.gate b{display:block;font-size:12px}.gate span{font-size:11px;color:var(--muted)}.integrity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.integrity{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff}.integrity-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.integrity h4{margin:0}.integrity p{margin:6px 0;color:var(--muted);font-size:12px}.integrity dl{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;margin:8px 0 0;font-size:11px}.integrity dt{font-weight:700}.integrity dd{margin:0}.system-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.system-link{display:block;border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff;text-decoration:none;color:var(--ink)}.system-link:hover{background:#f8fbfc}.system-link b{display:flex;justify-content:space-between;gap:10px}.system-link span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.notice{padding:11px 13px;border-radius:9px;background:var(--warn);font-size:12px}.holdbox{padding:11px 13px;border-radius:9px;background:var(--hold);font-size:12px}.issue-list{margin:0;padding-left:20px}.issue-list li{margin:7px 0}.reference details{border-top:1px solid var(--line);padding:10px 0}.reference details:first-child{border-top:0}.reference summary{font-weight:700;cursor:pointer}.verb-links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.verb-links a{border:1px solid var(--line);border-radius:8px;padding:9px;text-decoration:none;color:var(--ink)}.footer{margin:18px 0 4px;color:var(--muted);font-size:12px}@media(max-width:1180px){.hero{grid-template-columns:1fr 1fr}.hero>.card:first-child{grid-column:1/-1}}@media(max-width:820px){.hero,.grid2,.grid3,.grid4,.integrity-grid,.system-grid{grid-template-columns:1fr}.gate-grid{grid-template-columns:repeat(2,1fr)}.mesh-route{grid-template-columns:repeat(3,1fr)}.verb-links{grid-template-columns:1fr}.iframe{height:900px}.waveframe{height:1450px}.title{font-size:25px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><h1>SynapSys Navigator</h1><p>Primary Steward operating surface — choose the work, see the priorities, and inspect system integrity.</p></header>
+<main id="main" class="wrap" tabindex="-1">
+<section class="hero">
+  <div class="card">
+    <h2 class="title">Turn signals into governed action and realised assets.</h2>
+    <p class="muted">Start with the operating context, move one bounded Work Object through the Mesh, and preserve evidence, authority and replay-validity.</p>
+    <p class="objective"><b>Current objective:</b> verify the Stream A candidate fileset, then prove one bounded Working-Memory-to-Codex live relay.</p>
+    <div class="action-stack" aria-label="Primary Navigator actions">
+      <button class="btn primary active" data-open="operate">1. Form / Flow / Evolve</button>
+      <button class="btn" data-open="wave">2. Run a Wave</button>
+      <button class="btn" data-open="status">3. Status / Mesh</button>
+    </div>
+    <div class="truth"><b>MECE interaction rule:</b> the three buttons are where work happens; Top Five Priorities state what to do; MVP Integrity states what is true. No second control strip is used.</div>
+  </div>
+
+  <aside class="card" aria-label="Top five priorities">
+    <h2>Top five priorities</h2>
+    <button class="priority-link" data-open="status" data-anchor="priority-a"><span class="rank">1</span><span class="priority-copy"><b>Prove the Stream A live relay and graph</b><small>File the candidate set, then obtain source and target hash/mount/read receipts.</small></span><span class="state held">CRITICAL</span></button>
+    <button class="priority-link" data-open="status" data-anchor="integrity-services"><span class="rank">2</span><span class="priority-copy"><b>Complete Service integration</b><small>Close five canonical-link gaps and populate Form / Flow / Evolve state across 18 active Services.</small></span><span class="state partial">OPEN</span></button>
+    <button class="priority-link" data-open="status" data-anchor="integrity-value"><span class="rank">3</span><span class="priority-copy"><b>Close Benefit → Evidence → Asset → Reuse chains</b><small>Only 10 of 45 Benefits hold realisation evidence; no Asset has a recorded reuse count.</small></span><span class="state partial">OPEN</span></button>
+    <button class="priority-link" data-open="status" data-anchor="integrity-knowledge"><span class="rank">4</span><span class="priority-copy"><b>Resolve Canonical / Pattern / Method backlog</b><small>40 canonical candidates, four evidence conflicts, and zero admitted Patterns.</small></span><span class="state partial">OPEN</span></button>
+    <button class="priority-link" data-open="status" data-anchor="integrity-mesh"><span class="rank">5</span><span class="priority-copy"><b>Prove Mesh runtime and integrated assurance</b><small>81 cells are bound, but only one of nine live edges is active and D009 remains held.</small></span><span class="state partial">OPEN</span></button>
+  </aside>
+
+  <aside class="card" aria-label="MVP integrity summary">
+    <h2>MVP integrity</h2>
+    <div class="overall"><b>NOT YET FULLY INTEGRATED</b><br>1 green · 6 partial · 1 held. Full integrity requires all eight domains green plus an integrated D009 PASS.</div>
+    <div class="status-list">
+      <button class="status-link" data-open="status" data-anchor="integrity-interface"><span>1. Navigator entry & interaction</span><span class="state current">GREEN</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-work"><span>2. Work Object & queue truth</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-mesh"><span>3. Mesh & control gates</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-services"><span>4. Service Catalogue</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-knowledge"><span>5. Canonical / Methods / Patterns</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-value"><span>6. Benefits / Assets / Realisation</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-runtime"><span>7. Runtime / automation</span><span class="state partial">PARTIAL</span></button>
+      <button class="status-link" data-open="status" data-anchor="integrity-assurance"><span>8. Evidence / D009 assurance</span><span class="state held">HELD</span></button>
+    </div>
+  </aside>
+</section>
+
+<section id="operate" role="tabpanel" tabindex="0" class="panel active">
+  <div class="panel-head"><div><h2>Form / Flow / Evolve</h2><p class="muted">Start here. Select the current lens, Context and bounded opportunity. Govern / Deliver / Value are resolved inside this operating context, not presented as separate first-step navigation.</p></div><span class="state partial">INTERACTIVE PROJECTION</span></div>
+  <iframe id="operatingFrame" class="iframe" title="Form Flow Evolve Navigator operating surface" src="COMPONENTS/NAVIGATOR_OPERATING_SURFACE_v3.9.html"></iframe>
+</section>
+
+<section id="wave" role="tabpanel" tabindex="0" class="panel">
+  <div class="panel-head"><div><h2>Run a Wave</h2><p class="muted">Use after the operating context and current Work Object are clear. The Wave Runner remains static and manual; it does not itself execute N8N, Odoo or external AI work.</p></div><span class="state partial">MANUAL HUB ROUTE / AUTO SUBMIT HELD</span></div>
+  <div id="waveSelectionBanner" class="notice"><b>No opportunity selected.</b> Start in Form / Flow / Evolve. After selection, send the packet manually to ChatGPT Navigator Hub; the Hub chooses the specialist AI lane.</div><iframe id="waveFrame" class="iframe waveframe" title="Navigator Wave Runner" src="COMPONENTS/NAVIGATOR_WAVE_RUNNER_v0.1.html"></iframe>
+</section>
+
+<section id="status" role="tabpanel" tabindex="0" class="panel">
+  <div class="panel-head"><div><h2>Status / Mesh</h2><p class="muted">MECE system integrity, current priorities, detected issues and direct drill-down. Green means evidenced and current—not merely present.</p></div><span class="state partial">SNAPSHOT 2026-08-02 09:54 AEST</span></div>
+
+  <section class="card">
+    <h3>MVP integrity — eight control domains</h3>
+    <p class="muted">The domains are non-overlapping and collectively cover the Navigator MVP. A domain stays partial where evidence, integration, runtime proof or authority is incomplete.</p>
+    <div class="integrity-grid">
+      <article id="integrity-interface" class="integrity"><div class="integrity-head"><h4>1. Navigator entry & interaction</h4><span class="state current">GREEN</span></div><p>One root Home, one current Navigator, one three-action control set. Cold-start rendering was visually evidenced.</p><dl><dt>Proof</dt><dd>Root `00_HOME.md`; current v1.2 route; duplicate button strip removed; opportunity-to-Wave handoff now explicit.</dd><dt>Next proof</dt><dd>Independent first-time-user timing after the next integrated candidate.</dd></dl></article>
+      <article id="integrity-work" class="integrity"><div class="integrity-head"><h4>2. Work Object & queue truth</h4><span class="state partial">PARTIAL</span></div><p>The active Navigator Work Object is clear in Working Memory, but Odoo contains only the earlier completed pilot Work Object and lacks the current object identity.</p><dl><dt>Odoo</dt><dd>1 Work Object record; `WO-MVP-001`, complete.</dd><dt>Gap</dt><dd>Current `WO-NAVIGATOR-...-001` is not registered as operational truth.</dd></dl></article>
+      <article id="integrity-mesh" class="integrity"><div class="integrity-head"><h4>3. Mesh & control gates</h4><span class="state partial">PARTIAL</span></div><p>Architectural reachability is complete; runtime evidence is not.</p><dl><dt>Configured</dt><dd>81/81 control centres bound; 10 shared gates.</dd><dt>Live Odoo</dt><dd>9 edges: 1 active, 1 permitted, 7 registered.</dd><dt>Gap</dt><dd>MESH-09 runtime service and broad Work Object exercise remain unproven.</dd></dl></article>
+      <article id="integrity-services" class="integrity"><div class="integrity-head"><h4>4. Service Catalogue</h4><span class="state partial">PARTIAL</span></div><p>The active catalogue is structurally strong but not fully integrated across the model.</p><dl><dt>Strong</dt><dd>18 active; 18 validated; 18 method-linked; 18 have Context and owner.</dd><dt>Gaps</dt><dd>5 lack canonical links; 18/18 lack Form / Flow / Evolve state.</dd><dt>Truth</dt><dd>Odoo `x_service_catalogue` is authoritative.</dd></dl></article>
+      <article id="integrity-knowledge" class="integrity"><div class="integrity-head"><h4>5. Canonical / Methods / Patterns</h4><span class="state partial">PARTIAL</span></div><p>The libraries exist, but authority and admission backlogs remain material.</p><dl><dt>Canonical</dt><dd>56 records: 5 promoted, 40 candidate, 4 evidence-conflicted.</dd><dt>Methods</dt><dd>12 registered; 10 active; WRB registered/inactive; OCRA draft/inactive.</dd><dt>Patterns</dt><dd>15 records; 14 candidate; 0 admitted.</dd></dl></article>
+      <article id="integrity-value" class="integrity"><div class="integrity-head"><h4>6. Benefits / Assets / Realisation</h4><span class="state partial">PARTIAL</span></div><p>The registers are populated, but end-to-end realisation and compounding are incomplete.</p><dl><dt>Benefits</dt><dd>45 total: 25 planned, 14 measured, 6 verified; 25 have methods; 10 have realisation evidence.</dd><dt>Assets</dt><dd>120 total; 120 linked to Benefits and Patterns; 42 linked to Services; 71 have maturity grades.</dd><dt>Reuse</dt><dd>0 Assets have a recorded reuse count greater than zero.</dd></dl></article>
+      <article id="integrity-runtime" class="integrity"><div class="integrity-head"><h4>7. Runtime / automation</h4><span class="state partial">PARTIAL</span></div><p>Core scheduled operations are running, but the Navigator transport and security boundary are incomplete.</p><dl><dt>Recent proof</dt><dd>Latest four scheduled core executions succeeded.</dd><dt>Exception</dt><dd>D007 static adoption recorded one success followed by one error.</dd><dt>Holds</dt><dd>WM-to-Codex live relay absent; legacy W17 security-held; Phase 3 not released.</dd></dl></article>
+      <article id="integrity-assurance" class="integrity"><div class="integrity-head"><h4>8. Evidence / D009 assurance</h4><span class="state held">HELD</span></div><p>Evidence is extensive but integrated assurance cannot run until the live-source graph and merged interface exist.</p><dl><dt>Available</dt><dd>B technical candidate, C interface candidate, D control packets.</dd><dt>Missing</dt><dd>Live Stream A mount/graph and one reconciled A/B/C candidate.</dd><dt>Release</dt><dd>D009 remains held.</dd></dl></article>
+    </div>
+  </section>
+
+  <section id="priority-a" class="card section">
+    <h3>Detected issues and learning</h3>
+    <ol class="issue-list">
+      <li><b>Presence is not integrity.</b> A file, Service, Pattern or workflow can exist while its authority, linkage, runtime proof or current status remains incomplete.</li>
+      <li><b>Service structure is ahead of lifecycle integration.</b> All active Services are validated and method-linked, yet none has Form / Flow / Evolve state and five lack canonical links.</li>
+      <li><b>Value capture is ahead of value realisation.</b> Benefits and Assets are well populated, but realisation evidence, maturity and reuse remain sparse.</li>
+      <li><b>The knowledge stack is candidate-heavy.</b> Canonical candidates and Pattern candidates materially exceed promoted/admitted objects; four canonical evidence conflicts require explicit resolution.</li>
+      <li><b>Mesh architecture is ahead of Mesh operation.</b> All 81 cells route through the model, but live edges and repeated Work Object execution are limited.</li>
+      <li><b>Automation is observing more than orchestrating.</b> Scheduled controls run, while input transport, target reachability, authenticated queue progression and integrated assurance remain incomplete.</li>
+    </ol>
+  </section>
+
+  <section id="mesh" class="card section">
+    <h3>The Mesh — intelligence and control fabric</h3>
+    <p>The Mesh resolves identity, Context, evidence, authority, risk, intelligence fit, Pattern eligibility, runtime route, observation, learning and asset conversion. It does not authorise or execute by itself.</p>
+    <div class="mesh-route" aria-label="Mesh lifecycle"><div>Signal</div><div>Interpretation</div><div>Structuring</div><div>Validation</div><div>Action</div><div>Observation</div><div>Learning</div><div>Asset Conversion</div><div>Feedback</div></div>
+    <div class="gate-grid section">
+      <div class="gate"><b>MESH-01</b><span>Canonical / Source — available</span></div><div class="gate"><b>MESH-02</b><span>Context / Membrane — available</span></div><div class="gate"><b>MESH-03</b><span>Evidence / Assurance — available</span></div><div class="gate"><b>MESH-04</b><span>Authority / PPV — available</span></div><div class="gate"><b>MESH-05</b><span>Risk / Quality — available</span></div><div class="gate"><b>MESH-06</b><span>Intelligence fit — architected</span></div><div class="gate"><b>MESH-07</b><span>FPV optionality — architected</span></div><div class="gate"><b>MESH-08</b><span>Pattern resolver — candidate / partial</span></div><div class="gate"><b>MESH-09</b><span>Runtime / Execution — not implemented as governed Mesh service</span></div><div class="gate"><b>MESH-10</b><span>Observation / Learning / Asset — structural; evidence thin</span></div>
+    </div>
+    <div class="system-grid section">
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/05_MESH_LIFECYCLE_GATES.canvas"><b>Open Mesh lifecycle Canvas <span class="state partial">CANDIDATE</span></b><span>Lifecycle, gates, STOP/HOLD and return route.</span></a>
+      <a class="system-link" href="REFERENCES/04_MESH_CONTROL_AND_ACTIVATION_MAP.md"><b>Open Mesh control map <span class="state partial">SOURCE MAP</span></b><span>Ten-node route, activation rules and live edge inventory.</span></a>
+      <a class="system-link" href="REFERENCES/REGISTERS/NAVIGATOR_81_CELL_MESH_BINDING_REGISTER_v0.1.csv"><b>Open 81-cell binding register <span class="state current">81 ROWS</span></b><span>Every control centre bound to the shared Mesh route.</span></a>
+      <a class="system-link" href="REFERENCES/REGISTERS/NAVIGATOR_CONTROL_CENTRE_STATUS_REGISTER_v0.4_DUAL_TRACK_AMENDMENT.csv"><b>Open status register <span class="state partial">SNAPSHOT</span></b><span>Configured, runtime, interaction and operational-binding states.</span></a>
+    </div>
+  </section>
+
+  <section class="card section">
+    <h3>Current Work Object and queue</h3>
+    <div class="grid2"><div class="metric"><b>WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001</b><small>Complete the visibly integrated, human-first Navigator MVP and establish its evidence-backed operating baseline.</small></div><div class="metric"><b>One next action</b><small>File and independently verify the unchanged Stream A candidate fileset before any live relay pilot.</small></div></div>
+    <div class="system-grid section"><a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/14_CURRENT_WORK_OBJECT_QUEUE.canvas"><b>Current Work Object / queue <span class="state current">OPEN</span></b><span>Queue, owner lane, state and return route.</span></a><a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/CURRENT_DELIVERY.md"><b>Detailed current delivery <span class="state current">CURRENT</span></b><span>Evidence, authority, PPV, lane states and held items.</span></a></div>
+  </section>
+
+  <section class="card section reference">
+    <h3>System drill-down</h3>
+    <div class="system-grid">
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/03_FFE_SBR_3X3X3.canvas"><b>Form / Flow / Evolve <span class="state partial">INTERACTIVE / PARTIAL LIVE</span></b><span>Primary operating context; register-backed resolution remains partial.</span></a>
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/04_NINE_VERB_OPERATING.canvas"><b>Nine Verbs <span class="state current">DEFINED</span></b><span>Nine pages and 27-command register; runtime evidence varies by Work Object.</span></a>
+      <a class="system-link" href="COMPONENTS/SERVICE_CATALOGUE_INTERACTIVE_MECE_COVERAGE_v1.0.html"><b>Service Catalogue <span class="state partial">LIVE ODOO / PARTIAL INTEGRATION</span></b><span>18 active and validated; canonical and FFE gaps remain.</span></a>
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/09_PATTERN_METHOD_CANONICAL.canvas"><b>Pattern / Method / Canonical <span class="state partial">CANDIDATE-HEAVY</span></b><span>Authority, admission and evidence-conflict backlog.</span></a>
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/11_BENEFIT_ASSET_REALISATION.canvas"><b>Benefit / Asset realisation <span class="state partial">CHAIN INCOMPLETE</span></b><span>Measurement and evidence exist, but maturity, reuse and realisation remain partial.</span></a>
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/12_CONTEXT_MEMBRANE.canvas"><b>Context / membrane <span class="state partial">PROJECTED</span></b><span>Context boundaries are explicit; operational Context truth remains source-bound.</span></a>
+      <a class="system-link" href="../../../10_WORKSPACES/NAVIGATOR_MVP_v0.2/CURRENT_DELIVERY.md"><b>Evidence / D009 <span class="state held">HELD</span></b><span>Integrated assurance waits for live A and one reconciled A/B/C candidate.</span></a>
+      <a class="system-link" href="../../../00_HOME.md"><b>Return to Navigator Home <span class="state current">CURRENT</span></b><span>Single root Home and stable return path.</span></a>
+    </div>
+  </section>
+  <div class="holdbox section"><b>Held:</b> live Stream A mount, Phase 3 queue implementation, D009 assurance, interface promotion, Odoo/N8N mutation, PPV movement and canon promotion.</div>
+</section>
+
+<div class="footer">Stable file path retained for link continuity: `SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.2.html`. Integrity snapshot combines live read-only Odoo/N8N data and current Working Memory evidence at 2026-08-02 09:54 AEST. No Odoo, N8N, schema, ACL, credential, PPV or canon mutation.</div>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('[data-open]')];
+const primary=[...document.querySelectorAll('.action-stack [data-open]')];
+const panels=[...document.querySelectorAll('.panel')];
+function openPanel(id,focus=false,anchor=null){
+  panels.forEach(p=>p.classList.toggle('active',p.id===id));
+  primary.forEach(b=>b.classList.toggle('active',b.dataset.open===id));
+  history.replaceState(null,'','#'+id+(anchor?'/'+anchor:''));
+  if(focus)primary.find(b=>b.dataset.open===id)?.focus();
+  if(anchor)setTimeout(()=>document.getElementById(anchor)?.scrollIntoView({behavior:'smooth',block:'start'}),20);
+}
+buttons.forEach(el=>el.addEventListener('click',e=>{if(el.tagName==='A')e.preventDefault();openPanel(el.dataset.open,true,el.dataset.anchor||null);}));
+const route=(location.hash||'#operate').slice(1).split('/');
+openPanel(['operate','wave','status'].includes(route[0])?route[0]:'operate',false,route[1]||null);
+const operatingFrame=document.getElementById('operatingFrame');const waveFrame=document.getElementById('waveFrame');function sendSelectionToWave(payload){if(!payload)return;waveSelectionBanner.innerHTML=`<b>Selected Work Object:</b> ${payload.id} — ${payload.name}. Lifecycle ${payload.stateLabel||payload.state}; reviewed ${payload.lastReviewed||'unknown'}. Review the Wave fields, then copy one complete packet.`;openPanel('wave',false);setTimeout(()=>waveFrame.contentWindow?.postMessage({type:'navigator-wave-prefill',payload},'*'),120)}window.addEventListener('message',e=>{if(e.data&&e.data.type==='navigator-opportunity-selected')sendSelectionToWave(e.data.payload)});waveFrame.addEventListener('load',()=>{try{const raw=localStorage.getItem('synapsys.navigator.selectedOpportunity');if(raw)sendSelectionToWave(JSON.parse(raw))}catch(e){}});window.navigatorStatus={currentPanel:()=>document.querySelector('.panel.active')?.id,integrity:{green:1,partial:6,held:1,full:false},mesh:{cells:81,gates:10,liveEdges:9,activeEdges:1,runtime:'PARTIAL'},services:{active:18,validated:18,canonicalLinked:13,ffeState:0},canonical:{total:56,promoted:5,candidate:40,conflicted:4},benefits:{total:45,planned:25,measured:14,verified:6,measurementMethod:25,realisationEvidence:10},assets:{total:120,maturitySet:71,reuseRecorded:0},patterns:{total:15,candidate:14,admitted:0},methods:{total:12,active:10},ppv:'Potential',authority:'HELD_OUTSIDE_OBSIDIAN_PROJECTION'};
+</script>
+</body>
+</html>
