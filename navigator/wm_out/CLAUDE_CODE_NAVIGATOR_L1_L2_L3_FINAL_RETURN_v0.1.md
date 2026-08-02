@@ -105,10 +105,11 @@ current surface of each kind.
 
 ## Deployment record (readback)
 
-32 of 33 current surfaces deployed via governed sp_write with returned
-SHA-256 equal to local SHA-256 (byte-exact, first attempt in every case);
-the 33rd (route registry) was normalized to 81,211 bytes and deployed the
-same way [confirmation recorded in the manifest]. Independent sp_read
+All 33 current surfaces deployed via governed sp_write with returned
+SHA-256 equal to local SHA-256, byte-exact. 32 verified on first attempt;
+the route registry (normalized to 81,211 bytes, SHA-256
+a5927546a7c525a27d6cdf356e71e466d6fe1e63f4e5ea3314552bd17fca1aa1) required
+one permitted retry for a trailing-newline byte and then matched exactly. Independent sp_read
 readback re-verified 5 representative files including the Navigator and the
 promoted v4.6 operating surface: 5/5 exact hash match. Full per-file prior/
 final bytes and SHA-256: NAVIGATOR_L1_L2_L3_MANIFEST_SHA256_v0.1.csv.
