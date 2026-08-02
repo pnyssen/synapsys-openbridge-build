@@ -544,6 +544,14 @@ def ev_resolve(registry, mapping):
 import re as _re_mod
 
 POST_D007_REPLACEMENTS = [
+    ("Release and execute the prepared bounded D007 Odoo Work Object / Project / Service / Method correction once under fail-closed controls.",
+     "The bounded D007 Odoo Work Object / Project / Service / Method correction has been executed once under fail-closed controls and receipted."),
+    ("The exact D007 packet is prepared and read back. Explicit release is required to create the authoritative Work Object identity and native Project, Service and Method links.",
+     "The filed D007 packet was released and executed once: authoritative Work Object identity (record id 2) and native Project, Service and Method links created, receipted and read back."),
+    ("Live Odoo changes remain held until explicit release.",
+     "The bounded correction is executed; any further live Odoo change remains held."),
+    ("Odoo mutation until the exact D007 packet is explicitly released",
+     "any further Odoo mutation (the D007 packet is CONSUMED_EXECUTED_ONCE)"),
     ("READY_FOR_D007_RELEASE", "D007_CORRECTION_EXECUTED_RECEIPTED"),
     ("Odoo schema or record mutation until the exact filed D007 packet receives explicit release",
      "Any further Odoo schema or record mutation — the filed D007 packet is "
@@ -574,6 +582,9 @@ def reconcile_post_d007(text):
     return text
 
 STALE_PROJECTION_MARKERS = [
+    "Explicit release is required", "remain held until explicit release",
+    "Release and execute the prepared bounded",
+    "until the exact D007 packet is explicitly released",
     "READY_FOR_D007_RELEASE", "prepared but not released",
     "not released for mutation", "Obtain explicit",
     "No Odoo mutation has occurred", "receives explicit release",
