@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "synapsys://d007-transport-pilot-readiness/transport-request-contract-v0.1",
+  "title": "D007 WM-to-Codex Transport Pilot — inbound request contract",
+  "description": "Mirrors the fixed request shape accepted by the real, already-provisioned N8N workflow SDGlH8QqeHpIIErz (\"Navigator WM Binary Delivery Gateway — Stream A Pilot\"), per D007_WM_TO_CODEX_TRANSPORT_WORKFLOW_EXPORT_SUMMARY_v0.1.json's fixed_contract block and D007_WM_TO_CODEX_TRANSPORT_STATIC_TEST_REPORT_v0.1.md's 'Caller cannot override source path/hash/bytes/MIME/authority' PASS row (both read live this session). additionalProperties is false specifically because the real workflow's Normalize and Validate Request node rejects any caller-supplied source_path/expected_sha256/expected_bytes/expected_mime/authority override.",
+  "type": "object",
+  "required": ["transport_request_id", "run_id", "work_object_id", "target_lane", "nonce"],
+  "additionalProperties": false,
+  "properties": {
+    "transport_request_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "work_object_id": { "type": "string", "minLength": 1 },
+    "target_lane": { "type": "string", "enum": ["codex"] },
+    "nonce": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "synapsys://d007-transport-pilot-readiness/target-mount-receipt-contract-v0.1",
+  "title": "TARGET_MOUNT_RECEIPT_<RUN_ID>.json — required-field contract",
+  "description": "Derived directly from the 'Required receipt fields' list in CODEX_TARGET_PREFLIGHT_AND_LIVE_MOUNT_DISPATCH_v0.1.md (read live this session, SHA-256 cc8fe34620bc51a634639fc5a34ced35ba543c8174ef4ec5ea1074b1930e2b0b). Any real receipt Codex (or the Steward, manually) files after executing the live pilot should validate against this schema before the pilot is treated as PASS. This schema does not itself prove a live execution occurred — it only proves the receipt is well-formed.",
+  "type": "object",
+  "required": [
+    "endpoint", "transport_request_id", "run_id",
+    "target_runtime_identity", "source_path",
+    "expected_bytes", "received_bytes",
+    "expected_sha256", "received_sha256",
+    "integrity_headers", "immutable_mount_path",
+    "extraction_result", "members",
+    "start_here_read", "evidence_bodies_read",
+    "secret_scan_result", "graph_build_gate_state",
+    "authority", "ppv", "replay_validity"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "endpoint": { "type": "string", "minLength": 1 },
+    "transport_request_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "target_runtime_identity": { "type": "string", "minLength": 1 },
+    "source_path": { "type": "string", "minLength": 1 },
+    "expected_bytes": { "type": "integer", "minimum": 0 },
+    "received_bytes": { "type": "integer", "minimum": 0 },
+    "expected_sha256": { "type": "string", "pattern": "^[0-9a-f]{64,66}$" },
+    "received_sha256": { "type": "string", "pattern": "^[0-9a-f]{64,66}$" },
+    "integrity_headers": { "type": "object", "minProperties": 1 },
+    "immutable_mount_path": { "type": "string", "minLength": 1 },
+    "extraction_result": { "type": "string", "enum": ["PASS", "FAIL"] },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "bytes", "sha256"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64,66}$" }
+        }
+      }
+    },
+    "start_here_read": { "type": "boolean" },
+    "evidence_bodies_read": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "read"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "read": { "type": "boolean" }
+        }
+      }
+    },
+    "secret_scan_result": { "type": "string", "enum": ["CLEAN", "FLAGGED"] },
+    "graph_build_gate_state": { "type": "string", "enum": ["OPEN", "PASSED", "BLOCKED"] },
+    "authority": { "type": "string", "minLength": 1 },
+    "ppv": { "type": "string", "minLength": 1 },
+    "replay_validity": { "type": "string", "minLength": 1 }
+  }
+}
