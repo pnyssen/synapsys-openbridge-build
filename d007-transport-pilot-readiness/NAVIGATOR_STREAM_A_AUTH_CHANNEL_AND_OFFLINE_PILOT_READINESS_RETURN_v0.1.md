@@ -157,6 +157,13 @@ has been sent.
 | `validate/__init__.py` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `validate/receipt_validator.py` | 2777 | `46c531f392c2c456a2e4dce71acedd89568d716e155a9b0e447b11b85b2df56b` |
 
+Note on this Working Memory filing specifically: the four empty
+`__init__.py` package markers (0 bytes each, identical hash by
+construction) are omitted from the filed subset below — they carry no
+reviewable content and would collide on filename if filed flat. The
+full 16-file tree, including them, is in git at the commit cited in
+this return's companion filing.
+
 ## Exact Working Memory path
 
 `05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/WAVE_INTEGRATED_NAVIGATOR_MVP_20260802/D007_WM_TO_CODEX_TRANSPORT_PILOT_v0.1/`
