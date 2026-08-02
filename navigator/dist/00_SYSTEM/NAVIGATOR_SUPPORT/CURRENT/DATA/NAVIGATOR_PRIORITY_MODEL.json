@@ -54,5 +54,5 @@
    "contribution": "Moves accepted artefacts toward the operational register without authority drift."
   }
  ],
- "one_next_action": "Obtain explicit bounded D007 release for the filed Odoo Work Object / Project / Service / Method correction packet and execute it once under fail-closed acceptance and rollback controls."
+ "one_next_action": "Run the read-only independent D009 replay of the executed D007 correction and the deployed Navigator from filed inputs; then Steward cold-start acceptance from 00_HOME.md. No further register mutation is authorised (the D007 packet is CONSUMED_EXECUTED_ONCE)."
 }

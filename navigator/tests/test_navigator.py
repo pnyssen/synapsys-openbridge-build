@@ -411,3 +411,18 @@ def test_nested_element_verb_l3_sweep():
             checks += 2
     (HERE / "dist" / "ASSERTION_COUNT.txt").write_text(str(checks))
     assert checks >= 2187  # exceeds the 'up to 2187' nested assertion budget
+
+
+# ---- 36: projection coherence (RC12) ----
+def test_36_no_stale_pre_execution_d007_language():
+    """No current surface may carry pre-execution D007 language after the
+    packet was executed; the same fact must not fork across copies."""
+    targets = list(CURRENT.rglob("*.html")) + list(CURRENT.rglob("*.json")) \
+        + list(CURRENT.rglob("*.js")) + [HOME]
+    bad = []
+    for p in targets:
+        text = read(p)
+        for m in model.STALE_PROJECTION_MARKERS:
+            if m in text:
+                bad.append((p.name, m))
+    assert not bad, bad

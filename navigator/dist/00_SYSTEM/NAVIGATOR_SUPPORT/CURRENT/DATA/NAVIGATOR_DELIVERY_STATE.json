@@ -29,7 +29,7 @@
   "queue_item": "Complete the visibly integrated, human-first SynapSys Navigator MVP and establish its evidence-backed operating baseline.",
   "context": "CTX-SS",
   "owner_lane": "Navigator / ChatGPT Hub",
-  "authority": "Steward authority for the current projection/link correction is exercised. The bounded D007 Odoo packet is prepared but not released for mutation. Stream A run-04 remains closed and must not be replayed.",
+  "authority": "Steward authority for the projection/link correction was exercised. The bounded D007 Odoo packet has been RELEASED AND EXECUTED ONCE (receipted; CONSUMED_EXECUTED_ONCE; no re-execution authorised). Stream A run-04 remains closed and must not be replayed.",
   "ppv": "Potential",
   "replay_validity": "RUN04_CONSUMED_FIRST_USE_NO_RETRY; GRAPH_REBUILD_REPLAY_VALID",
   "reality": "Stream A complete and independently assured. Navigator L1/L2/L3 deployed and tested. Authoritative Odoo Work Object identity and native Project/Service/Method links created via the released D007 packet (record id 2, receipted, independently read back). Bridge remains ineligible for Pattern qualification."
@@ -186,10 +186,10 @@
     "D007"
    ],
    "priority": "P1",
-   "status": "READY_FOR_D007_RELEASE",
-   "progress": 35,
-   "reality": "The bounded D007 Work Object / Project / Service / Method schema and mutation packet is prepared, hashed and read back. No Odoo mutation has occurred.",
-   "next_action": "Obtain explicit D007 release and execute the exact packet once with duplicate, schema, rollback and readback gates.",
+   "status": "D007_CORRECTION_EXECUTED_RECEIPTED",
+   "progress": 100,
+   "reality": "The bounded D007 Work Object / Project / Service / Method packet was executed once under quoted Steward release: fields x_project_id, x_service_catalogue_id, x_method_id created on x_ss_work_object_register and authoritative record id 2 created with native links to Project 101, Service SC-01 and Method D002-PTF. Independently read back; historical pilot id 1 untouched; receipt filed in FIVE_PRIORITY_COMPLETE_DEPLOYMENT.",
+   "next_action": "None in Stream C. Final read-only D009 acceptance replay covers the record; no further register mutation is authorised.",
    "acceptance": [
     "Read-only schema verification",
     "Exact record and field packet",
@@ -256,7 +256,7 @@
    "status": "D009_PASS_WITH_CONDITIONS",
    "progress": 80,
    "reality": "Stream A target proof is complete and Navigator v1.5 is the current interface candidate. Integrated assurance can now test navigation, freshness, relationships, PPV, authority, usability, replay and the independent vertical slice.",
-   "next_action": "After the bounded Odoo correction and Steward link test, perform final read-only D009 acceptance; retain bridge Pattern qualification on HOLD.",
+   "next_action": "Perform the final read-only D009 acceptance replay from filed inputs — the bounded Odoo correction is executed and receipted, and the Navigator deployment is link-tested; retain bridge Pattern qualification on HOLD.",
    "acceptance": [
     "Independent D009 challenge",
     "Stream A integrity verified",
@@ -336,10 +336,10 @@
  ],
  "held_items": [
   "Replay of run-04 or activation of the gateway/bridge",
-  "Odoo schema or record mutation until the exact filed D007 packet receives explicit release",
   "Reusable bridge Pattern qualification until authenticated ingress or bridge elimination is evidenced",
   "Canon, Pattern, Method, Service, Asset or PPV movement outside the bounded correction",
-  "Material Benefit realisation claim before measurable Steward Benefit → Strategy → Asset evidence passes assurance"
+  "Material Benefit realisation claim before measurable Steward Benefit → Strategy → Asset evidence passes assurance",
+  "Any further Odoo schema or record mutation — the filed D007 packet is CONSUMED_EXECUTED_ONCE and must not be re-executed"
  ],
- "one_next_action": "Steward acceptance review of the completed Navigator L1/L2/L3 deployment, starting from 00_HOME.md."
+ "one_next_action": "Run the read-only independent D009 replay of the executed D007 correction and the deployed Navigator from filed inputs; then Steward cold-start acceptance from 00_HOME.md. No further register mutation is authorised (the D007 packet is CONSUMED_EXECUTED_ONCE)."
 }

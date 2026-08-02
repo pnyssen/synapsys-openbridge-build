@@ -536,3 +536,46 @@ def ev_resolve(registry, mapping):
             "statement": f"{v['name']} at {e['name']}: {v['purpose']} Applied here, it acts on {e['role']}.",
             "mesh_stages": v["mesh_stages"], "benefit": v["benefit"],
             "evidence": v["evidence_requirement"]}
+
+
+# RC12: post-D007-execution text reconciliation. Applied to every current
+# surface that carried pre-execution D007 language; the coherence guards in
+# the generators fail the build if any stale marker survives.
+import re as _re_mod
+
+POST_D007_REPLACEMENTS = [
+    ("READY_FOR_D007_RELEASE", "D007_CORRECTION_EXECUTED_RECEIPTED"),
+    ("Odoo schema or record mutation until the exact filed D007 packet receives explicit release",
+     "Any further Odoo schema or record mutation — the filed D007 packet is "
+     "CONSUMED_EXECUTED_ONCE and must not be re-executed"),
+    ("The bounded D007 Odoo packet is prepared but not released for mutation.",
+     "The bounded D007 Odoo packet has been RELEASED AND EXECUTED ONCE "
+     "(receipted; CONSUMED_EXECUTED_ONCE; no re-execution authorised)."),
+    ("The exact D007 packet is prepared and read back. Explicit release is now required to create",
+     "The filed D007 packet has been RELEASED AND EXECUTED ONCE (receipted, independently read back), creating"),
+    ("is prepared, hashed and read back. No Odoo mutation has occurred.",
+     "was executed once under quoted Steward release: record id 2 and the three native-link fields were created, receipted and independently read back."),
+]
+
+_OBTAIN = _re_mod.compile(r"Obtain explicit[^.]*?\.")
+_OBTAIN_MSG = ("The bounded D007 correction is EXECUTED AND RECEIPTED; the remaining step "
+               "is the read-only D009 acceptance replay, then Steward acceptance. "
+               "No further register mutation is authorised.")
+
+def reconcile_post_d007(text):
+    for old, new in POST_D007_REPLACEMENTS:
+        text = text.replace(old, new)
+    text = _OBTAIN.sub(_OBTAIN_MSG, text)
+    # stream C progress copies
+    text = text.replace('"priority":"P1","status":"D007_CORRECTION_EXECUTED_RECEIPTED","progress":35',
+                        '"priority":"P1","status":"D007_CORRECTION_EXECUTED_RECEIPTED","progress":100')
+    text = text.replace('D007_CORRECTION_EXECUTED_RECEIPTED</span> <span class="badge">35% evidence',
+                        'D007_CORRECTION_EXECUTED_RECEIPTED</span> <span class="badge">100% evidence')
+    return text
+
+STALE_PROJECTION_MARKERS = [
+    "READY_FOR_D007_RELEASE", "prepared but not released",
+    "not released for mutation", "Obtain explicit",
+    "No Odoo mutation has occurred", "receives explicit release",
+    "Explicit release is now required",
+]

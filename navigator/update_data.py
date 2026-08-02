@@ -17,6 +17,52 @@ DST = HERE / "dist" / "00_SYSTEM" / "NAVIGATOR_SUPPORT" / "CURRENT" / "DATA"
 
 SNAP = model.SNAPSHOT
 
+# Stale pre-execution D007 language markers: any of these appearing in an
+# emitted current projection fails the build (RC12 guard).
+STALE_MARKERS = [
+    "READY_FOR_D007_RELEASE", "prepared but not released",
+    "not released for mutation", "Obtain explicit",
+    "No Odoo mutation has occurred", "receives explicit release",
+    "Explicit release is now required", "registration gap remains",
+]
+
+ONE_NEXT_ACTION = ("Run the read-only independent D009 replay of the executed D007 "
+                   "correction and the deployed Navigator from filed inputs; then Steward "
+                   "cold-start acceptance from 00_HOME.md. No further register mutation is "
+                   "authorised (the D007 packet is CONSUMED_EXECUTED_ONCE).")
+
+STREAM_C = {
+    "status": "D007_CORRECTION_EXECUTED_RECEIPTED",
+    "progress": 100,
+    "reality": ("The bounded D007 Work Object / Project / Service / Method packet was "
+                "executed once under quoted Steward release: fields x_project_id, "
+                "x_service_catalogue_id, x_method_id created on x_ss_work_object_register "
+                "and authoritative record id 2 created with native links to Project 101, "
+                "Service SC-01 and Method D002-PTF. Independently read back; historical "
+                "pilot id 1 untouched; receipt filed in FIVE_PRIORITY_COMPLETE_DEPLOYMENT."),
+    "next_action": ("None in Stream C. Final read-only D009 acceptance replay covers the "
+                    "record; no further register mutation is authorised."),
+}
+
+STREAM_E_NEXT = ("Perform the final read-only D009 acceptance replay from filed inputs — "
+                 "the bounded Odoo correction is executed and receipted, and the Navigator "
+                 "deployment is link-tested; retain bridge Pattern qualification on HOLD.")
+
+
+def apply_stream_c(stream):
+    stream.update(STREAM_C)
+
+
+def coherence_check(paths):
+    bad = []
+    for p in paths:
+        text = p.read_text(encoding="utf-8")
+        for m in STALE_MARKERS:
+            if m in text:
+                bad.append((p.name, m))
+    if bad:
+        raise SystemExit(f"STALE PROJECTION MARKERS FOUND: {bad}")
+
 PRIORITIES = [
     {"rank": 1, "id": "P1-NAV-ACCEPTANCE",
      "title": "Accept the completed Navigator L1/L2/L3 integration",
@@ -70,6 +116,8 @@ def main():
     p = json.loads((SRC / "NAVIGATOR_PRIORITY_MODEL.json").read_text(encoding="utf-8"))
     p["snapshot_at"] = SNAP
     p["priorities"] = PRIORITIES
+    if "one_next_action" in p:
+        p["one_next_action"] = ONE_NEXT_ACTION
     (DST / "NAVIGATOR_PRIORITY_MODEL.json").write_text(
         json.dumps(p, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -81,6 +129,19 @@ def main():
             ss["mode"] = ("read-only snapshot; authoritative Work Object identity registered "
                           "(x_ss_work_object_register id 2, D007 packet executed and receipted)")
     wo = d.get("work_object", {})
+    wo["authority"] = ("Steward authority for the projection/link correction was exercised. "
+                       "The bounded D007 Odoo packet has been RELEASED AND EXECUTED ONCE "
+                       "(receipted; CONSUMED_EXECUTED_ONCE; no re-execution authorised). "
+                       "Stream A run-04 remains closed and must not be replayed.")
+    for st in d.get("parallel_streams", []):
+        if st.get("id") == "STREAM-C":
+            apply_stream_c(st)
+        if st.get("id") == "STREAM-E":
+            st["next_action"] = STREAM_E_NEXT
+    d["held_items"] = [h for h in d.get("held_items", [])
+                       if "explicit release" not in h] + [
+        "Any further Odoo schema or record mutation — the filed D007 packet is "
+        "CONSUMED_EXECUTED_ONCE and must not be re-executed"]
     wo["reality"] = ("Stream A complete and independently assured. Navigator L1/L2/L3 deployed and "
                      "tested. Authoritative Odoo Work Object identity and native Project/Service/"
                      "Method links created via the released D007 packet (record id 2, receipted, "
@@ -88,8 +149,7 @@ def main():
     sl = d.get("strategy_lock", {})
     sl["critical_path"] = ("D007 correction executed and receipted. Remaining path: Steward cold-start "
                            "acceptance of the deployed Navigator; Stream A stays closed, no rerun.")
-    d["one_next_action"] = ("Steward acceptance review of the completed Navigator L1/L2/L3 "
-                            "deployment, starting from 00_HOME.md.")
+    d["one_next_action"] = ONE_NEXT_ACTION
     (DST / "NAVIGATOR_DELIVERY_STATE.json").write_text(
         json.dumps(d, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -104,21 +164,19 @@ def main():
 
     s = json.loads((SRC / "NAVIGATOR_PARALLEL_STREAMS.json").read_text(encoding="utf-8"))
     s["snapshot_at"] = SNAP
+    if "one_next_action" in s:
+        s["one_next_action"] = ONE_NEXT_ACTION
     for st in s["streams"]:
+        if st["id"] == "STREAM-E":
+            st["next_action"] = STREAM_E_NEXT
         if st["id"] == "STREAM-C":
-            st["status"] = "D007_CORRECTION_EXECUTED_RECEIPTED"
-            st["progress"] = 100
-            st["reality"] = ("The bounded D007 Work Object / Project / Service / Method packet was "
-                             "executed once under quoted Steward release: fields x_project_id, "
-                             "x_service_catalogue_id, x_method_id created on x_ss_work_object_register "
-                             "and authoritative record id 2 created with native links to Project 101, "
-                             "Service SC-01 and Method D002-PTF. Independently read back; historical "
-                             "pilot id 1 untouched; receipt filed in FIVE_PRIORITY_COMPLETE_DEPLOYMENT.")
-            st["next_action"] = ("None in Stream C. Final D009 read-only acceptance covers the record; "
-                                 "no further register mutation is authorised.")
+            apply_stream_c(st)
     (DST / "NAVIGATOR_PARALLEL_STREAMS.json").write_text(
         json.dumps(s, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print("data projections refreshed")
+    coherence_check([DST / n for n in [
+        "NAVIGATOR_PRIORITY_MODEL.json", "NAVIGATOR_DELIVERY_STATE.json",
+        "NAVIGATOR_BENEFIT_REALISATION.json", "NAVIGATOR_PARALLEL_STREAMS.json"]])
+    print("data projections refreshed and coherence-checked")
 
 
 if __name__ == "__main__":

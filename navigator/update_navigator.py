@@ -219,6 +219,25 @@ def main():
     t = t.replace("DELIVERY_STATE=applyCurrentUiPatch(DELIVERY_STATE);render(DELIVERY_STATE);",
                   "if(DELIVERY_STATE){DELIVERY_STATE=applyCurrentUiPatch(DELIVERY_STATE);render(DELIVERY_STATE);}")
 
+    # 11. RC12: applyCurrentUiPatch() carried a full hardcoded copy of the
+    # pre-execution state (stale priorities, critical path, Stream C, next
+    # action) and overwrote the loaded state at runtime, so the screen could
+    # regress to "READY_FOR_D007_RELEASE" regardless of the data files.
+    # Replace the whole function with an identity passthrough - the generated
+    # DATA/NAVIGATOR_DELIVERY_STATE.js|.json are the single state source.
+    mpatch = _re.search(r"function applyCurrentUiPatch\(state\)\{.*?\n\}\n", t, _re.S)
+    assert mpatch, "applyCurrentUiPatch not found"
+    t = t[:mpatch.start()] + (
+        "function applyCurrentUiPatch(state){/* RC12: hardcoded state override "
+        "removed; DATA/NAVIGATOR_DELIVERY_STATE.js|.json are the single source */"
+        "return state;}\n") + t[mpatch.end():]
+
+    # RC12: reconcile every remaining pre-execution D007 text copy (static
+    # panels, embedded literals, escaped fragments), then guard.
+    t = model.reconcile_post_d007(t)
+    for stale in model.STALE_PROJECTION_MARKERS:
+        assert stale not in t, f"stale marker in navigator: {stale}"
+
     # 3. insert the static L1/L2/L3 routes section before </main>
     rows = ""
     for e in model.ELEMENTS:
