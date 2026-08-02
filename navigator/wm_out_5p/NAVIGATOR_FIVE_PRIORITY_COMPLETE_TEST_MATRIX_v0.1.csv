@@ -1,0 +1,18 @@
+test_id,description,result
+P1-PRE,"D007 preconditions P01-P07 (identity, schema, references, Stream A inactive, bridge auth)",PASS 7/7
+P1-MUT,3 ir.model.fields created (27827/27829/27831) + WO record id 2 created exactly per packet,PASS
+P1-POST,"Acceptance: count=1, links Project101/SC-01/D002-PTF/CTX-SS/company1, PPV Potential, authority HELD, pilot unchanged, rollback possible",PASS 12/12
+P1-RB,Independent readback of record id 2 and pilot id 1,PASS
+P2-STATIC,"35-test harness (one Home/Navigator, 9 elements, 9 canvas views, verbs, L3, links, anchors, returns, staleness, discipline)",PASS 35/35
+P2-NESTED,Nested 9x9x27 sweep: 243 cells x 23 resolved fields + routes + 81 mappings,PASS 6363 assertions
+P2-BROWSER,"Browser suite: desktop+narrow, 9 canvas SVGs render, element pages, verb anchors, start surface, returns, no-JS, file://, stale anchor, direct entry",PASS 134/134
+P3-GVTEC,GV-TEC-003 not a top-level Navigator domain; only containment-rule text; Odoo registration correctly absent (candidate/held; GV-TEC-001/002 exist),PASS
+P3-NATIVE,Work Object uses authoritative Odoo identity; native Service->Method link consistent (SC-01 x_method_id=1 = D002-PTF),PASS
+P3-PROJ,Projections updated to reference executed correction; Odoo remains register truth; no projection replaces it,PASS
+P4-BENEFIT,Every verb bound to B1-B5 with evidence + realisation condition; realised list empty; no output-as-benefit substitution,PASS
+P4-ASSET,Asset qualification requires written conditions + Steward authority; Pattern fields NONE on fixtures; bridge Pattern HOLD,PASS
+P5-PROC,"TEST-PROCESS-001: 28-field packet + V1-V9 trace, V7 HOLD, all 9 Mesh stages",PASS
+P5-OFFER,TEST-OFFERING-001: same standard,PASS
+P5-COLD,Cold-start replay from 00_HOME.md (T35 + browser evidence),PASS
+XP-REGRESSION,Cross-priority full regression rerun after P1 propagation (static+browser),PASS
+ADV-INJ,"Adversarial injections: duplicate L3 id, fixture V7 HOLD removal, PPV movement, Stream A reactivation — all caught; clean state passes",PASS 5/5
