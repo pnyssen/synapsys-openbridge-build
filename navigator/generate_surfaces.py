@@ -148,7 +148,7 @@ def gen_element_page(reg, e):
             f"<td>{esc(m['benefit'])} {esc(b['name'])}</td></tr>")
 
     cells = ""
-    for c in e["level3"]:
+    for c in model.l3_cells(elem):
         cells += f"""<details id="{esc(c['trace_id'])}"><summary>{esc(c['trace_id'])} — {esc(c['axis_a'])} × {esc(c['axis_b'])} × {esc(c['axis_c'])}</summary>
 <div class="body"><dl>
 <dt>Decision / question served</dt><dd>{esc(c['decision_served'])}</dd>

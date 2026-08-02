@@ -303,9 +303,10 @@ def test_28_no_false_pattern_or_asset_qualification():
 
 def test_29_ppv_remains_potential():
     assert REG["ppv"] == "Potential"
+    assert REG["l3_defaults"]["ppv"] == "Potential"
     for e in REG["elements"]:
         for c in e["level3"]:
-            assert c["ppv"] == "Potential"
+            assert model.l3_resolve(REG, e, c)["ppv"] == "Potential"
     for v in REG["verbs"]:
         assert v["ppv"] == "Potential"
 
@@ -393,17 +394,19 @@ def test_nested_element_verb_l3_sweep():
             assert m["benefit"] in REG["benefits"]
             checks += 3
         for c in e["level3"]:
+            full = model.l3_resolve(REG, e, c)
             for k in ["trace_id", "decision_served", "incoming_signal",
                       "interpretation", "required_structure", "validation_test",
                       "permitted_action", "expected_benefit",
                       "evidence_requirement", "realisation_condition",
                       "asset_implication", "source_system", "reality", "ppv",
                       "authority", "owner", "next_action", "stop_hold",
-                      "replay_validity", "return_path"]:
-                assert str(c[k]).strip(), (c["trace_id"], k)
+                      "replay_validity", "return_path",
+                      "axis_a_statement", "axis_b_statement", "axis_c_statement"]:
+                assert str(full[k]).strip(), (c["trace_id"], k)
                 checks += 1
-            assert c["applicable"] is True
-            assert set(c["verbs"]) <= {v["id"] for v in model.VERBS}
+            assert full["applicable"] is True
+            assert set(full["verbs"]) <= {v["id"] for v in model.VERBS}
             checks += 2
     (HERE / "dist" / "ASSERTION_COUNT.txt").write_text(str(checks))
     assert checks >= 2187  # exceeds the 'up to 2187' nested assertion budget

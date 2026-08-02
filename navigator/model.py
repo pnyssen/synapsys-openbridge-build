@@ -415,3 +415,88 @@ def element_verb_mappings():
                 "evidence": v["evidence"],
             })
     return maps
+
+
+# ---------------------------------------------------------------- compact L3
+# The registry stores Level-3 cells in normalized form: global defaults
+# (L3_DEFAULTS) + per-element commons + per-cell distinctive fields.
+# l3_resolve() reconstitutes the full 20-field cell; the HTML surfaces are
+# generated from the expanded form so nothing is hidden from the reader.
+
+L3_DEFAULTS = {
+    "source_system": "Obsidian Navigator projection; Working Memory receipts",
+    "reality": "PROJECTION (interface view of governed state; Odoo remains operational register truth)",
+    "ppv": PPV,
+    "authority": AUTHORITY,
+    "owner": OWNER_LANE,
+    "next_action": ("Steward review of this cell within Navigator acceptance; "
+                    "no operational action permitted from this cell."),
+    "stop_hold": ("HOLD: Odoo/N8N/runtime mutation, promotion, PPV movement, "
+                  "Benefit-realisation declaration."),
+    "replay_validity": REPLAY,
+    "applicable": True,
+}
+
+def l3_axis_statements(elem):
+    out = {}
+    for a in AXIS_A:
+        out[a] = elem[_AXIS_A_FIELD[a]]
+    for b in AXIS_B:
+        f, gloss = _AXIS_B_FIELD[b]
+        out[b] = f"{b} ({gloss}): {elem[f]}"
+    for c in AXIS_C:
+        f, gloss = _AXIS_C_FIELD[c]
+        out[c] = f"{c} ({gloss}): {elem[f]}"
+    return out
+
+def l3_common(elem):
+    return {
+        "incoming_signal": elem["signal_in"],
+        "interpretation": elem["interprets"],
+        "required_structure": elem["structures"],
+        "validation_test": elem["validated_by"],
+        "permitted_action": elem["action"],
+        "asset_implication": elem["asset_conversion"],
+        "return_path": f"COMPONENTS/{elem['html']}#l3 -> Nine Verbs -> Navigator",
+    }
+
+def axis_c_content():
+    out = {}
+    for c in AXIS_C:
+        bid = _AXIS_C_BENEFIT[c]
+        b = BENEFITS[bid]
+        out[c] = {
+            "expected_benefit": f"{bid} {b['name']}: {b['meaning']}",
+            "evidence_requirement": b["evidence"],
+            "realisation_condition": b["realisation"],
+        }
+    return out
+
+def l3_cells_compact(elem):
+    cells = []
+    for a in AXIS_A:
+        for b in AXIS_B:
+            for c in AXIS_C:
+                cells.append({
+                    "trace_id": f"L3-{elem['id']}-{a[:3].upper()}-{b[:3].upper()}-{c[:3].upper()}",
+                    "axis_a": a, "axis_b": b, "axis_c": c,
+                    "decision_served": (
+                        f"How the {a} of {elem['name']} is expressed in its {b} mode, "
+                        f"read through {_AXIS_C_FIELD[c][1]}."),
+                    "verbs": _AXIS_B_VERBS[b],
+                })
+    return cells
+
+def l3_resolve(registry, element_entry, cell):
+    """Reconstitute a full Level-3 cell from the normalized registry."""
+    full = dict(registry["l3_defaults"])
+    full.update(element_entry["l3_common"])
+    stmts = element_entry["l3_axis_statements"]
+    full.update({
+        "axis_a_statement": stmts[cell["axis_a"]],
+        "axis_b_statement": stmts[cell["axis_b"]],
+        "axis_c_statement": stmts[cell["axis_c"]],
+    })
+    full.update(registry["l3_axis_c_content"][cell["axis_c"]])
+    full.update(cell)
+    return full

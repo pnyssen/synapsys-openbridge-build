@@ -1,0 +1,7 @@
+{
+ "duplicate_L3_id_detected": true,
+ "fixture_missing_V7_HOLD_detected": true,
+ "ppv_movement_detected": true,
+ "stream_a_reactivation_detected": true,
+ "clean_state_all_pass": true
+}

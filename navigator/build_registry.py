@@ -44,7 +44,9 @@ def build():
             "freshness": model.SNAPSHOT,
             "source": "navigator/model.py (single-source model), deployed via Working Memory",
             "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
-            "level3": model.l3_cells(e),
+            "l3_common": model.l3_common(e),
+            "l3_axis_statements": model.l3_axis_statements(e),
+            "level3": model.l3_cells_compact(e),
         })
 
     verbs = []
@@ -90,6 +92,11 @@ def build():
         "mesh_stages": model.MESH_STAGES,
         "mesh_stage_verb_coverage": mesh_coverage,
         "benefits": model.BENEFITS,
+        "l3_defaults": model.L3_DEFAULTS,
+        "l3_axis_c_content": model.axis_c_content(),
+        "l3_resolution_rule": ("Full cell = l3_defaults + element.l3_common + axis statements "
+                               "from element.l3_axis_statements + l3_axis_c_content[axis_c] "
+                               "+ the cell's own fields (cell fields win)."),
         "elements": elements,
         "verbs": verbs,
         "element_verb_mappings": model.element_verb_mappings(),
