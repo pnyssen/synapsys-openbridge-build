@@ -86,8 +86,9 @@ def main():
              "All nine Elements, nine verbs and 243 Level-3 positions are integrated, "
              "tested and deployed this cycle; Steward acceptance is the one open step."),
             ("2", "status", "stream-c",
-             "Release and execute the bounded Odoo Work Object / Service / Method correction",
-             "Separately held D007 packet; not a blocker for the interface — held to its own authority."),
+             "Bounded Odoo Work Object / Service / Method correction — executed",
+             "Filed D007 packet released and executed once: authoritative Work Object identity "
+             "(record id 2) with native Project 101 / SC-01 / D002-PTF links; receipted and read back."),
             ("3", "operate", "",
              "Begin defining new Processes and Offerings as governed candidates",
              "Use the New Process &amp; Offering start surface; activation stays HELD until authorised."),

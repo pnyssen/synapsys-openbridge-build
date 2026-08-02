@@ -16,12 +16,12 @@
   {
    "rank": 2,
    "id": "P2-ODOO-IDENTITY",
-   "title": "Release and execute the bounded Odoo Work Object / Service / Method correction",
-   "summary": "The exact D007 packet is prepared and read back. Separately held; explicit release is required to create the authoritative Work Object identity and native links.",
+   "title": "Bounded Odoo Work Object / Service / Method correction — EXECUTED",
+   "summary": "The filed D007 packet was released and executed once under quoted Steward authority: authoritative Work Object identity created (x_ss_work_object_register id 2) with native Project 101, Service SC-01 and Method D002-PTF links; receipted and independently read back.",
    "criticality": "HIGH",
-   "status": "READY_FOR_D007_RELEASE",
+   "status": "EXECUTED_RECEIPTED",
    "anchor": "stream-c",
-   "contribution": "Closes the remaining operational-register condition; not a blocker for the interface."
+   "contribution": "Operational-register identity condition closed."
   },
   {
    "rank": 3,

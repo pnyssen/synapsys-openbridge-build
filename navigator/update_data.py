@@ -26,11 +26,13 @@ PRIORITIES = [
      "anchor": "l1l2l3-routes",
      "contribution": "Closes Priority 1 of the Work Object and unlocks Process/Offering delivery."},
     {"rank": 2, "id": "P2-ODOO-IDENTITY",
-     "title": "Release and execute the bounded Odoo Work Object / Service / Method correction",
-     "summary": ("The exact D007 packet is prepared and read back. Separately held; explicit release "
-                 "is required to create the authoritative Work Object identity and native links."),
-     "criticality": "HIGH", "status": "READY_FOR_D007_RELEASE", "anchor": "stream-c",
-     "contribution": "Closes the remaining operational-register condition; not a blocker for the interface."},
+     "title": "Bounded Odoo Work Object / Service / Method correction — EXECUTED",
+     "summary": ("The filed D007 packet was released and executed once under quoted Steward "
+                 "authority: authoritative Work Object identity created (x_ss_work_object_register "
+                 "id 2) with native Project 101, Service SC-01 and Method D002-PTF links; "
+                 "receipted and independently read back."),
+     "criticality": "HIGH", "status": "EXECUTED_RECEIPTED", "anchor": "stream-c",
+     "contribution": "Operational-register identity condition closed."},
     {"rank": 3, "id": "P3-NEW-PROCESS-OFFERING",
      "title": "Begin defining new Processes and Offerings as governed candidates",
      "summary": ("Use the New Process & Offering start surface; candidates route V1-V9 with "
@@ -51,6 +53,8 @@ PRIORITIES = [
 ]
 
 NEW_OUTCOMES = [
+    "Authoritative Odoo Work Object identity created with native Project/Service/Method links "
+    "(D007 packet executed once under quoted Steward release, receipted, independently read back)",
     "Registry-driven L1/L2/L3 integration: 9 Element pages, 9 browser-safe Canvas views, "
     "nine-verb route and 243 Level-3 positions generated from one route registry",
     "All primary routes browser-safe (relative vault paths); obsidian:// reduced to secondary",
@@ -72,6 +76,18 @@ def main():
     d = json.loads((SRC / "NAVIGATOR_DELIVERY_STATE.json").read_text(encoding="utf-8"))
     d["snapshot_at"] = SNAP
     d["top_priorities"] = PRIORITIES
+    for ss in d.get("source_systems", []):
+        if ss["system"] == "Odoo":
+            ss["mode"] = ("read-only snapshot; authoritative Work Object identity registered "
+                          "(x_ss_work_object_register id 2, D007 packet executed and receipted)")
+    wo = d.get("work_object", {})
+    wo["reality"] = ("Stream A complete and independently assured. Navigator L1/L2/L3 deployed and "
+                     "tested. Authoritative Odoo Work Object identity and native Project/Service/"
+                     "Method links created via the released D007 packet (record id 2, receipted, "
+                     "independently read back). Bridge remains ineligible for Pattern qualification.")
+    sl = d.get("strategy_lock", {})
+    sl["critical_path"] = ("D007 correction executed and receipted. Remaining path: Steward cold-start "
+                           "acceptance of the deployed Navigator; Stream A stays closed, no rerun.")
     d["one_next_action"] = ("Steward acceptance review of the completed Navigator L1/L2/L3 "
                             "deployment, starting from 00_HOME.md.")
     (DST / "NAVIGATOR_DELIVERY_STATE.json").write_text(
@@ -85,6 +101,23 @@ def main():
     b["material_steward_benefits_realised"] = []
     (DST / "NAVIGATOR_BENEFIT_REALISATION.json").write_text(
         json.dumps(b, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    s = json.loads((SRC / "NAVIGATOR_PARALLEL_STREAMS.json").read_text(encoding="utf-8"))
+    s["snapshot_at"] = SNAP
+    for st in s["streams"]:
+        if st["id"] == "STREAM-C":
+            st["status"] = "D007_CORRECTION_EXECUTED_RECEIPTED"
+            st["progress"] = 100
+            st["reality"] = ("The bounded D007 Work Object / Project / Service / Method packet was "
+                             "executed once under quoted Steward release: fields x_project_id, "
+                             "x_service_catalogue_id, x_method_id created on x_ss_work_object_register "
+                             "and authoritative record id 2 created with native links to Project 101, "
+                             "Service SC-01 and Method D002-PTF. Independently read back; historical "
+                             "pilot id 1 untouched; receipt filed in FIVE_PRIORITY_COMPLETE_DEPLOYMENT.")
+            st["next_action"] = ("None in Stream C. Final D009 read-only acceptance covers the record; "
+                                 "no further register mutation is authorised.")
+    (DST / "NAVIGATOR_PARALLEL_STREAMS.json").write_text(
+        json.dumps(s, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print("data projections refreshed")
 
 

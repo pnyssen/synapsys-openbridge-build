@@ -6,7 +6,7 @@
   {
    "system": "Odoo",
    "role": "operational register and relationship truth",
-   "mode": "read-only snapshot; current Work Object registration gap remains"
+   "mode": "read-only snapshot; authoritative Work Object identity registered (x_ss_work_object_register id 2, D007 packet executed and receipted)"
   },
   {
    "system": "SharePoint Working Memory",
@@ -32,7 +32,7 @@
   "authority": "Steward authority for the current projection/link correction is exercised. The bounded D007 Odoo packet is prepared but not released for mutation. Stream A run-04 remains closed and must not be replayed.",
   "ppv": "Potential",
   "replay_validity": "RUN04_CONSUMED_FIRST_USE_NO_RETRY; GRAPH_REBUILD_REPLAY_VALID",
-  "reality": "Stream A is technically complete and independently assured. Direct MVP element Canvas/Page links and the nine-verb Benefit route are installed. The remaining critical condition is the authoritative Odoo Work Object and native Project/Service/Method correction; the bridge remains ineligible for Pattern qualification."
+  "reality": "Stream A complete and independently assured. Navigator L1/L2/L3 deployed and tested. Authoritative Odoo Work Object identity and native Project/Service/Method links created via the released D007 packet (record id 2, receipted, independently read back). Bridge remains ineligible for Pattern qualification."
  },
  "strategy_lock": {
   "purpose": "Govern, deliver and realise value repeatedly to grow wealth through sustainable communities globally.",
@@ -48,7 +48,7 @@
    "Evidence-backed service, knowledge and benefit relationship model",
    "Replay-valid parallel delivery and assurance pattern"
   ],
-  "critical_path": "Obtain explicit bounded D007 release and execute the filed Odoo Work Object / Project / Service / Method correction once; then perform final D009 readback. Stream A is complete and must not be rerun."
+  "critical_path": "D007 correction executed and receipted. Remaining path: Steward cold-start acceptance of the deployed Navigator; Stream A stays closed, no rerun."
  },
  "top_priorities": [
   {
@@ -64,12 +64,12 @@
   {
    "rank": 2,
    "id": "P2-ODOO-IDENTITY",
-   "title": "Release and execute the bounded Odoo Work Object / Service / Method correction",
-   "summary": "The exact D007 packet is prepared and read back. Separately held; explicit release is required to create the authoritative Work Object identity and native links.",
+   "title": "Bounded Odoo Work Object / Service / Method correction — EXECUTED",
+   "summary": "The filed D007 packet was released and executed once under quoted Steward authority: authoritative Work Object identity created (x_ss_work_object_register id 2) with native Project 101, Service SC-01 and Method D002-PTF links; receipted and independently read back.",
    "criticality": "HIGH",
-   "status": "READY_FOR_D007_RELEASE",
+   "status": "EXECUTED_RECEIPTED",
    "anchor": "stream-c",
-   "contribution": "Closes the remaining operational-register condition; not a blocker for the interface."
+   "contribution": "Operational-register identity condition closed."
   },
   {
    "rank": 3,
