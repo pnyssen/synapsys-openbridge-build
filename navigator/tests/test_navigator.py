@@ -306,7 +306,7 @@ def test_29_ppv_remains_potential():
     assert REG["l3_defaults"]["ppv"] == "Potential"
     for e in REG["elements"]:
         for c in e["level3"]:
-            assert model.l3_resolve(REG, e, c)["ppv"] == "Potential"
+            assert model.l3_resolve_min(REG, e, c)["ppv"] == "Potential"
     for v in REG["verbs"]:
         assert v["ppv"] == "Potential"
 
@@ -386,7 +386,8 @@ def test_nested_element_verb_l3_sweep():
                    "return_navigator"]:
             assert e["routes"][rk]
             checks += 1
-        maps = [m for m in REG["element_verb_mappings"] if m["element"] == e["id"]]
+        maps = [model.ev_resolve(REG, m) for m in REG["element_verb_mappings"]
+                if m["element"] == e["id"]]
         assert len(maps) == 9
         for m in maps:
             assert m["statement"].strip()
@@ -394,7 +395,7 @@ def test_nested_element_verb_l3_sweep():
             assert m["benefit"] in REG["benefits"]
             checks += 3
         for c in e["level3"]:
-            full = model.l3_resolve(REG, e, c)
+            full = model.l3_resolve_min(REG, e, c)
             for k in ["trace_id", "decision_served", "incoming_signal",
                       "interpretation", "required_structure", "validation_test",
                       "permitted_action", "expected_benefit",

@@ -46,7 +46,7 @@ def build():
             "acceptance_status": "CANDIDATE_FOR_STEWARD_ACCEPTANCE",
             "l3_common": model.l3_common(e),
             "l3_axis_statements": model.l3_axis_statements(e),
-            "level3": model.l3_cells_compact(e),
+            "level3": model.l3_cells_min(e),
         })
 
     verbs = []
@@ -96,10 +96,18 @@ def build():
         "l3_axis_c_content": model.axis_c_content(),
         "l3_resolution_rule": ("Full cell = l3_defaults + element.l3_common + axis statements "
                                "from element.l3_axis_statements + l3_axis_c_content[axis_c] "
-                               "+ the cell's own fields (cell fields win)."),
+                               "+ the cell's own fields (cell fields win). Derived fields: "
+                               "decision_served = 'How the <axis_a> of <element name> is expressed "
+                               "in its <axis_b> mode, read through <axis_c lens>.'; "
+                               "verbs = verb_groups for the axis_b group (Form->FORM, Flow->FLOW, "
+                               "Evolve->EVOLVE)."),
+        "element_verb_mapping_rule": ("Full mapping = {element, verb, relationship} + statement "
+                                      "'<verb name> at <element name>: <verb purpose> Applied here, "
+                                      "it acts on <element role>.' with mesh_stages/benefit/evidence "
+                                      "taken from the verb entry."),
         "elements": elements,
         "verbs": verbs,
-        "element_verb_mappings": model.element_verb_mappings(),
+        "element_verb_mappings": model.ev_mappings_min(),
         "stream_a": {"state": "ASSURED_STREAM_A_COMPLETE",
                      "disposition": "Completed evidence only. No rerun, no reactivation, no active next action."},
         "held": ["Odoo mutation", "N8N mutation or activation", "credential access",
@@ -119,7 +127,7 @@ if __name__ == "__main__":
     reg = build()
     out = HERE / "dist" / "00_SYSTEM" / "NAVIGATOR_SUPPORT" / "CURRENT" / "DATA" / model.REGISTRY_FILE
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(reg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    out.write_text(json.dumps(reg, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     n_l3 = sum(len(e["level3"]) for e in reg["elements"])
     print(f"registry written: {out}")
     print(f"elements={len(reg['elements'])} verbs={len(reg['verbs'])} "

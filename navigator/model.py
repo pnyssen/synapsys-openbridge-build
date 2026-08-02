@@ -500,3 +500,39 @@ def l3_resolve(registry, element_entry, cell):
     full.update(registry["l3_axis_c_content"][cell["axis_c"]])
     full.update(cell)
     return full
+
+
+# Deploy-size normalization, stage 2: cell decision statements, cell verb
+# lists and Element x Verb mapping statements are formulaic; the registry
+# stores the rules once and l3_resolve()/ev_resolve() derive the text.
+
+def decision_served(elem_name, a, b, c):
+    return (f"How the {a} of {elem_name} is expressed in its {b} mode, "
+            f"read through {_AXIS_C_FIELD[c][1]}.")
+
+def l3_cells_min(elem):
+    return [{"trace_id": f"L3-{elem['id']}-{a[:3].upper()}-{b[:3].upper()}-{c[:3].upper()}",
+             "axis_a": a, "axis_b": b, "axis_c": c}
+            for a in AXIS_A for b in AXIS_B for c in AXIS_C]
+
+def l3_resolve_min(registry, element_entry, cell):
+    full = l3_resolve(registry, element_entry, cell)
+    if not full.get("decision_served"):
+        full["decision_served"] = decision_served(
+            element_entry["name"], cell["axis_a"], cell["axis_b"], cell["axis_c"])
+    if not full.get("verbs"):
+        full["verbs"] = _AXIS_B_VERBS[cell["axis_b"]]
+    return full
+
+def ev_mappings_min():
+    return [{"element": e["id"], "verb": v["id"],
+             "relationship": "PRIMARY" if e["id"] in v["elements_primary"] else "PARTICIPATING"}
+            for e in ELEMENTS for v in VERBS]
+
+def ev_resolve(registry, mapping):
+    e = next(x for x in registry["elements"] if x["id"] == mapping["element"])
+    v = next(x for x in registry["verbs"] if x["id"] == mapping["verb"])
+    return {**mapping,
+            "statement": f"{v['name']} at {e['name']}: {v['purpose']} Applied here, it acts on {e['role']}.",
+            "mesh_stages": v["mesh_stages"], "benefit": v["benefit"],
+            "evidence": v["evidence_requirement"]}

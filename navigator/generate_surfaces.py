@@ -134,7 +134,7 @@ def gen_element_page(reg, e):
             ("9 Feedback returns to", mesh["feedback_to"]),
         ])
 
-    ev = [m for m in reg["element_verb_mappings"] if m["element"] == e["id"]]
+    ev = [model.ev_resolve(reg, m) for m in reg["element_verb_mappings"] if m["element"] == e["id"]]
     verb_rows = ""
     for m in ev:
         v = next(x for x in reg["verbs"] if x["id"] == m["verb"])
@@ -505,7 +505,7 @@ def main():
     DATA.mkdir(parents=True, exist_ok=True)
 
     (DATA / model.REGISTRY_FILE).write_text(
-        json.dumps(reg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        json.dumps(reg, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
 
     for e in reg["elements"]:
         elem = next(x for x in model.ELEMENTS if x["id"] == e["id"])
