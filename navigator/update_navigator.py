@@ -185,6 +185,9 @@ def main():
         "obsidian://open?vault=Obsidian&file=00_SYSTEM%2FNAVIGATOR_SUPPORT%2F"
         "CURRENT%2FCOMPONENTS%2FNAVIGATOR_NINE_VERBS_BENEFIT_ROUTE_v1.0.html",
         model.VERBS_FILE)
+    # promoted extraction gets the matching internal version label
+    op = op.replace("Form / Flow / Evolve v4.5", "Form / Flow / Evolve v4.6")
+    op = op.replace('data-surface-version="4.5"', 'data-surface-version="4.6"')
     (comp_dir / "NAVIGATOR_OPERATING_SURFACE_v4.6.html").write_text(op, encoding="utf-8")
     (comp_dir / "NAVIGATOR_WAVE_RUNNER_v0.3.html").write_text(frames["wave"], encoding="utf-8")
     # delivery frame content intentionally dropped: superseded by the
