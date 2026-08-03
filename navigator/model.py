@@ -544,6 +544,18 @@ def ev_resolve(registry, mapping):
 import re as _re_mod
 
 POST_D007_REPLACEMENTS = [
+    ("Overall Navigator acceptance remains conditional because authoritative Odoo Work Object identity/native Service-Method relationships are unresolved, and the inactive one-shot bridge used unauthenticated ingress so reusable Pattern qualification remains held.",
+     "The authoritative Odoo Work Object identity and native Service-Method relationships are resolved (executed, receipted D007 correction); Navigator acceptance remains conditional only on Steward review, and the inactive one-shot bridge used unauthenticated ingress so reusable Pattern qualification remains held."),
+    ("Final acceptance now depends on the bounded Odoo correction, link usability confirmation and the remaining explicit Pattern HOLD.",
+     "The bounded Odoo correction is executed and link usability confirmed; final acceptance depends on Steward review, with the explicit Pattern HOLD retained."),
+    ("The remaining critical condition is the authoritative Odoo Work Object and native Project/Service/Method correction; the bridge remains ineligible",
+     "The authoritative Odoo Work Object and native Project/Service/Method correction is executed and receipted; the bridge remains ineligible"),
+    ("Replay final integrated acceptance only after the bounded Odoo correction and the Steward link click-through. Do not rerun Stream A.",
+     "The bounded Odoo correction is executed and link-tested; replay final integrated acceptance read-only from filed inputs. Do not rerun Stream A."),
+    ("Odoo identity correction is priority 1; link click-through is priority 2.",
+     "Odoo identity correction is executed and receipted; Steward cold-start acceptance is the active priority."),
+    ("<dt>Gap</dt><dd>Current `WO-NAVIGATOR-...-001` is not registered as operational truth.</dd>",
+     "<dt>State</dt><dd>Current `WO-NAVIGATOR-...-001` is registered as operational truth (x_ss_work_object_register id 2, receipted).</dd>"),
     ("Execute the prepared bounded Odoo identity/native relationship correction and retain bridge Pattern qualification on HOLD.",
      "The bounded Odoo identity/native relationship correction is executed and receipted; bridge Pattern qualification remains on HOLD."),
     ("Odoo contains only the earlier completed pilot Work Object and lacks the current object identity.",
@@ -606,6 +618,11 @@ def reconcile_post_d007(text):
     return text
 
 STALE_PROJECTION_MARKERS = [
+    "acceptance remains conditional because authoritative",
+    "now depends on the bounded Odoo correction",
+    "remaining critical condition is the authoritative Odoo",
+    "only after the bounded Odoo correction",
+    "Odoo identity correction is priority 1",
     "Execute the prepared bounded", "lacks the current object identity",
     "is not registered as operational truth",
     "remain explicit conditions", "Odoo execution until explicit",
