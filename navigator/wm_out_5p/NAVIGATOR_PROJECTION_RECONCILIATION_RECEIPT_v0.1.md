@@ -38,16 +38,23 @@ Work Object exists to eliminate.
 4. Permanent regression test 36 scans every deployed html/json/js/md
    surface for the stale-marker list on every harness run.
 
-## Files corrected and redeployed (returned-hash == local-hash, byte-exact)
+## Convergence
 
-- SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html — 45,585 B —
-  d0b9bec175857333bd921dd2e958b24c3b5394422db02c2eb1b36661a864de44
-- COMPONENTS/NAVIGATOR_PARALLEL_DELIVERY_CONTROL_v1.1.html — 34,056 B —
-  f57df2e01135d7e095814e43a1cee29013eff9919a51fd9b876a9630e5367baf
-- DATA/NAVIGATOR_DELIVERY_STATE.json — 16,615 B —
-  d5924b40106a8bfa65a08f71a231ebea14915d8909ecc0878e11efb17e225c1e
-- DATA/NAVIGATOR_DELIVERY_STATE.js — 15,618 B —
-  0ec2065f430c4a8691859d2179edb4e307a0b61d77732aabc5a5297f73de5b48
+The reconciliation ran to a fixed point over three passes: each pass's
+fresh SharePoint readback scan fed newly discovered stale phrasings back
+into the shared replacement table and marker list (final marker count 23 +
+semantic scan), until a readback found zero not-yet-executed framings.
+
+## Files corrected and redeployed (final; returned-hash == local-hash, byte-exact)
+
+- SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html — 45,742 B —
+  e23893fd4fce26ce1fbaf63be0a6506a384aaaff629e0046a0682b174b6d59b1
+- COMPONENTS/NAVIGATOR_PARALLEL_DELIVERY_CONTROL_v1.1.html — 34,286 B —
+  c74b0d60aeac1643ca3c6bf1651fc160196f8b9b905f62ed5fb89528cb12167b
+- DATA/NAVIGATOR_DELIVERY_STATE.json — 16,608 B —
+  afc8952b62b1c158df1a765248a57002f5181fcd9ba06a1ba2f22a9ecc5b83ed
+- DATA/NAVIGATOR_DELIVERY_STATE.js — 15,611 B —
+  f35bece8797c18188046940317e68a191d5ffb207386b451669793fd52692680
 - DATA/NAVIGATOR_PRIORITY_MODEL.json — 2,821 B —
   907530bca1be915b837f0247e277aac5fbd87ae7e4b13c814e64a2502a918382
 - DATA/NAVIGATOR_PARALLEL_STREAMS.json — 8,623 B —
