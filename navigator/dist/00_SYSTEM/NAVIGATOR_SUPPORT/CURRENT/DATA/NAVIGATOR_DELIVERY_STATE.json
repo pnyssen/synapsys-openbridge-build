@@ -306,7 +306,7 @@
   {
    "check": "Critical path displaced by UI work",
    "state": "GREEN",
-   "detail": "Stream A is closed. The active critical path is the prepared Odoo identity/native relationship correction; link usability is a bounded verification alongside it."
+   "detail": "Stream A is closed. The Odoo identity/native relationship correction is executed and receipted; the active critical path is Steward cold-start acceptance."
   },
   {
    "check": "Thread-only state",

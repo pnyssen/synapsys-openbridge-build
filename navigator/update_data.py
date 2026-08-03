@@ -53,6 +53,12 @@ def apply_stream_c(stream):
     stream.update(STREAM_C)
 
 
+def emit(path, obj):
+    text = json.dumps(obj, indent=1, ensure_ascii=False) + "\n"
+    text = model.reconcile_post_d007(text)
+    path.write_text(text, encoding="utf-8")
+
+
 def coherence_check(paths):
     bad = []
     for p in paths:
@@ -118,8 +124,7 @@ def main():
     p["priorities"] = PRIORITIES
     if "one_next_action" in p:
         p["one_next_action"] = ONE_NEXT_ACTION
-    (DST / "NAVIGATOR_PRIORITY_MODEL.json").write_text(
-        json.dumps(p, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    emit(DST / "NAVIGATOR_PRIORITY_MODEL.json", p)
 
     d = json.loads((SRC / "NAVIGATOR_DELIVERY_STATE.json").read_text(encoding="utf-8"))
     d["snapshot_at"] = SNAP
@@ -150,8 +155,7 @@ def main():
     sl["critical_path"] = ("D007 correction executed and receipted. Remaining path: Steward cold-start "
                            "acceptance of the deployed Navigator; Stream A stays closed, no rerun.")
     d["one_next_action"] = ONE_NEXT_ACTION
-    (DST / "NAVIGATOR_DELIVERY_STATE.json").write_text(
-        json.dumps(d, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    emit(DST / "NAVIGATOR_DELIVERY_STATE.json", d)
 
     b = json.loads((SRC / "NAVIGATOR_BENEFIT_REALISATION.json").read_text(encoding="utf-8"))
     b["snapshot_at"] = SNAP
@@ -159,8 +163,7 @@ def main():
         if o not in b["technical_outcomes_observed"]:
             b["technical_outcomes_observed"].append(o)
     b["material_steward_benefits_realised"] = []
-    (DST / "NAVIGATOR_BENEFIT_REALISATION.json").write_text(
-        json.dumps(b, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    emit(DST / "NAVIGATOR_BENEFIT_REALISATION.json", b)
 
     s = json.loads((SRC / "NAVIGATOR_PARALLEL_STREAMS.json").read_text(encoding="utf-8"))
     s["snapshot_at"] = SNAP
@@ -171,8 +174,7 @@ def main():
             st["next_action"] = STREAM_E_NEXT
         if st["id"] == "STREAM-C":
             apply_stream_c(st)
-    (DST / "NAVIGATOR_PARALLEL_STREAMS.json").write_text(
-        json.dumps(s, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    emit(DST / "NAVIGATOR_PARALLEL_STREAMS.json", s)
     coherence_check([DST / n for n in [
         "NAVIGATOR_PRIORITY_MODEL.json", "NAVIGATOR_DELIVERY_STATE.json",
         "NAVIGATOR_BENEFIT_REALISATION.json", "NAVIGATOR_PARALLEL_STREAMS.json"]])
