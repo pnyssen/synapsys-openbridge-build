@@ -1,0 +1,480 @@
+{
+ "baseline": {
+  "elements_9_9": 9,
+  "returns_9_9": 4,
+  "canvas_9_9": 9
+ },
+ "candidate": {
+  "elements_9_9": 9,
+  "returns_9_9": 9,
+  "canvas_9_9": 9
+ },
+ "passes": [
+  {
+   "check": "[baseline/desktop] three primary actions operate",
+   "detail": "3/3"
+  },
+  {
+   "check": "[baseline/desktop] no browser script/component errors",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/mobile] no horizontal overflow",
+   "detail": "overflow=0px"
+  },
+  {
+   "check": "[baseline/mobile] five priority titles present",
+   "detail": "n=5"
+  },
+  {
+   "check": "[baseline/mobile] three primary actions operate",
+   "detail": "3/3"
+  },
+  {
+   "check": "[baseline/mobile] no browser script/component errors",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Mesh & Control Gates",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Benefits & Assets",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Current Work Object & Queue",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Context & Membrane",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Agent & Runtime Routing",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Service Catalogue",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Service Catalogue",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Canonical Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Canonical Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Asset & Pattern Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Asset & Pattern Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page renders: Method Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Method Library",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_SERVICE_CATALOGUE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_CANONICAL_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_ASSET_PATTERN_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_METHOD_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_MESH_CONTROL_GATES_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_BENEFITS_ASSETS_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_CURRENT_WORK_OBJECT_QUEUE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_CONTEXT_MEMBRANE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] canvas route renders: CANVAS_VIEW_AGENT_RUNTIME_ROUTING_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] no v1.0/v0.2 element route",
+   "detail": "found=[]"
+  },
+  {
+   "check": "[candidate/desktop] cold-start no auto-scroll (C1)",
+   "detail": "scrollY=0"
+  },
+  {
+   "check": "[candidate/desktop] persistent identity header present and visible (C3)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] identity header contains 'Steward / D001'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] identity header contains 'CTX-SS'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] identity header contains 'WO-NAVIGATOR-MVP'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] identity header contains 'Potential'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] identity header contains 'HELD'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] role-boundary disclosure present (C4)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] disclosure states external access unavailable",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] single 'Current next action' visible on load (C5)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/desktop] no competing 'Next action' field label remains",
+   "detail": "count=0"
+  },
+  {
+   "check": "[candidate/desktop] three primary actions operate",
+   "detail": "3/3"
+  },
+  {
+   "check": "[candidate/desktop] no browser script/component errors",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] cold-start no auto-scroll (C1)",
+   "detail": "scrollY=0"
+  },
+  {
+   "check": "[candidate/mobile] hero single-column layout (C2)",
+   "detail": "grid-template-columns='354px' (1 tracks)"
+  },
+  {
+   "check": "[candidate/mobile] no horizontal overflow",
+   "detail": "overflow=0px"
+  },
+  {
+   "check": "[candidate/mobile] five priority titles present",
+   "detail": "n=5"
+  },
+  {
+   "check": "[candidate/mobile] no priority title clipped/truncated",
+   "detail": "clipped=0/5"
+  },
+  {
+   "check": "[candidate/mobile] persistent identity header present and visible (C3)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] identity header contains 'Steward / D001'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] identity header contains 'CTX-SS'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] identity header contains 'WO-NAVIGATOR-MVP'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] identity header contains 'Potential'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] identity header contains 'HELD'",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] role-boundary disclosure present (C4)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] disclosure states external access unavailable",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] single 'Current next action' visible on load (C5)",
+   "detail": ""
+  },
+  {
+   "check": "[candidate/mobile] no competing 'Next action' field label remains",
+   "detail": "count=0"
+  },
+  {
+   "check": "[candidate/mobile] three primary actions operate",
+   "detail": "3/3"
+  },
+  {
+   "check": "[candidate/mobile] no browser script/component errors",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Mesh & Control Gates",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Mesh & Control Gates",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Benefits & Assets",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Benefits & Assets",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Current Work Object & Queue",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Current Work Object & Queue",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Context & Membrane",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Context & Membrane",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Agent & Runtime Routing",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Agent & Runtime Routing",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Service Catalogue",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Service Catalogue",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Canonical Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Canonical Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Asset & Pattern Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Asset & Pattern Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page renders: Method Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] element page has direct Navigator return: Method Library",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_SERVICE_CATALOGUE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_CANONICAL_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_ASSET_PATTERN_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_METHOD_LIBRARY_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_MESH_CONTROL_GATES_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_BENEFITS_ASSETS_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_CURRENT_WORK_OBJECT_QUEUE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_CONTEXT_MEMBRANE_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] canvas route renders: CANVAS_VIEW_AGENT_RUNTIME_ROUTING_v1.0.html",
+   "detail": ""
+  },
+  {
+   "check": "[candidate] no v1.0/v0.2 element route",
+   "detail": "found=[]"
+  },
+  {
+   "check": "[role/membrane] role_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] context_membrane_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] operating_plane_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] work_object_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] ppv_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] authority_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] source_freshness_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] stop_hold_visible",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] internal_routes_bounded",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] external_fail_closed",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] no_live_acl_claim",
+   "detail": ""
+  },
+  {
+   "check": "[role/membrane] no_permission_grant_implied",
+   "detail": ""
+  }
+ ],
+ "failures": [
+  {
+   "check": "[baseline/desktop] cold-start no auto-scroll (C1)",
+   "detail": "scrollY=1546"
+  },
+  {
+   "check": "[baseline/desktop] persistent identity header present and visible (C3)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/desktop] role-boundary disclosure present (C4)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/desktop] single 'Current next action' visible on load (C5)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/desktop] no competing 'Next action' field label remains",
+   "detail": "count=1"
+  },
+  {
+   "check": "[baseline/mobile] cold-start no auto-scroll (C1)",
+   "detail": "scrollY=4691"
+  },
+  {
+   "check": "[baseline/mobile] hero single-column layout (C2)",
+   "detail": "grid-template-columns='94.5156px 134.438px 105.047px' (3 tracks)"
+  },
+  {
+   "check": "[baseline/mobile] no priority title clipped/truncated",
+   "detail": "clipped=5/5"
+  },
+  {
+   "check": "[baseline/mobile] persistent identity header present and visible (C3)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/mobile] role-boundary disclosure present (C4)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/mobile] single 'Current next action' visible on load (C5)",
+   "detail": ""
+  },
+  {
+   "check": "[baseline/mobile] no competing 'Next action' field label remains",
+   "detail": "count=1"
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Mesh & Control Gates",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Benefits & Assets",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Current Work Object & Queue",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Context & Membrane",
+   "detail": ""
+  },
+  {
+   "check": "[baseline] element page has direct Navigator return: Agent & Runtime Routing",
+   "detail": ""
+  }
+ ]
+}

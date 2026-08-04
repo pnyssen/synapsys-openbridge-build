@@ -137,8 +137,10 @@ def run_suite(page_ctx_factory, base, label, shot_prefix, screenshots=True):
         cna = page.locator("#r1c5-current-next-action")
         rec(cna.count() == 1 and cna.is_visible(),
             f"[{label}/{vp_name}] single 'Current next action' visible on load (C5)")
-        competing = page.locator("text=Next action").count()
-        rec(competing == 0, f"[{label}/{vp_name}] no competing 'Next action' label remains",
+        # scope to actual field LABELS (bold headers), not prose mentions of
+        # the phrase elsewhere (e.g. MM3CCC descriptor text, Stream A status)
+        competing = page.locator("b:text-is('Next action')").count()
+        rec(competing == 0, f"[{label}/{vp_name}] no competing 'Next action' field label remains",
             f"count={competing}")
 
         # three primary actions

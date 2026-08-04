@@ -67,20 +67,40 @@ def build_navigator():
               "+ timeout) defeats any native/async scroll-restoration; deep links "
               "with an explicit hash still route+anchor-scroll as before")
 
-    # C2 — mobile priority/element layout: the @media(max-width:1400px) hero
-    # 3-column rule sits AFTER the @media(max-width:820px) 1-column rule in
-    # source order, so at mobile widths (< 820px, which also matches
-    # < 1400px) the later, wider-range rule wins the cascade and reintroduces
-    # the 3-column layout. Fix: scope the 1400px rule to min-width:821px so
-    # it only applies in the tablet/small-desktop band it was meant for,
-    # without touching its intended behaviour there.
+    # C2 — mobile priority/element layout, two independent sub-defects found:
+    #
+    # C2a: the @media(max-width:1400px) hero 3-column rule sits AFTER the
+    # @media(max-width:820px) 1-column rule in source order, so at mobile
+    # widths (< 820px, which also matches < 1400px) the later, wider-range
+    # rule wins the cascade and reintroduces the 3-column layout. Fix: scope
+    # the 1400px rule to min-width:821px so it only applies in the tablet/
+    # small-desktop band it was meant for.
     old_hero_1400 = "@media(max-width:1400px){.hero{grid-template-columns:.9fr 1.28fr 1fr}.priority-copy b{font-size:12px}}"
-    assert old_hero_1400 in t, "C2: expected 1400px hero rule not found"
+    assert old_hero_1400 in t, "C2a: expected 1400px hero rule not found"
     new_hero_1400 = "@media(min-width:821px) and (max-width:1400px){.hero{grid-template-columns:.9fr 1.28fr 1fr}.priority-copy b{font-size:12px}}"
     t = t.replace(old_hero_1400, new_hero_1400)
-    note("C2", "mobile layout: scoped the .hero 3-column @media(max-width:1400px) "
-              "rule to min-width:821px so it can no longer win the cascade below "
-              "the 820px single-column breakpoint; no other rule touched")
+    note("C2a", "mobile layout: scoped the .hero 3-column @media(max-width:1400px) "
+               "rule to min-width:821px so it can no longer win the cascade below "
+               "the 820px single-column breakpoint; no other rule touched")
+
+    # C2b: independent of column count, .priority-copy b forces
+    # white-space:nowrap + text-overflow:ellipsis UNCONDITIONALLY (not
+    # inside any @media block), so even after C2a restores one column, long
+    # priority titles are still single-line-truncated at mobile widths.
+    # Fix: inside the same 820px mobile block, override to allow wrapping.
+    old_820 = ("@media(max-width:820px){.hero,.grid2,.grid3,.grid4,.integrity-grid,"
+              ".system-grid{grid-template-columns:1fr}.gate-grid{grid-template-columns:"
+              "repeat(2,1fr)}.mesh-route{grid-template-columns:repeat(3,1fr)}"
+              ".verb-links{grid-template-columns:1fr}.iframe{height:900px}"
+              ".waveframe{height:1450px}.title{font-size:25px}}")
+    assert old_820 in t, "C2b: expected 820px mobile block not found"
+    new_820 = old_820[:-1] + (".priority-copy b{white-space:normal;overflow:visible;"
+                              "text-overflow:clip}}")
+    t = t.replace(old_820, new_820)
+    note("C2b", "mobile layout: overrode the unconditional "
+               ".priority-copy b{white-space:nowrap;text-overflow:ellipsis} rule "
+               "inside the existing 820px mobile block so priority titles wrap "
+               "instead of truncating with an ellipsis")
 
     # C3 — persistent operating identity header. Static (no live ACL
     # simulation), sourced from the same values already shown elsewhere on
