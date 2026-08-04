@@ -386,3 +386,24 @@ Verdict, evidence, authority, reality and STOP/HOLD statements above are
 unaffected by this addendum: the candidate was built, tested and evidenced
 in full; only the final binary-packaging step could not be transmitted
 through this lane's SharePoint write tool.
+
+## ADDENDUM 2 — one raw diff file not filed to Working Memory (all others 16/16 filed)
+
+`EVIDENCE/diffs/NAVIGATOR_L1_L2_L3_ROUTE_REGISTRY.json.diff` (162,628
+bytes — two single-line unified-diff hunks, since the registry is
+minified single-line JSON) could not be transmitted through `sp_write` in
+this session: its content exceeds the per-turn output-generation limit
+even when reconstructed and dumped directly, independent of any chunking
+strategy tried. It was independently reconstructed locally and verified
+byte-identical to the copy inside the ZIP (`cmp` clean; SHA-256
+`576cec75b2c9c024eada179df753e7ebe89b142b4d4786c4c72a2446de6fedf4`,
+162,628 bytes, matches `MANIFEST_SHA256.csv` exactly) — its correctness is
+established, only its transmission through this text-input tool failed.
+
+This file carries no information not already available: it is fully
+superseded by `EVIDENCE/diffs/NAVIGATOR_L1_L2_L3_ROUTE_REGISTRY_FIELD_DIFF.txt`
+(filed, human-readable, lists the exact 9 changed fields), and it is
+present byte-exact inside the ZIP already delivered directly to the
+Steward. All other 16 of 17 ZIP-content text files are filed and
+returned-hash-verified in Working Memory at
+`ZIP_CONTENTS_TEXT_FILES/` under this same destination folder.
