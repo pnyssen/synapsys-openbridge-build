@@ -1,0 +1,32 @@
+Field-level diff: NAVIGATOR_L1_L2_L3_ROUTE_REGISTRY.json (source -> candidate)
+
+elements[E1].routes.html:
+  - COMPONENTS/ELEMENT_SERVICE_CATALOGUE_v1.2.html
+  + COMPONENTS/ELEMENT_SERVICE_CATALOGUE_v1.3.html
+elements[E2].routes.html:
+  - COMPONENTS/ELEMENT_CANONICAL_LIBRARY_v1.2.html
+  + COMPONENTS/ELEMENT_CANONICAL_LIBRARY_v1.3.html
+elements[E3].routes.html:
+  - COMPONENTS/ELEMENT_ASSET_PATTERN_LIBRARY_v1.2.html
+  + COMPONENTS/ELEMENT_ASSET_PATTERN_LIBRARY_v1.3.html
+elements[E4].routes.html:
+  - COMPONENTS/ELEMENT_METHOD_LIBRARY_v1.2.html
+  + COMPONENTS/ELEMENT_METHOD_LIBRARY_v1.3.html
+elements[E5].routes.html:
+  - COMPONENTS/ELEMENT_MESH_CONTROL_GATES_v1.2.html
+  + COMPONENTS/ELEMENT_MESH_CONTROL_GATES_v1.3.html
+elements[E6].routes.html:
+  - COMPONENTS/ELEMENT_BENEFITS_ASSETS_v1.2.html
+  + COMPONENTS/ELEMENT_BENEFITS_ASSETS_v1.3.html
+elements[E7].routes.html:
+  - COMPONENTS/ELEMENT_CURRENT_WORK_OBJECT_QUEUE_v1.2.html
+  + COMPONENTS/ELEMENT_CURRENT_WORK_OBJECT_QUEUE_v1.3.html
+elements[E8].routes.html:
+  - COMPONENTS/ELEMENT_CONTEXT_MEMBRANE_v1.2.html
+  + COMPONENTS/ELEMENT_CONTEXT_MEMBRANE_v1.3.html
+elements[E9].routes.html:
+  - COMPONENTS/ELEMENT_AGENT_RUNTIME_ROUTING_v1.2.html
+  + COMPONENTS/ELEMENT_AGENT_RUNTIME_ROUTING_v1.3.html
+
+Total fields changed: 9
+No other field in the registry changed (verified: full dict equality after reverting the 9 routes.html fields).
