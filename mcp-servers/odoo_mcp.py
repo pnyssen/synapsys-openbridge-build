@@ -750,6 +750,10 @@ def _configure_http_kwargs() -> dict:
         )
         sys.exit(1)
 
+    sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
+    from _oauth_debug_middleware import OAuthErrorLoggingMiddleware  # noqa: E402
+    from starlette.middleware import Middleware  # noqa: E402
+
     return {
         "transport": http_transport,
         "host": host,
@@ -757,6 +761,7 @@ def _configure_http_kwargs() -> dict:
         "allowed_hosts": allowed_hosts,
         "allowed_origins": allowed_origins,
         "host_origin_protection": "auto",
+        "middleware": [Middleware(OAuthErrorLoggingMiddleware)],
     }
 
 
