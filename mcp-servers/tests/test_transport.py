@@ -395,18 +395,80 @@ def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
     assert ENTRA_VARS["OAUTH_CLIENT_ID"] in verifier.audience
 
 
-def test_azure_auth_disables_cimd(monkeypatch):
-    """CIMD (enabled by default in FastMCP's OAuthProxy/AzureProvider) makes
-    the server advertise `private_key_jwt` as a supported token_endpoint_auth
-    method for URL-based client IDs. ChatGPT's connector uses a CIMD
-    client_id and prefers private_key_jwt when offered, but its token
-    exchange is rejected with HTTP 401 at callback — confirmed against this
-    deployment (D007 N8N MCP ChatGPT OAuth compatibility repair request,
-    2026-08-07). Plain DCR stays enabled regardless of this flag and already
-    works (Codex's connector uses it), so disabling CIMD removes the
-    private_key_jwt offer without touching the working DCR path."""
+def test_azure_auth_keeps_cimd_enabled(monkeypatch):
+    """CIMD must stay on (FastMCP's default) — ChatGPT's connector always
+    presents a URL-based CIMD client_id at /authorize and has no fallback to
+    plain DCR (/register) when CIMD is unsupported. Disabling it was tried
+    and confirmed live against the deployed server on 2026-08-07 to break
+    ChatGPT's connector entirely ("Client Not Registered" at /authorize,
+    never reaching consent) rather than fix it — see the comment in
+    build_combined_auth(). This test guards against that regression
+    reappearing."""
     for name, value in ENTRA_VARS.items():
         monkeypatch.setenv(name, value)
 
     auth = _azure_auth.build_combined_auth("shared-token")
-    assert auth.server._cimd_manager is None
+    assert auth.server._cimd_manager is not None
+
+
+# ---------------------------------------------------------------------------
+# _oauth_debug_middleware.py — logs OAuth error response bodies server-side
+# ---------------------------------------------------------------------------
+
+from starlette.applications import Starlette  # noqa: E402
+from starlette.middleware import Middleware  # noqa: E402
+from starlette.responses import JSONResponse  # noqa: E402
+from starlette.routing import Route  # noqa: E402
+from starlette.testclient import TestClient  # noqa: E402
+
+from _oauth_debug_middleware import OAuthErrorLoggingMiddleware  # noqa: E402
+
+
+def _build_debug_app(path: str, status_code: int, body: dict):
+    async def endpoint(request):
+        return JSONResponse(body, status_code=status_code)
+
+    return Starlette(
+        routes=[Route(path, endpoint, methods=["GET", "POST"])],
+        middleware=[Middleware(OAuthErrorLoggingMiddleware)],
+    )
+
+
+def test_oauth_debug_middleware_logs_error_body_and_passes_it_through(caplog):
+    app = _build_debug_app(
+        "/token", 401, {"error": "unauthorized_client", "error_description": "boom"}
+    )
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 401
+    assert response.json() == {
+        "error": "unauthorized_client",
+        "error_description": "boom",
+    }
+    assert any("unauthorized_client" in r.message for r in caplog.records)
+    assert any("boom" in r.message for r in caplog.records)
+
+
+def test_oauth_debug_middleware_ignores_success_responses(caplog):
+    app = _build_debug_app("/token", 200, {"access_token": "shh"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 200
+    assert not caplog.records
+
+
+def test_oauth_debug_middleware_ignores_unrelated_paths(caplog):
+    app = _build_debug_app("/mcp", 401, {"error": "unauthorized"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/mcp")
+
+    assert response.status_code == 401
+    assert not caplog.records

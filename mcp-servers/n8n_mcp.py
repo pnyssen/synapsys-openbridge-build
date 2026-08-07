@@ -711,6 +711,8 @@ def _configure_http_kwargs() -> dict:
     sys.path.insert(0, str(Path(__file__).parent))
     from _bearer_auth import load_required_token  # noqa: E402
     from _azure_auth import build_combined_auth  # noqa: E402
+    from _oauth_debug_middleware import OAuthErrorLoggingMiddleware  # noqa: E402
+    from starlette.middleware import Middleware  # noqa: E402
 
     auth_token = load_required_token()
     mcp.auth = build_combined_auth(auth_token)
@@ -752,6 +754,7 @@ def _configure_http_kwargs() -> dict:
         "allowed_hosts": allowed_hosts,
         "allowed_origins": allowed_origins,
         "host_origin_protection": "auto",
+        "middleware": [Middleware(OAuthErrorLoggingMiddleware)],
     }
 
 

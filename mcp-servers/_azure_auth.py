@@ -79,21 +79,18 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
         required_scopes=[scope],
         identifier_uri=entra["MCP_API_AUDIENCE"],
         base_url=entra["MCP_PUBLIC_URL"],
-        # CIMD (Client ID Metadata Document — FastMCP's OAuthProxy defaults this
-        # on) lets a client hand over a URL-based client_id instead of using
-        # /register, and advertises `private_key_jwt` alongside `none` as
-        # supported token_endpoint_auth_methods for those clients. ChatGPT's
-        # connector uses a CIMD client_id and prefers private_key_jwt when the
-        # server advertises it, but its token-exchange assertion is rejected
-        # (HTTP 401 at callback) — observed directly against this deployment,
-        # not a hypothesis. Plain DCR (`/register`) stays enabled unconditionally
-        # in OAuthProxy regardless of this flag, and every DCR-registered client
-        # is always given token_endpoint_auth_method="none" server-side
-        # (fastmcp/server/auth/oauth_proxy/proxy.py, register_client()) — the
-        # same path Codex's connector already uses successfully. Disabling CIMD
-        # removes the private_key_jwt offer entirely and pushes every client,
-        # ChatGPT included, onto that already-working DCR+none path.
-        enable_cimd=False,
+        # CIMD MUST stay enabled (its 3.4.x default) — do not set
+        # enable_cimd=False here again. ChatGPT's connector always presents a
+        # URL-based CIMD client_id (https://chatgpt.com/oauth/<id>/client.json)
+        # at /authorize; it has no fallback to plain DCR (/register) when CIMD
+        # is unsupported. Disabling CIMD was tried and confirmed live against
+        # this deployment 2026-08-07 to make ChatGPT's connector *worse*, not
+        # better: instead of reaching /token and failing there (the original
+        # symptom), it fails immediately at /authorize with "Client Not
+        # Registered" and never reaches consent at all — see
+        # mcp-servers/_oauth_debug_middleware.py for the actual next
+        # diagnostic step (logging the real OAuth error body server-side,
+        # which the SDK otherwise only returns to the client, never logs).
     )
 
     # AzureProvider assumes one app plays both roles (OAuth client AND
