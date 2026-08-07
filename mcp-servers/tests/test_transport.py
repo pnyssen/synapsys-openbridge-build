@@ -472,3 +472,34 @@ def test_oauth_debug_middleware_ignores_unrelated_paths(caplog):
 
     assert response.status_code == 401
     assert not caplog.records
+
+
+def test_azure_auth_fixes_cimd_private_key_jwt_audience_double_slash():
+    """FastMCP 3.4.x builds the CIMD private_key_jwt JWT audience as
+    f"{self.base_url}/token" without stripping self.base_url's trailing
+    slash (pydantic AnyHttpUrl always serializes a bare-domain URL with
+    one), producing a double-slash "expected" audience that a correctly-
+    formed client assertion's single-slash aud claim never matches —
+    confirmed live against the deployed server 2026-08-07: every
+    private_key_jwt CIMD client (ChatGPT's connector) was rejected with
+    HTTP 401 invalid_client / "audience mismatch" purely because of this
+    double slash, through no fault of the client. This guards the
+    monkeypatch that fixes it at the one call site FastMCP builds it from."""
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+
+    authenticator = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud//token",
+    )
+    assert authenticator._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+    # A URL that never had the bug must pass through unchanged.
+    authenticator2 = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud/token",
+    )
+    assert authenticator2._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
