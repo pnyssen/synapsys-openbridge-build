@@ -283,3 +283,21 @@ never actually resolved by either the connector/credential work or that
 correction is the approval-gate persistence problem fixed just above —
 recorded here so the lineage of what was wrong, and when it was fixed, stays
 legible rather than silently overwritten.
+
+# Environment Network Egress Note
+
+This session's outbound proxy allowlist is fixed at environment/session
+creation — not live-editable mid-session. An admin approved adding
+`www.youtube.com` (and likely `*.googlevideo.com`, for caption/media file
+delivery) to the allowlist (2026-08-07), but this only takes effect in
+environments/sessions created after the change.
+
+If a task needs either domain and `WebFetch`/`curl` returns
+`EGRESS_BLOCKED` or a proxy `403`, don't assume the domain is permanently
+blocked — check whether the current session predates the policy change (a
+fresh session may be needed) before concluding the capability is
+unavailable. Verify directly (`curl -sS "$HTTPS_PROXY/__agentproxy/status"`
+and a real fetch attempt) rather than trusting either "it's blocked" or
+"it's allowlisted now" as a given — confirmed 2026-08-07 that a running
+session can still show the pre-change blocked state after the admin
+approval, so neither assumption is safe without a direct check.
