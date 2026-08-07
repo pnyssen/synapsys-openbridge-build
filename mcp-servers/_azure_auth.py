@@ -51,6 +51,47 @@ def _entra_env() -> dict[str, str] | None:
     return values
 
 
+def _fix_cimd_private_key_jwt_audience_bug() -> None:
+    """Patch a FastMCP 3.4.4/3.4.5 bug in the CIMD private_key_jwt token
+    endpoint: it builds the JWT audience it validates against as
+    f"{self.base_url}/token" (oauth_proxy/proxy.py:2061) without stripping
+    self.base_url's trailing slash — and self.base_url is a pydantic
+    AnyHttpUrl, which always serializes a bare-domain URL WITH a trailing
+    slash (confirmed directly: this deployment's own
+    /.well-known/oauth-authorization-server advertises
+    "issuer": ".../hstgr.cloud/"). The result is a double slash
+    (".../hstgr.cloud//token") that the server then requires as the JWT
+    `aud` claim — but the client (correctly) sets `aud` to the
+    single-slash token_endpoint actually advertised in that same metadata
+    document, so every private_key_jwt CIMD client (confirmed: ChatGPT's
+    connector) is rejected with HTTP 401 invalid_client / "audience
+    mismatch", through no fault of its own. Reproduced directly against
+    this deployment 2026-08-07 (server log: "Bearer token rejected...
+    audience mismatch (got '.../token', expected '..//token')").
+
+    Patches PrivateKeyJWTClientAuthenticator.__init__ to collapse that one
+    specific double slash before it's stored, at the one call site FastMCP
+    builds it from — without editing the vendored package (which a
+    `pip install --upgrade fastmcp` would silently discard). Safe to call
+    even when CIMD/private_key_jwt is never exercised (bearer-only or
+    Entra-without-CIMD deployments): the patched class is simply never
+    instantiated in that case.
+    """
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    if getattr(PrivateKeyJWTClientAuthenticator, "_synapsys_audience_fix", False):
+        return  # already patched (e.g. odoo_mcp.py and n8n_mcp.py both call this)
+
+    original_init = PrivateKeyJWTClientAuthenticator.__init__
+
+    def patched_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw):
+        token_endpoint_url = token_endpoint_url.replace("//token", "/token")
+        original_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw)
+
+    PrivateKeyJWTClientAuthenticator.__init__ = patched_init
+    PrivateKeyJWTClientAuthenticator._synapsys_audience_fix = True
+
+
 def build_combined_auth(mcp_auth_token: str) -> Any:
     """Return the `auth=` value for `FastMCP(...)` / `mcp.auth = ...`.
 
@@ -69,6 +110,8 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
 
     from fastmcp.server.auth.auth import MultiAuth
     from fastmcp.server.auth.providers.azure import AzureProvider
+
+    _fix_cimd_private_key_jwt_audience_bug()
 
     scope = os.environ.get("MCP_OAUTH_SCOPE", "mcp.access")
 
