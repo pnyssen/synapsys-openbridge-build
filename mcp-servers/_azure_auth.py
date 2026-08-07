@@ -79,6 +79,21 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
         required_scopes=[scope],
         identifier_uri=entra["MCP_API_AUDIENCE"],
         base_url=entra["MCP_PUBLIC_URL"],
+        # CIMD (Client ID Metadata Document — FastMCP's OAuthProxy defaults this
+        # on) lets a client hand over a URL-based client_id instead of using
+        # /register, and advertises `private_key_jwt` alongside `none` as
+        # supported token_endpoint_auth_methods for those clients. ChatGPT's
+        # connector uses a CIMD client_id and prefers private_key_jwt when the
+        # server advertises it, but its token-exchange assertion is rejected
+        # (HTTP 401 at callback) — observed directly against this deployment,
+        # not a hypothesis. Plain DCR (`/register`) stays enabled unconditionally
+        # in OAuthProxy regardless of this flag, and every DCR-registered client
+        # is always given token_endpoint_auth_method="none" server-side
+        # (fastmcp/server/auth/oauth_proxy/proxy.py, register_client()) — the
+        # same path Codex's connector already uses successfully. Disabling CIMD
+        # removes the private_key_jwt offer entirely and pushes every client,
+        # ChatGPT included, onto that already-working DCR+none path.
+        enable_cimd=False,
     )
 
     # AzureProvider assumes one app plays both roles (OAuth client AND
