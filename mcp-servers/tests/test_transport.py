@@ -393,3 +393,20 @@ def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
     assert bare_guid in verifier.audience
     assert ENTRA_VARS["MCP_API_AUDIENCE"] in verifier.audience
     assert ENTRA_VARS["OAUTH_CLIENT_ID"] in verifier.audience
+
+
+def test_azure_auth_disables_cimd(monkeypatch):
+    """CIMD (enabled by default in FastMCP's OAuthProxy/AzureProvider) makes
+    the server advertise `private_key_jwt` as a supported token_endpoint_auth
+    method for URL-based client IDs. ChatGPT's connector uses a CIMD
+    client_id and prefers private_key_jwt when offered, but its token
+    exchange is rejected with HTTP 401 at callback — confirmed against this
+    deployment (D007 N8N MCP ChatGPT OAuth compatibility repair request,
+    2026-08-07). Plain DCR stays enabled regardless of this flag and already
+    works (Codex's connector uses it), so disabling CIMD removes the
+    private_key_jwt offer without touching the working DCR path."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.server._cimd_manager is None
