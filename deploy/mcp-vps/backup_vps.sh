@@ -1,34 +1,83 @@
 #!/usr/bin/env bash
 # Back up the state this VPS's odoo-mcp / n8n-mcp deployment can't easily
 # recreate from git: the OAuth session-state Docker volumes and (if N8N_URL /
-# N8N_API_TOKEN are set) a workflow export. Addresses the gap named in the
-# Hostinger assessment: no backup automation existed before this — the only
-# documented backup step was a one-off manual instruction in the Hermes
-# installation runbook.
+# N8N_API_TOKEN are set) a workflow export.
+#
+# Uses restic (https://restic.net) instead of hand-rolled tar.gz archives —
+# gets encryption, deduplication, and real retention/pruning policy for
+# free, plus native support for offsite backends (S3, B2, SFTP, etc.)
+# instead of a local-only directory that doesn't survive the box failing.
+# The full init/backup/check/restore/forget sequence below was smoke-tested
+# locally against a real restic repository before this script was written.
 #
 # Deliberately does NOT back up .env — that file holds live plaintext
 # secrets, and copying it into a backup archive just multiplies the number
 # of places a leak can happen. Secrets belong in the password manager
 # (see SECRETS_INDEX.md); this script backs up state, not credentials.
 #
-# Usage:
-#   ./backup_vps.sh                 # backup to ./backups/
-#   BACKUP_DIR=/mnt/offsite ./backup_vps.sh
+# Required env (add to .env — see .env.example):
+#   RESTIC_REPOSITORY   Where snapshots live. Local path (e.g.
+#                        /var/backups/mcp-vps-restic) works but doesn't
+#                        protect against the VPS itself failing — point
+#                        this at s3:..., b2:..., or sftp:... for real
+#                        offsite backup. See https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html
+#   RESTIC_PASSWORD     Repository encryption password. Losing it means
+#                        losing the backups — store it in the password
+#                        manager (SynapSys - VPS - RESTIC_PASSWORD), not
+#                        only in .env.
+# Optional env:
+#   RESTIC_KEEP_DAILY / RESTIC_KEEP_WEEKLY / RESTIC_KEEP_MONTHLY
+#     (default 14 / 8 / 6, same policy validated in the local smoke test)
+#   AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_DEFAULT_REGION
+#     (only needed if RESTIC_REPOSITORY is an s3:... backend)
 #
-# Suggested cron (daily at 03:15, keep default 14-day retention below):
+# Usage:
+#   ./backup_vps.sh              # backup + prune
+#   ./backup_vps.sh check        # integrity check only (run periodically,
+#                                  e.g. weekly, alongside the daily backup)
+#
+# Suggested cron:
 #   15 3 * * * cd /path/to/deploy/mcp-vps && ./backup_vps.sh >> backup.log 2>&1
+#   30 4 * * 0 cd /path/to/deploy/mcp-vps && ./backup_vps.sh check >> backup.log 2>&1
 
 set -euo pipefail
 
-BACKUP_DIR="${BACKUP_DIR:-./backups}"
-RETENTION_DAYS="${RETENTION_DAYS:-14}"
+: "${RESTIC_REPOSITORY:?Set RESTIC_REPOSITORY in .env first (see header comment)}"
+: "${RESTIC_PASSWORD:?Set RESTIC_PASSWORD in .env first — store it in the password manager too}"
+
+RESTIC_IMAGE="restic/restic:0.17.3"
+KEEP_DAILY="${RESTIC_KEEP_DAILY:-14}"
+KEEP_WEEKLY="${RESTIC_KEEP_WEEKLY:-8}"
+KEEP_MONTHLY="${RESTIC_KEEP_MONTHLY:-6}"
+CACHE_VOL="mcp-vps-restic-cache"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-DEST="${BACKUP_DIR}/${STAMP}"
 
-mkdir -p "$DEST"
-chmod 700 "$BACKUP_DIR" "$DEST"
+# Bind-mount the repository path into the container only when it's local
+# (starts with "/"). Remote backends (s3:/b2:/sftp:) need no such mount —
+# just network reachability and, for s3, the AWS_* env vars.
+RESTIC_MOUNTS=(-v "${CACHE_VOL}:/root/.cache/restic")
+if [[ "$RESTIC_REPOSITORY" == /* ]]; then
+  mkdir -p "$RESTIC_REPOSITORY"
+  RESTIC_MOUNTS+=(-v "${RESTIC_REPOSITORY}:${RESTIC_REPOSITORY}")
+fi
 
-echo "[$STAMP] Backing up to $DEST"
+RESTIC_ENV=(-e RESTIC_REPOSITORY -e RESTIC_PASSWORD)
+for V in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION; do
+  [[ -n "${!V:-}" ]] && RESTIC_ENV+=(-e "$V")
+done
+
+run_restic() {
+  docker run --rm "${RESTIC_MOUNTS[@]}" "${RESTIC_ENV[@]}" "$RESTIC_IMAGE" "$@"
+}
+
+if [[ "${1:-}" == "check" ]]; then
+  echo "[$STAMP] Running restic check (integrity only, no backup)"
+  run_restic check
+  exit 0
+fi
+
+echo "[$STAMP] Ensuring restic repository exists at ${RESTIC_REPOSITORY}"
+run_restic snapshots >/dev/null 2>&1 || run_restic init
 
 echo "-- Docker volumes --"
 for VOL in odoo-mcp-oauth-state n8n-mcp-oauth-state; do
@@ -40,23 +89,29 @@ for VOL in odoo-mcp-oauth-state n8n-mcp-oauth-state; do
     echo "  skip: volume ${VOL} not found (not yet created?)"
     continue
   fi
-  echo "  archiving ${FULL_VOL}..."
-  docker run --rm \
-    -v "${FULL_VOL}:/source:ro" \
-    -v "$(cd "$DEST" && pwd):/backup" \
-    alpine tar czf "/backup/${VOL}.tar.gz" -C /source .
+  echo "  backing up ${FULL_VOL} via restic..."
+  docker run --rm "${RESTIC_MOUNTS[@]}" "${RESTIC_ENV[@]}" \
+    -v "${FULL_VOL}:/data:ro" \
+    "$RESTIC_IMAGE" backup /data --tag "$VOL" --host mcp-vps
 done
 
 echo "-- N8N workflow export (if credentials available) --"
+STAGING="$(mktemp -d)"
+trap 'rm -rf "$STAGING"' EXIT
 if [[ -f .env ]]; then
   N8N_URL="$(grep -E '^N8N_URL=' .env | cut -d= -f2- || true)"
   N8N_API_TOKEN="$(grep -E '^N8N_API_TOKEN=' .env | cut -d= -f2- || true)"
   if [[ -n "${N8N_URL:-}" && -n "${N8N_API_TOKEN:-}" ]]; then
-    curl -fsS "${N8N_URL}/api/v1/workflows" \
+    if curl -fsS "${N8N_URL}/api/v1/workflows" \
       -H "X-N8N-API-KEY: ${N8N_API_TOKEN}" \
-      -o "${DEST}/n8n_workflows_export.json" \
-      && echo "  saved n8n_workflows_export.json" \
-      || echo "  WARNING: n8n workflow export failed — check N8N_URL/N8N_API_TOKEN"
+      -o "${STAGING}/n8n_workflows_export.json"; then
+      docker run --rm "${RESTIC_MOUNTS[@]}" "${RESTIC_ENV[@]}" \
+        -v "${STAGING}:/data:ro" \
+        "$RESTIC_IMAGE" backup /data --tag n8n-workflows --host mcp-vps
+      echo "  n8n workflow export backed up"
+    else
+      echo "  WARNING: n8n workflow export failed — check N8N_URL/N8N_API_TOKEN"
+    fi
   else
     echo "  skip: N8N_URL / N8N_API_TOKEN not set in .env"
   fi
@@ -64,16 +119,13 @@ else
   echo "  skip: .env not found"
 fi
 
-echo "-- Compose + Dockerfile snapshot (no secrets, safe to keep) --"
-cp docker-compose.yml Dockerfile "$DEST/" 2>/dev/null || true
+echo "-- Retention: keep ${KEEP_DAILY} daily / ${KEEP_WEEKLY} weekly / ${KEEP_MONTHLY} monthly, prune the rest --"
+run_restic forget --keep-daily "$KEEP_DAILY" --keep-weekly "$KEEP_WEEKLY" --keep-monthly "$KEEP_MONTHLY" --prune
 
-echo "-- Manifest --"
-( cd "$DEST" && sha256sum * > SHA256SUMS.txt 2>/dev/null || true )
-
-echo "-- Retention: pruning backups older than ${RETENTION_DAYS} days --"
-find "$BACKUP_DIR" -maxdepth 1 -mindepth 1 -type d -mtime "+${RETENTION_DAYS}" -print -exec rm -rf {} \;
-
-echo "[$STAMP] Backup complete: $DEST"
-echo "Reminder: this directory is LOCAL to the VPS. Copy $DEST offsite (or point"
-echo "BACKUP_DIR at an already-mounted offsite path) — a backup that lives on"
-echo "the same box it protects doesn't survive that box failing."
+echo "[$STAMP] Backup complete. List snapshots any time with:"
+echo "  docker run --rm ${RESTIC_MOUNTS[*]} ${RESTIC_ENV[*]} $RESTIC_IMAGE snapshots"
+if [[ "$RESTIC_REPOSITORY" == /* ]]; then
+  echo "NOTE: RESTIC_REPOSITORY is a local path — it does not survive this VPS"
+  echo "      failing. Point RESTIC_REPOSITORY at s3:/b2:/sftp: for real offsite"
+  echo "      protection (see header comment)."
+fi
