@@ -3,6 +3,18 @@
     "synapsys-n8n-readonly-code",
     "synapsys-odoo-readonly-code"
   ],
+  "permissions": {
+    "allow": [
+      "mcp__SynapSys_SharePoint__sp_read",
+      "mcp__synapsys-odoo-readonly-code__count_odoo",
+      "mcp__SynapSys_SharePoint__sp_list",
+      "mcp__synapsys-odoo-readonly-code__search_odoo",
+      "mcp__SynapSys_SharePoint__sp_search",
+      "mcp__synapsys-n8n-readonly-code__get_workflow",
+      "mcp__synapsys-n8n-readonly-code__list_executions",
+      "mcp__Microsoft_365__read_resource"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
