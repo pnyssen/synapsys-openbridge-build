@@ -190,7 +190,7 @@ def _node_name_set(workflow: dict) -> set[str]:
 # ---------------------------------------------------------------------------
 # Tools
 # ---------------------------------------------------------------------------
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def ping_n8n() -> dict:
     """Connectivity and auth probe."""
     try:
@@ -200,7 +200,7 @@ def ping_n8n() -> dict:
         return {"url": N8N_URL, "ok": False, "error": str(e)}
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def list_workflows(
     active: bool | None = None,
     tags: str | None = None,
@@ -262,13 +262,13 @@ def list_workflows(
     }
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def get_workflow(id: str) -> dict:
     """Get a workflow's full JSON."""
     return _request("GET", f"/api/v1/workflows/{id}")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
 def update_workflow(id: str, workflow: dict) -> dict:
     """
     Update a workflow via PUT — Full Replace model (CHG-2026-271).
@@ -377,19 +377,19 @@ def update_workflow(id: str, workflow: dict) -> dict:
             "settings_keys_removed": removed_settings_keys})
     return result
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
 def activate_workflow(id: str) -> dict:
     """Activate a workflow."""
     return _request("POST", f"/api/v1/workflows/{id}/activate")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
 def deactivate_workflow(id: str) -> dict:
     """Deactivate a workflow."""
     return _request("POST", f"/api/v1/workflows/{id}/deactivate")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def list_executions(
     workflow_id: str | None = None,
     status: str | None = None,
@@ -410,20 +410,20 @@ def list_executions(
     return _request("GET", f"/api/v1/executions{qs}")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def get_execution(id: str, include_data: bool = False) -> dict:
     """Get a single execution."""
     suffix = "?includeData=true" if include_data else ""
     return _request("GET", f"/api/v1/executions/{id}{suffix}")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
 def list_credentials(limit: int = 50) -> dict:
     """List credentials."""
     return _request("GET", f"/api/v1/credentials?limit={int(limit)}")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": True})
 def trigger_webhook(path: str, payload: dict | None = None) -> dict:
     """Trigger a webhook by path."""
     body = payload if payload is not None else {}
@@ -464,7 +464,7 @@ CREATE_REJECTED_KEYS: tuple[str, ...] = (
 )
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": True})
 def create_workflow(workflow: dict) -> dict:
     """
     Create a NEW n8n workflow (inactive by default).
@@ -590,7 +590,7 @@ def _bind_scan_reject(obj: Any, path: str = "bindings") -> None:
             _bind_scan_reject(v, f"{path}[{i}]")
 
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
 def bind_workflow_credentials_by_id(workflow_id: str, bindings: dict) -> dict:
     """
     Bind credential REFERENCES (id + name only) to nodes of an INACTIVE workflow.

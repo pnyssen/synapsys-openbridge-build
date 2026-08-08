@@ -503,3 +503,63 @@ def test_azure_auth_fixes_cimd_private_key_jwt_audience_double_slash():
         token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud/token",
     )
     assert authenticator2._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+
+# ---------------------------------------------------------------------------
+# Tool annotations (readOnlyHint etc.) — the MCP-spec signal clients like
+# ChatGPT and Claude use to distinguish safe/low-risk tools from mutating
+# ones. Without these every tool looks equally risky to a client, which is
+# exactly why an "allow low-risk actions" connector mode can't work
+# correctly until the server declares which of its own tools are read-only.
+# ---------------------------------------------------------------------------
+
+N8N_READ_ONLY_TOOLS = {
+    "ping_n8n", "list_workflows", "get_workflow", "list_executions",
+    "get_execution", "list_credentials",
+}
+N8N_MUTATING_TOOLS = {
+    "update_workflow", "activate_workflow", "deactivate_workflow",
+    "trigger_webhook", "create_workflow", "bind_workflow_credentials_by_id",
+}
+
+ODOO_READ_ONLY_TOOLS = {"search_odoo", "read_odoo", "count_odoo", "search_multi"}
+ODOO_MUTATING_TOOLS = {
+    "create_odoo", "write_odoo", "unlink_odoo", "execute_odoo",
+    "create_fields_batch", "create_acls_batch",
+}
+
+
+def test_n8n_tool_annotations_match_read_write_split(n8n_module, monkeypatch):
+    monkeypatch.setenv("MCP_AUTH_TOKEN", "n8n-secret")
+    monkeypatch.setenv("MCP_ALLOWED_HOSTS", "n8n.example.com")
+    n8n_module._configure_http_kwargs()  # wires mcp.auth, same as HTTP-transport startup
+
+    tools = asyncio.run(n8n_module.mcp.list_tools())
+    by_name = {t.name: t for t in tools}
+
+    assert set(by_name) == N8N_READ_ONLY_TOOLS | N8N_MUTATING_TOOLS
+
+    for name in N8N_READ_ONLY_TOOLS:
+        ann = by_name[name].annotations
+        assert ann is not None and ann.readOnlyHint is True, f"{name} must declare readOnlyHint=True"
+
+    for name in N8N_MUTATING_TOOLS:
+        ann = by_name[name].annotations
+        assert ann is not None and ann.readOnlyHint is False, f"{name} must declare readOnlyHint=False"
+        assert ann.destructiveHint is not None, f"{name} must declare an explicit destructiveHint"
+
+
+def test_odoo_tool_annotations_match_read_write_split(fastmcp_app):
+    tools = asyncio.run(fastmcp_app.list_tools())
+    by_name = {t.name: t for t in tools}
+
+    assert set(by_name) == ODOO_READ_ONLY_TOOLS | ODOO_MUTATING_TOOLS
+
+    for name in ODOO_READ_ONLY_TOOLS:
+        ann = by_name[name].annotations
+        assert ann is not None and ann.readOnlyHint is True, f"{name} must declare readOnlyHint=True"
+
+    for name in ODOO_MUTATING_TOOLS:
+        ann = by_name[name].annotations
+        assert ann is not None and ann.readOnlyHint is False, f"{name} must declare readOnlyHint=False"
+        assert ann.destructiveHint is not None, f"{name} must declare an explicit destructiveHint"

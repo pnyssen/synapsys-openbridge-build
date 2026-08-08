@@ -654,7 +654,7 @@ def build_fastmcp_app():
     async def health(request: Request) -> PlainTextResponse:
         return PlainTextResponse("ok")
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
     def search_odoo(
         model: str,
         domain: list | None = None,
@@ -669,32 +669,32 @@ def build_fastmcp_app():
             "limit": limit, "offset": offset, "order": order,
         })
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
     def read_odoo(model: str, ids: Any, fields: list | None = None) -> Any:
         """Read specific records by id. Faster than search_read when ids are known."""
         return tool_read_odoo({"model": model, "ids": ids, "fields": fields})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
     def count_odoo(model: str, domain: list | None = None) -> Any:
         """Return the count of records matching a domain (search_count)."""
         return tool_count_odoo({"model": model, "domain": domain or []})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": True})
     def create_odoo(model: str, values: dict) -> Any:
         """Create a single record. Returns the new id."""
         return tool_create_odoo({"model": model, "values": values})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
     def write_odoo(model: str, ids: Any, values: dict) -> Any:
         """Update one or more records. Returns true on success."""
         return tool_write_odoo({"model": model, "ids": ids, "values": values})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": True, "openWorldHint": True})
     def unlink_odoo(model: str, ids: Any) -> Any:
         """Delete records by id. Odoo raises on records with protective constraints."""
         return tool_unlink_odoo({"model": model, "ids": ids})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": True})
     def execute_odoo(
         model: str, method: str, args: list | None = None, kwargs: dict | None = None
     ) -> Any:
@@ -703,17 +703,17 @@ def build_fastmcp_app():
             "model": model, "method": method, "args": args or [], "kwargs": kwargs or {},
         })
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True, "openWorldHint": True})
     def search_multi(queries: list, labels: list | None = None) -> Any:
         """Run multiple search_read queries in one call. Use for 3+ model fetches."""
         return tool_search_multi({"queries": queries, "labels": labels})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": True})
     def create_fields_batch(model_id: int, fields: list, delay_ms: int = 400) -> Any:
         """Sequentially create many ir.model.fields on a target model."""
         return tool_create_fields_batch({"model_id": model_id, "fields": fields, "delay_ms": delay_ms})
 
-    @app_mcp.tool()
+    @app_mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True, "idempotentHint": False, "openWorldHint": True})
     def create_acls_batch(model_id: int, acls: list) -> Any:
         """Create multiple ir.model.access records on a model."""
         return tool_create_acls_batch({"model_id": model_id, "acls": acls})
