@@ -26,15 +26,20 @@ fresh, every time").
   explicit instruction to re-verify that path before treating the
   snapshot as current. An entry missing any of these fields is
   incomplete by definition, not just by convention.
-- `state/TOBE_PRIORITY_STACK_CURRENT_v0.1.md` — the actual, real
-  current priority stack, as instructed by Phil this session: (1)
-  support CGPT's claimed Navigator MVP reconciliation — **flagged
-  unverified**, since a live check of `AI_LANE_ALIGNMENT_REGISTER_v0.1.md`
-  this session did not corroborate it; (2) the SynapSys Mesh enablement
-  layer, aligned to the verified Hermes/OpenClaw lessons and the
-  advisor-tool proxy test; (3) the Collaborator Geometry Section 14
-  experiment, integrating both. This is a real instance, not a
-  worked example.
+- `state/TOBE_PRIORITY_STACK_CURRENT_v0.2.md` — **current** — the real
+  three capabilities Phil instructed this session, corrected from
+  v0.1's structural error (v0.1 filed them as a sequential queue; v0.2
+  reflects what was actually said — three capabilities to be aligned
+  and implemented, where capability 3 is the *integration test* for
+  1 and 2, not merely gated behind them): (1) support CGPT's claimed
+  Navigator MVP reconciliation — **flagged unverified**, since a live
+  check of `AI_LANE_ALIGNMENT_REGISTER_v0.1.md` this session did not
+  corroborate it; (2) the SynapSys Mesh enablement layer, aligned to
+  the verified Hermes/OpenClaw lessons and the advisor-tool proxy test;
+  (3) the Collaborator Geometry Section 14 experiment, as the proof
+  point for whether 1 and 2 actually cohere. `v0.1` is retained
+  unchanged as historical record, per this ecosystem's own
+  supersede-don't-delete convention.
 - `validator.py` — offline, zero-network, zero-subprocess validator
   for TOBE priority stack documents: required-field presence per
   entry, and an explicit reject rule for any entry that asserts its
@@ -58,7 +63,8 @@ about what it does and doesn't currently know.
 
 ## How a session is meant to use this
 
-1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.1.md`.
+1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.2.md` (the current file —
+   check for a higher version number first; this document is living).
 2. For whichever entry is relevant, re-fetch its named source-of-truth
    path fresh — do not trust the AS-IS snapshot's date as still current.
 3. Work from what the fresh check actually shows, not from the

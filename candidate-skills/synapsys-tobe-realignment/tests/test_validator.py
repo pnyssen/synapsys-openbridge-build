@@ -34,9 +34,21 @@ def test_valid_document_passes():
     assert report.entries[0].ok
 
 
-def test_real_current_state_file_passes():
+def test_real_current_state_file_v01_passes():
     path = os.path.join(
         os.path.dirname(__file__), "..", "state", "TOBE_PRIORITY_STACK_CURRENT_v0.1.md"
+    )
+    report = validate_file(path)
+    assert report.ok, report.summary()
+    assert len(report.entries) == 3
+
+
+def test_real_current_state_file_v02_passes():
+    # v0.2 corrected v0.1's structural error (sequential queue vs.
+    # aligned-capabilities-with-an-integration-point) -- superseding
+    # content, but must still pass the same schema.
+    path = os.path.join(
+        os.path.dirname(__file__), "..", "state", "TOBE_PRIORITY_STACK_CURRENT_v0.2.md"
     )
     report = validate_file(path)
     assert report.ok, report.summary()
