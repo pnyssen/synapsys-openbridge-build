@@ -80,6 +80,19 @@ def test_real_current_state_file_v04_passes():
     assert len(report.entries) == 3
 
 
+def test_real_current_state_file_v05_passes():
+    # v0.5 updates capability 2 with the self-triage test result -- both
+    # halves of the advisor-tool hypothesis (escalation-helps,
+    # self-triage) now have real executed evidence. Capabilities 1 and 3
+    # unchanged from v0.4.
+    path = os.path.join(
+        os.path.dirname(__file__), "..", "state", "TOBE_PRIORITY_STACK_CURRENT_v0.5.md"
+    )
+    report = validate_file(path)
+    assert report.ok, report.summary()
+    assert len(report.entries) == 3
+
+
 def test_missing_source_of_truth_fails():
     entry = VALID_ENTRY.replace(
         "- **source_of_truth**: 05_AI_RETURNS_HASHED/SOME_FILE_v0.1.md\n", ""
