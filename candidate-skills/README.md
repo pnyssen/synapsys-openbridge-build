@@ -17,6 +17,18 @@ the versioned implementation surface where an approved design becomes
 tested, executable, reviewable code. Nothing here is a design authority
 in its own right.
 
+**Mapped onto the vault's own P0–P7 loop-in-loop chain**
+(`Obsidian/00_SYSTEM/NAVIGATOR/NAVIGATOR_LOOP_IN_LOOP_P0_P7_MAP.md`),
+this folder's actual work sits at **P3–P5**: P3 (Mesh/Pattern/Asset
+integration) is the `mirrors` convention; P4 (governed data/projection)
+is `validator.py` / `check_mirrors.py` / `validate_memory_files.py`;
+P5 (manual pilot replays) is the test suites, run for real, not
+claimed. **P6 (D009/D001/D007 decisions) and P7 (bounded automation
+after proof) are explicitly not performed here** — same authority
+boundary as everywhere else in this repo. This folder does not merge
+its own PRs and does not extend itself into P6/P7 regardless of how
+strong a candidate looks.
+
 **Every candidate in this folder must declare a `mirrors` pointer** in
 its README — either to the Working Memory receipt that records its
 existence (required, no exceptions) or, where one exists, the Obsidian
