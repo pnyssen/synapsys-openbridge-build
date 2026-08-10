@@ -69,6 +69,17 @@ def test_real_current_state_file_v03_passes():
     assert len(report.entries) == 3
 
 
+def test_real_current_state_file_v04_passes():
+    # v0.4 resolves capability 1 with independently-verified evidence
+    # (4/4 file hashes, 3/3 Odoo records) rather than trusting a relay.
+    path = os.path.join(
+        os.path.dirname(__file__), "..", "state", "TOBE_PRIORITY_STACK_CURRENT_v0.4.md"
+    )
+    report = validate_file(path)
+    assert report.ok, report.summary()
+    assert len(report.entries) == 3
+
+
 def test_missing_source_of_truth_fails():
     entry = VALID_ENTRY.replace(
         "- **source_of_truth**: 05_AI_RETURNS_HASHED/SOME_FILE_v0.1.md\n", ""

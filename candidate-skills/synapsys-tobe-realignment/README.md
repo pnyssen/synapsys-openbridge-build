@@ -30,20 +30,19 @@ fresh, every time").
   explicit instruction to re-verify that path before treating the
   snapshot as current. An entry missing any of these fields is
   incomplete by definition, not just by convention.
-- `state/TOBE_PRIORITY_STACK_CURRENT_v0.3.md` — **current** — three
+- `state/TOBE_PRIORITY_STACK_CURRENT_v0.4.md` — **current** — three
   capabilities to be aligned and implemented together, capability 3
-  being the integration test for 1 and 2: (1) support CGPT's claimed
-  Navigator MVP reconciliation — still unverified against a live
-  `AI_LANE_ALIGNMENT_REGISTER_v0.1.md` read; (2) the SynapSys Mesh
-  enablement layer — **now has a real executed test result**: a
+  being the integration test for 1 and 2: (1) support CGPT's Navigator
+  MVP reconciliation — **resolved and independently verified**: the
+  work object, its state, 4 cited file hashes, and 3 cited Odoo
+  records were all confirmed by direct read and recomputation, not
+  trusted from the relay; (2) the SynapSys Mesh enablement layer — a
   zero-cost proxy showed escalation (fast model vs. escalated model)
-  adds material value on every signal tested, including catching an
-  unverified "urgent" claim the fast pass took at face value, but the
-  actual cost-control question (can a cheap model self-triage when
-  *not* to escalate) remains untested; (3) the Collaborator Geometry
-  Section 14 experiment. `v0.1` and `v0.2` are retained unchanged as
-  historical record, per this ecosystem's own supersede-don't-delete
-  convention.
+  adds material value on every signal tested, but the actual
+  cost-control question (can a cheap model self-triage when *not* to
+  escalate) remains untested; (3) the Collaborator Geometry Section 14
+  experiment. `v0.1`–`v0.3` are retained unchanged as historical
+  record, per this ecosystem's own supersede-don't-delete convention.
 - `validator.py` — offline, zero-network, zero-subprocess validator
   for TOBE priority stack documents: required-field presence per
   entry, and an explicit reject rule for any entry that asserts its
@@ -67,14 +66,14 @@ about what it does and doesn't currently know.
 
 ## How a session is meant to use this
 
-1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.3.md` (the current file —
+1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.4.md` (the current file —
    check for a higher version number first; this document is living).
 2. For whichever entry is relevant, re-fetch its named source-of-truth
    path fresh — do not trust the AS-IS snapshot's date as still current.
 3. Work from what the fresh check actually shows, not from the
    snapshot.
 4. If the state has materially changed, update
-   `state/TOBE_PRIORITY_STACK_CURRENT_v0.3.md` in place (same
+   `state/TOBE_PRIORITY_STACK_CURRENT_v0.4.md` in place (same
    living-document discipline as `AI_LANE_ALIGNMENT_REGISTER_v0.1.md`)
    and re-run `validator.py` before treating the update as filed.
 
