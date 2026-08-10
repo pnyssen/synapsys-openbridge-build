@@ -70,9 +70,18 @@ about what it does and doesn't currently know.
 3. Work from what the fresh check actually shows, not from the
    snapshot.
 4. If the state has materially changed, update
-   `state/TOBE_PRIORITY_STACK_CURRENT_v0.1.md` in place (same
+   `state/TOBE_PRIORITY_STACK_CURRENT_v0.2.md` in place (same
    living-document discipline as `AI_LANE_ALIGNMENT_REGISTER_v0.1.md`)
    and re-run `validator.py` before treating the update as filed.
+
+## Anchor
+
+This skill tracks *what's currently being worked toward*. It does not
+define *why SynapSys exists or how it operates* — that's
+`../synapsys-persistent-memory/synapsys.md`, built directly from
+Hermes Agent's own `MEMORY.md`/`USER.md` architecture. Read that first
+if the question is "what is SynapSys," not "what's the current
+priority state."
 
 ## Status
 
