@@ -1,5 +1,9 @@
 # synapsys-tobe-realignment
 
+**mirrors**: `05_AI_RETURNS_HASHED/20260810_RET_GEN_claude-code-tobe-realignment-candidate-skill-receipt_v0.1.md`
+(SHA-256 `fff18a3ef9a71f3c637e4b500d874378f1293a93df15a31dca6ee64b31e92ed1`). No Obsidian
+counterpart exists for this candidate — stated plainly, not assumed.
+
 Candidate tooling for a persistent TOBE (target-state) realignment
 anchor — the "first iteration of the future SynapSys.md file for our
 verb-based model," per direct Phil instruction this session. Built

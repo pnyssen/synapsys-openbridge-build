@@ -1,5 +1,9 @@
 # synapsys-persistent-memory
 
+**mirrors**: `05_AI_RETURNS_HASHED/20260810_RET_GEN_claude-code-persistent-memory-candidate-skill-receipt_v0.1.md`
+(SHA-256 `ad1a4ec7d1e3e52d68e4f767082c5568ef871d0709e2614492d32f95686ca47c`). No Obsidian
+counterpart exists for this candidate — stated plainly, not assumed.
+
 A candidate two-file persistent-memory core for SynapSys, built by
 following Hermes Agent's own architecture directly — `MEMORY.md` (a
 system's own durable knowledge) + `USER.md` (context about the person
