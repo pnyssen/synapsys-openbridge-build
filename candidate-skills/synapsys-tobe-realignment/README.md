@@ -30,22 +30,26 @@ fresh, every time").
   explicit instruction to re-verify that path before treating the
   snapshot as current. An entry missing any of these fields is
   incomplete by definition, not just by convention.
-- `state/TOBE_PRIORITY_STACK_CURRENT_v0.5.md` — **current** — three
+- `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` — **current** — three
   capabilities to be aligned and implemented together, capability 3
   being the integration test for 1 and 2: (1) support CGPT's Navigator
   MVP reconciliation — **resolved and independently verified**: the
   work object, its state, 4 cited file hashes, and 3 cited Odoo
   records were all confirmed by direct read and recomputation, not
   trusted from the relay; (2) the SynapSys Mesh enablement layer —
-  **both halves of the advisor-tool hypothesis now tested**: a
-  zero-cost proxy showed escalation (fast model vs. escalated model)
-  adds material value on every signal tested, and a follow-up
-  self-triage test (5 fresh agents, decide for themselves) showed real
-  but over-cautious judgment — 3 of 5 escalated, correctly separating
-  routine from high-stakes cases but over-escalating on low-stakes
-  cross-lane claims; (3) the Collaborator Geometry Section 14
-  experiment. `v0.1`–`v0.4` are retained unchanged as historical
-  record, per this ecosystem's own supersede-don't-delete convention.
+  **resolved, Steward-ruled**: both halves of the advisor-tool
+  hypothesis tested (escalation adds value on every signal; self-triage
+  is real but over-cautious, 3/5 escalated), and the Steward's direct
+  ruling — "Accept self triage" — closes the one open cost tradeoff;
+  (3) the Collaborator Geometry Section 14 experiment — **freshly
+  re-verified as NOT ready to commence**: two named prerequisites
+  (Gemini independent challenge, Steward/ChatGPT collaborator +
+  configuration sequencing decision) remain unmet, confirmed absent
+  from the live cross-lane register this session; Section 14's own
+  success measures and four candidate activation-pattern options
+  (SVAP1–4) are extracted and recorded. `v0.1`–`v0.5` are retained
+  unchanged as historical record, per this ecosystem's own
+  supersede-don't-delete convention.
 - `validator.py` — offline, zero-network, zero-subprocess validator
   for TOBE priority stack documents: required-field presence per
   entry, and an explicit reject rule for any entry that asserts its
@@ -69,14 +73,14 @@ about what it does and doesn't currently know.
 
 ## How a session is meant to use this
 
-1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.5.md` (the current file —
+1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` (the current file —
    check for a higher version number first; this document is living).
 2. For whichever entry is relevant, re-fetch its named source-of-truth
    path fresh — do not trust the AS-IS snapshot's date as still current.
 3. Work from what the fresh check actually shows, not from the
    snapshot.
 4. If the state has materially changed, update
-   `state/TOBE_PRIORITY_STACK_CURRENT_v0.5.md` in place (same
+   `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` in place (same
    living-document discipline as `AI_LANE_ALIGNMENT_REGISTER_v0.1.md`)
    and re-run `validator.py` before treating the update as filed.
 
