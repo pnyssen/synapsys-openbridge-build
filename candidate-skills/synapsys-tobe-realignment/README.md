@@ -30,7 +30,7 @@ fresh, every time").
   explicit instruction to re-verify that path before treating the
   snapshot as current. An entry missing any of these fields is
   incomplete by definition, not just by convention.
-- `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` — **current** — three
+- `state/TOBE_PRIORITY_STACK_CURRENT_v0.7.md` — **current** — three
   capabilities to be aligned and implemented together, capability 3
   being the integration test for 1 and 2: (1) support CGPT's Navigator
   MVP reconciliation — **resolved and independently verified**: the
@@ -38,17 +38,20 @@ fresh, every time").
   records were all confirmed by direct read and recomputation, not
   trusted from the relay; (2) the SynapSys Mesh enablement layer —
   **resolved, Steward-ruled**: both halves of the advisor-tool
-  hypothesis tested (escalation adds value on every signal; self-triage
-  is real but over-cautious, 3/5 escalated), and the Steward's direct
-  ruling — "Accept self triage" — closes the one open cost tradeoff;
-  (3) the Collaborator Geometry Section 14 experiment — **freshly
-  re-verified as NOT ready to commence**: two named prerequisites
-  (Gemini independent challenge, Steward/ChatGPT collaborator +
-  configuration sequencing decision) remain unmet, confirmed absent
-  from the live cross-lane register this session; Section 14's own
-  success measures and four candidate activation-pattern options
-  (SVAP1–4) are extracted and recorded. `v0.1`–`v0.5` are retained
-  unchanged as historical record, per this ecosystem's own
+  hypothesis tested, and the Steward's direct ruling — "Accept self
+  triage" — closes the one open cost tradeoff; (3) the Collaborator
+  Geometry Section 14 experiment — **Gemini/D009 independent challenge
+  dispatched and answered: HOLD** (relayed by the Steward, not
+  independently re-verifiable by this lane — no live Gemini channel
+  exists). The primary collaborator's identity is corrected and
+  independently verified (Dr John Kapeleris, confirmed in Odoo — a
+  repeated dictation error, "Capillaris," is now permanently fixed).
+  Three of Gemini's four named defects remain open: cohort-expansion
+  drift on the two collaborators added outside Section 14's analysed
+  cohort, a validate-vs-discover framing conflict that Gemini says
+  invalidates SVAP2's test conditions, and a commercial trust-damage
+  risk from testing on the live Probico account. `v0.1`–`v0.6` are
+  retained unchanged as historical record, per this ecosystem's own
   supersede-don't-delete convention.
 - `validator.py` — offline, zero-network, zero-subprocess validator
   for TOBE priority stack documents: required-field presence per
@@ -73,14 +76,14 @@ about what it does and doesn't currently know.
 
 ## How a session is meant to use this
 
-1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` (the current file —
+1. Read `state/TOBE_PRIORITY_STACK_CURRENT_v0.7.md` (the current file —
    check for a higher version number first; this document is living).
 2. For whichever entry is relevant, re-fetch its named source-of-truth
    path fresh — do not trust the AS-IS snapshot's date as still current.
 3. Work from what the fresh check actually shows, not from the
    snapshot.
 4. If the state has materially changed, update
-   `state/TOBE_PRIORITY_STACK_CURRENT_v0.6.md` in place (same
+   `state/TOBE_PRIORITY_STACK_CURRENT_v0.7.md` in place (same
    living-document discipline as `AI_LANE_ALIGNMENT_REGISTER_v0.1.md`)
    and re-run `validator.py` before treating the update as filed.
 

@@ -105,6 +105,18 @@ def test_real_current_state_file_v06_passes():
     assert len(report.entries) == 3
 
 
+def test_real_current_state_file_v07_passes():
+    # v0.7 records the Gemini/D009 HOLD verdict on the proposed Section 14
+    # configuration (relayed, not independently re-verifiable by this
+    # lane) and the corrected, Odoo-verified Kapeleris identity.
+    path = os.path.join(
+        os.path.dirname(__file__), "..", "state", "TOBE_PRIORITY_STACK_CURRENT_v0.7.md"
+    )
+    report = validate_file(path)
+    assert report.ok, report.summary()
+    assert len(report.entries) == 3
+
+
 def test_missing_source_of_truth_fails():
     entry = VALID_ENTRY.replace(
         "- **source_of_truth**: 05_AI_RETURNS_HASHED/SOME_FILE_v0.1.md\n", ""
