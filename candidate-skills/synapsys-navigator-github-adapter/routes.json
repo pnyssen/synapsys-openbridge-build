@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "purpose": "Logical route registry extracted from the live Current Navigator so host-specific targets can vary without the Navigator Core changing.",
+    "extracted_from": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR.html",
+    "extracted_at_state_revision": 152,
+    "extracted_at_implementation_version": "v4.1",
+    "extraction_method": "direct read of the live file this session, not inferred or reconstructed from memory",
+    "status": "CANDIDATE",
+    "note": "odoo_base_url and every odoo_action_id below are copied verbatim from the live HTML's hardcoded links. This file does not add, remove, or renumber any Odoo action."
+  },
+  "odoo_base_url": "https://pnyssen-synapsys-odoo.odoo.com/odoo/action-",
+  "roles": ["steward", "architect", "collaborator"],
+  "modes": ["form", "flow", "evolve"],
+  "source_bar": [
+    {"key": "obsidian", "title": "Obsidian", "host_target_kind": "self", "target": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR.html"},
+    {"key": "odoo", "title": "Odoo", "host_target_kind": "odoo_ref", "target": "ir.ui.menu 1144 -> ir.actions.act_url 1535 -> /web/content/1391?download=false; x_ss_work_object_register id 2"},
+    {"key": "wm", "title": "Working Memory", "host_target_kind": "wm_path", "target": "STATE_CONTROL/NAVIGATOR_STATE_CONTROL_v16.0.json"},
+    {"key": "agent", "title": "SynapSys Agent", "host_target_kind": "design_only", "target": "AI routing + Mesh + Work Object control views"},
+    {"key": "n8n", "title": "N8N", "host_target_kind": "held", "target": "Runtime only after stable released workflow"},
+    {"key": "canon", "title": "Canonical Library", "host_target_kind": "odoo_action", "target": 1531}
+  ],
+  "form_mode_routes": {
+    "enterprise_map": {"obsidian_relative": "LENSES/LENS_ENTERPRISE_MAP_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "purpose_strategy_assets": {"obsidian_relative": "LENSES/LENS_PURPOSE_STRATEGY_ASSETS_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "ffe_sbr": {"obsidian_relative": "LENSES/LENS_FFE_SBR_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "mesh_lifecycle": {"obsidian_relative": "LENSES/LENS_MESH_LIFECYCLE_v1.5.html", "odoo_action_id": null, "agent_target": null},
+    "relationship_spine": {"obsidian_relative": "LENSES/LENS_RELATIONSHIP_SPINE_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "verbs_27": {"obsidian_relative": "LENSES/LENS_27_VERBS_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "services": {"obsidian_relative": "LENSES/LENS_SERVICE_CATALOGUE_v1.4.html", "odoo_action_id": 763, "agent_target": null},
+    "patterns": {"obsidian_relative": "LENSES/LENS_PATTERN_LIBRARY_v1.4.html", "odoo_action_id": 1373, "agent_target": null},
+    "methods": {"obsidian_relative": "LENSES/LENS_METHOD_LIBRARY_v1.4.html", "odoo_action_id": 1048, "agent_target": null},
+    "canonical": {"obsidian_relative": "LENSES/LENS_CANONICAL_LIBRARY_v1.4.html", "odoo_action_id": 1531, "agent_target": null},
+    "benefits_assets": {"obsidian_relative": "LENSES/LENS_BENEFITS_ASSETS_v1.4.html", "odoo_action_id": 775, "agent_target": null},
+    "context_membrane": {"obsidian_relative": "LENSES/LENS_CONTEXT_MEMBRANE_v1.4.html", "odoo_action_id": 1038, "agent_target": null},
+    "role_workflow": {"obsidian_relative": "LENSES/LENS_ROLE_WORKFLOW_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "work_object_queue": {"obsidian_relative": "LENSES/LENS_WORK_OBJECT_QUEUE_v1.4.html", "odoo_action_id": 1542, "agent_target": null},
+    "ai_routing": {"obsidian_relative": "LENSES/LENS_AI_ROUTING_v1.4.html", "odoo_action_id": null, "agent_target": null},
+    "all_lenses": {"obsidian_relative": "NAVIGATOR_ALL_LENSES_v1.6.html", "odoo_action_id": null, "agent_target": null},
+    "architecture": {"obsidian_relative": "SYNAPSYS_NAVIGATOR_MVP_ARCHITECTURE_v1.5.html", "odoo_action_id": null, "agent_target": null},
+    "interface_pattern_standard": {"obsidian_relative": "CONTROLS/NAVIGATOR_MINTO_FRACTAL_INTERFACE_PATTERN_STANDARD_v1.0.md", "odoo_action_id": null, "agent_target": null},
+    "recursive_testing_standard": {"obsidian_relative": "CONTROLS/NAVIGATOR_RECURSIVE_FRACTAL_TESTING_STANDARD_v1.1.md", "odoo_action_id": null, "agent_target": null},
+    "front_door_architecture": {"obsidian_relative": "CONTROLS/NAVIGATOR_COMMON_FRONT_DOOR_ARCHITECTURE_v1.0.md", "odoo_action_id": null, "agent_target": null},
+    "obsidian_to_odoo_gate": {"obsidian_relative": "CONTROLS/OBSIDIAN_TO_ODOO_DESIGN_PRECEDENCE_GATE_v1.0.md", "odoo_action_id": null, "agent_target": null}
+  },
+  "flow_mode_routes": {
+    "today": {
+      "signal_review_queue": {"odoo_action_id": 1507},
+      "automation_hold_review": {"odoo_action_id": 1509}
+    },
+    "orient": {
+      "contexts": {"odoo_action_id": 1038},
+      "offerings": {"odoo_action_id": 1372}
+    },
+    "delivery": {
+      "portfolios": {"odoo_action_id": 1480},
+      "programmes": {"odoo_action_id": 766},
+      "projects": {"odoo_action_id": 1010},
+      "tasks": {"odoo_action_id": 221}
+    },
+    "realise": {
+      "benefits": {"odoo_action_id": 775},
+      "tracking": {"odoo_action_id": 994},
+      "outcomes": {"odoo_action_id": 710},
+      "assets": {"odoo_action_id": 1370}
+    },
+    "libraries": {
+      "services": {"odoo_action_id": 763},
+      "patterns": {"odoo_action_id": 1373},
+      "methods": {"odoo_action_id": 1048},
+      "canonical": {"odoo_action_id": 1531}
+    },
+    "control": {
+      "work_objects": {"odoo_action_id": 1542},
+      "rollout_plan": {"obsidian_relative": "CONTROLS/NAVIGATOR_ODOO_INTERFACE_ROLLOUT_PLAN_v1.0.md"},
+      "target_ui_blueprint": {"obsidian_relative": "NAVIGATOR_ODOO_TARGET_UI_BLUEPRINT_v1.6.html"},
+      "ui_ab_lab": {"obsidian_relative": "NAVIGATOR_ODOO_UI_AB_TEST_LAB_v1.0.html"},
+      "mask_compliance": {"obsidian_relative": "NAVIGATOR_ODOO_MASK_COMPLIANCE_LAB_v1.1.html"}
+    }
+  },
+  "evolve_mode_agent_control_chain": [
+    {"stage": "D008", "label": "Signal", "note": "Gather intelligence and signals; do not silently adopt them.", "obsidian_relative": "LENSES/LENS_CONTEXT_MEMBRANE_v1.4.html"},
+    {"stage": "Navigator", "label": "Interpret & route", "note": "Bind Work Object, evidence, PPV, authority, owner and next action.", "obsidian_relative": "LENSES/LENS_WORK_OBJECT_QUEUE_v1.4.html"},
+    {"stage": "Claude/Codex", "label": "Produce & evidence", "note": "Bounded analysis, artefact production, code/data/runtime reality.", "obsidian_relative": "LENSES/LENS_AI_ROUTING_v1.4.html"},
+    {"stage": "D009", "label": "Assure", "note": "Challenge contradictions, authority leakage and false readiness.", "obsidian_relative": "LENSES/LENS_MESH_LIFECYCLE_v1.5.html"},
+    {"stage": "D001", "label": "Decide", "note": "Steward decision/adoption authority within defined boundaries.", "obsidian_relative": null},
+    {"stage": "D007", "label": "Mutate", "note": "Required release for Odoo/N8N/schema/runtime change. No release active for the current Odoo landing change.", "obsidian_relative": null}
+  ],
+  "known_gaps_disclosed": [
+    "odoo_action_id values are read-only references copied from the live HTML at extraction time; this file does not verify they still resolve in Odoo and is not a live query.",
+    "agent_target fields are null throughout because no SynapSys Agent host adapter exists yet; they are placeholders for a future host, not a claim that one exists.",
+    "This registry does not include the six per-mode Odoo top-action shortcuts (Work Objects/Services/Benefits/Canonical Library) shown above the Flow-mode grid, since they duplicate action IDs already listed under flow_mode_routes and libraries above rather than adding new routes."
+  ]
+}
