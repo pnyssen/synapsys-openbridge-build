@@ -41,13 +41,36 @@ assertion) that did not corroborate across three independent re-checks, and
 was correctly recorded as an open conflict rather than accepted.
 
 **Filing discipline**: durable outputs go to
-`11_WORKING_MEMORY/05_AI_RETURNS_HASHED/` using the naming pattern
-`YYYYMMDD_RET_<CTX|GEN>_<lane>-<slug>_vX.Y.md`, with a self-computed SHA-256
+`11_WORKING_MEMORY/05_AI_RETURNS_HASHED/` with a self-computed SHA-256
 receipt and the WM_03-style contract fields (evidence/authority/
 implementation/PPV state, filed status). Write authorization for this lane
 is bounded to *new* file creation in that one folder — no overwriting
 canon/protocol/register files, no folder creation elsewhere, no adoption or
 PPV movement implied by filing.
+
+**Filename pattern — corrected 2026-08-11, live-verified, supersedes the
+`YYYYMMDD_RET_<CTX|GEN>_<lane>-<slug>_vX.Y.md` pattern previously stated
+here**: the SynapSys SharePoint MCP server (`sp_write`) now enforces, and
+rejects non-conforming names for,
+`YYYYMMDD--lane--artifact-type--searchable-slug--vMAJOR-MINOR.ext`
+(lowercase ASCII, double-dash separated; e.g.
+`20260811--claude-code--evidence-receipt--sharepoint-search-repair--v0-1.md`).
+Confirmed live by two independent tests this session: a deliberately
+non-conforming `sp_write` call was rejected with that exact pattern in the
+error text, and a conforming write in that pattern succeeded with matching
+independently-recomputed bytes/SHA-256. The server rejects outright — it
+never silently auto-renames. A client-side, network-free implementation of
+this same contract (`validate_filename`/`normalize_filename`/
+`preflight_write`) lives at `mcp-servers/sharepoint_write_preflight.py` for
+pre-write checking before spending a round trip on `sp_write`. Full
+evidence trail:
+`05_AI_RETURNS_HASHED/20260811--claude-code--return-packet--sharepoint-mcp-client-verification--v1-0.md`
+(SHA-256 `a4423a06dca3dcbbea8d6947bf2687a112870765116b2df6005fd21af6451d03`).
+That same verification pass also found the deployed server is v12
+(container revision `synapsys-spmcp-dev--0000019`, per
+`05_AI_RETURNS_HASHED/20260729_D007_SHAREPOINT_MCP_DELETE_MOVE_IMPLEMENTATION_RECEIPT_v1.1.md`),
+not "v17" as one dispatching instruction assumed — flagging that
+discrepancy here rather than letting a wrong version number propagate.
 
 **Folder convention** (learned the hard way this session — a wrong-folder
 check produced a false "document doesn't exist" claim that had to be

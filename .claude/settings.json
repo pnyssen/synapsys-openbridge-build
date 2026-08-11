@@ -6,6 +6,7 @@
   "permissions": {
     "allow": [
       "mcp__SynapSys_SharePoint__sp_read",
+      "mcp__SynapSys_SharePoint__sp_write",
       "mcp__synapsys-odoo-readonly-code__count_odoo",
       "mcp__SynapSys_SharePoint__sp_list",
       "mcp__synapsys-odoo-readonly-code__search_odoo",
