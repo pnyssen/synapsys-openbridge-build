@@ -3,7 +3,11 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from validate_memory_files import validate_synapsys_md, validate_steward_md  # noqa: E402
+from validate_memory_files import (  # noqa: E402
+    validate_synapsys_md,
+    validate_steward_md,
+    validate_pair,
+)
 
 GOOD_SYNAPSYS = """# Title
 ## Purpose
@@ -70,3 +74,17 @@ def test_real_files_pass():
     steward_report = validate_steward_md(open(os.path.join(here, "steward.md")).read())
     assert synapsys_report.ok, (synapsys_report.missing_headers, synapsys_report.authority_flags)
     assert steward_report.ok, (steward_report.missing_headers, steward_report.authority_flags)
+
+
+def test_worked_example_proves_pattern_is_portable():
+    # The example instantiation uses different maturity/evidence-ladder
+    # wording than SynapSys's own (Draft/Piloted/Standard vs.
+    # FORM/FLOW/EVOLVE) and a fictional organisation and principal --
+    # proving the exact same, unmodified validator accepts a genuinely
+    # different organisation's instance, not just SynapSys's own.
+    here = os.path.join(os.path.dirname(__file__), "..")
+    identity_path = os.path.join(here, "template", "example", "example_identity.md")
+    role_path = os.path.join(here, "template", "example", "example_role.md")
+    identity_report, role_report = validate_pair(identity_path, role_path)
+    assert identity_report.ok, (identity_report.missing_headers, identity_report.authority_flags)
+    assert role_report.ok, (role_report.missing_headers, role_report.authority_flags)

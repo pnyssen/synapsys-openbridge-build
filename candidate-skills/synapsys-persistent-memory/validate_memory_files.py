@@ -77,15 +77,32 @@ def validate_steward_md(text: str) -> FileReport:
     return report
 
 
+def validate_pair(identity_path, role_path):
+    """Validate any (identity-file, role-file) pair by path -- not
+    hardcoded to SynapSys's own synapsys.md/steward.md, so the same
+    logic validates any organisation's instantiation of the pattern."""
+    from pathlib import Path
+
+    return [
+        validate_synapsys_md(Path(identity_path).read_text()),
+        validate_steward_md(Path(role_path).read_text()),
+    ]
+
+
 if __name__ == "__main__":
     import sys
     from pathlib import Path
 
-    here = Path(__file__).parent
-    reports = [
-        validate_synapsys_md((here / "synapsys.md").read_text()),
-        validate_steward_md((here / "steward.md").read_text()),
-    ]
+    if len(sys.argv) == 3:
+        identity_path, role_path = sys.argv[1], sys.argv[2]
+    elif len(sys.argv) == 1:
+        here = Path(__file__).parent
+        identity_path, role_path = here / "synapsys.md", here / "steward.md"
+    else:
+        print("usage: validate_memory_files.py [<identity.md> <role.md>]")
+        sys.exit(2)
+
+    reports = validate_pair(identity_path, role_path)
     ok = True
     for r in reports:
         status = "PASS" if r.ok else "FAIL"

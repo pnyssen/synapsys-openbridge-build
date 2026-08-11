@@ -35,7 +35,37 @@ governance discipline already flags as a failure mode elsewhere.
 `validate_memory_files.py` checks both files for required section
 headers and rejects any line asserting authority the file doesn't
 have (e.g. `steward.md` claiming something as decided rather than
-observed). Run: `python3 validate_memory_files.py`.
+observed). Run: `python3 validate_memory_files.py` (validates the
+SynapSys instance by default) or
+`python3 validate_memory_files.py <identity.md> <role.md>` to validate
+any other pair by path.
+
+## The portable core (`template/`)
+
+Checked this session, not assumed: the validator's own logic was
+already generic before this addition — it checks for three named
+section headers ("Purpose", "Operating discipline", "Standing rule")
+and generic English authority-assertion words, with no SynapSys-specific
+string anywhere in the checking logic itself. The only thing tying it
+to SynapSys was the CLI hardcoding `synapsys.md`/`steward.md` by
+filename — now fixed (`validate_pair(identity_path, role_path)` takes
+any two paths).
+
+`template/PRINCIPAL_IDENTITY_TEMPLATE.md` and
+`template/PRINCIPAL_ROLE_TEMPLATE.md` extract the pattern itself —
+raw, `<angle-bracket>`-placeholder versions of `synapsys.md`/
+`steward.md` for a collaborator to instantiate their own pair from.
+`template/example/` is a **worked, filled-in example** (a fictional
+"Example Collaborator Co", deliberately using different maturity/
+evidence-ladder wording than SynapSys's own FORM/FLOW/EVOLVE) that
+passes the exact same, unmodified `validate_memory_files.py` — that's
+the actual proof the pattern is portable, not just a claim of it. See
+`tests/test_validate_memory_files.py::test_worked_example_proves_pattern_is_portable`.
+
+**What this is not yet**: a deployment mechanism. Nothing here answers
+how a collaborator would actually receive and run this (a template
+repo they fork, a packaged skill, a hosted service) — that question is
+still open, not addressed by this candidate.
 
 ## What this is not
 
