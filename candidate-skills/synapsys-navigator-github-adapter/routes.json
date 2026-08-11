@@ -2,20 +2,42 @@
   "_meta": {
     "purpose": "Logical route registry extracted from the live Current Navigator so host-specific targets can vary without the Navigator Core changing.",
     "extracted_from": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR.html",
-    "extracted_at_state_revision": 152,
-    "extracted_at_implementation_version": "v4.1",
-    "extraction_method": "direct read of the live file this session, not inferred or reconstructed from memory",
+    "extracted_at_state_revision": "153 (per Navigator's own source bar at re-extraction time; the Working Memory state-control folder had already advanced to v16.3 by the same moment -- the Navigator's displayed revision itself lags the true latest by a few cycles, a live instance of the freshness gap this candidate's freshness.py addresses, not a data-entry error in this file)",
+    "extracted_at_implementation_version": "v4.2",
+    "superseded_extraction": "v4.1 at revision 152, this repo's own prior candidate version",
+    "extraction_method": "direct re-read of the live file this session, not inferred, not reused from the earlier cached read",
     "status": "CANDIDATE",
     "note": "odoo_base_url and every odoo_action_id below are copied verbatim from the live HTML's hardcoded links. This file does not add, remove, or renumber any Odoo action."
   },
   "odoo_base_url": "https://pnyssen-synapsys-odoo.odoo.com/odoo/action-",
-  "roles": ["steward", "architect", "collaborator"],
+  "roles": ["architect", "steward", "collaborator", "client"],
   "modes": ["form", "flow", "evolve"],
+  "role_policy": {
+    "mechanism": "v4.2 generalised the role filter from the v4.1 binary .role-full CSS class into a data-roles=\"a,b,c\" attribute plus an allowed(el, role) function that hides any element whose data-roles list excludes the active role. Presentation-only, confirmed: no ACL or authority logic is attached; the footer text and each role's own workspaceDesc field state this explicitly.",
+    "roles_detail": {
+      "architect": {"cardinality": "many-to-many", "scope": "all Contexts / Offerings", "access": "whole-system design + control visibility"},
+      "steward": {"cardinality": "many-to-many", "scope": "all Contexts / Offerings; may focus many", "access": "whole-system governance + work visibility"},
+      "collaborator": {"cardinality": "one-to-many", "scope": "assigned Context(s) / Offering participation", "access": "assigned work + evidence + contribution"},
+      "client": {"cardinality": "one-to-one", "scope": "primary client Context / relevant Offering", "access": "relevant work + service + evidence + Benefit"}
+    },
+    "finding_for_steward_attention": "The dispatched alignment brief's own instruction was explicit: 'Do not activate the Client role yet without Front Door release.' The live v4.2 Navigator's role selector already lists Client as a selectable option with a fully built ROLES entry and its own Flow-mode 'Assigned Flow surface' section -- i.e. Client is UI-present and selectable today, not merely designed. This may be intentional (a Front Door release may have already been granted between the brief's filing and v4.2's build) or it may be a live discrepancy against the brief's own instruction -- this candidate does not resolve which, only flags it plainly rather than silently accepting the more-permissive live state as correct."
+  },
+  "admin_tasks": {
+    "mobile_publish": {
+      "title": "Publish Obsidian Mobile",
+      "state_in_live_ui": "PREPARED . NOT EXECUTED",
+      "spec_source": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/CONTROLS/NAVIGATOR_ADMIN_TASK_OBSIDIAN_MOBILE_PUBLISH_v1.0.md",
+      "source_path": "SynapSys-Control/11_WORKING_MEMORY/Obsidian",
+      "target_path": "SynapSys-Control/08_MOBILE_DISPATCH/Obsidian",
+      "note": "Full execution spec already filed by ChatGPT Hub -- not duplicated here. See admin_task_execution_dry_run.py in this same candidate folder for the one piece genuinely missing: a dry-run-only validator, not an executor."
+    }
+  },
   "source_bar": [
     {"key": "obsidian", "title": "Obsidian", "host_target_kind": "self", "target": "Obsidian/00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR.html"},
-    {"key": "odoo", "title": "Odoo", "host_target_kind": "odoo_ref", "target": "ir.ui.menu 1144 -> ir.actions.act_url 1535 -> /web/content/1391?download=false; x_ss_work_object_register id 2"},
-    {"key": "wm", "title": "Working Memory", "host_target_kind": "wm_path", "target": "STATE_CONTROL/NAVIGATOR_STATE_CONTROL_v16.0.json"},
-    {"key": "agent", "title": "SynapSys Agent", "host_target_kind": "design_only", "target": "AI routing + Mesh + Work Object control views"},
+    {"key": "odoo", "title": "Odoo", "host_target_kind": "odoo_ref", "target": "ir.ui.menu 1144 -> ir.actions.act_url 1535 -> /web/content/1391?download=false; Work Object id 2"},
+    {"key": "wm", "title": "Working Memory", "host_target_kind": "wm_path", "target": "STATE_CONTROL/NAVIGATOR_STATE_CONTROL_v16.1.json (v4.2's own embedded pointer -- itself already one revision behind the v16.3 file live at extraction time, evidencing the freshness gap directly)"},
+    {"key": "roles", "title": "Role policy", "host_target_kind": "self_embedded", "target": "Navigator v4.2 embedded role policy; support spec expected in CURRENT/CONTROLS", "added_in": "v4.2, new since the v4.1 extraction"},
+    {"key": "agent", "title": "SynapSys Agent", "host_target_kind": "design_only", "target": "GitHub/Agent alignment packet + AI routing / Mesh views"},
     {"key": "n8n", "title": "N8N", "host_target_kind": "held", "target": "Runtime only after stable released workflow"},
     {"key": "canon", "title": "Canonical Library", "host_target_kind": "odoo_action", "target": 1531}
   ],
@@ -88,6 +110,8 @@
   "known_gaps_disclosed": [
     "odoo_action_id values are read-only references copied from the live HTML at extraction time; this file does not verify they still resolve in Odoo and is not a live query.",
     "agent_target fields are null throughout because no SynapSys Agent host adapter exists yet; they are placeholders for a future host, not a claim that one exists.",
-    "This registry does not include the six per-mode Odoo top-action shortcuts (Work Objects/Services/Benefits/Canonical Library) shown above the Flow-mode grid, since they duplicate action IDs already listed under flow_mode_routes and libraries above rather than adding new routes."
+    "This registry does not include the six per-mode Odoo top-action shortcuts (Work Objects/Services/Benefits/Canonical Library) shown above the Flow-mode grid, since they duplicate action IDs already listed under flow_mode_routes and libraries above rather than adding new routes.",
+    "form_mode_routes and flow_mode_routes below have NOT been re-annotated with v4.2's new per-route data-roles restrictions (e.g. Canvas suite is architect-only, several Flow cards are architect/steward-only, Collaborator/Client see a role-filtered-pending placeholder section instead of the global Flow grid). The route targets themselves are unchanged from v4.1 to v4.2 and remain accurate; only the role-visibility layer on top of them is new and not yet mirrored into this file. Flagged rather than silently omitted.",
+    "The live Navigator advanced from v4.1 (state revision 152) to v4.2 (revision 153) in roughly the time between this candidate's first draft and this update -- direct, first-hand evidence that a routes-manifest file maintained by hand will fall behind a Navigator under this much active concurrent development. This is the strongest argument yet for the freshness/last-read stamping layer (see freshness.py) applying to this file's own targets too, not just to the six external sources it references."
   ]
 }
