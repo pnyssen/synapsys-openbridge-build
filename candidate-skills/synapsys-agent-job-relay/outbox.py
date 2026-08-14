@@ -103,11 +103,14 @@ def complete(message: OutboxMessage, status: str = "closed") -> OutboxMessage:
 
 
 def select_claimable(messages: List[OutboxMessage], processor: str) -> List[OutboxMessage]:
-    """Pure filter: 'proposed' messages whose job.processor addresses the
-    given processor. Does not sort by priority/urgency -- this module has
-    no cadence/priority model; that belongs to the scheduler Routine
-    (component 5.2 of the design), not this module."""
-    return [m for m in messages if m.status == "proposed" and m.job.processor == processor]
+    """Pure filter: 'proposed' messages whose job.target_lane addresses
+    the given processor (parameter kept as 'processor' for call-site
+    continuity; matches job_contract.py's renamed target_lane field,
+    reconciled per ChatGPT Hub's accepted integration basis). Does not
+    sort by priority/urgency -- this module has no cadence/priority
+    model; that belongs to the scheduler Routine (component 5.2 of the
+    design), not this module."""
+    return [m for m in messages if m.status == "proposed" and m.job.target_lane == processor]
 
 
 def detect_stale_claims(
@@ -158,3 +161,19 @@ def deserialize_message(data: dict) -> OutboxMessage:
     job_data = data.pop("job")
     job = from_dict(job_data)
     return OutboxMessage(job=job, **data)
+
+
+def try_deserialize_message(data: dict):
+    """Same as deserialize_message(), but returns None instead of raising
+    on a schema mismatch -- e.g. a message written under an earlier
+    job_contract.py field shape (this schema was itself reconciled once
+    already, per the accepted Navigator integration basis; old on-disk
+    messages from before that reconciliation are exactly this case).
+    Lets a polling loop skip a message it can't parse rather than crash
+    on it -- 'skip and flag', not 'skip silently': callers should log
+    which raw dict failed to parse, this function only decides not to
+    raise."""
+    try:
+        return deserialize_message(data)
+    except (ValueError, TypeError, KeyError):
+        return None

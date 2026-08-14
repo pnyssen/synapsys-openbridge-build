@@ -17,6 +17,7 @@ from outbox import (  # noqa: E402
     outbox_filename,
     serialize_message,
     deserialize_message,
+    try_deserialize_message,
     compute_message_id,
 )
 
@@ -27,21 +28,31 @@ FORBIDDEN_MODULES = {
 
 def _job(**overrides) -> JobContract:
     kwargs = dict(
+        control_marker="SYNAPSYS_AGENT_GITHUB__TEST_JOB",
+        origin_lane="claude_code",
+        target_lane="gpt",
+        role="architect",
+        context_id="CTX-SS",
         work_object_id="WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001",
+        state_revision="239",
+        objective="test objective",
+        source_refs="candidate-skills/synapsys-agent-job-relay/outbox.py",
+        reality_state="Candidate code",
+        ppv_state="Potential_HELD",
+        authority_state="RELAY_REQUEST_ONLY__NO_MUTATION",
+        owner_lane="claude_code",
+        stop_hold="NONE",
+        required_return="",
+        next_action="Review and respond",
+        replay_validity="PRESERVED",
         origin_signal="test origin",
         stream="platform-capability",
-        owner="claude_code",
-        processor="gpt",
         processor_route="produce -> relay -> await response",
         distribution_class="centre",
-        authority_state="RELAY_REQUEST_ONLY__NO_MUTATION",
-        evidence_state="SUFFICIENT",
         filing_state="FILED",
-        return_packet="",
-        next_valid_action="Review and respond",
         exception_route="NONE",
-        replay_hash="placeholder",
         status="proposed",
+        replay_hash="placeholder",
     )
     kwargs.update(overrides)
     job = JobContract(**kwargs)
@@ -72,7 +83,7 @@ def test_build_message_from_valid_job():
 
 
 def test_build_message_rejects_invalid_job():
-    job = _job(processor="chatgpt")  # out of vocabulary
+    job = _job(target_lane="chatgpt")  # out of vocabulary
     try:
         build_message(job, enqueued_at_iso="2026-08-14T10:00:00")
         assert False, "expected ValueError"
@@ -147,8 +158,8 @@ def test_complete_rejects_invalid_status_argument():
 
 
 def test_select_claimable_filters_by_status_and_processor():
-    job_gpt = _job(processor="gpt")
-    job_codex = _job(processor="codex", next_valid_action="Verify a claim")
+    job_gpt = _job(target_lane="gpt")
+    job_codex = _job(target_lane="codex", next_action="Verify a claim")
     msg_gpt = build_message(job_gpt, "2026-08-14T10:00:00")
     msg_codex = build_message(job_codex, "2026-08-14T10:01:00")
     msg_gpt_claimed = claim(msg_gpt, "chatgpt_hub", "2026-08-14T10:02:00")
@@ -208,6 +219,35 @@ def test_serialize_deserialize_round_trip():
     data = serialize_message(claimed)
     restored = deserialize_message(data)
     assert restored == claimed
+
+
+def test_try_deserialize_message_returns_none_on_old_schema_data():
+    """Real-world case: two messages already sit in Working Memory,
+    written under job_contract.py's earlier (v0.1) 15-field job shape,
+    before this schema was reconciled per the accepted Navigator
+    integration basis. A future poll must not crash on them."""
+    old_schema_job = {
+        "work_object_id": "WO-X", "origin_signal": "x", "stream": "S1",
+        "owner": "claude_code", "processor": "gpt", "processor_route": "x",
+        "distribution_class": "centre", "authority_state": "HELD",
+        "evidence_state": "SUFFICIENT", "filing_state": "FILED",
+        "return_packet": "", "next_valid_action": "x",
+        "exception_route": "NONE", "replay_hash": "abc", "status": "closed",
+    }
+    old_message = {
+        "message_id": "old123", "job": old_schema_job,
+        "enqueued_at_iso": "2026-08-14T00:00:00", "status": "closed",
+        "claimed_by": None, "claimed_at_iso": None,
+    }
+    assert try_deserialize_message(old_message) is None
+
+
+def test_try_deserialize_message_returns_message_on_current_schema():
+    job = _job()
+    msg = build_message(job, "2026-08-14T10:00:00")
+    data = serialize_message(msg)
+    result = try_deserialize_message(data)
+    assert result == msg
 
 
 def test_serialize_deserialize_round_trip_unclaimed_message():

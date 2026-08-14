@@ -4,17 +4,53 @@ SynapSys AI lanes (this lane <-> Navigator <-> other lanes). Component
 (05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/
 20260814--claude-code--design-candidate--synapsys-agent-full-ecosystem-integration-design--v1-0.md).
 
-DRAFT v0.1, pending Navigator field-shape reconciliation: the Navigator's
-own rev-199 "Ask / Analyse" Level 2 route generates a bounded prompt from
-Context/Work Object/PPV/authority/required-return fields; this lane could
-not read that route's exact field shape this session (no browser access,
-no direct HTML/JS read). This schema is built instead from what IS
-already known and proven -- the sk07-agent-handoff 15-field work object
-shape (loaded this session; SANDBOX/TEST ONLY candidate skill,
-RUNTIME_ACTIVATION=NO -- its shape is reused here as a well-specified
-template, not as an authorising mechanism) -- and should be reconciled
-against the Navigator's actual field shape once shared, not treated as
-final.
+v0.2 -- RECONCILED per ChatGPT Hub's accepted integration basis
+(05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/
+20260814--chatgpt-hub--integration-basis--evolve-view-synapsys-agent--v1-0.md,
+verdict ACCEPT_AS_EVOLVE_INTEGRATION_BASIS). That response specified a
+17-field merged contract extending the Navigator's own Level-2 prompt-
+builder fields (TARGET LANE/ROLE/CONTEXT/WORK OBJECT/OBJECTIVE/
+INSTRUCTIONS/RETURN, plus explicit PPV/authority serialization -- flagged
+there as currently MISSING from the live builder) reconciled against the
+v0.1 sk07-agent-handoff-derived 15-field shape "by semantics ... field
+count is secondary to one semantic contract." This module is that
+reconciliation: Navigator-aligned field names for the 17 core items,
+sk07-heritage fields kept as named extensions where they add real value
+beyond the Navigator minimum, none dropped silently.
+
+Field-by-field mapping from v0.1 -> v0.2, for anyone diffing:
+  work_object_id    -> work_object_id      (unchanged)
+  origin_signal     -> origin_signal       (unchanged; distinct from the
+                                             new origin_lane -- narrative
+                                             reason vs. which lane filed it)
+  owner             -> owner_lane          (renamed, same meaning)
+  processor         -> target_lane         (renamed, same meaning;
+                                             PROCESSOR_VALUES kept as
+                                             TARGET_LANE_VALUES, same set)
+  authority_state   -> authority_state     (unchanged)
+  evidence_state    -> reality_state       (renamed; Navigator's response
+                                             uses "reality_state" for this
+                                             exact concept -- what's
+                                             actually built vs. claimed)
+  return_packet     -> required_return     (renamed; same dual usage: the
+                                             expected shape before
+                                             completion, the actual filed
+                                             receipt path + hash after)
+  next_valid_action -> next_action         (renamed, same meaning, same
+                                             "exactly one" discipline)
+  replay_hash       -> replay_hash         (unchanged, computed)
+  status            -> status              (unchanged, same closed vocab)
+  stream            -> stream              (kept as a named extension --
+                                             not in Navigator's 17, still
+                                             useful for ACB-style routing)
+  processor_route   -> processor_route     (kept as a named extension)
+  distribution_class-> distribution_class  (kept as a named extension)
+  filing_state      -> filing_state        (kept as a named extension)
+  exception_route   -> exception_route     (kept as a named extension)
+
+New fields added, per Navigator's 17-field list, with no v0.1 counterpart:
+  control_marker, origin_lane, role, context_id, state_revision,
+  objective, source_refs, ppv_state, stop_hold, replay_validity.
 
 Pure schema + validation only: no network, no filesystem, no subprocess,
 no wall-clock call. Callers supply all timestamps and I/O results.
@@ -25,7 +61,7 @@ import json
 from dataclasses import asdict, dataclass, field
 from typing import List, Optional
 
-PROCESSOR_VALUES = (
+TARGET_LANE_VALUES = (
     "gpt", "fable", "codex", "claude_code", "subagent",
     "gemini_d009", "n8n", "odoo", "human",
 )
@@ -36,15 +72,25 @@ STATUS_VALUES = ("proposed", "active", "blocked", "returned", "closed")
 # runtime-control / Platform Capability Activation / Evidence-Corpus /
 # Model-Capability Integration / Commercial Activation) is carried as
 # free text inside a rendered packet per sk07-agent-handoff, not as a
-# 16th structured field here.
+# structured field here.
 STREAM_VALUES = ("S1", "S2", "S3", "openbridge", "platform-capability")
 
 DISTRIBUTION_CLASS_VALUES = ("centre", "mid", "edge")
 
+# Navigator's own role model (routes.json role_policy, re-verified live
+# this session against the Current Navigator).
+ROLE_VALUES = ("architect", "steward", "collaborator", "client")
+
+# PPV states as actually observed in real WM filings this session --
+# includes the "_HELD" suffix variant (e.g. "Potential_HELD"), not just
+# the three bare stems, so validation matches real usage rather than an
+# idealised vocabulary.
+PPV_STEMS = ("Potential", "Probable", "Verified")
+
 # Reused verbatim from sk07-agent-handoff v0.4's own role table so this
 # module doesn't quietly drift from it -- re-derive from a fresh skill
 # read if the two ever disagree, not patched from assumption here.
-PROCESSOR_ROLE_TABLE = {
+TARGET_LANE_ROLE_TABLE = {
     "gpt": {
         "may": ("arbitrate", "route", "sequence", "reconcile", "challenge", "produce next-step packets"),
         "must_not": ("execute", "mutate", "approve", "infer authority"),
@@ -92,38 +138,54 @@ class ValidationResult:
 
 @dataclass(frozen=True)
 class JobContract:
-    """The 15-field work object, per sk07-agent-handoff's shape. Closed-
-    vocabulary fields are not enforced by the type system -- a caller can
-    still construct an out-of-vocabulary instance so validate_job_contract()
-    can report the exact error, rather than a raw exception at
-    construction time."""
+    """The reconciled job/handoff contract -- Navigator-aligned core
+    fields plus named sk07-heritage extensions. Closed-vocabulary fields
+    are not enforced by the type system -- a caller can still construct
+    an out-of-vocabulary instance so validate_job_contract() can report
+    the exact error, rather than a raw exception at construction time."""
+
+    # --- Navigator-aligned core (per the accepted integration basis) ---
+    control_marker: str
+    origin_lane: str
+    target_lane: str
+    role: str
+    context_id: str
     work_object_id: str
+    state_revision: str
+    objective: str
+    source_refs: str
+    reality_state: str
+    ppv_state: str
+    authority_state: str
+    owner_lane: str
+    stop_hold: str
+    required_return: str
+    next_action: str
+    replay_validity: str
+
+    # --- sk07-heritage named extensions, kept for real value beyond the
+    #     Navigator minimum ---
     origin_signal: str
     stream: str
-    owner: str
-    processor: str
     processor_route: str
     distribution_class: str
-    authority_state: str
-    evidence_state: str
     filing_state: str
-    return_packet: str
-    next_valid_action: str
     exception_route: str
-    replay_hash: str
     status: str
+    replay_hash: str
 
 
-def role_table_for(processor: str) -> Optional[dict]:
-    return PROCESSOR_ROLE_TABLE.get(processor)
+def role_table_for(target_lane: str) -> Optional[dict]:
+    return TARGET_LANE_ROLE_TABLE.get(target_lane)
 
 
 def compute_replay_hash(job: JobContract) -> str:
     """SHA-256 of the canonical (sorted-key) JSON serialisation of the
-    work object, per sk07-agent-handoff's own rule: 'replay_hash = SHA-256
-    of the serialised work object at send.' Excludes the replay_hash field
-    itself -- a field cannot hash itself; callers set replay_hash to this
-    function's output after constructing the rest of the object."""
+    contract, per sk07-agent-handoff's own rule: 'replay_hash = SHA-256
+    of the serialised work object at send.' Excludes the replay_hash
+    field itself -- a field cannot hash itself; callers set replay_hash
+    to this function's output after constructing the rest of the
+    object."""
     payload = asdict(job)
     payload.pop("replay_hash", None)
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
@@ -133,14 +195,23 @@ def compute_replay_hash(job: JobContract) -> str:
 _MULTI_ACTION_MARKERS = (";", " and then ", "\n2.", "\n2)", "\n1. ", "\n1)")
 
 
-def looks_like_multiple_actions(next_valid_action: str) -> bool:
+def looks_like_multiple_actions(next_action: str) -> bool:
     """Heuristic only, per sk07-agent-handoff's 'Plural -> HOLD (split
     into multiple handoffs)' rule. Flags likely multi-action text for a
     human/caller to actually judge -- this function does not itself
     reject anything; validate_job_contract() decides what to do with the
     flag."""
-    text = next_valid_action.lower()
+    text = next_action.lower()
     return any(marker in text for marker in _MULTI_ACTION_MARKERS)
+
+
+def is_recognised_ppv_state(ppv_state: str) -> bool:
+    """True if ppv_state is one of the three canonical PPV stems,
+    optionally with a suffix (e.g. 'Potential_HELD', matching real usage
+    observed in WM filings this session) -- not a rigid three-value
+    enum, since real filings vary the suffix while keeping the stem
+    meaningful."""
+    return any(ppv_state == stem or ppv_state.startswith(stem + "_") for stem in PPV_STEMS)
 
 
 def validate_job_contract(job: JobContract) -> ValidationResult:
@@ -149,10 +220,19 @@ def validate_job_contract(job: JobContract) -> ValidationResult:
     if not job.work_object_id.strip():
         errors.append("work_object_id must not be empty (HOLD per sk07: missing work_object_id)")
 
-    if job.processor not in PROCESSOR_VALUES:
+    if not job.control_marker.strip():
+        errors.append("control_marker must not be empty (Navigator integration basis: every job needs a control_marker/job_id)")
+
+    if job.target_lane not in TARGET_LANE_VALUES:
         errors.append(
-            f"processor '{job.processor}' is outside the closed vocabulary "
-            f"{PROCESSOR_VALUES} (HOLD per sk07: enum outside closed vocabulary)"
+            f"target_lane '{job.target_lane}' is outside the closed vocabulary "
+            f"{TARGET_LANE_VALUES} (HOLD per sk07: enum outside closed vocabulary)"
+        )
+
+    if job.role not in ROLE_VALUES:
+        errors.append(
+            f"role '{job.role}' is outside the closed vocabulary {ROLE_VALUES} "
+            f"(Navigator role model, routes.json role_policy)"
         )
 
     if job.status not in STATUS_VALUES:
@@ -174,11 +254,17 @@ def validate_job_contract(job: JobContract) -> ValidationResult:
             f"enum outside closed vocabulary)"
         )
 
-    if not job.next_valid_action.strip():
-        errors.append("next_valid_action must not be empty (HOLD per sk07: zero next_valid_action)")
-    elif looks_like_multiple_actions(job.next_valid_action):
+    if not is_recognised_ppv_state(job.ppv_state):
         errors.append(
-            "next_valid_action looks like it names more than one action "
+            f"ppv_state '{job.ppv_state}' does not match a recognised PPV stem "
+            f"{PPV_STEMS} (with optional '_SUFFIX', e.g. 'Potential_HELD')"
+        )
+
+    if not job.next_action.strip():
+        errors.append("next_action must not be empty (HOLD per sk07: zero next_valid_action)")
+    elif looks_like_multiple_actions(job.next_action):
+        errors.append(
+            "next_action looks like it names more than one action "
             "(HOLD per sk07: plural next_valid_action -> split into "
             "multiple handoffs); this is a heuristic flag for a human to "
             "judge, not a hard structural determination"
@@ -187,8 +273,8 @@ def validate_job_contract(job: JobContract) -> ValidationResult:
     if not job.authority_state.strip():
         errors.append("authority_state must not be empty (HOLD per sk07: indeterminable mandatory field)")
 
-    if not job.evidence_state.strip():
-        errors.append("evidence_state must not be empty (HOLD per sk07: indeterminable mandatory field)")
+    if not job.reality_state.strip():
+        errors.append("reality_state must not be empty (HOLD per sk07: indeterminable mandatory field)")
 
     if not job.replay_hash.strip():
         errors.append(

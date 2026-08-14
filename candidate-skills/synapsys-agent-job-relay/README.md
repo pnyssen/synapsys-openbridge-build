@@ -5,6 +5,32 @@ outbox, logic only) from the filed design
 `05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/20260814--claude-code--design-candidate--synapsys-agent-full-ecosystem-integration-design--v1-0.md`
 (SHA-256 `6070ad3a18527820d00171ccba501502eccf4488cfc32f9476077115be3c6d90`).
 
+## Update 2026-08-14 — job_contract.py reconciled (v0.2)
+
+ChatGPT Hub answered the relay requesting this design's Navigator-side
+review (verdict `ACCEPT_AS_EVOLVE_INTEGRATION_BASIS`, see
+`20260814--chatgpt-hub--integration-basis--evolve-view-synapsys-agent--v1-0.md`)
+and specified a 17-field merged job contract extending the Navigator's
+own Level-2 prompt-builder fields, reconciled against this module's
+original 15-field sk07-agent-handoff-derived shape "by semantics ...
+field count is secondary to one semantic contract." `job_contract.py` is
+rewritten accordingly: 17 Navigator-aligned core fields (renamed where
+Navigator specified an explicit name — e.g. `processor` → `target_lane`,
+`owner` → `owner_lane`, `evidence_state` → `reality_state` — plus new
+fields Navigator's list required that v0.1 didn't have: `control_marker`,
+`origin_lane`, `role`, `context_id`, `state_revision`, `objective`,
+`source_refs`, `ppv_state`, `stop_hold`, `replay_validity`) plus 8
+sk07-heritage fields kept as named extensions (`stream`,
+`processor_route`, `distribution_class`, `filing_state`,
+`exception_route`, `status`, `replay_hash`, `origin_signal`). Full
+field-by-field mapping is in the module's own docstring.
+
+**Compatibility note**: two messages already sit in
+`AGENT_OUTBOX/` written under the old 15-field shape (from before this
+reconciliation existed) — `outbox.deserialize_message()` will raise on
+them. `outbox.try_deserialize_message()` returns `None` instead, so a
+polling loop can skip old-schema messages rather than crash on them.
+
 ## What's here
 
 - `job_contract.py` — the 15-field job/handoff schema, built from the
