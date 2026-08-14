@@ -38,22 +38,32 @@ outbox, logic only) from the filed design
   serialize/deserialize round-trips.
 - 45/45 tests passing (`python3 -m pytest tests/ -v`).
 
-## What this is not
+## Update 2026-08-14 — outbox proven live, N8N deferred for v0
 
-Not a working relay — no N8N workflow exists, no `create_trigger`
-Routine exists, nothing here is wired to any live SharePoint/N8N/Odoo
-call. `outbox.py` performs zero I/O by design; a future caller (a
-scheduler Routine, or a human operator) is responsible for actually
-reading/writing WM and handing this module plain data. Building the
-live N8N relay workflow itself requires a filed CR first, per this
-repo's N8N Workflow Change Control Rule — not started, not in scope for
-this candidate.
+The full loop (build a `JobContract` → `build_message()` → `sp_write` to
+`05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/AGENT_OUTBOX/`
+→ `sp_read` back → `deserialize_message()` → `select_claimable()` →
+`claim()` → `complete()`) was run against a real, live WM file this
+session and worked end to end — no N8N workflow needed for this lane to
+enqueue and process its own work. See
+`20260814--claude-code--routine-spec--synapsys-agent-outbox-scheduler--v0-2.md`
+(WM) for the confirmed outbox path and the corrected wake-prompt using
+it. The N8N relay CR (still filed, still HELD) is now understood as
+needed only for *other lanes* to submit jobs into this same outbox
+later — deferred, not required for v0 operability.
+
+## What this is not (still true)
+
+No `create_trigger` Routine exists yet — the scheduler spec is filed and
+ready, but this lane does not self-authorise new persistent automation
+without explicit Steward go-ahead. `outbox.py` itself still performs
+zero I/O by design; the real `sp_write`/`sp_read` calls proving the loop
+above were made by the calling session, not by this module.
 
 ## Status
 
-CANDIDATE. Design-and-code-only, per this lane's standing authority
-boundary — no runtime, no credentials, no live wiring, no CR filed for
-the N8N side. Next steps (per the design's own §9): reconcile the job
-contract against the Navigator's real field shape once ChatGPT Hub
-responds to the filed relay request; draft the N8N relay CR; draft the
-scheduler Routine spec — none of those are performed by this candidate.
+CANDIDATE, with one component now live-proven (the outbox read/write/
+claim/complete loop, against real WM data) and one still pending an
+explicit go-ahead (the scheduler Routine itself). No CR filed/actioned
+for the N8N side (deferred). Next step: Steward decides whether to
+actually create the Routine now.
