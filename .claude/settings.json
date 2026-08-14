@@ -3,6 +3,15 @@
     "synapsys-n8n-readonly-code",
     "synapsys-odoo-readonly-code"
   ],
+  "permissions": {
+    "allow": [
+      "mcp__SynapSys_SharePoint__sp_read",
+      "mcp__SynapSys_SharePoint__sp_write",
+      "mcp__SynapSys_SharePoint__sp_list",
+      "mcp__SynapSys_SharePoint__sp_search",
+      "mcp__SynapSys_SharePoint__sp_create_folder"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
