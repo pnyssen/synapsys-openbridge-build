@@ -8,6 +8,16 @@ recorded caution about new recurring costs — a persistent Agent service is
 exactly that, and this draft exists so that decision is one line-item
 review, not a from-scratch design task.**
 
+**Update 2026-08-14**: the five previously-OPEN fields below are now
+resolved, per Steward's direct answers this session (`x_offering_layer`,
+`x_service_ppv_ceiling`, and the three owner fields — see the filed
+decision receipt
+`05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/20260814--claude-code--decision-receipt--service-catalogue-open-fields-resolved--v1-0.md`
+for the exact quoted answers). **Still no `create_odoo` call has been
+made** — this lane's Odoo access remains read-only; the table below is
+now complete and ready for whichever lane holds Odoo write access to
+execute in one call.
+
 Every field name below was read live from `ir.model.fields` for
 `x_service_catalogue` this session (68 real fields returned) — nothing here
 is a guessed field name.
@@ -18,19 +28,19 @@ is a guessed field name.
 |---|---|---|
 | `x_service_code` | `SC-AGENT-01` | Follows the existing `SC-01` pattern already visible in the live Navigator's own Service field |
 | `x_service_name` | `SynapSys Agent — Navigator Evolve Host & Mesh Enablement` | States what it does, not a marketing name |
-| `x_offering_layer` | **OPEN — required field, not proposed here** | A (Precinct) / B (Enterprise) / C (Collaboration) all fit poorly: this is cross-cutting infrastructure serving all three, not owned by one. Forcing a pick would misclassify it. Flagging as a genuine open question rather than guessing. |
+| `x_offering_layer` | `C` (`C - Collaboration`, confirmed real selection value via `ir.model.fields.selection`) | Steward, 2026-08-14, verbatim: "It's an internal technical service enabling collaboration." Matches `C - Collaboration` as the closest real category, consistent with `x_service_class: internal` already set below. |
 | `x_service_status` | `draft` | Matches Potential PPV |
 | `x_lifecycle_gate` | `draft` | Same reason |
 | `x_service_class` | `internal` | Serves the Navigator/ecosystem itself, not directly sold as a client offering — though this may need revisiting if it later reaches collaborators/clients directly (membrane) |
 | `x_service_role` / `x_platform_role` / `x_method_role` | `platform` | It's infrastructure capability, not a discrete method or a billable service |
 | `x_service_ppv_entry` | `Potential` | Matches this candidate's actual current state |
-| `x_service_ppv_ceiling` | **OPEN** | Whether this is allowed to reach `Verified` (full production) is itself a decision, not assumed here |
+| `x_service_ppv_ceiling` | `Probable` (confirmed real selection value) | Steward, 2026-08-14: selected "Probable (Recommended)" — allowed to mature past draft once the design proves out, capped short of full `Verified` production status until a later, separate decision |
 | `x_default_workflow_phase` | `learn` | Of the five phases (sense/design/deliver/realise/learn), "learn" matches the Evolve-mode description already live in the Navigator: "turns observed signals... into learning" |
 | `x_entry_point` | `direct_d001_request` | Steward-initiated, this thread, not a CRM lead or webhook |
 | `x_named_consumer` | `steward` | Primary consumer today; `platform_system` (other AI lanes) is also plausible — single-select field forces a primary, not a claim the other doesn't apply |
 | `x_ffe_state` | `evolve` | Matches its designated role in the Navigator's own Form/Flow/Evolve model exactly |
 | `x_context_id` | `CTX-SS` | Same Context already bound to `WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001` in the live Navigator |
-| `x_delivery_lead_id` / `x_steward_contact_id` / `x_service_owner_id` | **OPEN — not invented** | These are `many2one` to real `res.partner` records; assigning one without Steward instruction would be a fabricated owner |
+| `x_delivery_lead_id` / `x_steward_contact_id` / `x_service_owner_id` | `res.partner` id `6` ("Phil Nyssen", `phil@synapsys.com.au`) for all three | Steward, 2026-08-14: selected "All three = you (Phil) (Recommended)". **Flagging an ambiguity, not silently resolved**: `search_odoo` on `res.partner` for "Nyssen" returns two Phil Nyssen records — id `6` (`phil@synapsys.com.au`) and id `43` ("Phil Nyssen (Vitae Capital)", `phil.nyssen@vitaecapital.com.au`). id `6` was selected on the strength of the `synapsys.com.au` email domain matching this ecosystem, not independently confirmed by Steward — worth a one-line Steward confirmation before the actual `create_odoo` call, since a wrong pick here would misfile the owner. |
 | `x_operations_pattern` | **None selected** | Checked all 28 `PAT-*` options in the live selection list; none clearly fits a persistent monitoring/mesh-integrity service. Selecting a poor fit to fill the field would misclassify it — may warrant a new `PAT-CAND-*` entry, not proposed here |
 | `x_itil_utility` | "Continuous, read-only monitoring and freshness/drift detection across Odoo, Working Memory, Obsidian, GitHub and N8N, surfaced through the Navigator's Evolve mode." | Plain description of function |
 | `x_itil_warranty` | "No write/mutation authority under any circumstance. Every claim carries one of five ruled freshness states (see `freshness.py`). Relay-only to other AI lanes — no assumed direct channel. Every action traces to a Work Object and exactly one next-valid-step." | States what's actually guaranteed, not aspirational |
@@ -50,15 +60,18 @@ is a guessed field name.
 
 ## What this file does not do
 
-Does not call `create_odoo`. Does not assign a real `res.partner` to any
-`many2one` field. Does not select `x_offering_layer` or
-`x_service_ppv_ceiling` where the honest answer is "this needs a decision,"
-not a plausible-looking guess. Does not invent a `x_operations_pattern` fit
-that isn't there.
+Does not call `create_odoo` — this lane's Odoo access remains read-only
+regardless of the fields below now being resolved. Does not independently
+confirm which of the two "Phil Nyssen" `res.partner` records (id `6` vs
+`43`) is correct beyond the email-domain match reasoning stated above.
+Does not invent a `x_operations_pattern` fit that isn't there — still
+none selected, unchanged from the original draft.
 
 ## Next valid step
 
-Steward reviews the two OPEN fields (`x_offering_layer`,
-`x_service_ppv_ceiling`) and the three unassigned `many2one` owner fields;
-once those five are named, this table converts directly into one
-`create_odoo` call — no further design work required.
+All five previously-open fields are now resolved (see the "Update
+2026-08-14" note at the top and the filed decision receipt). This table
+is ready for one `create_odoo` call by whichever lane holds Odoo write
+access — this lane does not. Worth a one-line Steward confirmation on the
+`res.partner` id `6` vs `43` ambiguity before that call, since it's the
+one item resolved by inference rather than direct Steward selection.
