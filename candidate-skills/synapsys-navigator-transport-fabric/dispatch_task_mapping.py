@@ -9,6 +9,7 @@ read-then-write claim pattern; that is a concurrency defect in the
 """
 
 from dataclasses import dataclass
+from typing import List, Optional
 
 # Field repurposing map: concept the transport fabric needs -> the
 # existing x_ss_dispatch_task field that already fits it, with no
@@ -103,4 +104,54 @@ def atomic_claim_sql_pattern() -> str:
         "WHERE id = %(task_id)s "
         "AND x_dispatch_status = 'routed' "
         "AND (x_operator_trace IS NULL OR x_operator_trace = '')"
+    )
+
+
+@dataclass(frozen=True)
+class ClaimAttemptOutcome:
+    claimant: str
+    granted: bool
+
+
+@dataclass(frozen=True)
+class ConcurrentClaimSimulationResult:
+    winner: Optional[str]
+    outcomes: tuple
+    final_status: str
+    final_operator_trace: Optional[str]
+
+
+def simulate_concurrent_claim_attempts(claimants: List[str]) -> ConcurrentClaimSimulationResult:
+    """Deterministically simulate N claimants attempting the same
+    compare-and-swap claim (atomic_claim_sql_pattern's WHERE predicate)
+    against one x_ss_dispatch_task-shaped row, applied in caller-supplied
+    order -- no threading, no wall-clock, matching this package's zero-I/O
+    discipline.
+
+    A real concurrent UPDATE ... WHERE ... under the database's own
+    row-level locking serializes to some total order of individual row
+    mutations; applying the same CAS predicate in strict sequence here
+    reproduces every reachable outcome of that serialization. What this
+    proves: regardless of order, exactly one claimant is ever granted (the
+    first whose predicate check finds status='routed' and an empty
+    operator_trace) and every other claimant's check is guaranteed to see
+    the post-claim state and be refused -- there is no interleaving of this
+    predicate that grants two claimants, which is exactly the atomicity
+    property atomic_claim_sql_pattern's WHERE clause exists to provide over
+    a naive search-then-write pair (see CLAIM_CONCURRENCY_FINDING above).
+    """
+    status = "routed"
+    operator_trace = None
+    outcomes = []
+    for claimant in claimants:
+        granted = status == "routed" and not operator_trace
+        if granted:
+            status = "in_progress"
+            operator_trace = claimant
+        outcomes.append(ClaimAttemptOutcome(claimant=claimant, granted=granted))
+    return ConcurrentClaimSimulationResult(
+        winner=operator_trace,
+        outcomes=tuple(outcomes),
+        final_status=status,
+        final_operator_trace=operator_trace,
     )

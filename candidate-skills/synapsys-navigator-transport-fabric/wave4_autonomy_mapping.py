@@ -220,7 +220,7 @@ class CapabilityAutonomyClassification:
 
 CAPABILITY_AUTONOMY_MAP = (
     CapabilityAutonomyClassification(
-        "registry_resolver.resolve_route",
+        "registry_resolver.resolve_endpoint",
         "A1_RECOMMEND",
         "Reads x_ss_agent_registry and recommends a route; never itself binds "
         "or executes anything.",
@@ -231,7 +231,7 @@ CAPABILITY_AUTONOMY_MAP = (
         "A1_RECOMMEND",
         "Filters which jobs are eligible for transport -- a recommendation "
         "surface, not an execution one.",
-        "Same as resolve_route: measured accuracy before promotion.",
+        "Same as resolve_endpoint: measured accuracy before promotion.",
     ),
     CapabilityAutonomyClassification(
         "claim_state_machine.attempt_claim / heartbeat / release / expire",

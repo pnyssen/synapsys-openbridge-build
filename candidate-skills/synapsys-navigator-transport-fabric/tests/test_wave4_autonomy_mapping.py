@@ -6,6 +6,7 @@ defined elsewhere in this package, so the mapping can't silently drift out
 of sync with the code it describes.
 """
 
+import importlib
 import os
 import sys
 
@@ -158,3 +159,26 @@ def test_notify_only_transports_stay_at_a0_observe():
     for c in CAPABILITY_AUTONOMY_MAP:
         if "github_transport" in c.capability or "email_transport" in c.capability:
             assert c.current_autonomy_level == "A0_OBSERVE"
+
+
+def test_every_capability_string_names_a_real_function():
+    """Catches exactly the class of error this test was added to fix: an
+    earlier revision named 'registry_resolver.resolve_route', but the real
+    function is 'resolve_endpoint'. Every capability string is parsed as
+    'module.func[ / func2][ / module2.func3]' and each named function is
+    checked to actually exist on its module via getattr -- a typo or a
+    future rename in the real modules fails this test instead of silently
+    documenting something that no longer exists."""
+    for c in CAPABILITY_AUTONOMY_MAP:
+        segments = c.capability.split(" / ")
+        first_module_name, first_func = segments[0].split(".", 1)
+        module_obj = importlib.import_module(first_module_name)
+        assert hasattr(module_obj, first_func), c.capability
+        current_module_obj = module_obj
+        for seg in segments[1:]:
+            if "." in seg:
+                mod_name, func_name = seg.split(".", 1)
+                current_module_obj = importlib.import_module(mod_name)
+            else:
+                func_name = seg
+            assert hasattr(current_module_obj, func_name), c.capability
