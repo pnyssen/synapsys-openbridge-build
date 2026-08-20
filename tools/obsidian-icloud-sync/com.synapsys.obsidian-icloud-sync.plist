@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS launchd agent: runs sync_obsidian_to_icloud.sh every 30 minutes
+  while the Mac is awake.
+
+  Install:
+    1. Edit the two /path/to/... placeholders below to the real absolute
+       path of this repo checkout on your Mac.
+    2. cp com.synapsys.obsidian-icloud-sync.plist \
+         ~/Library/LaunchAgents/com.synapsys.obsidian-icloud-sync.plist
+    3. launchctl load ~/Library/LaunchAgents/com.synapsys.obsidian-icloud-sync.plist
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.synapsys.obsidian-icloud-sync.plist
+    rm ~/Library/LaunchAgents/com.synapsys.obsidian-icloud-sync.plist
+
+  Run once immediately without waiting for the interval:
+    launchctl start com.synapsys.obsidian-icloud-sync
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.synapsys.obsidian-icloud-sync</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/path/to/synapsys-openbridge-build/tools/obsidian-icloud-sync/sync_obsidian_to_icloud.sh</string>
+  </array>
+
+  <key>StartInterval</key>
+  <integer>1800</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/synapsys-obsidian-sync.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/synapsys-obsidian-sync.err.log</string>
+</dict>
+</plist>
