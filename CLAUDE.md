@@ -24,6 +24,30 @@ Canonical live sources:
 - `11_WORKING_MEMORY/00_INDEX_AND_PROTOCOLS/WM_UNIVERSAL_AI_BOOT_INSTRUCTION_v0.1.md`
   — defines required boot reads before producing durable artefacts.
 
+**Obsidian vault — location and structure** (undocumented here until
+2026-08-20, causing a real same-session confusion when a fresh session
+assumed it was a separate governance structure): the user's actual, live
+personal Obsidian vault lives at `11_WORKING_MEMORY/Obsidian/`, reachable
+via the same `sp_*` tools. It doubles as personal PKM and as the
+operational front end (Navigator, entity/capability schemas) for this
+ecosystem — not two separate things. Top-level: `00_SYSTEM`,
+`10_WORKSPACES`, `20_ENTITIES`, `30_PROJECTIONS`, `40_EVIDENCE`,
+`90_ARCHIVE`, `90_ARCHIVE_QUARANTINE`; front door is `00_HOME.md`, which
+links to the live Navigator at
+`00_SYSTEM/NAVIGATOR_SUPPORT/CURRENT/SYNAPSYS_NAVIGATOR.html`. A dated
+full-vault snapshot, `Obsidian_iCloud_Transfer_20260820_v2/`, is a
+user-confirmed intentional iCloud backup — not drift, don't merge/delete
+it without asking. Every `sp_*` tool prefixes callers' paths with
+`SP_ROOT` (`SynapSys-Control/11_WORKING_MEMORY`) before resolving, so
+sibling paths seen in search results but outside that root
+(`SynapSys-Control/obsidian/`, `SynapSys-Control/08_MOBILE_DISPATCH/Obsidian/`)
+are structurally unreachable from this lane's tools — don't assume full
+visibility into everything named "Obsidian" on this site. Full discovery
+trail, including a 60+-file superseded-version backlog found (not
+touched) in the `CURRENT` folder:
+`05_AI_RETURNS_HASHED/20260820--claude-code--finding--obsidian-vault-location-and-mcp-capability-drift--v1-0.md`
+(SHA-256 `3646e91a5f6cf09cc4e857650a34dbf0006ac618e2cf1f614aa85b67c5e9d927`).
+
 **Why this file exists**: during one session, a parallel Cowork session was
 independently updating the register in real time — including verifying this
 session's own filed work — and it went unnoticed for a long stretch because
@@ -129,6 +153,20 @@ Until that service exists and is registered, this lane still has no direct
 Odoo/N8N read or write path — the standing verification-gap requirement
 (`05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-t1-odoo-verification-gap-requirement_v0.1.md`)
 remains in force unchanged.
+
+**Superseded by live observation, 2026-08-20**: a session this date found
+write-capable Odoo (`mcp__SynapSys_Odoo_MCP__write_odoo`/`create_odoo`/
+`unlink_odoo`/`execute_odoo`/`create_fields_batch`/`create_acls_batch`) and
+N8N (`mcp__SynapSys_N8N_MCP__update_workflow`/`activate_workflow`/
+`deactivate_workflow`/`create_workflow`/`bind_workflow_credentials_by_id`/
+`trigger_webhook`) MCP servers actually connected and available — not the
+readonly-only state this paragraph and Amendment 2's "current state" note
+below describe. Whether this reflects the proposed Claude/Code Service
+being built, or a separate direct connector grant, is unconfirmed — treat
+"no direct Odoo/N8N write path" as stale until checked against actual live
+tool availability each session. Detail:
+`05_AI_RETURNS_HASHED/20260820--claude-code--finding--obsidian-vault-location-and-mcp-capability-drift--v1-0.md`
+(SHA-256 `3646e91a5f6cf09cc4e857650a34dbf0006ac618e2cf1f614aa85b67c5e9d927`).
 
 What this lane does **not** have, unchanged: browser control, or any
 push/notification channel to another AI lane (Cowork, Codex T1, ChatGPT
@@ -254,6 +292,12 @@ reproduction steps, and the superseded-claim lineage:
 `05_AI_RETURNS_HASHED/20260722_RET_GEN_claude-code-harness-cleanup-claude-md-history_v1.0.md`
 (SHA-256 `8b9980278637abcaa15906a5f7a9721ac459719bed09ac865753a9354b82a2f3`),
 per this file's editorial rule below.
+
+**Stale as of 2026-08-20**: this "readonly servers only" description no
+longer matches observed live tool availability — see the same-date note
+under "AI Lane Roles" above and the filed finding it links to. Check
+actual live `mcp__*` tool names each session rather than trusting this
+paragraph's server-name list as current.
 
 # Deliverable Filing Rule — Working Memory, Not Chat-Only Delivery
 
