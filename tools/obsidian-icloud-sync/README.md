@@ -49,6 +49,15 @@ set it up only after you've verified a manual dry run and a manual
 
 ## One-time setup
 
+0. Get these files onto the Mac. Either clone the whole repo:
+   ```
+   git clone https://github.com/pnyssen/synapsys-openbridge-build.git
+   cd synapsys-openbridge-build/tools/obsidian-icloud-sync
+   ```
+   or just download `sync_obsidian_to_icloud.sh`,
+   `com.synapsys.obsidian-icloud-sync.plist`, and this `README.md` into a
+   folder of your choice and note that folder's full path — you'll need
+   it in the launchd step below.
 1. Install rclone: `brew install rclone` (or see https://rclone.org/downloads/).
 2. Configure a remote pointing at the SynapSys SharePoint site:
    ```
@@ -88,6 +97,19 @@ Install steps are in the comment block at the top of that file. Only
 install this after step 5 and 6 above have both been run manually and
 looked correct. `cron` works too if you prefer it; the script itself
 doesn't care how it's invoked.
+
+**This only actually runs on schedule if the Mac stays awake.** A fully
+asleep Mac doesn't run scheduled `launchd` jobs — it just queues them for
+whenever it next wakes. On an iMac (normally on mains power, not battery),
+go to **System Settings → Energy Saver** (or **Battery** on newer macOS)
+and:
+- turn on **"Prevent automatic sleeping when the display is off"**
+  (wording varies by macOS version — the goal is: display can sleep, the
+  machine itself should not).
+
+Once this is running automatically, there is nothing left to do on the
+iPhone side — the phone picks up changes through ordinary iCloud sync,
+the same way any other iCloud file update reaches it, wherever you are.
 
 ## What this does not do
 
