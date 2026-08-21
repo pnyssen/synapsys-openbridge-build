@@ -28,6 +28,7 @@
   <array>
     <string>/bin/bash</string>
     <string>/path/to/synapsys-openbridge-build/tools/obsidian-icloud-sync/sync_obsidian_to_icloud.sh</string>
+    <string>--apply</string>
   </array>
 
   <key>StartInterval</key>
