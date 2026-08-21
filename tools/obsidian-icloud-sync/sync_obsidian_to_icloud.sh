@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 #
 # One-way mirror: SynapSys SharePoint Working Memory's Obsidian vault ->
-# the Obsidian app's iCloud Drive container root, so the current WM vault
-# state IS what shows up in the Obsidian app on iPhone/iPad via iCloud
-# sync -- no separate mirror vault, this replaces the container's contents
-# directly, by explicit choice (confirmed 2026-08-21: target the container
-# itself, not a subfolder).
+# the user's actual vault folder in general iCloud Drive, so the current
+# WM vault state IS what shows up in the Obsidian app on iPhone/iPad via
+# iCloud sync.
+#
+# IMPORTANT, confirmed 2026-08-21 via Files app "Get Info" (Where: iCloud
+# Drive > Obsidian): the real vault is a plain top-level folder the user
+# created directly in general iCloud Drive -- NOT Obsidian's own private
+# per-app ubiquity container (~/Library/Mobile Documents/iCloud~md~obsidian/).
+# Those are two different locations on disk; earlier revisions of this
+# script pointed at the wrong one. General iCloud Drive maps to
+# ~/Library/Mobile Documents/com~apple~CloudDocs/ on a Mac.
 #
 # Requires: rclone (https://rclone.org), configured once with a remote
 # named REMOTE_NAME below pointing at the SynapSys SharePoint site's
@@ -13,18 +19,17 @@
 #
 # Direction is WM -> iCloud only. This uses `rclone sync`, which makes the
 # destination match the source exactly -- including DELETING anything
-# currently in LOCAL_VAULT_PATH that isn't in WM. Because this now points
-# at the live container root rather than a dedicated mirror subfolder,
-# that includes any existing local-only vault content. ALWAYS run
-# `--dry-run` first (see below) before the first real run, and after any
-# change to REMOTE_PATH, so you see exactly what would be deleted before
-# it happens.
+# currently in LOCAL_VAULT_PATH that isn't in WM. LOCAL_VAULT_PATH is the
+# user's live, real vault folder, confirmed dedicated to this purpose --
+# ALWAYS run a dry run first (the default -- see below) after any change
+# to REMOTE_PATH or LOCAL_VAULT_PATH, so you see exactly what would be
+# deleted before it happens.
 set -euo pipefail
 
 # ---- Configuration -- edit these three for your machine ----
 REMOTE_NAME="synapsys-sp"
 REMOTE_PATH="SynapSys-Control/11_WORKING_MEMORY/Obsidian"
-LOCAL_VAULT_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+LOCAL_VAULT_PATH="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Obsidian"
 # --------------------------------------------------------------
 
 LOG_DIR="$HOME/Library/Logs/synapsys-obsidian-sync"

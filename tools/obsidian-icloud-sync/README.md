@@ -1,8 +1,8 @@
 # Obsidian WM -> iCloud mobile sync
 
 Mirrors the SynapSys SharePoint Working Memory Obsidian vault
-(`11_WORKING_MEMORY/Obsidian/`) into the Obsidian app's iCloud Drive
-container, so the current WM vault state IS what you see in Obsidian on
+(`11_WORKING_MEMORY/Obsidian/`) into the user's actual vault folder in
+iCloud Drive, so the current WM vault state IS what you see in Obsidian on
 iPhone/iPad — no manual export, no attaching files.
 
 **This must run on a Mac (or any device with iCloud Drive mounted as a
@@ -15,16 +15,19 @@ account.
 sync`, which makes the destination match the source exactly — including
 deleting anything in the destination that isn't in WM.
 
-**Target, confirmed 2026-08-21**: the destination is the Obsidian app's
-iCloud container root itself
-(`~/Library/Mobile Documents/iCloud~md~obsidian/Documents`) — the same
-"Obsidian" folder you see under iCloud Drive in the Files app — not a
-separate dedicated mirror folder. That means this tool will make that
-folder's contents match Working Memory exactly, on purpose. Anything
-already in there that isn't part of the WM vault will be deleted on the
-first real run. If you keep other, unrelated vaults or files inside that
-same container, say so before running this for real — as configured, it
-does not distinguish them.
+**Target, confirmed 2026-08-21 via Files app "Get Info"** (`Where: iCloud
+Drive > Obsidian`): the destination is a plain top-level folder named
+`Obsidian` that lives directly in general iCloud Drive
+(`~/Library/Mobile Documents/com~apple~CloudDocs/Obsidian` on a Mac) —
+**not** Obsidian the app's own private per-app iCloud container
+(`~/Library/Mobile Documents/iCloud~md~obsidian/`). Those are two
+different locations that happen to share a name; an earlier revision of
+this script pointed at the wrong one before this was confirmed. This is
+the folder actually opened as the vault in the Obsidian mobile app. That
+means this tool will make that folder's contents match Working Memory
+exactly, on purpose — confirmed dedicated to this use, currently holding
+a partial/earlier manual copy (`00_SYSTEM`, `00_HOME`) that this tool will
+fully refresh.
 
 **Edits made on mobile will not survive.** Because sync is one-way and
 destination-clobbering, anything you edit in this vault on your phone/iPad
@@ -37,7 +40,7 @@ needs real care around conflict handling — not built here.
 The script **never performs a real, deleting sync unless you pass
 `--apply`**. Running it with no arguments (or `--dry-run` explicitly) only
 logs what it *would* do. This is deliberate: the target is your live
-Obsidian container, not a disposable folder, so an accidental automated
+vault folder, not a disposable one, so an accidental automated
 run should never be able to delete something for real without that
 explicit flag having been set on purpose (the launchd template below
 already includes `--apply`, since automation is meant to actually run —
