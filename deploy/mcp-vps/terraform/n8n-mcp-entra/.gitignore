@@ -1,0 +1,14 @@
+# terraform.tfstate holds the connector app's client secret in PLAINTEXT —
+# marking an output `sensitive` only hides it from console/log output, it
+# does NOT encrypt state at rest. Never commit state locally; use a remote
+# backend with encryption at rest (see README.md) for anything beyond a
+# one-off local run.
+#
+# .terraform.lock.hcl is deliberately NOT ignored — commit it. It pins
+# exact provider versions/hashes so `terraform init` is reproducible; it
+# holds no secrets.
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+*.tfplan
