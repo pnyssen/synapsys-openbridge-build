@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 *.pyo
+
+# Agent-tool isolation worktrees (local scratch checkouts, not repo content)
+.claude/worktrees/
