@@ -168,6 +168,7 @@ matches the task, not by assumption.
 | CHG-2026-410 | GitHub Change Control Rule (the section above, in this file) | Merged via PR #4, sha `ba79af87f651ae3d4f3f1b0aa95aea7df5e76241` |
 | CHG-2026-411 | T1 CR-Traceability Rule — every state-mutating action must trace to a CR, direct or scoped | Binding, filed at `07_SYSTEM_DEVELOPMENT_LIBRARY/T1_CR_TRACEABILITY_RULE_v0.1.md`, hash `566ed210f56147120defbe51450cc68b045b4db9c9730eb27bedd9096624610f` |
 | CHG-2026-412 | AI Lane Roles + Proactive Behaviors sections (above) | Implemented via PR #5, pending merge — Phil's call |
+| CHG-2026-663 | Retrospective registration of the PR #38 merge into `main` (SharePoint MCP patch spec D2 retraction) | Filed, Odoo `x_ss_change_request` record 847 |
 | — | The three candidate skills' authorising ruling | Hash `e96cae5d20816c80f3e9090c5aa990fd467b98f73c2bb6a72fd9b77f34299b66` (Work Object D001-EXT-TOOLING-CODE-01 covers `synapsys-security-audit`/`synapsys-browser-verify`; a separate direct Steward ruling of the same hash covers `synapsys-agentic-safety`) |
 | — | Claude/Code Odoo Service model (proposed service-access architecture for Odoo, replacing the flat "no Odoo access" boundary) | PROPOSED / NOT BUILT — see `05_AI_RETURNS_HASHED/20260712_RET_GEN_claude-code-odoo-service-model-adoption_v0.1.md` |
 
@@ -254,6 +255,51 @@ reproduction steps, and the superseded-claim lineage:
 `05_AI_RETURNS_HASHED/20260722_RET_GEN_claude-code-harness-cleanup-claude-md-history_v1.0.md`
 (SHA-256 `8b9980278637abcaa15906a5f7a9721ac459719bed09ac865753a9354b82a2f3`),
 per this file's editorial rule below.
+
+**Amendment 2 is ACTIVE as of 2026-08-24 — the grant is no longer dormant.**
+The paragraph above describes the two *repo-native, read-only* servers only,
+and remains accurate for those. Separately, an account-level **write-capable
+Odoo connector** (`SynapSys_Odoo_MCP`, exposing `create_odoo`/`write_odoo`/
+`unlink_odoo`/`execute_odoo` alongside the read tools) is now present in this
+lane's environment, satisfying Amendment 2's activation condition (an MCP
+connector plus a distinct credential, issued as a Steward/D007 action). First
+exercised 2026-08-24 creating `x_ss_change_request` record **847**
+(CHG-2026-663). Do not infer the write path from `.mcp.json` — it is not
+declared there.
+
+The binding conditions are unchanged and apply in full: every Odoo write is
+independently re-read and confirmed post-write before being reported as done;
+every custom record write populates `x_company_id`/`x_context_id`; the N8N
+Workflow Change Control Rule governs any `update_workflow`/activation. The
+"will not do" list above is likewise unchanged — activation widens the tool
+surface, not the authority boundary. Receipt:
+`05_AI_RETURNS_HASHED/20260824--claude-code--receipt--chg-2026-663-retrospective-cr-filed-for-pr38-merge--v1-0.md`
+(SHA-256 `68ce7b8ac187ef08f9689485a266b5906c63482bca62515691b6c7d992c7fd2a`).
+
+## CR record conventions on `x_ss_change_request` — live trap, verified 2026-08-24
+
+Read this before creating a CR or computing the next CR number.
+
+- **The CHG number is not reliably in `x_reference`.** It was the canonical
+  field through **CHG-2026-656** (record id 836). From **CHG-2026-657**
+  (record id 837) onward, `x_reference` is `false` and the number lives in
+  **`x_name`**, formatted `"CHG-2026-NNN — <title>"`.
+- **Consequence**: any next-CR lookup keyed on
+  `[["x_reference","like","CHG-2026-%"]]` ordered descending returns
+  **CHG-2026-656** and will propose an already-taken number. Several installed
+  skills still do exactly this (`sk01-runtime-verifier`,
+  `synapsys-daily-preflight`, `synapsys-stage-runner`). Treat their next-CR
+  output as unreliable until they are corrected; the same defect inflates the
+  long-standing CR-count discrepancy.
+- **Correct method**: search `x_name` (`like "CHG-2026-"`), take the highest
+  numeric suffix, and re-confirm immediately before create — another lane may
+  have taken it. Check both fields before claiming a number is free.
+- **Required fields** (all nine, verified live against `ir.model.fields`):
+  `x_change_name`, `x_change_scope`, `x_change_type`, `x_impact_level`,
+  `x_implementation_status`, `x_operating_plane`, `x_risk_level`,
+  `x_approval_status`, `x_roadmap_linkage_status`. Authority text goes in
+  `x_authority_reference` (char). There is no `x_status` field and no
+  `x_d001_change_reference` field on this model — both raise `ValueError`.
 
 # Deliverable Filing Rule — Working Memory, Not Chat-Only Delivery
 
