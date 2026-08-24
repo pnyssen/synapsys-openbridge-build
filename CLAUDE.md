@@ -1,3 +1,14 @@
+> **This is the repo-local CLAUDE.md for `synapsys-openbridge-build`. It is
+> not the canonical one.** The canonical instruction file is
+> `SynapSys-Control/11_WORKING_MEMORY/CLAUDE.md` (107,036 bytes), which carries
+> the pinned "Known schema field names" block, the §14 changelog and the
+> ecosystem-wide state. **Never conclude that a rule is absent from "CLAUDE.md"
+> after searching only this file or the local filesystem** — that is
+> search-as-absence, and this lane made exactly that error on 2026-08-24,
+> declaring a schema block non-existent when it was present and correct in the
+> canonical file. Narrative:
+> `05_AI_RETURNS_HASHED/20260824--claude-code--correction-and-receipt--canonical-claude-md-not-searched--v1-0.md`.
+
 # SynapSys ecosystem state-awareness (read this before answering state questions)
 
 This repository's Claude Code sessions interact with a live, multi-lane
@@ -276,30 +287,42 @@ surface, not the authority boundary. Receipt:
 `05_AI_RETURNS_HASHED/20260824--claude-code--receipt--chg-2026-663-retrospective-cr-filed-for-pr38-merge--v1-0.md`
 (SHA-256 `68ce7b8ac187ef08f9689485a266b5906c63482bca62515691b6c7d992c7fd2a`).
 
-## CR record conventions on `x_ss_change_request` — live trap, verified 2026-08-24
+## CR record conventions on `x_ss_change_request` — live data drift, verified 2026-08-24
 
-Read this before creating a CR or computing the next CR number.
+The canonical rule lives in the Working Memory `CLAUDE.md`'s pinned "Known
+schema field names" block (2026-04-15, EB-001): **`x_ss_change_request`'s
+reference code is `x_reference`**. That rule is correct and is not in question —
+`x_reference` is populated on **649 of 661** records.
 
-- **The CHG number is not reliably in `x_reference`.** It was the canonical
-  field through **CHG-2026-656** (record id 836). From **CHG-2026-657**
-  (record id 837) onward, `x_reference` is `false` and the number lives in
-  **`x_name`**, formatted `"CHG-2026-NNN — <title>"`.
-- **Consequence**: any next-CR lookup keyed on
-  `[["x_reference","like","CHG-2026-%"]]` ordered descending returns
-  **CHG-2026-656** and will propose an already-taken number. Several installed
-  skills still do exactly this (`sk01-runtime-verifier`,
-  `synapsys-daily-preflight`, `synapsys-stage-runner`). Treat their next-CR
-  output as unreliable until they are corrected; the same defect inflates the
-  long-standing CR-count discrepancy.
-- **Correct method**: search `x_name` (`like "CHG-2026-"`), take the highest
-  numeric suffix, and re-confirm immediately before create — another lane may
-  have taken it. Check both fields before claiming a number is free.
-- **Required fields** (all nine, verified live against `ir.model.fields`):
-  `x_change_name`, `x_change_scope`, `x_change_type`, `x_impact_level`,
-  `x_implementation_status`, `x_operating_plane`, `x_risk_level`,
-  `x_approval_status`, `x_roadmap_linkage_status`. Authority text goes in
-  `x_authority_reference` (char). There is no `x_status` field and no
-  `x_d001_change_reference` field on this model — both raise `ValueError`.
+What has drifted is the **data**, not the rule, and not the queries that read it:
+
+- `x_reference` carries the CHG number through **CHG-2026-656** (record id 836).
+  From **CHG-2026-657** (id 837) onward it is `false`, and the number appears
+  only in `x_name`, formatted `"CHG-2026-NNN — <title>"`.
+- **Consequence**: a next-number lookup keyed on `x_reference` *correctly*
+  returns CHG-2026-656 and proposes 657 — which is already taken. The queries
+  are right; the records they read are incomplete. The same gap understates any
+  `x_reference`-keyed CR count by everything from id 837 on.
+- **On create**: populate `x_reference` with the bare `CHG-2026-NNN` **and**
+  `x_name` as `"CHG-2026-NNN — <title>"`. Leaving `x_reference` unset extends
+  the drift — record 847 (CHG-2026-663) was created that way before this was
+  understood, and was repaired.
+- **When computing the next number**: check **both** fields until ids 837–846
+  are backfilled, and re-confirm immediately before create — another lane may
+  have taken it.
+
+Required fields, all nine (verified live against `ir.model.fields`):
+`x_change_name`, `x_change_scope`, `x_change_type`, `x_impact_level`,
+`x_implementation_status`, `x_operating_plane`, `x_risk_level`,
+`x_approval_status`, `x_roadmap_linkage_status`. Authority text goes in
+`x_authority_reference` (char).
+
+Backfilling ids 837–846 from their `x_name` values is a bounded
+data-correctness change and needs its own CR trace. Cross-lane correction
+history for this finding:
+`05_AI_RETURNS_HASHED/20260824--cowork--correction-and-supersession--schema-block-defect-claim-was-false--v1-0.md`
+(SHA-256 `cd5c720954e06c3f697ca827a255ea24e82aa357202f9cf31c3d4c9236cb3b7f`),
+per this file's editorial rule below.
 
 # Deliverable Filing Rule — Working Memory, Not Chat-Only Delivery
 
