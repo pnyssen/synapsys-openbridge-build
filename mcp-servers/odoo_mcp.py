@@ -44,6 +44,9 @@ import xmlrpc.client
 import os
 from typing import Any, Dict, List, Optional
 
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
+import _write_safety as ws  # noqa: E402
+
 ODOO_URL = os.environ.get("ODOO_URL", "")
 ODOO_DB = os.environ.get("ODOO_DB", "")
 ODOO_LOGIN = os.environ.get("ODOO_LOGIN", "phil@synapsys.com.au")
@@ -142,6 +145,105 @@ def normalize_ids(ids):
     raise TypeError(f"ids must be int / str / list / tuple ; got {type(ids).__name__}")
 
 
+# ---- Write-safety membrane (RELEASE_D007_SYNAPSYS_MCP_FFE_MUTATION_SAFETY_ENFORCEMENT_V1, group A) ----
+#
+# Common prepare/execute write-set core (mcp-servers/_write_safety.py) wired
+# against this module's own Odoo primitives. See _write_safety.py for the
+# full contract; this section only supplies the model-specific read/count/
+# mutate closures and the tool-facing wrapping described in the D007
+# prewrite's "Implementation groups / A. Odoo MCP code":
+#   - add common prepare/execute write-set core            -> _write_safety
+#   - wrap create/write/unlink                              -> below
+#   - constrain generic execute_odoo mutation methods        -> below
+#   - retain read tools unchanged                            -> untouched above
+
+_WRITE_SET_STORE = ws.WriteSetStore()
+
+# Models whose create/config-method mutation is itself a runtime/config
+# surface change (automation, actions, cron, access control, field/model
+# definitions) rather than ordinary operational data — classified
+# CONFIGURATION_RUNTIME_MUTATION per the D007 prewrite's fixed consent
+# classes. Not exhaustive by design: this is the minimum needed to satisfy
+# "constrain generic execute_odoo mutation methods" without inventing new
+# governance scope: any *.actions.*, base.automation, ir.cron, ir.model*
+# write is runtime configuration.
+_RUNTIME_CONFIG_MODEL_PREFIXES = (
+    "ir.actions.", "base.automation", "ir.cron", "ir.model", "ir.rule",
+    "ir.ui.view", "ir.ui.menu", "ir.filters",
+)
+
+
+def _is_runtime_config_model(model: str) -> bool:
+    return any(model == p or model.startswith(p) for p in _RUNTIME_CONFIG_MODEL_PREFIXES)
+
+
+def _ws_read_fn(model: str, ids: List[int], fields: List[str]) -> List[dict]:
+    return _exec(model, "read", [ids], {"fields": fields})
+
+
+def _ws_count_fn(model: str) -> int:
+    return _exec(model, "search_count", [[]])
+
+
+def _ws_mutate_fn(model: str, operation: str, ids: List[int], proposed: Dict[str, Any]) -> Any:
+    if operation == "write":
+        return _exec(model, "write", [ids, proposed])
+    if operation == "unlink":
+        return _exec(model, "unlink", [ids])
+    raise ValueError(f"_ws_mutate_fn: unsupported operation {operation!r}")
+
+
+def _resolve_ids_for_prepare(args: Dict) -> List[int]:
+    """Resolve the caller's target to actual current IDs. Accepts either
+    explicit `ids` (normalised) or a `domain` (search'd fresh — this is the
+    exact P0-A path: a domain is resolved to real IDs at prepare time, and
+    the caller's own `intended_count` belief is carried through only as an
+    informational field, never trusted for scope)."""
+    if args.get("ids") is not None:
+        return normalize_ids(args["ids"])
+    if args.get("domain") is not None:
+        return _exec(args["model"], "search", [args["domain"]])
+    raise ValueError("either 'ids' or 'domain' is required to resolve a write set")
+
+
+def tool_prepare_write_odoo(args: Dict) -> Any:
+    return ws.prepare_write_set(
+        model=args["model"], operation="write",
+        resolve_ids=lambda: _resolve_ids_for_prepare(args),
+        read_fn=_ws_read_fn, count_fn=_ws_count_fn,
+        proposed=args["values"], intended_count=args.get("intended_count"),
+        store=_WRITE_SET_STORE,
+    )
+
+
+def tool_execute_write_odoo(args: Dict) -> Any:
+    return ws.execute_write_set(
+        write_set_id=args["write_set_id"], enumerated_ids=normalize_ids(args["enumerated_ids"]),
+        read_fn=_ws_read_fn, mutate_fn=_ws_mutate_fn, store=_WRITE_SET_STORE,
+        protected_state_confirmed=bool(args.get("protected_state_confirmed", False)),
+        observability_default_confirmed=bool(args.get("observability_default_confirmed", False)),
+    )
+
+
+def tool_prepare_unlink_odoo(args: Dict) -> Any:
+    return ws.prepare_write_set(
+        model=args["model"], operation="unlink",
+        resolve_ids=lambda: _resolve_ids_for_prepare(args),
+        read_fn=_ws_read_fn, count_fn=_ws_count_fn,
+        proposed={}, intended_count=args.get("intended_count"),
+        store=_WRITE_SET_STORE,
+    )
+
+
+def tool_execute_unlink_odoo(args: Dict) -> Any:
+    return ws.execute_write_set(
+        write_set_id=args["write_set_id"], enumerated_ids=normalize_ids(args["enumerated_ids"]),
+        read_fn=_ws_read_fn, mutate_fn=_ws_mutate_fn, store=_WRITE_SET_STORE,
+        protected_state_confirmed=bool(args.get("protected_state_confirmed", False)),
+        observability_default_confirmed=bool(args.get("observability_default_confirmed", False)),
+    )
+
+
 # ---- Tool implementations -------------------------------------------------
 
 def tool_search_odoo(args: Dict) -> Any:
@@ -174,23 +276,121 @@ def tool_count_odoo(args: Dict) -> Any:
 
 
 def tool_create_odoo(args: Dict) -> Any:
-    return _exec(args["model"], "create", [args["values"]])
+    model = args["model"]
+    if _is_runtime_config_model(model):
+        ack = set(args.get("consent_ack") or [])
+        if ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION not in ack:
+            raise ws.WriteSafetyRefusal(
+                "CONFIGURATION_RUNTIME_MUTATION_CONFIRMATION_REQUIRED",
+                f"create on {model!r} is a runtime/configuration-surface mutation "
+                "and requires explicit consent_ack.",
+                actual={"model": model, "consent_class": ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION},
+                correction=(
+                    "Re-call with consent_ack=['CONFIGURATION_RUNTIME_MUTATION'] after "
+                    "separate explicit review of the runtime/config impact."
+                ),
+            )
+    return _exec(model, "create", [args["values"]])
 
 
 def tool_write_odoo(args: Dict) -> Any:
-    ids = normalize_ids(args["ids"])
-    return _exec(args["model"], "write", [ids, args["values"]])
+    """Wraps the prepare/execute write-set core (group A). A small,
+    unprotected, non-observability write auto-prepares and auto-executes in
+    one call for convenience; anything bulk (>10 ids or >20% of the
+    register), touching a protected Benefit state, or touching an
+    observability default MUST go through prepare_write_odoo /
+    execute_write_odoo explicitly with the matching confirmation — this
+    tool refuses rather than silently downgrading the requirement."""
+    preview = tool_prepare_write_odoo(args)
+    if (preview["requires_enumerated_ids"] or preview["requires_protected_state_confirmation"]
+            or preview["requires_observability_default_confirmation"]):
+        raise ws.WriteSafetyRefusal(
+            "TWO_PHASE_CONFIRMATION_REQUIRED",
+            "This write's actual scope/classification requires the explicit "
+            "prepare_write_odoo / execute_write_odoo two-phase path.",
+            actual=preview,
+            correction=(
+                "Call prepare_write_odoo with the same model/ids-or-domain/values, "
+                "review the returned preview, then execute_write_odoo with its "
+                "write_set_id, enumerated_ids, and any required confirmation flag."
+            ),
+        )
+    result = tool_execute_write_odoo({
+        "write_set_id": preview["write_set_id"],
+        "enumerated_ids": preview["enumerated_ids"],
+    })
+    return result["result"]
 
 
 def tool_unlink_odoo(args: Dict) -> Any:
-    ids = normalize_ids(args["ids"])
-    return _exec(args["model"], "unlink", [ids])
+    """Wraps the prepare/execute write-set core (group A) — see
+    tool_write_odoo. unlink is always DESTRUCTIVE_MUTATION; bulk unlinks
+    still require the explicit two-phase path (protected-state/
+    observability classification never applies to unlink itself, since it
+    has no proposed field values)."""
+    preview = tool_prepare_unlink_odoo(args)
+    if preview["requires_enumerated_ids"]:
+        raise ws.WriteSafetyRefusal(
+            "TWO_PHASE_CONFIRMATION_REQUIRED",
+            "This unlink's actual scope requires the explicit "
+            "prepare_unlink_odoo / execute_unlink_odoo two-phase path.",
+            actual=preview,
+            correction=(
+                "Call prepare_unlink_odoo with the same model/ids-or-domain, "
+                "review the returned preview, then execute_unlink_odoo with its "
+                "write_set_id and enumerated_ids."
+            ),
+        )
+    result = tool_execute_unlink_odoo({
+        "write_set_id": preview["write_set_id"],
+        "enumerated_ids": preview["enumerated_ids"],
+    })
+    return result["result"]
+
+
+# Methods on the generic execute_odoo passthrough that are read-only and
+# therefore exempt from the CONFIGURATION_RUNTIME_MUTATION consent gate
+# below. Deliberately narrow (an allowlist, not a denylist) — anything not
+# on it is treated as a possible mutation and gated, per "constrain generic
+# execute_odoo mutation methods" in the D007 prewrite.
+_EXECUTE_ODOO_READ_SAFE_METHODS = {
+    "read", "search", "search_read", "search_count", "fields_get",
+    "default_get", "name_get", "name_search", "check_access_rights",
+    "check_access_rule", "get_metadata", "exists",
+}
+# Always refused outright on execute_odoo regardless of consent_ack — these
+# have dedicated wrapped tools (create_odoo/write_odoo/unlink_odoo) that
+# apply the actual safety membrane; execute_odoo must not be usable to
+# bypass it.
+_EXECUTE_ODOO_REFUSED_METHODS = {"write", "create", "unlink"}
 
 
 def tool_execute_odoo(args: Dict) -> Any:
+    method = args["method"]
+    if method in _EXECUTE_ODOO_REFUSED_METHODS:
+        raise ws.WriteSafetyRefusal(
+            "RAW_MUTATION_METHOD_REFUSED",
+            f"execute_odoo cannot be used to call {method!r} directly — this would "
+            "bypass the write-set safety membrane.",
+            actual={"model": args.get("model"), "method": method},
+            correction=f"Use {method}_odoo (or prepare_{method}_odoo/execute_{method}_odoo) instead.",
+        )
+    if method not in _EXECUTE_ODOO_READ_SAFE_METHODS:
+        ack = set(args.get("consent_ack") or [])
+        if ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION not in ack:
+            raise ws.WriteSafetyRefusal(
+                "CONFIGURATION_RUNTIME_MUTATION_CONFIRMATION_REQUIRED",
+                f"execute_odoo method {method!r} is not on the read-safe allowlist and "
+                "is treated as a possible mutation; it requires explicit consent_ack.",
+                actual={
+                    "model": args.get("model"), "method": method,
+                    "consent_class": ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION,
+                },
+                correction="Re-call with consent_ack=['CONFIGURATION_RUNTIME_MUTATION'] after separate explicit review.",
+            )
     return _exec(
         args["model"],
-        args["method"],
+        method,
         args.get("args", []),
         args.get("kwargs", {}),
     )
@@ -359,19 +559,32 @@ TOOLS = [
     },
     {
         "name": "create_odoo",
-        "description": "Create a single record. Returns the new id.",
+        "description": (
+            "Create a single record. Returns the new id. If the model is a runtime/"
+            "configuration surface (ir.actions.*, base.automation, ir.cron, ir.model*, "
+            "ir.rule, ir.ui.view/menu, ir.filters), requires "
+            "consent_ack=['CONFIGURATION_RUNTIME_MUTATION']."
+        ),
         "inputSchema": {
             "type": "object",
             "properties": {
                 "model": {"type": "string"},
                 "values": {"type": "object"},
+                "consent_ack": {"type": "array", "items": {"type": "string"}},
             },
             "required": ["model", "values"],
         },
     },
     {
         "name": "write_odoo",
-        "description": "Update one or more records. Returns true on success.",
+        "description": (
+            "Update one or more records by explicit ids. Small, unprotected, "
+            "non-observability writes execute in one call. Bulk (>10 ids or >20% of "
+            "the model's register), protected Benefit-state transitions, or "
+            "observability-default changes are refused with "
+            "TWO_PHASE_CONFIRMATION_REQUIRED — use prepare_write_odoo / "
+            "execute_write_odoo explicitly for those."
+        ),
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -383,8 +596,55 @@ TOOLS = [
         },
     },
     {
+        "name": "prepare_write_odoo",
+        "description": (
+            "PHASE 1 (non-mutating) of the write-set safety membrane. Resolves ids or "
+            "a domain to the exact current record IDs, captures prestate, actual "
+            "affected count/percentage, and protected-state/observability "
+            "classification. Returns a write_set_id to pass to execute_write_odoo. "
+            "No mutation occurs."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "model": {"type": "string"},
+                "ids": {"type": ["array", "integer"]},
+                "domain": {"type": "array"},
+                "values": {"type": "object"},
+                "intended_count": {"type": "integer", "description": "Caller's belief about scope; informational only, never trusted for actual scope."},
+            },
+            "required": ["model", "values"],
+        },
+    },
+    {
+        "name": "execute_write_odoo",
+        "description": (
+            "PHASE 2 (mutating) of the write-set safety membrane. Accepts only a "
+            "write_set_id from prepare_write_odoo plus the exact enumerated_ids it "
+            "represents; refuses on any set mismatch or prestate drift. Set "
+            "protected_state_confirmed / observability_default_confirmed when the "
+            "prepare preview required them."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "write_set_id": {"type": "string"},
+                "enumerated_ids": {"type": ["array", "integer"]},
+                "protected_state_confirmed": {"type": "boolean", "default": False},
+                "observability_default_confirmed": {"type": "boolean", "default": False},
+            },
+            "required": ["write_set_id", "enumerated_ids"],
+        },
+    },
+    {
         "name": "unlink_odoo",
-        "description": "Delete records by id. Use with caution — Odoo will raise on records with protective constraints.",
+        "description": (
+            "Delete records by id. Small unlinks (<=10 ids and <=20% of the model's "
+            "register) execute in one call; bulk unlinks are refused with "
+            "TWO_PHASE_CONFIRMATION_REQUIRED — use prepare_unlink_odoo / "
+            "execute_unlink_odoo explicitly. Odoo will also raise on records with "
+            "protective constraints."
+        ),
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -395,8 +655,39 @@ TOOLS = [
         },
     },
     {
+        "name": "prepare_unlink_odoo",
+        "description": "PHASE 1 (non-mutating) of the write-set safety membrane for unlink. See prepare_write_odoo.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "model": {"type": "string"},
+                "ids": {"type": ["array", "integer"]},
+                "domain": {"type": "array"},
+                "intended_count": {"type": "integer"},
+            },
+            "required": ["model"],
+        },
+    },
+    {
+        "name": "execute_unlink_odoo",
+        "description": "PHASE 2 (mutating) of the write-set safety membrane for unlink. See execute_write_odoo.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "write_set_id": {"type": "string"},
+                "enumerated_ids": {"type": ["array", "integer"]},
+            },
+            "required": ["write_set_id", "enumerated_ids"],
+        },
+    },
+    {
         "name": "execute_odoo",
-        "description": "Generic execute_kw passthrough for any Odoo model method (e.g. name_search, copy, custom actions).",
+        "description": (
+            "Generic execute_kw passthrough for any Odoo model method (e.g. name_search, "
+            "copy, custom actions). 'write'/'create'/'unlink' are always refused here "
+            "(use the dedicated wrapped tools). Any other method not on the read-safe "
+            "allowlist requires consent_ack=['CONFIGURATION_RUNTIME_MUTATION']."
+        ),
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -404,6 +695,7 @@ TOOLS = [
                 "method": {"type": "string"},
                 "args": {"type": "array"},
                 "kwargs": {"type": "object"},
+                "consent_ack": {"type": "array", "items": {"type": "string"}},
             },
             "required": ["model", "method"],
         },
@@ -508,7 +800,11 @@ TOOL_HANDLERS = {
     "count_odoo": tool_count_odoo,
     "create_odoo": tool_create_odoo,
     "write_odoo": tool_write_odoo,
+    "prepare_write_odoo": tool_prepare_write_odoo,
+    "execute_write_odoo": tool_execute_write_odoo,
     "unlink_odoo": tool_unlink_odoo,
+    "prepare_unlink_odoo": tool_prepare_unlink_odoo,
+    "execute_unlink_odoo": tool_execute_unlink_odoo,
     "execute_odoo": tool_execute_odoo,
     "search_multi": tool_search_multi,
     "create_fields_batch": tool_create_fields_batch,
@@ -560,6 +856,13 @@ def build_response(request: Dict) -> Optional[Dict]:
             result = handler(tool_args)
             return _result_msg(req_id, {
                 "content": [{"type": "text", "text": json.dumps(result, indent=2, default=str)}]
+            })
+        except ws.WriteSafetyRefusal as ex:
+            # P1-L REFUSAL_FEEDBACK: machine-readable invariant code, actual
+            # scope, and smallest correction — never a generic string.
+            return _result_msg(req_id, {
+                "content": [{"type": "text", "text": json.dumps(ex.to_dict(), indent=2, default=str)}],
+                "isError": True,
             })
         except xmlrpc.client.Fault as ex:
             return _result_msg(req_id, {
@@ -680,27 +983,71 @@ def build_fastmcp_app():
         return tool_count_odoo({"model": model, "domain": domain or []})
 
     @app_mcp.tool()
-    def create_odoo(model: str, values: dict) -> Any:
-        """Create a single record. Returns the new id."""
-        return tool_create_odoo({"model": model, "values": values})
+    def create_odoo(model: str, values: dict, consent_ack: list | None = None) -> Any:
+        """Create a single record. Returns the new id. Runtime/configuration-surface
+        models require consent_ack=['CONFIGURATION_RUNTIME_MUTATION']."""
+        return tool_create_odoo({"model": model, "values": values, "consent_ack": consent_ack or []})
 
     @app_mcp.tool()
     def write_odoo(model: str, ids: Any, values: dict) -> Any:
-        """Update one or more records. Returns true on success."""
+        """Update one or more records. Bulk/protected/observability writes are
+        refused — use prepare_write_odoo / execute_write_odoo for those."""
         return tool_write_odoo({"model": model, "ids": ids, "values": values})
 
     @app_mcp.tool()
+    def prepare_write_odoo(
+        model: str, values: dict, ids: Any = None, domain: list | None = None,
+        intended_count: int | None = None,
+    ) -> Any:
+        """PHASE 1 (non-mutating): resolve ids/domain to actual current record IDs
+        and prestate. Returns a write_set_id for execute_write_odoo."""
+        return tool_prepare_write_odoo({
+            "model": model, "values": values, "ids": ids, "domain": domain,
+            "intended_count": intended_count,
+        })
+
+    @app_mcp.tool()
+    def execute_write_odoo(
+        write_set_id: str, enumerated_ids: Any,
+        protected_state_confirmed: bool = False, observability_default_confirmed: bool = False,
+    ) -> Any:
+        """PHASE 2 (mutating): execute a previously prepared write set."""
+        return tool_execute_write_odoo({
+            "write_set_id": write_set_id, "enumerated_ids": enumerated_ids,
+            "protected_state_confirmed": protected_state_confirmed,
+            "observability_default_confirmed": observability_default_confirmed,
+        })
+
+    @app_mcp.tool()
     def unlink_odoo(model: str, ids: Any) -> Any:
-        """Delete records by id. Odoo raises on records with protective constraints."""
+        """Delete records by id. Bulk unlinks are refused — use prepare_unlink_odoo /
+        execute_unlink_odoo. Odoo raises on records with protective constraints."""
         return tool_unlink_odoo({"model": model, "ids": ids})
 
     @app_mcp.tool()
-    def execute_odoo(
-        model: str, method: str, args: list | None = None, kwargs: dict | None = None
+    def prepare_unlink_odoo(
+        model: str, ids: Any = None, domain: list | None = None, intended_count: int | None = None,
     ) -> Any:
-        """Generic execute_kw passthrough for any Odoo model method."""
+        """PHASE 1 (non-mutating) of the write-set safety membrane for unlink."""
+        return tool_prepare_unlink_odoo({
+            "model": model, "ids": ids, "domain": domain, "intended_count": intended_count,
+        })
+
+    @app_mcp.tool()
+    def execute_unlink_odoo(write_set_id: str, enumerated_ids: Any) -> Any:
+        """PHASE 2 (mutating) of the write-set safety membrane for unlink."""
+        return tool_execute_unlink_odoo({"write_set_id": write_set_id, "enumerated_ids": enumerated_ids})
+
+    @app_mcp.tool()
+    def execute_odoo(
+        model: str, method: str, args: list | None = None, kwargs: dict | None = None,
+        consent_ack: list | None = None,
+    ) -> Any:
+        """Generic execute_kw passthrough for any Odoo model method. 'write'/'create'/
+        'unlink' are refused here; other mutating methods require consent_ack."""
         return tool_execute_odoo({
             "model": model, "method": method, "args": args or [], "kwargs": kwargs or {},
+            "consent_ack": consent_ack or [],
         })
 
     @app_mcp.tool()
