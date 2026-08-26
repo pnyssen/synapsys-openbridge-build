@@ -158,6 +158,17 @@ def normalize_ids(ids):
 #   - retain read tools unchanged                            -> untouched above
 
 _WRITE_SET_STORE = ws.WriteSetStore()
+_RETRY_TRACKER = ws.RetryTracker()
+
+
+def _note_refusal_retry(tool: str, model: str, operation: str, preview: Dict) -> int:
+    """B2/L-07 — record this refused proposal's fingerprint and return the
+    occurrence count (1 on first refusal, 2+ on an identical retry)."""
+    fingerprint = ws.refusal_fingerprint(
+        tool=tool, model=model, operation=operation,
+        ids=preview["enumerated_ids"], proposed=preview.get("proposed", {}),
+    )
+    return _RETRY_TRACKER.note(fingerprint)
 
 # Models whose create/config-method mutation is itself a runtime/config
 # surface change (automation, actions, cron, access control, field/model
@@ -191,6 +202,10 @@ def _ws_mutate_fn(model: str, operation: str, ids: List[int], proposed: Dict[str
     if operation == "unlink":
         return _exec(model, "unlink", [ids])
     raise ValueError(f"_ws_mutate_fn: unsupported operation {operation!r}")
+
+
+def _ws_search_fn(model: str, domain: list) -> List[dict]:
+    return _exec(model, "search_read", [domain], {"fields": ["id", "name"]})
 
 
 def _resolve_ids_for_prepare(args: Dict) -> List[int]:
@@ -277,6 +292,39 @@ def tool_count_odoo(args: Dict) -> Any:
 
 def tool_create_odoo(args: Dict) -> Any:
     model = args["model"]
+    values = args["values"]
+
+    # A4/L-02 — secret refusal before any proposed value enters a preview,
+    # store or the create call itself.
+    offending = ws.scan_for_secrets(values)
+    if offending is not None:
+        raise ws.WriteSafetyRefusal(
+            "SECRET_MATERIAL_REFUSED",
+            f"Proposed value at field {offending['field']!r} matches a high-confidence "
+            f"secret pattern ({offending['pattern']}) and is refused. The value itself "
+            "is never echoed.",
+            actual={"field": offending["field"], "pattern": offending["pattern"]},
+            correction="Remove the secret-shaped value from this field.",
+        )
+
+    # L-09/L-10 — creating an ir.actions.act_window with a view_mode set
+    # that already exists on the same res_model is refused as
+    # REUSABLE_CAPABILITY_EXISTS: the check is run here rather than trusted
+    # from the caller, since a caller reporting "no equivalent exists"
+    # without actually running the check is the exact defect this closes.
+    if model == "ir.actions.act_window" and values.get("res_model") and values.get("view_mode"):
+        existing = ws.check_action_window_reuse(
+            res_model=values["res_model"], view_mode=values["view_mode"], search_fn=_ws_search_fn,
+        )
+        if existing:
+            raise ws.WriteSafetyRefusal(
+                "REUSABLE_CAPABILITY_EXISTS",
+                f"An ir.actions.act_window already exists for res_model={values['res_model']!r} "
+                f"with the identical view_mode set — refusing to create a parallel capability.",
+                actual={"existing": existing},
+                correction="Reuse one of the existing action windows listed in `actual.existing` instead of creating a duplicate.",
+            )
+
     if _is_runtime_config_model(model):
         ack = set(args.get("consent_ack") or [])
         if ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION not in ack:
@@ -290,7 +338,7 @@ def tool_create_odoo(args: Dict) -> Any:
                     "separate explicit review of the runtime/config impact."
                 ),
             )
-    return _exec(model, "create", [args["values"]])
+    return _exec(model, "create", [values])
 
 
 def tool_write_odoo(args: Dict) -> Any:
@@ -302,14 +350,28 @@ def tool_write_odoo(args: Dict) -> Any:
     execute_write_odoo explicitly with the matching confirmation — this
     tool refuses rather than silently downgrading the requirement."""
     preview = tool_prepare_write_odoo(args)
+    if preview.get("no_change_required"):
+        # B2/L-06 — intended end-state already holds. Return without ever
+        # issuing an EXECUTE_WRITE_SET call, so no mutating call and no
+        # associated client prompt occurs.
+        return "NO_CHANGE_REQUIRED"
     if (preview["requires_enumerated_ids"] or preview["requires_protected_state_confirmation"]
             or preview["requires_observability_default_confirmation"]):
+        retry_count = _note_refusal_retry("write_odoo", args["model"], "write", preview)
+        escalated = retry_count >= 2
         raise ws.WriteSafetyRefusal(
-            "TWO_PHASE_CONFIRMATION_REQUIRED",
-            "This write's actual scope/classification requires the explicit "
+            "TWO_PHASE_CONFIRMATION_REQUIRED" + ("_ESCALATED" if escalated else ""),
+            (
+                f"This exact proposal has now been refused {retry_count} times unchanged — "
+                "escalating rather than re-proposing identically. "
+                if escalated else ""
+            ) + "This write's actual scope/classification requires the explicit "
             "prepare_write_odoo / execute_write_odoo two-phase path.",
-            actual=preview,
+            actual={**preview, "retry_count": retry_count},
             correction=(
+                "Do not re-submit this exact proposal again unchanged. "
+                if escalated else ""
+            ) + (
                 "Call prepare_write_odoo with the same model/ids-or-domain/values, "
                 "review the returned preview, then execute_write_odoo with its "
                 "write_set_id, enumerated_ids, and any required confirmation flag."
@@ -330,11 +392,12 @@ def tool_unlink_odoo(args: Dict) -> Any:
     has no proposed field values)."""
     preview = tool_prepare_unlink_odoo(args)
     if preview["requires_enumerated_ids"]:
+        retry_count = _note_refusal_retry("unlink_odoo", args["model"], "unlink", preview)
         raise ws.WriteSafetyRefusal(
-            "TWO_PHASE_CONFIRMATION_REQUIRED",
+            "TWO_PHASE_CONFIRMATION_REQUIRED" + ("_ESCALATED" if retry_count >= 2 else ""),
             "This unlink's actual scope requires the explicit "
             "prepare_unlink_odoo / execute_unlink_odoo two-phase path.",
-            actual=preview,
+            actual={**preview, "retry_count": retry_count},
             correction=(
                 "Call prepare_unlink_odoo with the same model/ids-or-domain, "
                 "review the returned preview, then execute_unlink_odoo with its "
