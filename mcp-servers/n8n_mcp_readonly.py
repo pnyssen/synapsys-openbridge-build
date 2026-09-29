@@ -17,7 +17,7 @@ this process that can issue a PUT, POST, or DELETE to N8N.
 
 Tools exposed (read-only):
   ping_n8n, list_workflows, get_workflow, list_executions, get_execution,
-  list_credentials
+  get_execution_summary, list_credentials
 
 Deliberately NOT exposed (present in the full n8n_mcp.py, omitted here):
   update_workflow, create_workflow, activate_workflow, deactivate_workflow,
@@ -80,6 +80,19 @@ def _request(method: str, path: str, *, timeout: int = 30) -> Any:
         raise RuntimeError(f"N8N GET {path} -> HTTP {e.code}: {err_body}")
     except urllib.error.URLError as e:
         raise RuntimeError(f"N8N GET {path} -> network error: {e.reason}")
+    except TimeoutError:
+        # A read-phase timeout (e.g. urlopen() connects fine but resp.read()
+        # exceeds `timeout` streaming a large body) raises TimeoutError
+        # directly -- it is NOT wrapped as urllib.error.URLError, so without
+        # this clause it propagated unhandled out of the tool function.
+        # Observed in production against get_execution(includeData=true) on
+        # long-running executions: alternating "Connection closed" and
+        # externally-imposed-timeout failures, both traceable to this gap.
+        raise RuntimeError(
+            f"N8N GET {path} -> timed out after {timeout}s reading the response body "
+            f"(the request likely succeeded server-side but the payload was too large "
+            f"or slow to stream within the timeout)"
+        )
 
 
 @mcp.tool()
@@ -178,6 +191,72 @@ def get_execution(id: str, include_data: bool = False) -> dict:
     """Get a single execution."""
     suffix = "?includeData=true" if include_data else ""
     return _request("GET", f"/api/v1/executions/{id}{suffix}")
+
+
+@mcp.tool()
+def get_execution_summary(id: str, timeout: int = 120) -> dict:
+    """Get a single execution's per-node timing/status/error summary,
+    without the full node input/output payloads.
+
+    Fetches the same includeData=true execution as get_execution(), but
+    returns only what's needed to diagnose duration and failure location:
+    per-node name/status/executionTime/startTime, and the top-level error
+    (node/type/message) if the execution failed. Node input/output bodies
+    (which can be many MB for executions that read/write large records or
+    files) are never held past extraction, and never returned.
+
+    Use this instead of get_execution(include_data=true) for any execution
+    that might be large or long-running -- that combination is prone to
+    exceeding a caller's transport timeout on the full payload; this tool
+    uses a longer server-side timeout (default 120s, override via `timeout`)
+    specifically because it still has to fetch the full response internally
+    before summarising it, even though it never returns the full response.
+    """
+    raw = _request("GET", f"/api/v1/executions/{id}?includeData=true", timeout=timeout)
+    if not isinstance(raw, dict):
+        return {"id": id, "error": "unexpected response shape from N8N"}
+
+    result_data = ((raw.get("data") or {}).get("resultData") or {})
+    run_data = result_data.get("runData") or {}
+
+    nodes = []
+    for node_name, runs in run_data.items():
+        if not isinstance(runs, list):
+            continue
+        for run in runs:
+            if not isinstance(run, dict):
+                continue
+            nodes.append({
+                "node": node_name,
+                "status": run.get("executionStatus"),
+                "executionTimeMs": run.get("executionTime"),
+                "startTime": run.get("startTime"),
+            })
+    nodes.sort(key=lambda n: (n.get("startTime") is None, n.get("startTime")))
+
+    error = result_data.get("error")
+    error_summary = None
+    if isinstance(error, dict):
+        err_node = error.get("node") or {}
+        error_summary = {
+            "node": err_node.get("name") if isinstance(err_node, dict) else None,
+            "nodeType": err_node.get("type") if isinstance(err_node, dict) else None,
+            "errorName": (error.get("errorResponse") or {}).get("name") if isinstance(error.get("errorResponse"), dict) else None,
+            "message": error.get("message"),
+        }
+
+    return {
+        "id": raw.get("id", id),
+        "status": raw.get("status"),
+        "finished": raw.get("finished"),
+        "workflowId": raw.get("workflowId"),
+        "startedAt": raw.get("startedAt"),
+        "stoppedAt": raw.get("stoppedAt"),
+        "lastNodeExecuted": result_data.get("lastNodeExecuted"),
+        "nodeCount": len(nodes),
+        "nodes": nodes,
+        "error": error_summary,
+    }
 
 
 @mcp.tool()
