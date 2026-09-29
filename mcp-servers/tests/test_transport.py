@@ -377,6 +377,137 @@ def test_azure_auth_identifier_uri_matches_api_app_not_connector(monkeypatch):
     assert auth.server.identifier_uri != f"api://{ENTRA_VARS['OAUTH_CLIENT_ID']}"
 
 
+# ---------------------------------------------------------------------------
+# n8n_mcp.py / n8n_mcp_readonly.py — _request() read-timeout handling and
+# get_execution_summary() (fix for get_execution(include_data=true) failing
+# unhandled/uncaught on large, long-running executions -- see
+# 05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/
+# CONTROLLER_CYCLES/20260823--claude-code--return--common-gate-runtime-slo-
+# recovery--v0-1.md for the production evidence this fixes)
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def n8n_readonly_module(monkeypatch):
+    monkeypatch.setenv("N8N_URL", "https://example.invalid")
+    monkeypatch.setenv("N8N_API_TOKEN", "dummy-for-import-only")
+    sys.modules.pop("n8n_mcp_readonly", None)
+    import n8n_mcp_readonly
+    return n8n_mcp_readonly
+
+
+def _mock_urlopen_raising(exc):
+    class _Ctx:
+        def __enter__(self):
+            raise exc
+        def __exit__(self, *a):
+            return False
+    return lambda *a, **k: _Ctx()
+
+
+@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+def test_request_read_timeout_raises_clean_runtime_error(module_name, request, monkeypatch):
+    """A read-phase timeout (urlopen() connects, but resp.read() exceeds
+    `timeout` streaming a large body) raises TimeoutError directly -- NOT
+    wrapped as urllib.error.URLError. Before this fix that propagated
+    unhandled out of the tool function; now it must surface as a clean,
+    bounded RuntimeError naming the timeout and the likely cause."""
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(
+        module.urllib.request, "urlopen", _mock_urlopen_raising(TimeoutError())
+    )
+    with pytest.raises(RuntimeError) as exc_info:
+        module._request("GET", "/api/v1/executions/9999?includeData=true", timeout=45)
+    msg = str(exc_info.value)
+    assert "timed out after 45s" in msg
+    assert "too large" in msg or "slow" in msg
+
+
+def _large_execution_payload():
+    """A realistic-shaped execution response with the same structure this
+    session observed live (data.resultData.runData keyed by node name, each
+    a list of run dicts with executionStatus/executionTime/startTime, plus
+    large per-node input/output data this fix must never return)."""
+    huge_blob = "x" * 500_000  # stand-in for a large record/file payload
+    return {
+        "id": "9999",
+        "status": "success",
+        "finished": True,
+        "workflowId": "WF123",
+        "startedAt": "2026-08-23T06:00:51.040Z",
+        "stoppedAt": "2026-08-23T06:46:18.606Z",
+        "data": {
+            "resultData": {
+                "lastNodeExecuted": "Write Controller Receipt SCHEDULE",
+                "runData": {
+                    "Read Method Registry SCHEDULE": [{
+                        "executionStatus": "success",
+                        "executionTime": 1794,
+                        "startTime": 1000,
+                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
+                    }],
+                    "Read Pattern Register SCHEDULE": [{
+                        "executionStatus": "success",
+                        "executionTime": 900,
+                        "startTime": 2000,
+                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
+                    }],
+                },
+            }
+        },
+    }
+
+
+def _large_execution_error_payload():
+    d = _large_execution_payload()
+    d["status"] = "error"
+    d["finished"] = False
+    d["data"]["resultData"]["error"] = {
+        "node": {"name": "Read Pattern Register SCHEDULE", "type": "n8n-nodes-base.odoo"},
+        "errorResponse": {"name": "odoo.exceptions.AccessError"},
+        "message": "You are not allowed to access 'Pattern Register' records.",
+    }
+    return d
+
+
+@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_payload())
+
+    result = module.get_execution_summary("9999")
+
+    assert result["id"] == "9999"
+    assert result["status"] == "success"
+    assert result["nodeCount"] == 2
+    # Sorted by startTime -- Method Registry (1000) before Pattern Register (2000)
+    assert [n["node"] for n in result["nodes"]] == [
+        "Read Method Registry SCHEDULE",
+        "Read Pattern Register SCHEDULE",
+    ]
+    assert result["nodes"][1]["executionTimeMs"] == 900
+    assert result["error"] is None
+
+    # The whole point of this tool: never hold or return the large blobs.
+    import json as _json
+    serialised = _json.dumps(result)
+    assert "x" * 1000 not in serialised
+    assert len(serialised) < 5_000
+
+
+@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+def test_get_execution_summary_extracts_error_detail(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_error_payload())
+
+    result = module.get_execution_summary("9999")
+
+    assert result["status"] == "error"
+    assert result["error"]["node"] == "Read Pattern Register SCHEDULE"
+    assert result["error"]["nodeType"] == "n8n-nodes-base.odoo"
+    assert result["error"]["errorName"] == "odoo.exceptions.AccessError"
+    assert "Pattern Register" in result["error"]["message"]
+
+
 def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
     """Entra issues access tokens with `aud` set to the resource (API) app's
     bare client ID GUID, not its api://... Application ID URI — observed
