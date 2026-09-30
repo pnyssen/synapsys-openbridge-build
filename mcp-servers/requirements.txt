@@ -1,7 +1,7 @@
 # Pinned to what was verified working this session (2026-07-14).
 # Bump deliberately, not accidentally — re-run mcp-servers/tests/test_transport.py
 # after any version change before redeploying.
-fastmcp==4.0.5
+fastmcp==4.0.10
 mcp==2.2.0
 starlette==1.7.0
 uvicorn==0.52.4
