@@ -13,6 +13,9 @@ import hashlib
 import re
 from dataclasses import dataclass, field
 
+from _validation_core import check_required_fields as _check_required_fields
+from _validation_core import check_vocabulary as _check_vocabulary
+
 ALLOWED_STATUS = {
     "SUBMITTED",
     "WORKING",
@@ -152,25 +155,24 @@ def validate(text: str) -> ValidationResult:
         result.errors.append("No parseable '---' front matter block found.")
         return result
 
-    for required in REQUIRED_FRONT_MATTER_FIELDS:
-        if required not in front_matter or not front_matter[required]:
-            result.ok = False
-            result.errors.append(f"Missing required field: {required!r}")
+    missing_field_errors = _check_required_fields(front_matter, REQUIRED_FRONT_MATTER_FIELDS)
+    if missing_field_errors:
+        result.ok = False
+        result.errors.extend(missing_field_errors)
 
     status = front_matter.get("status")
-    if status is not None and status not in ALLOWED_STATUS:
+    status_error = _check_vocabulary(status, ALLOWED_STATUS, "status")
+    if status_error:
         result.ok = False
-        result.errors.append(
-            f"status {status!r} not in allowed vocabulary {sorted(ALLOWED_STATUS)}"
-        )
+        result.errors.append(status_error)
 
     origin_state = front_matter.get("origin_identity_state")
-    if origin_state is not None and origin_state not in ALLOWED_ORIGIN_IDENTITY_STATE:
+    origin_state_error = _check_vocabulary(
+        origin_state, ALLOWED_ORIGIN_IDENTITY_STATE, "origin_identity_state"
+    )
+    if origin_state_error:
         result.ok = False
-        result.errors.append(
-            f"origin_identity_state {origin_state!r} not in allowed vocabulary "
-            f"{sorted(ALLOWED_ORIGIN_IDENTITY_STATE)}"
-        )
+        result.errors.append(origin_state_error)
 
     if origin_state == "DECLARED":
         result.warnings.append(
