@@ -2,7 +2,7 @@
 # Bump deliberately, not accidentally — re-run mcp-servers/tests/test_transport.py
 # after any version change before redeploying.
 fastmcp==4.0.10
-mcp==2.2.0
+mcp==2.3.0
 starlette==1.7.0
 uvicorn==0.54.0
 httpx==0.28.1
