@@ -67,6 +67,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from _validation_core import check_required_fields as _check_required_fields
+from _validation_core import odoo_absent as _odoo_absent
+
 ROLE_FIELDS = ("x_method_role", "x_service_role", "x_platform_role")
 
 REQUIRED_RECORD_FIELDS = (
@@ -88,22 +91,19 @@ class ScopingResult:
 def _present(value) -> bool:
     """Odoo read_odoo/search_read convention: unset scalar fields come
     back as `False` (not None, not ''), unset many2one as `False`.
-    Truthy non-empty string/number is "present"."""
-    if value is False or value is None:
-        return False
-    if isinstance(value, str) and value.strip() == "":
-        return False
-    return True
+    Truthy non-empty string/number is "present". Thin wrapper over the
+    shared core's `odoo_absent` predicate."""
+    return not _odoo_absent(value)
 
 
 def check_required_fields(record: dict) -> list[str]:
-    errors = []
-    for f in REQUIRED_RECORD_FIELDS:
-        if f not in record:
-            errors.append(f"Record missing key entirely: {f!r} (not even read/selected)")
-        elif not _present(record[f]):
-            errors.append(f"Required field not populated: {f!r}")
-    return errors
+    return _check_required_fields(
+        record,
+        REQUIRED_RECORD_FIELDS,
+        is_absent=_odoo_absent,
+        missing_key_message=lambda f: f"Record missing key entirely: {f!r} (not even read/selected)",
+        absent_value_message=lambda f: f"Required field not populated: {f!r}",
+    )
 
 
 def check_role_classification(record: dict) -> tuple[bool, str | None, list[str]]:
