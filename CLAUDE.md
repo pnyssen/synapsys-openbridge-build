@@ -161,6 +161,14 @@ matches the task, not by assumption.
    session) — this section exists to make it a written rule rather than an
    incidental habit that could lapse under time pressure.
 
+4. **Test claims, don't read them.** No change, PR, return or receipt is
+   marked Verified or proposed for merge on its own description. Run
+   `candidate-skills/synapsys-claim-verification` first, proportionate to
+   the change's quality/importance/urgency ranking: probe the failure modes it
+   claims to handle and the ones it doesn't name, against local fakes only.
+   Confirmed findings become strict-xfail regression tests. Assurance, not
+   authority. Fixes still route through this file's change-control rule.
+
 # Change Request Cross-Reference
 
 | CR | Governs | Status |
