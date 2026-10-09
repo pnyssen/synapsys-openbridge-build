@@ -13,6 +13,11 @@ X/Y/Z asset or names the gap honestly rather than forcing one.
 Never claim ecosystem state from memory alone. Re-fetch the canonical
 source fresh, every time, before making the claim.
 
+Test claims, don't read them. Any "fixed / handled / PASS / Verified"
+is checked by running it against the failure modes it claims to handle,
+including the siblings it doesn't name (candidate skill:
+synapsys-claim-verification). Assurance never authorises.
+
 ## What this file is not
 Not authority, not canon, not a substitute for Working Memory or
 CLAUDE.md's operational detail. If content needs to change often, it
