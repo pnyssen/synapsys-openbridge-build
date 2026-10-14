@@ -378,13 +378,23 @@ def test_azure_auth_identifier_uri_matches_api_app_not_connector(monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# n8n_mcp.py / n8n_mcp_readonly.py — _request() read-timeout handling and
-# get_execution_summary() (fix for get_execution(include_data=true) failing
-# unhandled/uncaught on large, long-running executions -- see
-# 05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/
-# CONTROLLER_CYCLES/20260823--claude-code--return--common-gate-runtime-slo-
-# recovery--v0-1.md for the production evidence this fixes)
+# n8n_mcp.py / n8n_mcp_readonly.py — _request() transport-failure handling,
+# id validation, and get_execution_summary() (fix for
+# get_execution(include_data=true) failing unhandled on large, long-running
+# executions -- see 05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-
+# VISUAL-COMPLETION-001/CONTROLLER_CYCLES/20260823--claude-code--return--
+# common-gate-runtime-slo-recovery--v0-1.md for the production evidence)
 # ---------------------------------------------------------------------------
+
+import inspect  # noqa: E402
+import json as _json  # noqa: E402
+import socket  # noqa: E402
+import struct  # noqa: E402
+import threading  # noqa: E402
+import time  # noqa: E402
+
+N8N_MODULES = ["n8n_readonly_module", "n8n_module"]
+
 
 @pytest.fixture
 def n8n_readonly_module(monkeypatch):
@@ -395,43 +405,180 @@ def n8n_readonly_module(monkeypatch):
     return n8n_mcp_readonly
 
 
-def _mock_urlopen_raising(exc):
-    class _Ctx:
-        def __enter__(self):
-            raise exc
-        def __exit__(self, *a):
-            return False
-    return lambda *a, **k: _Ctx()
+def test_n8n_servers_share_identical_helpers(n8n_readonly_module, n8n_module):
+    """The two servers carry duplicated transport/summary helpers (each file
+    must stay deployable on its own). Fail loudly if the copies drift."""
+    for name in ("_path_id", "_read_body", "_decode_json", "_clip",
+                 "_summarise_error", "_summarise_execution", "get_execution_summary"):
+        a = getattr(n8n_readonly_module, name)
+        b = getattr(n8n_module, name)
+        a, b = getattr(a, "fn", a), getattr(b, "fn", b)  # unwrap FastMCP tools
+        assert inspect.getsource(a) == inspect.getsource(b), f"{name} drifted"
+    for const in ("_READ_CHUNK", "_SUMMARY_MAX_TIMEOUT", "_SUMMARY_TEXT_LIMIT"):
+        assert getattr(n8n_readonly_module, const) == getattr(n8n_module, const)
+    assert n8n_readonly_module._ID_RE.pattern == n8n_module._ID_RE.pattern
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
-def test_request_read_timeout_raises_clean_runtime_error(module_name, request, monkeypatch):
-    """A read-phase timeout (urlopen() connects, but resp.read() exceeds
-    `timeout` streaming a large body) raises TimeoutError directly -- NOT
-    wrapped as urllib.error.URLError. Before this fix that propagated
-    unhandled out of the tool function; now it must surface as a clean,
-    bounded RuntimeError naming the timeout and the likely cause."""
+# --- real-socket transport failures ----------------------------------------
+
+def _serve_once(behaviour):
+    """One-shot local HTTP server: accept a connection, swallow the request,
+    then hand the raw socket to `behaviour`. Returns the base URL."""
+    srv = socket.socket()
+    srv.bind(("127.0.0.1", 0))
+    srv.listen(1)
+
+    def run():
+        conn, _ = srv.accept()
+        try:
+            conn.recv(65536)
+            behaviour(conn)
+        except OSError:
+            pass
+        finally:
+            conn.close()
+            srv.close()
+
+    threading.Thread(target=run, daemon=True).start()
+    return f"http://127.0.0.1:{srv.getsockname()[1]}"
+
+
+def _stall_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100\r\n\r\n{")
+    time.sleep(3)
+
+
+def _close_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100000\r\n\r\n{\"a\":")
+
+
+def _reset_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100000\r\n\r\n{\"a\":")
+    conn.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack("ii", 1, 0))
+
+
+def _html_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 22\r\n\r\n<html>Bad Gateway</html>"[:61])
+
+
+def _slow_drip(conn):
+    # Each byte arrives well inside the per-read timeout, so only a TOTAL
+    # deadline can stop this.
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 200\r\n\r\n")
+    for _ in range(200):
+        conn.send(b" ")
+        time.sleep(0.2)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("behaviour, expected", [
+    (_stall_mid_body, "no data for 1s"),
+    (_close_mid_body, "connection dropped mid-response (IncompleteRead"),
+    (_reset_mid_body, "connection dropped mid-response"),
+    (_html_body, "not valid UTF-8 JSON"),
+])
+def test_request_transport_failures_raise_runtime_error(module_name, behaviour, expected, request, monkeypatch):
     module = request.getfixturevalue(module_name)
-    monkeypatch.setattr(
-        module.urllib.request, "urlopen", _mock_urlopen_raising(TimeoutError())
-    )
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(behaviour))
     with pytest.raises(RuntimeError) as exc_info:
-        module._request("GET", "/api/v1/executions/9999?includeData=true", timeout=45)
-    msg = str(exc_info.value)
-    assert "timed out after 45s" in msg
-    assert "too large" in msg or "slow" in msg
+        module._request("GET", "/api/v1/executions/1", timeout=1)
+    assert expected in str(exc_info.value)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_request_deadline_caps_total_time_on_slow_drip(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(_slow_drip))
+    t0 = time.monotonic()
+    with pytest.raises(RuntimeError) as exc_info:
+        module._request("GET", "/api/v1/executions/1", timeout=1.5, deadline=1.5)
+    elapsed = time.monotonic() - t0
+    assert "1.5s total deadline" in str(exc_info.value)
+    assert elapsed < 2.5, f"deadline overran: {elapsed:.2f}s"
+
+
+def test_request_mutation_failure_warns_change_may_have_applied(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "N8N_URL", _serve_once(_close_mid_body))
+    with pytest.raises(RuntimeError) as exc_info:
+        n8n_module._request("POST", "/api/v1/workflows/abc/activate", timeout=1)
+    assert "MAY have been applied" in str(exc_info.value)
+
+
+def test_request_get_failure_has_no_mutation_warning(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "N8N_URL", _serve_once(_close_mid_body))
+    with pytest.raises(RuntimeError) as exc_info:
+        n8n_module._request("GET", "/api/v1/workflows/abc", timeout=1)
+    assert "MAY have been applied" not in str(exc_info.value)
+
+
+# --- id validation ----------------------------------------------------------
+
+def _forbid_request(*a, **k):
+    raise AssertionError("_request must not be called for an invalid argument")
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("bad_id", ["../credentials", "..", "1?includeData=false", "1#", "1/2", "", "a" * 65, "1 2"])
+def test_path_tools_reject_unsafe_ids(module_name, bad_id, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", _forbid_request)
+    for call in (lambda: module.get_workflow(bad_id),
+                 lambda: module.get_execution(bad_id),
+                 lambda: module.get_execution_summary(bad_id)):
+        with pytest.raises(ValueError):
+            call()
+
+
+def test_mutation_tools_reject_unsafe_ids(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "_request", _forbid_request)
+    for call in (lambda: n8n_module.activate_workflow("../x"),
+                 lambda: n8n_module.deactivate_workflow("../x"),
+                 lambda: n8n_module.update_workflow("../x", {"nodes": [], "connections": {}})):
+        with pytest.raises(ValueError):
+            call()
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_path_tools_accept_real_n8n_ids(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    seen = []
+    monkeypatch.setattr(module, "_request", lambda method, path, *a, **k: seen.append(path) or {})
+    module.get_workflow("KpjCoiFNrjTNbbat")
+    module.get_execution(12345, include_data=True)
+    assert seen == ["/api/v1/workflows/KpjCoiFNrjTNbbat", "/api/v1/executions/12345?includeData=true"]
+
+
+# --- get_execution_summary --------------------------------------------------
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("bad_timeout", [0, -1, 301, True, "60", None])
+def test_get_execution_summary_rejects_out_of_range_timeout(module_name, bad_timeout, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", _forbid_request)
+    with pytest.raises(ValueError):
+        module.get_execution_summary("9999", timeout=bad_timeout)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_get_execution_summary_passes_timeout_as_total_deadline(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    calls = []
+    monkeypatch.setattr(module, "_request", lambda *a, **k: calls.append(k) or {})
+    module.get_execution_summary("9999")
+    module.get_execution_summary("9999", timeout=120)
+    assert calls == [{"timeout": 50, "deadline": 50}, {"timeout": 120, "deadline": 120}]
 
 
 def _large_execution_payload():
-    """A realistic-shaped execution response with the same structure this
-    session observed live (data.resultData.runData keyed by node name, each
-    a list of run dicts with executionStatus/executionTime/startTime, plus
-    large per-node input/output data this fix must never return)."""
+    """Execution response in N8N's shape (data.resultData.runData keyed by
+    node name, each a list of run dicts with executionStatus/executionTime/
+    startTime), carrying large per-node payloads the summary must drop."""
     huge_blob = "x" * 500_000  # stand-in for a large record/file payload
     return {
         "id": "9999",
         "status": "success",
         "finished": True,
+        "mode": "trigger",
         "workflowId": "WF123",
         "startedAt": "2026-08-23T06:00:51.040Z",
         "stoppedAt": "2026-08-23T06:46:18.606Z",
@@ -439,16 +586,16 @@ def _large_execution_payload():
             "resultData": {
                 "lastNodeExecuted": "Write Controller Receipt SCHEDULE",
                 "runData": {
-                    "Read Method Registry SCHEDULE": [{
-                        "executionStatus": "success",
-                        "executionTime": 1794,
-                        "startTime": 1000,
-                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
-                    }],
                     "Read Pattern Register SCHEDULE": [{
                         "executionStatus": "success",
                         "executionTime": 900,
                         "startTime": 2000,
+                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
+                    }],
+                    "Read Method Registry SCHEDULE": [{
+                        "executionStatus": "success",
+                        "executionTime": 1794,
+                        "startTime": 1000,
                         "data": {"main": [[{"json": {"blob": huge_blob}}]]},
                     }],
                 },
@@ -458,18 +605,29 @@ def _large_execution_payload():
 
 
 def _large_execution_error_payload():
+    """Failed execution, with the error serialised the way N8N's
+    NodeApiError.toJSON() does: name/message/description/httpCode/node plus
+    stack and context, the last two of which must never be returned."""
     d = _large_execution_payload()
     d["status"] = "error"
     d["finished"] = False
-    d["data"]["resultData"]["error"] = {
+    node_error = {
+        "name": "NodeApiError",
+        "message": "Forbidden - perhaps check your credentials?",
+        "description": "You are not allowed to access 'Pattern Register' records. " + "y" * 5000,
+        "httpCode": "403",
         "node": {"name": "Read Pattern Register SCHEDULE", "type": "n8n-nodes-base.odoo"},
-        "errorResponse": {"name": "odoo.exceptions.AccessError"},
-        "message": "You are not allowed to access 'Pattern Register' records.",
+        "stack": "NodeApiError: Forbidden\n    at secret/internal/path.js:1:1",
+        "context": {"requestOptions": {"marker": "SENTINEL-NOT-RETURNED"}},
     }
+    d["data"]["resultData"]["error"] = node_error
+    run = d["data"]["resultData"]["runData"]["Read Pattern Register SCHEDULE"][0]
+    del run["executionStatus"]  # older N8N: only the run-level error marks failure
+    run["error"] = node_error
     return d
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+@pytest.mark.parametrize("module_name", N8N_MODULES)
 def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_name, request, monkeypatch):
     module = request.getfixturevalue(module_name)
     monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_payload())
@@ -478,6 +636,7 @@ def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_n
 
     assert result["id"] == "9999"
     assert result["status"] == "success"
+    assert result["mode"] == "trigger"
     assert result["nodeCount"] == 2
     # Sorted by startTime -- Method Registry (1000) before Pattern Register (2000)
     assert [n["node"] for n in result["nodes"]] == [
@@ -485,16 +644,15 @@ def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_n
         "Read Pattern Register SCHEDULE",
     ]
     assert result["nodes"][1]["executionTimeMs"] == 900
+    assert result["nodes"][1]["error"] is None
     assert result["error"] is None
 
-    # The whole point of this tool: never hold or return the large blobs.
-    import json as _json
     serialised = _json.dumps(result)
     assert "x" * 1000 not in serialised
     assert len(serialised) < 5_000
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+@pytest.mark.parametrize("module_name", N8N_MODULES)
 def test_get_execution_summary_extracts_error_detail(module_name, request, monkeypatch):
     module = request.getfixturevalue(module_name)
     monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_error_payload())
@@ -502,10 +660,31 @@ def test_get_execution_summary_extracts_error_detail(module_name, request, monke
     result = module.get_execution_summary("9999")
 
     assert result["status"] == "error"
-    assert result["error"]["node"] == "Read Pattern Register SCHEDULE"
-    assert result["error"]["nodeType"] == "n8n-nodes-base.odoo"
-    assert result["error"]["errorName"] == "odoo.exceptions.AccessError"
-    assert "Pattern Register" in result["error"]["message"]
+    err = result["error"]
+    assert err["node"] == "Read Pattern Register SCHEDULE"
+    assert err["nodeType"] == "n8n-nodes-base.odoo"
+    assert err["name"] == "NodeApiError"
+    assert err["httpCode"] == "403"
+    assert "Forbidden" in err["message"]
+    assert "Pattern Register" in err["description"]
+    assert len(err["description"]) < module._SUMMARY_TEXT_LIMIT + 100  # clipped
+
+    failed = next(n for n in result["nodes"] if n["node"] == "Read Pattern Register SCHEDULE")
+    assert failed["status"] == "error"  # derived: no executionStatus on older N8N
+    assert failed["error"]["name"] == "NodeApiError"
+
+    serialised = _json.dumps(result)
+    assert "SENTINEL-NOT-RETURNED" not in serialised
+    assert "secret/internal/path" not in serialised
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("raw", [[], "oops", {"data": "not-a-dict"}, {"data": {"resultData": {"runData": []}}}])
+def test_get_execution_summary_tolerates_malformed_responses(module_name, raw, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", lambda *a, **k: raw)
+    result = module.get_execution_summary("9999")
+    assert result["id"] == "9999"
 
 
 def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
@@ -524,3 +703,18 @@ def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
     assert bare_guid in verifier.audience
     assert ENTRA_VARS["MCP_API_AUDIENCE"] in verifier.audience
     assert ENTRA_VARS["OAUTH_CLIENT_ID"] in verifier.audience
+
+
+def test_rejected_mutation_ids_are_still_traced(n8n_module, monkeypatch):
+    """Id validation runs inside the D007 trace envelope, so a refused id
+    still emits its one trace event rather than bypassing the trace."""
+    events = []
+    monkeypatch.setattr(n8n_module, "_trace_sink", events.append)
+    monkeypatch.setattr(n8n_module, "_request", _forbid_request)
+    for call in (lambda: n8n_module.activate_workflow("../x"),
+                 lambda: n8n_module.deactivate_workflow("../x"),
+                 lambda: n8n_module.update_workflow("../x", {"nodes": [], "connections": {}})):
+        with pytest.raises(ValueError):
+            call()
+    assert [e["result"] for e in events] == ["error"] * 3
+    assert all("invalid N8N workflow id" in e["refusal_reason"] for e in events)
