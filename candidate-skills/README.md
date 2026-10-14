@@ -43,6 +43,7 @@ enforces this structurally, not just by convention.
 | `synapsys-service-catalogue-pilot` | Pre-existing, predates this design — see its own README for authorisation basis | CANDIDATE_CODE_AUTHORISED |
 | `synapsys-tobe-realignment` | `05_AI_RETURNS_HASHED/20260810_RET_GEN_claude-code-tobe-realignment-candidate-skill-receipt_v0.1.md` | CANDIDATE |
 | `synapsys-persistent-memory` | `05_AI_RETURNS_HASHED/20260810_RET_GEN_claude-code-persistent-memory-candidate-skill-receipt_v0.1.md` | CANDIDATE |
+| `synapsys-claim-verification` | `05_AI_RETURNS_HASHED/20261009_RET_GEN_claude-code-claim-verification-capability_v0.1.md` | CANDIDATE |
 
 ## What this is not
 
