@@ -497,6 +497,30 @@ def test_request_deadline_caps_total_time_on_slow_drip(module_name, request, mon
     assert elapsed < 2.5, f"deadline overran: {elapsed:.2f}s"
 
 
+def _ok_response(payload, chunked):
+    def behaviour(conn):
+        if chunked:
+            conn.sendall(b"HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n"
+                         + b"%x\r\n" % len(payload) + payload + b"\r\n0\r\n\r\n")
+        else:
+            conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n" % len(payload) + payload)
+    return behaviour
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("chunked", [False, True])
+@pytest.mark.parametrize("size", [10, 300_000])  # one recv, and many 64 KiB reads
+def test_request_deadline_success_path_returns_full_body(module_name, chunked, size, request, monkeypatch):
+    """Regression: the deadline loop once touched the socket after http.client
+    had closed it at the end of a Content-Length body, raising EBADF on every
+    successful live call. Failure-path tests alone did not catch it."""
+    module = request.getfixturevalue(module_name)
+    expected = {"blob": "x" * size}
+    payload = _json.dumps(expected).encode()
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(_ok_response(payload, chunked)))
+    assert module._request("GET", "/api/v1/executions/1", timeout=5, deadline=5) == expected
+
+
 def test_request_mutation_failure_warns_change_may_have_applied(n8n_module, monkeypatch):
     monkeypatch.setattr(n8n_module, "N8N_URL", _serve_once(_close_mid_body))
     with pytest.raises(RuntimeError) as exc_info:

@@ -98,15 +98,21 @@ def _read_body(resp: Any, deadline_at: float | None) -> bytes:
     """
     if deadline_at is None:
         return resp.read()
-    sock = getattr(getattr(getattr(resp, "fp", None), "raw", None), "_sock", None)
     # read1() returns after a single recv; read(n) would keep blocking until
     # n bytes arrive, so a slow drip could run far past the deadline.
     read = getattr(resp, "read1", resp.read)
     chunks: list[bytes] = []
     while True:
+        # http.client closes the response (and its socket) itself once a
+        # Content-Length body is fully read; touching that socket again
+        # raises EBADF, so stop here instead.
+        if getattr(resp, "isclosed", lambda: False)():
+            return b"".join(chunks)
         remaining = deadline_at - time.monotonic()
         if remaining <= 0:
             raise _DeadlineExceeded()
+        # Re-resolve each time: fp is None once the response has closed.
+        sock = getattr(getattr(getattr(resp, "fp", None), "raw", None), "_sock", None)
         if sock is not None:
             sock.settimeout(remaining)
         try:
