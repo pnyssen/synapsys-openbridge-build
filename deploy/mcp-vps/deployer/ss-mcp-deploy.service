@@ -1,0 +1,8 @@
+[Unit]
+Description=SynapSys MCP pull-based deployer (CHG-2027-093)
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ss-mcp-deploy run
