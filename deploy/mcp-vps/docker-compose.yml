@@ -60,6 +60,12 @@ services:
     environment:
       - N8N_URL=${N8N_URL}
       - N8N_API_TOKEN=${N8N_API_TOKEN}
+      # CHG-2027-088 — server-held webhook auth profiles (values in .env only;
+      # blank = feature off, trigger_webhook behaves exactly as before).
+      - N8N_WEBHOOK_AUTH_PROFILES=${N8N_WEBHOOK_AUTH_PROFILES:-}
+      - N8N_WEBHOOK_AUTH_W15_DISPATCH_HEADER=${N8N_WEBHOOK_AUTH_W15_DISPATCH_HEADER:-}
+      - N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE=${N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE:-}
+      - N8N_WEBHOOK_AUTH_W15_DISPATCH_PATHS=${N8N_WEBHOOK_AUTH_W15_DISPATCH_PATHS:-}
       - MCP_TRANSPORT=http
       - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN_N8N}
       - MCP_HOST=0.0.0.0
