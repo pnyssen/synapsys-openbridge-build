@@ -274,6 +274,7 @@ def _request(
     *,
     timeout: float = 30,
     deadline: float | None = None,
+    extra_headers: dict[str, str] | None = None,
 ) -> Any:
     """HTTP helper. ``timeout`` bounds each socket operation (connect, each
     recv); ``deadline``, if given, is a hard cap in seconds on reading the
@@ -285,6 +286,8 @@ def _request(
     req.add_header("Content-Type", "application/json")
     req.add_header("Accept", "application/json")
     req.add_header("X-N8N-API-KEY", N8N_TOKEN)
+    for _header, _value in (extra_headers or {}).items():
+        req.add_header(_header, _value)
     # A mutation whose response is lost may still have been applied.
     unknown = (
         "" if method == "GET"
@@ -694,19 +697,77 @@ def list_credentials(limit: int = 50) -> dict:
     return _request("GET", f"/api/v1/credentials?limit={int(limit)}")
 
 
+# ---------------------------------------------------------------------------
+# CHG-2027-088 — server-held webhook auth profiles for header-protected
+# webhooks (e.g. W15-CR1 dispatch-submit / dispatch-complete).
+# Callers pass only a profile NAME; the header name/value live in this
+# server's environment and never cross the tool boundary, logs or traces.
+#   N8N_WEBHOOK_AUTH_PROFILES=w15_dispatch
+#   N8N_WEBHOOK_AUTH_W15_DISPATCH_HEADER=<header name>
+#   N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE=<header value>
+#   N8N_WEBHOOK_AUTH_W15_DISPATCH_PATHS=dispatch-submit,dispatch-route,dispatch-complete
+# A profile only works for its allowlisted paths. No profile = unchanged.
+# ---------------------------------------------------------------------------
+class WebhookAuthError(Exception):
+    """Profile unknown, incomplete, or not bound to the requested path."""
+
+
+# Headers _request() sets itself; a profile must never override them (in
+# particular X-N8N-API-KEY, which would swap the server's API credential).
+_RESERVED_WEBHOOK_HEADERS = frozenset({"x-n8n-api-key", "content-type", "accept", "host", "content-length"})
+_HEADER_NAME_RE = re.compile(r"^[!#$%&'*+.^_`|~0-9A-Za-z-]+$")
+
+
+def _load_webhook_auth_profile(name: str) -> dict:
+    enabled = {p.strip().lower() for p in os.environ.get("N8N_WEBHOOK_AUTH_PROFILES", "").split(",") if p.strip()}
+    key = (name or "").strip().lower()
+    if not key or key not in enabled:
+        raise WebhookAuthError(f"AUTH_PROFILE_UNKNOWN: '{name}' is not an enabled profile")
+    prefix = f"N8N_WEBHOOK_AUTH_{key.upper()}_"
+    header = os.environ.get(prefix + "HEADER", "").strip()
+    value = os.environ.get(prefix + "VALUE", "")
+    paths = {p.strip().strip("/") for p in os.environ.get(prefix + "PATHS", "").split(",") if p.strip()}
+    if not header or not value or not paths:
+        raise WebhookAuthError(f"AUTH_PROFILE_INCOMPLETE: '{name}' missing HEADER, VALUE or PATHS")
+    # Validate here so http.client never raises its own "Invalid header
+    # value %r" or UnicodeEncodeError (which names the offending character
+    # and its position), either of which would leak part of the secret.
+    # Never include the value.
+    if (not _HEADER_NAME_RE.match(header) or header.lower() in _RESERVED_WEBHOOK_HEADERS
+            or not value.isascii() or any(c in value for c in "\r\n\0")):
+        raise WebhookAuthError(f"AUTH_PROFILE_INVALID: '{name}' has a reserved/invalid HEADER or invalid VALUE")
+    return {"header": header, "value": value, "paths": paths}
+
+
 @mcp.tool()
-def trigger_webhook(path: str, payload: dict | None = None) -> dict:
+def trigger_webhook(path: str, payload: dict | None = None, auth_profile: str | None = None) -> dict:
     """Trigger a webhook by path.
+
+    Optional auth_profile (CHG-2027-088): name of a server-held header-auth
+    profile for header-protected webhooks. The profile must allowlist the
+    path; the secret is never returned or logged.
 
     D007 group-B trace/consent envelope: classified DATA_MUTATION (it
     invokes a workflow's execution, not n8n's own configuration state, but
     the workflow it triggers may itself mutate operational data downstream)."""
     body = payload if payload is not None else {}
     clean_path = path.lstrip("/")
+    extra = None
+    target = f"webhook:{clean_path}"
+    if auth_profile:
+        prof = _load_webhook_auth_profile(auth_profile)
+        if clean_path.rstrip("/") not in prof["paths"]:
+            raise WebhookAuthError(
+                f"AUTH_PATH_NOT_ALLOWED: profile '{auth_profile}' is not bound to '{clean_path}'")
+        extra = {prof["header"]: prof["value"]}
+        target = f"webhook:{clean_path}|auth_profile:{auth_profile.strip().lower()}"
+    if extra is None:
+        call = lambda: _request("POST", f"/webhook/{clean_path}", body)
+    else:
+        call = lambda: _request("POST", f"/webhook/{clean_path}", body, extra_headers=extra)
     return ws.with_trace_envelope(
         tool="trigger_webhook", consent_classes=[ws.CONSENT_DATA_MUTATION],
-        target=f"webhook:{clean_path}", trace_sink=_trace_sink,
-        fn=lambda: _request("POST", f"/webhook/{clean_path}", body),
+        target=target, trace_sink=_trace_sink, fn=call,
     )
 
 
