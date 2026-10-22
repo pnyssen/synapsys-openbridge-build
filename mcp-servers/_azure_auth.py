@@ -20,6 +20,7 @@ configure Entra before it can start.
 from __future__ import annotations
 
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -93,7 +94,9 @@ def _fix_cimd_private_key_jwt_audience_bug() -> None:
     original_init = PrivateKeyJWTClientAuthenticator.__init__
 
     def patched_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw):
-        token_endpoint_url = token_endpoint_url.replace("//token", "/token")
+        # Only a doubled slash directly before a trailing "token" path segment
+        # (never the scheme's "//", e.g. https://token.example.com/token).
+        token_endpoint_url = re.sub(r"(?<!:)//token$", "/token", token_endpoint_url)
         original_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw)
 
     PrivateKeyJWTClientAuthenticator.__init__ = patched_init

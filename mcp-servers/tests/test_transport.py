@@ -1027,3 +1027,27 @@ def test_entra_scope_requirement_is_not_weakened(monkeypatch):
     auth = _azure_auth.build_combined_auth("shared-token")
     assert auth.required_scopes == ["mcp.access"]
     assert auth.server.required_scopes == ["mcp.access"]
+
+
+def test_audience_patch_never_touches_scheme_slashes():
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+    for url in ("https://token.example.com/token", "https://token.example.com//token"):
+        a = PrivateKeyJWTClientAuthenticator(provider=None, cimd_manager=None, token_endpoint_url=url)
+        assert a._token_endpoint_url == "https://token.example.com/token"
+
+
+def test_oauth_debug_middleware_preserves_repeated_headers_on_error():
+    async def endpoint(request):
+        r = JSONResponse({"error": "access_denied"}, status_code=403)
+        r.raw_headers.append((b"set-cookie", b"a=1"))
+        r.raw_headers.append((b"set-cookie", b"b=2"))
+        return r
+
+    app = Starlette(routes=[Route("/consent", endpoint, methods=["POST"])],
+                    middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    response = TestClient(app).post("/consent")
+    assert response.status_code == 403
+    assert response.json() == {"error": "access_denied"}
+    assert response.headers.get_list("set-cookie") == ["a=1", "b=2"]
