@@ -35,6 +35,16 @@ SYSTEMCTL="${SS_SYSTEMCTL:-systemctl}"
 SERVICES="odoo-mcp n8n-mcp"
 RB="$STATE_DIR/first_release_rollback"
 
+# --apply checks out another commit under $REPO; bash reads scripts lazily,
+# so a copy running from inside the checkout could be rewritten mid-run.
+SELF=$(readlink -f "$0")
+case "$SELF" in
+  "$(readlink -f "$REPO")"/*)
+    echo "HOLD: run a copy from outside $REPO, e.g.:"
+    echo "  install -m 700 $SELF /root/ss-mcp-first-release.sh && /root/ss-mcp-first-release.sh"
+    exit 1 ;;
+esac
+
 mkdir -p "$STATE_DIR"
 ts(){ date -u +%Y-%m-%dT%H:%M:%SZ; }
 log(){ echo "$(ts) FIRST-RELEASE $*" | tee -a "$LOG"; }
@@ -155,7 +165,7 @@ g fetch -q origin main || hold "fetch from public origin failed"
 fail_back(){ # $1=reason
   log "FAIL $1; restoring pre-release images"
   exec 9>&-   # the rollback run takes the lock itself
-  "$0" --rollback && log "auto-rollback verified" || log "AUTO-ROLLBACK FAILED; manual intervention required"
+  "$SELF" --rollback && log "auto-rollback verified" || log "AUTO-ROLLBACK FAILED; manual intervention required"
   exit 1
 }
 
@@ -183,6 +193,6 @@ Before 'ss-mcp-deploy enable <CHG-ref>' and 'systemctl enable --now ss-mcp-deplo
   2. Connector tool list shows trigger_webhook with the optional auth_profile argument.
   3. If W15 profiles are configured in .env: one bounded W15 dispatch PASS, and an
      unlisted path refused (AUTH_PATH_NOT_ALLOWED).
-  4. Rollback rehearsal if wanted: $0 --rollback  (then --apply again).
+  4. Rollback rehearsal if wanted: $SELF --rollback  (then --apply again).
   5. D009 independent assurance of this release.
 EOF

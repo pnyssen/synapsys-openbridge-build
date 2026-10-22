@@ -162,3 +162,13 @@ def test_credentialed_remote_is_replaced_and_never_printed(renv):
     assert r.returncode == 0, _all_output(renv, r)
     assert _git(renv.repo, "remote", "get-url", "origin") == str(renv.origin)
     assert "ghp_FAKE" not in _all_output(renv, pre, r)
+
+
+def test_refuses_to_run_from_inside_the_checkout(renv):
+    inside = renv.repo / "ss-mcp-first-release.sh"
+    shutil.copy(RELEASE, inside)
+    r = subprocess.run(["bash", str(inside), "--apply"], env=renv.env, capture_output=True, text=True)
+    assert r.returncode == 1
+    assert "run a copy from outside" in r.stdout
+    assert _git(renv.repo, "rev-parse", "HEAD") == renv.vps_only
+    assert not (renv.state / "first_release_rollback").exists()
