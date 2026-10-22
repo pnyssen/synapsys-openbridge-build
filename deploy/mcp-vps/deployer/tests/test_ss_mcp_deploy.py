@@ -316,8 +316,9 @@ def test_rollback_that_cannot_be_verified_reports_failure(env):
 
 def test_env_file_is_never_read(env):
     secret = "ENV-SECRET-MUST-NOT-APPEAR"
+    # Untracked and NOT git-ignored, exactly as on the VPS: must neither be
+    # read nor count as a local edit that blocks the deploy.
     (env.repo / "deploy" / "mcp-vps" / ".env").write_text(f"TOKEN={secret}\n")
-    (env.repo / ".git" / "info" / "exclude").write_text("deploy/mcp-vps/.env\n")
     env.adopt_and_enable()
     env.write({"mcp-servers/n8n_mcp.py": "# n8n v2\n"})
     env.commit("n8n change", green=True)
@@ -325,3 +326,50 @@ def test_env_file_is_never_read(env):
     st = env.run("status")
     assert r.returncode == 0, env.logtext()
     assert secret not in env.logtext() + r.stdout + r.stderr + st.stdout + st.stderr
+
+
+def test_manual_rollback_is_not_redeployed_by_the_timer(env):
+    env.adopt_and_enable()
+    env.write({"mcp-servers/n8n_mcp.py": "# n8n v2 (bad but healthy)\n"})
+    bad = env.commit("bad n8n", green=True)
+    assert env.run("run").returncode == 0
+    assert env.run("rollback").returncode == 0, env.logtext()
+    assert (env.state / "failed_sha").read_text().strip() == bad
+    env.log.write_text("")
+    assert env.run("run").returncode == 0
+    assert "DEPLOY" not in env.logtext()
+    assert env.ctr("n8n-mcp", "n8n_mcp.py") == "# n8n v1\n"
+    # A new merge is deployed as usual.
+    env.write({"mcp-servers/n8n_mcp.py": "# n8n v3\n"})
+    env.commit("fixed n8n", green=True)
+    assert env.run("run").returncode == 0, env.logtext()
+    assert env.ctr("n8n-mcp", "n8n_mcp.py") == "# n8n v3\n"
+
+
+def test_manual_rollback_restores_only_last_rebuilt_services(env):
+    env.adopt_and_enable()
+    env.write({"mcp-servers/_shared.py": "# shared v2\n"})          # X -> Y rebuilds both
+    y = env.commit("shared change", green=True)
+    assert env.run("run").returncode == 0, env.logtext()
+    env.write({"mcp-servers/n8n_mcp.py": "# n8n v2\n"})             # Y -> Z rebuilds n8n only
+    env.commit("n8n change", green=True)
+    assert env.run("run").returncode == 0, env.logtext()
+    r = env.run("rollback")
+    assert r.returncode == 0, env.logtext()
+    assert env.deployed() == y
+    assert env.ctr("odoo-mcp", "_shared.py") == "# shared v2\n"      # not reverted to X's stale image
+    assert env.ctr("n8n-mcp", "n8n_mcp.py") == "# n8n v1\n"
+    assert env.ctr("n8n-mcp", "_shared.py") == "# shared v2\n"
+    assert "ROLLBACK done" in env.logtext()
+
+
+def test_rollback_without_matching_identity_changes_nothing(env):
+    env.adopt_and_enable()
+    env.write({"mcp-servers/n8n_mcp.py": "# n8n v2\n"})
+    new = env.commit("n8n change", green=True)
+    assert env.run("run").returncode == 0
+    (env.state / "rollback_identity").write_text("sha deadbeef\n")
+    assert env.run("rollback").returncode == 1
+    assert "rollback identity missing" in env.logtext()
+    assert env.deployed() == new
+    assert env.ctr("n8n-mcp", "n8n_mcp.py") == "# n8n v2\n"

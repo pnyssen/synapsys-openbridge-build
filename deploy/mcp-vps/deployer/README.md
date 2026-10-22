@@ -56,8 +56,10 @@ Every failed gate is a **HOLD**: logged, nothing changed.
 - **CI must be green on the exact commit.** Required check runs (`SS_REQUIRED_CHECKS`,
   default `test` from `mcp-tests.yml`) must be `completed/success` on that SHA, read from
   the public GitHub API. Unreachable or pending = HOLD; the timer retries later.
+  Checks are matched by name, so keep that job name unique across workflows.
 - **Drift holds.** If the running containers no longer match the deployed SHA, the deploy is refused.
-- **Local edits block deploys.** If `/docker/mcp-src` has edits under `mcp-servers/` or `deploy/`, the deploy is held and logged.
+- **Local edits block deploys.** If tracked files under `mcp-servers/` or `deploy/` in `/docker/mcp-src` are edited, the deploy is held and logged. Untracked files (such as `deploy/mcp-vps/.env`) are ignored.
+- **Manual rollback sticks.** `rollback` restores exactly the services the last deploy rebuilt, verifies every service, and marks the rolled-back commit failed so the timer won't redeploy it. The next merge to `main` deploys as usual.
 - **Only changed services are rebuilt:**
   - `n8n_mcp.py` rebuilds `n8n-mcp`;
   - `odoo_mcp.py` rebuilds `odoo-mcp`;

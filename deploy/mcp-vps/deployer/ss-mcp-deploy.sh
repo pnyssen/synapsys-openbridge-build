@@ -131,13 +131,17 @@ do_rollback(){ # $1=sha to restore  $2=services   (returns 1 if the restore is n
       [ -n "$img" ] && "$DOCKER" tag "ss-prev/$s" "$img"
     fi
   done
-  dc up -d --no-build $2 >>"$LOG" 2>&1 || { log "ROLLBACK FAILED compose up; manual intervention required"; return 1; }
-  sleep "$HEALTH_WAIT"
+  if [ -n "$2" ]; then   # an empty list must never reach `compose up` (= every service)
+    dc up -d --no-build $2 >>"$LOG" 2>&1 || { log "ROLLBACK FAILED compose up; manual intervention required"; return 1; }
+    sleep "$HEALTH_WAIT"
+  fi
   local s why
   for s in $2; do
     health "$s" || { log "ROLLBACK FAILED health $s; manual intervention required"; return 1; }
-    why=$(provenance_ok "$1" "$s") || { log "ROLLBACK FAILED provenance: $why; manual intervention required"; return 1; }
   done
+  # Every service, not only the restored ones: services that were not
+  # rebuilt must already match $1, or the restore is not what it claims.
+  why=$(all_provenance_ok "$1") || { log "ROLLBACK FAILED provenance: $why; manual intervention required"; return 1; }
   echo "$1" > "$STATE_DIR/deployed_sha"
   log "ROLLBACK done ${1:0:7} (verified)"
 }
@@ -148,7 +152,7 @@ status)
   echo "deployed:    $(deployed || echo NONE)"
   echo "origin/main: $(g rev-parse origin/$BRANCH 2>/dev/null)"
   echo "checkout:    $(g rev-parse HEAD)"
-  echo "local edits: $(g status --porcelain -- mcp-servers deploy | wc -l)"
+  echo "local edits: $(g status --porcelain --untracked-files=no -- mcp-servers deploy | wc -l)"
   echo "auto-deploy: $(cat "$STATE_DIR/auto_deploy_enabled" 2>/dev/null || echo DISABLED)"
   if D=$(deployed) && [ -n "$D" ]; then
     why=$(all_provenance_ok "$D") && echo "provenance:  OK (running source = ${D:0:7})" || echo "provenance:  MISMATCH ($why)"
@@ -170,7 +174,10 @@ run)
   [ -f "$STATE_DIR/auto_deploy_enabled" ] || { log "HOLD auto-deploy disabled; run: ss-mcp-deploy enable <CHG-ref>"; exit 0; }
   OLD=$(deployed) || true
   [ -n "$OLD" ] || { log "HOLD no baseline; run: ss-mcp-deploy adopt"; exit 0; }
-  [ -z "$(g status --porcelain -- mcp-servers deploy)" ] || { log "HOLD local edits in $REPO; deploy refused"; exit 1; }
+  # Tracked files only: the untracked deploy/mcp-vps/.env compose reads must
+  # not block deploys. A failing `git status` is itself a HOLD.
+  EDITS=$(g status --porcelain --untracked-files=no -- mcp-servers deploy) || { log "HOLD cannot read checkout state in $REPO"; exit 1; }
+  [ -z "$EDITS" ] || { log "HOLD local edits in $REPO; deploy refused"; exit 1; }
   g fetch -q origin "$BRANCH" || { log "FAIL fetch"; exit 1; }
   NEW=$(g rev-parse "origin/$BRANCH")
   [ "$NEW" = "$OLD" ] && exit 0
@@ -202,6 +209,14 @@ run)
   log "OK deployed ${NEW:0:7} (provenance verified)" ;;
 rollback)
   PREV=$(cat "$STATE_DIR/previous_sha" 2>/dev/null) || { log "FAIL no previous_sha"; exit 1; }
-  do_rollback "$PREV" "$SERVICES_ALL" || exit 1 ;;
+  IDENT="$STATE_DIR/rollback_identity"
+  grep -qxF "sha $PREV" "$IDENT" 2>/dev/null || { log "FAIL rollback identity missing or not for ${PREV:0:7}; nothing changed"; exit 1; }
+  # Restore exactly the services the last deploy rebuilt (their ss-prev
+  # images were tagged by that deploy); any other ss-prev tag may be stale.
+  SVCS=$(awk '$1=="image"{print $2}' "$IDENT" | tr '\n' ' ')
+  # Mark the rolled-back commit failed so the timer does not redeploy it;
+  # the next merge to main is deployed as usual.
+  CUR=$(deployed) && [ -n "$CUR" ] && echo "$CUR" > "$STATE_DIR/failed_sha"
+  do_rollback "$PREV" "$SVCS" || exit 1 ;;
 *) echo "usage: ss-mcp-deploy status|adopt [SHA]|enable CHG-REF|disable|run|rollback"; exit 2 ;;
 esac
