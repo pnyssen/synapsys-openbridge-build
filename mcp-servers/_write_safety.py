@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 import uuid
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set
@@ -66,6 +67,9 @@ OBSERVABILITY_MODELS: Dict[str, Set[str]] = {
     "ir.filters": {"context", "domain", "is_default", "user_id", "name"},
     "ir.ui.view": {"arch", "arch_db", "active"},
     "ir.ui.menu": {"active", "sequence", "parent_id", "name"},
+    # L-09: ir.actions.act_window mutations (not just creates) are also
+    # observability-class — they change what a view/menu shows by default.
+    "ir.actions.act_window": {"name", "view_mode", "domain", "context", "res_model"},
 }
 # Fields whose change on an observability model is itself a *default-state*
 # change (P0-F: "A default-state change requires a distinct
@@ -199,6 +203,25 @@ def prepare_write_set(
     actual_affected_count = len(ids)
 
     proposed = dict(proposed or {})
+
+    # A4/L-02 — secret refusal BEFORE any proposed value enters a preview or
+    # store. Runs ahead of everything else in prepare so a secret-shaped
+    # value never gets persisted into write_set/prestate/preview even
+    # transiently.
+    offending = scan_for_secrets(proposed)
+    if offending is not None:
+        raise WriteSafetyRefusal(
+            "SECRET_MATERIAL_REFUSED",
+            f"Proposed value at field {offending['field']!r} matches a high-confidence "
+            f"secret pattern ({offending['pattern']}) and is refused before entering "
+            "any preview or store. The value itself is never echoed.",
+            actual={"field": offending["field"], "pattern": offending["pattern"]},
+            correction=(
+                "Remove the secret-shaped value from this field; secrets are never "
+                "accepted through a governed write regardless of consent."
+            ),
+        )
+
     fields = sorted(proposed.keys()) if operation == "write" else []
 
     prestate: Dict[int, Dict[str, Any]] = {}
@@ -206,6 +229,15 @@ def prepare_write_set(
         read_fields = fields or ["id"]
         rows = read_fn(model, ids, read_fields)
         prestate = {int(r["id"]): {f: r.get(f) for f in fields} for r in rows}
+
+    # B2/L-06 — NO_CHANGE_REQUIRED: every proposed field on every target
+    # already holds the proposed value. Recorded on the write set so both
+    # the single-call wrapper and execute_write_set can short-circuit
+    # without ever issuing a mutating call.
+    no_change_required = bool(
+        operation == "write" and ids and fields
+        and all(prestate.get(rid, {}).get(f) == proposed[f] for rid in ids for f in fields)
+    )
 
     register_total = None
     affected_percentage = None
@@ -254,6 +286,7 @@ def prepare_write_set(
         "prepared_at": prepared_at,
         "consumed": False,
         "requires_enumerated_ids": requires_enumerated_ids,
+        "no_change_required": no_change_required,
     }
     store.put(write_set)
 
@@ -277,6 +310,7 @@ def prepare_write_set(
         "requires_observability_default_confirmation": bool(
             observability and observability["default_change"]
         ),
+        "no_change_required": no_change_required,
     }
 
 
@@ -305,6 +339,29 @@ def execute_write_set(
             f"write_set_id={write_set_id!r} was already executed.",
             correction="Prepare a new write set for any further mutation.",
         )
+
+    # B2/L-06 — defensive re-check: even if the caller's proposal changed
+    # between prepare and execute such that it now matches current state,
+    # short-circuit here rather than issue a no-op mutating call. The
+    # primary check lives in prepare_write_set; this mirrors it per the
+    # v2 requirement that execute repeats no-change/drift checks
+    # defensively.
+    if write_set.get("no_change_required"):
+        write_set["consumed"] = True
+        store.consume(write_set_id)
+        return {
+            "write_set_id": write_set_id,
+            "digest": write_set["digest"],
+            "model": write_set["model"],
+            "operation": write_set["operation"],
+            "affected_ids": list(write_set["ids"]),
+            "actual_affected_count": len(write_set["ids"]),
+            "result": "NO_CHANGE_REQUIRED",
+            "no_change_required": True,
+            "before": write_set["prestate"],
+            "after": write_set["prestate"],
+            "rollback": None,
+        }
 
     prepared_ids = list(write_set["ids"])
     supplied_ids = sorted({int(i) for i in enumerated_ids})
@@ -440,3 +497,157 @@ def with_trace_envelope(
         "refusal_reason": None,
     })
     return result
+
+
+# ---- V2 gap closure (SYNAPSYS MCP UPGRADE — CONSOLIDATED REQUIREMENTS v2) --
+#
+# The functions below close the specific gaps the v2 readiness assessment
+# found in the group-A/B (PR39) implementation: A4 secret refusal, B3
+# contextual identifier grammar, and the L-09/L-10 ir.actions.act_window
+# observability + reusable-capability check. B2 no-change detection and its
+# defensive execute-time re-check are wired directly into prepare_write_set/
+# execute_write_set above, not here, since they need access to prestate.
+
+# ---- A4/L-02 — secret refusal ----------------------------------------------
+#
+# High-confidence signatures only (per the v2 correction: a bare 16-char
+# string is never globally whitelisted as safe OR flagged as secret purely
+# on shape — these patterns require a genuinely credential-shaped value).
+
+_JWT_RE = re.compile(r"^eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]*$")
+_ENV_REF_RE = re.compile(r"\$env\.")
+_CONNECTION_STRING_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*://[^/\s:]+:[^/\s@]+@")
+
+# Field names that carry credential material when non-empty — matched
+# case-insensitively against the field's own name, not its value's shape.
+_CREDENTIAL_FIELD_NAMES = {
+    "password", "api_key", "apikey", "secret", "client_secret", "access_token",
+    "private_key", "refresh_token", "auth_token", "bearer_token", "session_token",
+}
+
+
+def _looks_like_secret_value(value: Any) -> Optional[str]:
+    """Return the matched pattern name if `value` is high-confidence secret
+    material, else None. Shape-only checks — never a bare-length heuristic."""
+    if not isinstance(value, str) or not value:
+        return None
+    if _JWT_RE.match(value):
+        return "JWT"
+    if _ENV_REF_RE.search(value):
+        return "ENV_REFERENCE"
+    if _CONNECTION_STRING_RE.match(value):
+        return "CONNECTION_STRING_WITH_CREDENTIALS"
+    return None
+
+
+def scan_for_secrets(payload: Dict[str, Any], *, path_prefix: str = "") -> Optional[Dict[str, str]]:
+    """Scan a proposed-values payload for high-confidence secret material.
+    Returns {"field": <dotted path>, "pattern": <name>} for the FIRST
+    offending field found (deterministic: sorted key order), or None. The
+    offending value itself is never included in the return — callers must
+    never echo it into a preview, log, or trace."""
+    for key in sorted(payload.keys(), key=str):
+        value = payload[key]
+        field_path = f"{path_prefix}.{key}" if path_prefix else str(key)
+        if isinstance(value, dict):
+            nested = scan_for_secrets(value, path_prefix=field_path)
+            if nested is not None:
+                return nested
+            continue
+        normalized_key = str(key).lower()
+        if (isinstance(value, str) and value
+                and any(cred in normalized_key for cred in _CREDENTIAL_FIELD_NAMES)):
+            return {"field": field_path, "pattern": "CREDENTIAL_FIELD_NAME"}
+        pattern = _looks_like_secret_value(value)
+        if pattern is not None:
+            return {"field": field_path, "pattern": pattern}
+    return None
+
+
+# ---- B3/L-08 — contextual identifier grammar -------------------------------
+#
+# Recognised ONLY in the context the grammar is defined for — per the v2
+# correction, a value is never globally whitelisted just because its shape
+# happens to match. High-confidence secret signatures always override.
+
+_N8N_WORKFLOW_ID_RE = re.compile(r"^[A-Za-z0-9]{16}$")
+# Lane/type segments use hyphens in real filenames (e.g. "chatgpt-hub",
+# "state-control") — [a-z0-9_-]+ not [a-z0-9_]+.
+_WM_FILENAME_RE = re.compile(
+    r"^\d{8}--[a-z0-9_-]+--[a-z0-9_-]+--.+--v\d+-\d+(\.[A-Za-z0-9]+)?$"
+)
+
+IDENTIFIER_CONTEXT_WORKFLOW_ID = "workflow_id"
+IDENTIFIER_CONTEXT_WM_PATH = "wm_path"
+
+CLASS_SECRET = "SECRET"
+CLASS_IDENTIFIER = "IDENTIFIER"
+CLASS_UNKNOWN = "UNKNOWN"
+
+
+def classify_identifier(value: str, context: Optional[str] = None) -> str:
+    """Classify a string as SECRET, IDENTIFIER, or UNKNOWN.
+
+    A high-confidence secret signature always wins regardless of context
+    (JWT/$env./connection-string/credential shape). Otherwise a value is
+    classified IDENTIFIER only when BOTH its grammar matches AND the caller
+    declared the matching context — an opaque 16-character string with no
+    declared context is UNKNOWN, never assumed safe."""
+    if not isinstance(value, str):
+        return CLASS_UNKNOWN
+    if _looks_like_secret_value(value) is not None:
+        return CLASS_SECRET
+    if context == IDENTIFIER_CONTEXT_WORKFLOW_ID and _N8N_WORKFLOW_ID_RE.match(value):
+        return CLASS_IDENTIFIER
+    if context == IDENTIFIER_CONTEXT_WM_PATH and _WM_FILENAME_RE.match(value.rsplit("/", 1)[-1]):
+        return CLASS_IDENTIFIER
+    return CLASS_UNKNOWN
+
+
+# ---- B2/L-07 — stable refusal fingerprint + bounded retry escalation ------
+
+def refusal_fingerprint(*, tool: str, model: str, operation: str,
+                         ids: Sequence[int], proposed: Dict[str, Any]) -> str:
+    """Deterministic fingerprint identifying 'the same proposal retried
+    unchanged' — independent of write_set_id (which is fresh per prepare)."""
+    payload = {"tool": tool, "model": model, "operation": operation,
+               "ids": sorted(int(i) for i in ids), "proposed": proposed}
+    return hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+
+
+class RetryTracker:
+    """Bounded in-memory counter of identical refused proposals, keyed by
+    refusal_fingerprint. Process-lifetime only, same threat model as
+    WriteSetStore. Not a durable retry database — restart persistence is
+    not claimed, matching the v2 requirement's own scope note."""
+
+    def __init__(self, max_entries: int = 10_000):
+        self._counts: Dict[str, int] = {}
+        self._max_entries = max_entries
+
+    def note(self, fingerprint: str) -> int:
+        """Record one occurrence of this fingerprint and return the new
+        count (1 on first occurrence, 2+ on repeats)."""
+        if fingerprint not in self._counts and len(self._counts) >= self._max_entries:
+            self._counts.clear()  # bounded: drop oldest-unbounded growth rather than leak
+        self._counts[fingerprint] = self._counts.get(fingerprint, 0) + 1
+        return self._counts[fingerprint]
+
+    def __len__(self) -> int:
+        return len(self._counts)
+
+
+# ---- L-09/L-10 — ir.actions.act_window observability + reuse check --------
+
+def check_action_window_reuse(
+    *, res_model: str, view_mode: str,
+    search_fn: Callable[[str, list], List[dict]],
+) -> List[dict]:
+    """Search for existing ir.actions.act_window records on the same
+    res_model with the exact same view_mode signature. A non-empty result
+    means the proposed capability already exists — the caller (create_odoo)
+    refuses as REUSABLE_CAPABILITY_EXISTS rather than trusting its own
+    belief that no equivalent exists (the exact defect the L-10 oracle is
+    named for: the lane ran this check, reported clear, and was wrong)."""
+    domain = [["res_model", "=", res_model], ["view_mode", "=", view_mode]]
+    return search_fn("ir.actions.act_window", domain)

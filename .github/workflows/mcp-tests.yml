@@ -26,4 +26,12 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest mcp-servers/tests/test_transport.py -v
+        run: |
+          pytest \
+            mcp-servers/tests/test_transport.py \
+            mcp-servers/tests/test_mcp_v2_oracle_and_mutation.py \
+            mcp-servers/tests/test_write_safety.py \
+            mcp-servers/tests/test_n8n_mcp_write_safety.py \
+            mcp-servers/tests/test_odoo_mcp_write_safety.py \
+            mcp-servers/tests/test_http_boundary.py \
+            -v
