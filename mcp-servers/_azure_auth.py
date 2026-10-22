@@ -69,6 +69,14 @@ def _fix_cimd_private_key_jwt_audience_bug() -> None:
     this deployment 2026-08-07 (server log: "Bearer token rejected...
     audience mismatch (got '.../token', expected '..//token')").
 
+    FastMCP 4.1.x fixed this upstream (OAuthProxy.token_endpoint_url now
+    strips base_url's trailing slash before appending "/token"; verified
+    against the pinned fastmcp==4.1.1). On 4.1.1 the replace below therefore
+    never matches and the patch is a no-op; it is retained only as a guard
+    against a regression or an accidental downgrade, and
+    test_azure_auth_token_endpoint_is_single_slash_on_pinned_fastmcp pins the
+    upstream behaviour so a change to it is caught in CI.
+
     Patches PrivateKeyJWTClientAuthenticator.__init__ to collapse that one
     specific double slash before it's stored, at the one call site FastMCP
     builds it from — without editing the vendored package (which a

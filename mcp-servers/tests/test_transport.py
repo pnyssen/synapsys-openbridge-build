@@ -867,3 +867,78 @@ def test_oauth_debug_middleware_redacts_sensitive_descriptions(caplog):
     assert "invalid_client" in logged
     assert "client_secret" not in logged
     assert "fake-token-should-never-appear-in-logs" not in logged
+
+
+def test_azure_auth_token_endpoint_is_single_slash_on_pinned_fastmcp(monkeypatch):
+    """FastMCP 4.1.1 strips the trailing slash pydantic adds to a bare-domain
+    base_url before building the token endpoint (the CIMD private_key_jwt
+    `aud`), so the 3.4.x double-slash workaround above is a no-op on the
+    pinned version. Guards that upstream behaviour against a silent change."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert str(auth.server.base_url).endswith("/")
+    assert auth.server.token_endpoint_url == "https://mcp.example.com/token"
+
+
+def test_oauth_debug_middleware_on_real_fastmcp_app_never_logs_secrets(monkeypatch, caplog):
+    """End-to-end on the real FastMCP 4.1.1 HTTP app with the production
+    middleware list: a rejected /token exchange logs only the OAuth error
+    code — not the submitted client_secret, not the error_description — and
+    the unauthenticated /mcp endpoint passes through untouched."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("oauth-middleware-e2e")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+
+    with caplog.at_level("WARNING", logger="oauth_debug"), TestClient(app) as client:
+        token = client.post("/token", data={
+            "grant_type": "authorization_code",
+            "code": "not-a-code",
+            "client_id": "unknown-client",
+            "client_secret": "submitted-secret-must-not-be-logged",
+        })
+        mcp = client.post(
+            "/mcp",
+            json={"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+            headers={"accept": "application/json, text/event-stream"},
+        )
+
+    assert token.status_code == 401
+    assert token.json()["error"] == "invalid_client"
+    assert mcp.status_code == 401
+
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "POST /token -> 401 invalid_client" in logged
+    assert "submitted-secret-must-not-be-logged" not in logged
+    description = token.json().get("error_description")
+    assert description, "SDK should return a description to the client"
+    assert description not in logged
+    assert "/mcp" not in logged
+
+
+def test_oauth_debug_middleware_classifies_registration_errors(caplog):
+    app = _build_debug_app("/register", 400, {
+        "error": "invalid_client_metadata", "error_description": "redirect_uris: secret-ish detail",
+    })
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        TestClient(app).post("/register")
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "invalid_client_metadata" in logged
+    assert "secret-ish detail" not in logged
+
+
+def test_oauth_debug_middleware_unknown_or_malformed_error_is_unclassified(caplog):
+    for body in ({"error": "client_secret=leaked"}, ["not", "a", "dict"]):
+        caplog.clear()
+        app = _build_debug_app("/token", 400, body)
+        with caplog.at_level("WARNING", logger="oauth_debug"):
+            TestClient(app).post("/token")
+        logged = " ".join(r.getMessage() for r in caplog.records)
+        assert "unclassified" in logged
+        assert "leaked" not in logged
