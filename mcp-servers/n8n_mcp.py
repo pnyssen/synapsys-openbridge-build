@@ -730,9 +730,11 @@ def _load_webhook_auth_profile(name: str) -> dict:
     if not header or not value or not paths:
         raise WebhookAuthError(f"AUTH_PROFILE_INCOMPLETE: '{name}' missing HEADER, VALUE or PATHS")
     # Validate here so http.client never raises its own "Invalid header
-    # value %r" error, which would echo the secret. Never include the value.
+    # value %r" or UnicodeEncodeError (which names the offending character
+    # and its position), either of which would leak part of the secret.
+    # Never include the value.
     if (not _HEADER_NAME_RE.match(header) or header.lower() in _RESERVED_WEBHOOK_HEADERS
-            or any(c in value for c in "\r\n\0")):
+            or not value.isascii() or any(c in value for c in "\r\n\0")):
         raise WebhookAuthError(f"AUTH_PROFILE_INVALID: '{name}' has a reserved/invalid HEADER or invalid VALUE")
     return {"header": header, "value": value, "paths": paths}
 

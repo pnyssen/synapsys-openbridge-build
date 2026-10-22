@@ -387,3 +387,12 @@ def test_trigger_webhook_tool_schema_exposes_auth_profile_name_only(n8n_auth_mod
     assert set(props) == {"path", "payload", "auth_profile"}
     assert schema.get("required") == ["path"]
     assert SECRET not in repr(schema)
+
+
+def test_profile_refuses_non_ascii_value_without_echoing_it(n8n_auth_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE", "abc€def")
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_INVALID") as ei:
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+    assert "€" not in str(ei.value) and "abc" not in str(ei.value)
