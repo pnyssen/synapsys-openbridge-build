@@ -34,4 +34,5 @@ jobs:
             mcp-servers/tests/test_n8n_mcp_write_safety.py \
             mcp-servers/tests/test_odoo_mcp_write_safety.py \
             mcp-servers/tests/test_http_boundary.py \
+            deploy/mcp-vps/deployer/tests/test_ss_mcp_deploy.py \
             -v
