@@ -110,11 +110,9 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
     sys.path.insert(0, str(Path(__file__).parent))
     from _bearer_auth import StaticBearerTokenVerifier  # noqa: E402
 
-    bearer_verifier = StaticBearerTokenVerifier(mcp_auth_token)
-
     entra = _entra_env()
     if entra is None:
-        return bearer_verifier
+        return StaticBearerTokenVerifier(mcp_auth_token)
 
     from fastmcp.server.auth.auth import MultiAuth
     from fastmcp.server.auth.providers.azure import AzureProvider
@@ -122,6 +120,15 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
     _fix_cimd_private_key_jwt_audience_bug()
 
     scope = os.environ.get("MCP_OAUTH_SCOPE", "mcp.access")
+
+    # fastmcp 4.x MultiAuth enforces the server's required_scopes on EVERY
+    # verifier's token, the static bearer included (3.4.x did not), so a
+    # bearer token carrying only "mcp" is refused 403 insufficient_scope as
+    # soon as Entra is configured. Grant the static token the same scope:
+    # holding it is already full trust. Do NOT instead pass
+    # MultiAuth(required_scopes=[]) — that would drop the scope check for
+    # Entra-issued tokens too.
+    bearer_verifier = StaticBearerTokenVerifier(mcp_auth_token, scopes=["mcp", scope])
 
     azure_provider = AzureProvider(
         client_id=entra["OAUTH_CLIENT_ID"],

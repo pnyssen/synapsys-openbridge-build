@@ -942,3 +942,88 @@ def test_oauth_debug_middleware_unknown_or_malformed_error_is_unclassified(caplo
         logged = " ".join(r.getMessage() for r in caplog.records)
         assert "unclassified" in logged
         assert "leaked" not in logged
+
+
+# ---------------------------------------------------------------------------
+# deploy/mcp-vps/Dockerfile — every local module the servers import is copied
+# ---------------------------------------------------------------------------
+
+import ast  # noqa: E402
+
+DOCKERFILE = MCP_SERVERS_DIR.parent / "deploy" / "mcp-vps" / "Dockerfile"
+
+
+def _local_imports(path: Path) -> set[str]:
+    """Top-level names of sibling mcp-servers/ modules imported anywhere in path."""
+    local = {p.stem for p in MCP_SERVERS_DIR.glob("*.py")}
+    names: set[str] = set()
+    for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        if isinstance(node, ast.Import):
+            names.update(a.name.split(".")[0] for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            names.add(node.module.split(".")[0])
+    return names & local
+
+
+def test_dockerfile_copies_every_local_module_the_servers_import():
+    """Twice now a server-side helper module was imported by the servers but
+    not COPYed into the image (_azure_auth.py, fixed in 9dde769; then
+    _write_safety.py), so every container built from main crashed on start.
+    Resolve the full transitive set of local imports from the two entry
+    scripts and require each to be in the Dockerfile's COPY lines."""
+    copied = set()
+    for line in DOCKERFILE.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if parts and parts[0] == "COPY":
+            copied.update(Path(p).stem for p in parts[1:-1] if p.startswith("mcp-servers/") and p.endswith(".py"))
+
+    needed: set[str] = set()
+    frontier = ["odoo_mcp", "n8n_mcp"]
+    while frontier:
+        mod = frontier.pop()
+        if mod in needed:
+            continue
+        needed.add(mod)
+        frontier.extend(_local_imports(MCP_SERVERS_DIR / f"{mod}.py") - needed)
+
+    assert needed - copied == set(), f"Dockerfile does not COPY: {sorted(needed - copied)}"
+
+
+def test_static_bearer_still_works_on_real_app_when_entra_is_enabled(monkeypatch):
+    """fastmcp 4.x MultiAuth applies the Azure server's required_scopes
+    (mcp.access) to the static bearer verifier too; before the fix every
+    bearer-token client got 403 insufficient_scope once Entra was configured
+    (reproduced against the built image). Real http_app, real middleware."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("bearer-with-entra")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    init = {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {
+        "protocolVersion": "2025-06-18", "capabilities": {},
+        "clientInfo": {"name": "t", "version": "0"}}}
+    headers = {"accept": "application/json, text/event-stream"}
+
+    with TestClient(app) as client:
+        ok = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer shared-token"})
+        wrong = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer not-the-token"})
+        missing = client.post("/mcp", json=init, headers=headers)
+
+    assert ok.status_code == 200, ok.text
+    assert wrong.status_code == 401
+    assert missing.status_code == 401
+
+
+def test_entra_scope_requirement_is_not_weakened(monkeypatch):
+    """The fix grants the static token the scope; it must not lower the
+    scope MultiAuth requires of Entra-issued tokens."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setenv("MCP_OAUTH_SCOPE", "mcp.access")
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.required_scopes == ["mcp.access"]
+    assert auth.server.required_scopes == ["mcp.access"]
