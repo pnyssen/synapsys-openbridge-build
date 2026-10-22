@@ -200,3 +200,199 @@ def test_pr35_get_execution_summary_error_extraction_unchanged(n8n_module, monke
         "node": "Bad Node", "nodeType": "n8n-nodes-base.odoo",
         "errorName": "OdooFault", "message": "boom",
     }
+
+# ---------------------------------------------------------------------------
+# CHG-2027-088 — trigger_webhook server-held auth profiles.
+# (Kept in this CI-listed file so mcp-tests.yml runs them without a workflow edit.)
+# ---------------------------------------------------------------------------
+SECRET = "s3cr3t-header-value-should-never-leak"
+
+
+@pytest.fixture
+def n8n_auth_module(monkeypatch):
+    monkeypatch.setenv("N8N_URL", "https://example.invalid")
+    monkeypatch.setenv("N8N_API_TOKEN", "dummy-for-import-only")
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_PROFILES", "w15_dispatch")
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_HEADER", "X-Test-Auth")
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE", SECRET)
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_PATHS", "dispatch-submit, dispatch-route,/dispatch-complete")
+    sys.modules.pop("n8n_mcp", None)
+    import n8n_mcp
+    return n8n_mcp
+
+
+def _capture(n8n_auth_module, monkeypatch):
+    seen = {}
+
+    def fake_request(method, path, body=None, timeout=30, extra_headers=None):
+        seen.update(method=method, path=path, body=body, extra_headers=extra_headers)
+        return {"status": "validated"}
+
+    monkeypatch.setattr(n8n_auth_module, "_request", fake_request)
+    traced = []
+    monkeypatch.setattr(n8n_auth_module, "_trace_sink", traced.append)
+    return seen, traced
+
+
+def test_no_profile_is_unchanged(n8n_auth_module, monkeypatch):
+    seen, traced = _capture(n8n_auth_module, monkeypatch)
+    assert n8n_auth_module.trigger_webhook("dispatch-submit", {"a": 1}) == {"status": "validated"}
+    assert seen["path"] == "/webhook/dispatch-submit"
+    assert seen["extra_headers"] is None
+    assert traced[0]["target"] == "webhook:dispatch-submit"
+
+
+def test_profile_injects_header_for_allowlisted_path(n8n_auth_module, monkeypatch):
+    seen, traced = _capture(n8n_auth_module, monkeypatch)
+    result = n8n_auth_module.trigger_webhook("/dispatch-complete", {"a": 1}, auth_profile="W15_Dispatch")
+    assert result == {"status": "validated"}
+    assert seen["path"] == "/webhook/dispatch-complete"
+    assert seen["extra_headers"] == {"X-Test-Auth": SECRET}
+    assert traced[0]["target"] == "webhook:dispatch-complete|auth_profile:w15_dispatch"
+
+
+def test_profile_refuses_unlisted_path_without_http_call(n8n_auth_module, monkeypatch):
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PATH_NOT_ALLOWED"):
+        n8n_auth_module.trigger_webhook("some-other-hook", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+
+
+def test_unknown_profile_refused(n8n_auth_module, monkeypatch):
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_UNKNOWN"):
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="nope")
+    assert seen == {}
+
+
+def test_incomplete_profile_refused(n8n_auth_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE", "")
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_INCOMPLETE"):
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+
+
+def test_secret_never_in_trace_or_errors(n8n_auth_module, monkeypatch):
+    seen, traced = _capture(n8n_auth_module, monkeypatch)
+    n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert SECRET not in repr(traced)
+    with pytest.raises(n8n_auth_module.WebhookAuthError) as ei:
+        n8n_auth_module.trigger_webhook("x", {}, auth_profile="w15_dispatch")
+    assert SECRET not in str(ei.value)
+
+
+def test_request_adds_extra_headers(n8n_auth_module, monkeypatch):
+    captured = {}
+
+    class FakeResp:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return b'{"ok": true}'
+
+    def fake_urlopen(req, timeout=30):
+        captured["headers"] = {k.lower(): v for k, v in req.header_items()}
+        return FakeResp()
+
+    monkeypatch.setattr(n8n_auth_module.urllib.request, "urlopen", fake_urlopen)
+    assert n8n_auth_module._request("POST", "/webhook/x", {}, extra_headers={"X-Test-Auth": "v"}) == {"ok": True}
+    assert captured["headers"]["x-test-auth"] == "v"
+
+
+@pytest.mark.parametrize("bad_path", [
+    "dispatch-submit/../d009-assurance",
+    "../dispatch-submit",
+    "dispatch-submit%2F..%2Fother",
+    "dispatch-submit?redirect=other",
+    "dispatch-submit#frag",
+    "DISPATCH-SUBMIT",
+    "dispatch-submit-evil",
+    "",
+])
+def test_profile_refuses_non_exact_paths(n8n_auth_module, monkeypatch, bad_path):
+    seen, traced = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PATH_NOT_ALLOWED"):
+        n8n_auth_module.trigger_webhook(bad_path, {}, auth_profile="w15_dispatch")
+    assert seen == {}
+    assert traced == []
+
+
+def test_w15_profile_does_not_extend_to_d009(n8n_auth_module, monkeypatch):
+    """The W15 dispatch profile is bound to its own dispatch paths only; it
+    must not silently authorise a D009 assurance route."""
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    for path in ("d009-assurance", "d009-dispatch", "w15-d009-assure"):
+        with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PATH_NOT_ALLOWED"):
+            n8n_auth_module.trigger_webhook(path, {}, auth_profile="w15_dispatch")
+    assert seen == {}
+
+
+@pytest.mark.parametrize("header", ["X-N8N-API-KEY", "content-type", "Accept", "Host", "Bad Header", "X:Y"])
+def test_profile_refuses_reserved_or_invalid_header_name(n8n_auth_module, monkeypatch, header):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_HEADER", header)
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_INVALID") as ei:
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+    assert SECRET not in str(ei.value)
+
+
+def test_profile_refuses_crlf_value_without_echoing_it(n8n_auth_module, monkeypatch):
+    injected = SECRET + "\r\nX-Injected: 1"
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE", injected)
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_INVALID") as ei:
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+    assert SECRET not in str(ei.value)
+
+
+def test_profile_not_enabled_even_if_vars_present(n8n_auth_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_PROFILES", "")
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_UNKNOWN"):
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+
+
+def test_profile_call_is_dispatched_exactly_once_even_on_failure(n8n_auth_module, monkeypatch):
+    """No hidden retry: a webhook mutation whose response is lost may already
+    have run, so trigger_webhook must make exactly one HTTP call per invocation
+    and surface the failure, never re-send (duplicate) it."""
+    calls = []
+
+    def failing_request(method, path, body=None, timeout=30, extra_headers=None):
+        calls.append(path)
+        raise RuntimeError(f"N8N {method} {path} -> HTTP 403: Authorization data is wrong!")
+
+    monkeypatch.setattr(n8n_auth_module, "_request", failing_request)
+    traced = []
+    monkeypatch.setattr(n8n_auth_module, "_trace_sink", traced.append)
+    with pytest.raises(RuntimeError, match="HTTP 403") as ei:
+        n8n_auth_module.trigger_webhook("dispatch-submit", {"id": 1}, auth_profile="w15_dispatch")
+    assert calls == ["/webhook/dispatch-submit"]
+    assert SECRET not in str(ei.value)
+    assert SECRET not in repr(traced)
+
+
+def test_trigger_webhook_tool_schema_exposes_auth_profile_name_only(n8n_auth_module):
+    """The MCP client sees an optional auth_profile string — a profile NAME —
+    and no header/secret parameter."""
+    import asyncio
+
+    tools = asyncio.run(n8n_auth_module.mcp.list_tools())
+    tool = next(t for t in tools if t.name == "trigger_webhook")
+    schema = tool.parameters if hasattr(tool, "parameters") else tool.inputSchema
+    props = schema["properties"]
+    assert set(props) == {"path", "payload", "auth_profile"}
+    assert schema.get("required") == ["path"]
+    assert SECRET not in repr(schema)
+
+
+def test_profile_refuses_non_ascii_value_without_echoing_it(n8n_auth_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_W15_DISPATCH_VALUE", "abc€def")
+    seen, _ = _capture(n8n_auth_module, monkeypatch)
+    with pytest.raises(n8n_auth_module.WebhookAuthError, match="AUTH_PROFILE_INVALID") as ei:
+        n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
+    assert seen == {}
+    assert "€" not in str(ei.value) and "abc" not in str(ei.value)
