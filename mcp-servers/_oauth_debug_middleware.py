@@ -4,17 +4,16 @@ The MCP SDK's token/authorize handlers return a detailed OAuth error body
 (error + error_description) in the HTTP response sent to the CLIENT on
 failure, but never log that detail server-side — a failed exchange shows up
 in `docker compose logs` as a bare "POST /token HTTP/1.1 401 Unauthorized"
-uvicorn access line with no reason. This middleware logs the response body
-for the OAuth routes on any non-2xx response, so the actual failure reason
-is visible in server logs without needing to reproduce the client's request.
+uvicorn access line with no reason. This middleware logs only a validated OAuth error category. Response
+error descriptions and authentication material are never logged.
 
-Only response bodies are logged, never request bodies — request bodies to
-these routes can carry client_assertion JWTs, PKCE verifiers, or
-client_secret values; response error bodies from this SDK do not.
+Request and response bodies may contain secrets: only a validated error
+category is eligible for logging, never raw content or credentials.
 """
 from __future__ import annotations
 
 import logging
+import json
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
@@ -23,7 +22,23 @@ from starlette.responses import Response
 logger = logging.getLogger("oauth_debug")
 
 _LOGGED_PATHS = {"/authorize", "/consent", "/token", "/register"}
-_MAX_LOGGED_BODY_BYTES = 2000
+_MAX_INSPECTED_BODY_BYTES = 8192
+
+
+def _safe_error_code(body: bytes) -> str:
+    """Return only a strict OAuth error code; never log response descriptions."""
+    try:
+        data = json.loads(body[:_MAX_INSPECTED_BODY_BYTES].decode("utf-8"))
+        code = data.get("error") if isinstance(data, dict) else None
+    except (ValueError, UnicodeDecodeError, TypeError):
+        return "unclassified"
+    allowed = {
+        "invalid_client", "invalid_request", "invalid_grant", "unauthorized_client",
+        "unsupported_grant_type", "invalid_scope", "access_denied", "server_error",
+        "temporarily_unavailable", "invalid_token", "insufficient_scope",
+    }
+    return code if isinstance(code, str) and code in allowed else "unclassified"
+
 
 
 class OAuthErrorLoggingMiddleware(BaseHTTPMiddleware):
@@ -42,7 +57,7 @@ class OAuthErrorLoggingMiddleware(BaseHTTPMiddleware):
             request.method,
             request.url.path,
             response.status_code,
-            body[:_MAX_LOGGED_BODY_BYTES].decode("utf-8", errors="replace"),
+            _safe_error_code(body),
         )
 
         return Response(

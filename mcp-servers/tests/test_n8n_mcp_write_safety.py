@@ -164,7 +164,7 @@ def test_pr35_get_execution_summary_unchanged(n8n_module, monkeypatch):
     }
     traced = []
     monkeypatch.setattr(n8n_module, "_trace_sink", traced.append)
-    monkeypatch.setattr(n8n_module, "_request", lambda method, path, timeout=30: raw)
+    monkeypatch.setattr(n8n_module, "_request", lambda method, path, **kwargs: raw)
 
     summary = n8n_module.get_execution_summary("999")
     assert summary["id"] == "999"
@@ -191,13 +191,15 @@ def test_pr35_get_execution_summary_error_extraction_unchanged(n8n_module, monke
             }
         },
     }
-    monkeypatch.setattr(n8n_module, "_request", lambda method, path, timeout=30: raw)
+    monkeypatch.setattr(n8n_module, "_request", lambda method, path, **kwargs: raw)
     summary = n8n_module.get_execution_summary("1000")
-    assert summary["error"] == {
+    # The original four fields keep their exact values; later releases may
+    # only add fields (name/description/httpCode), never change these.
+    original = {k: summary["error"][k] for k in ("node", "nodeType", "errorName", "message")}
+    assert original == {
         "node": "Bad Node", "nodeType": "n8n-nodes-base.odoo",
         "errorName": "OdooFault", "message": "boom",
     }
-
 
 # ---------------------------------------------------------------------------
 # CHG-2027-088 — trigger_webhook server-held auth profiles.
