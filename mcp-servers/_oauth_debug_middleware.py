@@ -66,9 +66,8 @@ class OAuthErrorLoggingMiddleware(BaseHTTPMiddleware):
             _safe_error_code(body),
         )
 
-        return Response(
-            content=body,
-            status_code=response.status_code,
-            headers=dict(response.headers),
-            media_type=response.media_type,
-        )
+        # Same bytes, so the original raw headers (including Content-Length
+        # and any repeated header such as Set-Cookie) still apply verbatim.
+        rebuilt = Response(content=body, status_code=response.status_code)
+        rebuilt.raw_headers = list(response.raw_headers)
+        return rebuilt
