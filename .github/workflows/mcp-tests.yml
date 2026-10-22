@@ -11,9 +11,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: "pip"
@@ -26,4 +26,12 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest mcp-servers/tests/test_transport.py -v
+        run: |
+          pytest \
+            mcp-servers/tests/test_transport.py \
+            mcp-servers/tests/test_mcp_v2_oracle_and_mutation.py \
+            mcp-servers/tests/test_write_safety.py \
+            mcp-servers/tests/test_n8n_mcp_write_safety.py \
+            mcp-servers/tests/test_odoo_mcp_write_safety.py \
+            mcp-servers/tests/test_http_boundary.py \
+            -v

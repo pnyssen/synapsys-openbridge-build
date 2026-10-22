@@ -198,6 +198,18 @@ cd mcp-servers
 python3 -m pytest tests/test_transport.py -v   # 32 tests, all mocked/offline
 ```
 
+## SharePoint MCP — not in this repo, source recovery pending
+
+Unlike the Odoo/N8N servers above, the SharePoint MCP (`sp_list`/`sp_read`/`sp_resolve_item`/etc.,
+the tools that back the SynapSys Working Memory) has **no source of truth anywhere this lane can
+reach** — verified 2026-08-23: no `sp_list` definition anywhere in this repo, no sharepoint
+service in `deploy/mcp-vps/docker-compose.yml`, no sharepoint `COPY` line in the Dockerfile. It
+runs only as a live, independently-deployed container on the Hostinger VPS. This blocks fixing two
+live, evidenced defects (a silently-resolving doubled-root path producing a real shadow folder
+tree, and silent pagination truncation on `sp_list`). Recovery (`docker cp` from the running
+container, needs VPS shell access) and the exact patch spec once source lands are in
+`SHAREPOINT_MCP_PATCH_SPEC.md` in this directory.
+
 ### What deploying this for real would still need (not done here)
 
 1. A host to run it — a VPS/container with a persistent process and a

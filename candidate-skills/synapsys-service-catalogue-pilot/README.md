@@ -1,5 +1,11 @@
 # synapsys-service-catalogue-pilot
 
+**mirrors**: `CODEX_ASSESSMENT_SERVICE_CATALOGUE_LIFECYCLE_IMPLEMENTATION_READINESS_v0.1.md`
+(cited below as the authorizing source — added retroactively to conform
+to the mirrors convention introduced in
+`candidate-skills/README.md`; not a new claim, just the existing
+citation surfaced into the standard format).
+
 Candidate tooling for the SynapSys Service Catalogue whole-of-lifecycle
 proposal, built within the exact boundary Codex T1 authorized in
 `CODEX_ASSESSMENT_SERVICE_CATALOGUE_LIFECYCLE_IMPLEMENTATION_READINESS_v0.1.md`:

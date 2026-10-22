@@ -45,15 +45,21 @@ Transport (added — network-hosted deployment candidate, not yet deployed):
 
 from __future__ import annotations
 
+import http.client
 import json
 import os
+import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).parent))
+import _write_safety as ws  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # MCP framework — FastMCP. The existing file may use a different import path
@@ -85,6 +91,21 @@ if not N8N_URL or not N8N_TOKEN:
     sys.exit(1)
 
 AUDIT_LOG_PATH = Path.home() / "synapsys-mcp" / "mutation_audit.log"
+TRACE_LOG_PATH = Path.home() / "synapsys-mcp" / "mutation_trace.log"
+
+
+def _trace_sink(event: dict) -> None:
+    """P1 trace-emission contract (RELEASE_D007_SYNAPSYS_MCP_FFE_MUTATION_SAFETY_
+    ENFORCEMENT_V1, group B): append one structured event per mutating tool call
+    covering tool/target/consent_classes/timestamps/result/refusal_reason.
+    Never raises — a trace-sink failure must not block or alter the underlying
+    mutation's own success/failure semantics (mirrors _audit()'s own contract)."""
+    try:
+        TRACE_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(TRACE_LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(event, default=str) + "\n")
+    except Exception:
+        pass
 
 # ---------------------------------------------------------------------------
 # Errors
@@ -96,17 +117,183 @@ class MutationError(Exception):
 # ---------------------------------------------------------------------------
 # HTTP helpers
 # ---------------------------------------------------------------------------
-def _request(method: str, path: str, body: dict | None = None, *, timeout: int = 30) -> Any:
+# --- shared with n8n_mcp.py / n8n_mcp_readonly.py: keep the two copies identical ---
+_READ_CHUNK = 64 * 1024
+_ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
+_SUMMARY_MAX_TIMEOUT = 300
+_SUMMARY_TEXT_LIMIT = 2000
+
+
+class _DeadlineExceeded(Exception):
+    """Total wall-clock deadline for one _request() call ran out."""
+
+
+def _path_id(value: Any, field: str = "id") -> str:
+    """Validate an N8N resource id before it is interpolated into a URL path.
+
+    N8N workflow ids are short alphanumeric strings and execution ids are
+    numeric. Anything else (``../credentials``, ``1?includeData=false``,
+    ``1#``) is rejected rather than escaped: escaping would still let ``..``
+    through to a proxy or server that normalises paths.
+    """
+    s = str(value)
+    if not _ID_RE.fullmatch(s):
+        raise ValueError(f"invalid N8N {field} {s!r}: expected 1-64 characters of [A-Za-z0-9_-]")
+    return s
+
+
+def _read_body(resp: Any, deadline_at: float | None) -> bytes:
+    """Read the whole response body, enforcing an absolute monotonic deadline.
+
+    urllib's ``timeout`` bounds each socket operation, not the whole read: a
+    body that keeps trickling in can take arbitrarily long. With a deadline,
+    the socket timeout is narrowed to the time remaining before every chunk,
+    so no single recv can run past it. If the socket can't be reached (a
+    non-CPython response object), the overrun is bounded by one ``timeout``.
+    """
+    if deadline_at is None:
+        return resp.read()
+    # read1() returns after a single recv; read(n) would keep blocking until
+    # n bytes arrive, so a slow drip could run far past the deadline.
+    read = getattr(resp, "read1", resp.read)
+    chunks: list[bytes] = []
+    while True:
+        # http.client closes the response (and its socket) itself once a
+        # Content-Length body is fully read; touching that socket again
+        # raises EBADF, so stop here instead.
+        if getattr(resp, "isclosed", lambda: False)():
+            return b"".join(chunks)
+        remaining = deadline_at - time.monotonic()
+        if remaining <= 0:
+            raise _DeadlineExceeded()
+        # Re-resolve each time: fp is None once the response has closed.
+        sock = getattr(getattr(getattr(resp, "fp", None), "raw", None), "_sock", None)
+        if sock is not None:
+            sock.settimeout(remaining)
+        try:
+            chunk = read(_READ_CHUNK)
+        except TimeoutError:
+            if time.monotonic() >= deadline_at - 0.05:
+                raise _DeadlineExceeded()
+            raise
+        if not chunk:
+            return b"".join(chunks)
+        chunks.append(chunk)
+
+
+def _decode_json(method: str, path: str, payload: bytes) -> Any:
+    try:
+        raw = payload.decode("utf-8")
+        return json.loads(raw) if raw else {}
+    except ValueError as e:  # UnicodeDecodeError, json.JSONDecodeError
+        snippet = payload[:200].decode("utf-8", errors="replace")
+        raise RuntimeError(
+            f"N8N {method} {path} -> response was not valid UTF-8 JSON "
+            f"({type(e).__name__}: {e}); body starts: {snippet!r}"
+        )
+
+
+def _clip(value: Any) -> Any:
+    if isinstance(value, str) and len(value) > _SUMMARY_TEXT_LIMIT:
+        return value[:_SUMMARY_TEXT_LIMIT] + f"... [{len(value) - _SUMMARY_TEXT_LIMIT} chars clipped]"
+    return value
+
+
+def _summarise_error(error: Any) -> dict | None:
+    """Pull the diagnostic fields N8N serialises on NodeApiError /
+    NodeOperationError / WorkflowOperationError: name, message, description,
+    httpCode, and the failing node. Never returns ``stack`` or ``context``."""
+    if not isinstance(error, dict):
+        return None
+    node = error.get("node") if isinstance(error.get("node"), dict) else {}
+    error_response = error.get("errorResponse")
+    return {
+        "node": node.get("name"),
+        "nodeType": node.get("type"),
+        # errorName is the pre-existing field (errorResponse.name, when N8N
+        # sets it); kept as-is for callers already reading it.
+        "errorName": error_response.get("name") if isinstance(error_response, dict) else None,
+        "name": error.get("name"),
+        "message": _clip(error.get("message")),
+        "description": _clip(error.get("description")),
+        "httpCode": error.get("httpCode"),
+    }
+
+
+def _summarise_execution(raw: Any, id: str) -> dict:
+    if not isinstance(raw, dict):
+        return {"id": id, "error": "unexpected response shape from N8N"}
+
+    data = raw.get("data") if isinstance(raw.get("data"), dict) else {}
+    result_data = data.get("resultData") if isinstance(data.get("resultData"), dict) else {}
+    run_data = result_data.get("runData") if isinstance(result_data.get("runData"), dict) else {}
+
+    nodes = []
+    for node_name, runs in run_data.items():
+        if not isinstance(runs, list):
+            continue
+        for run in runs:
+            if not isinstance(run, dict):
+                continue
+            node_error = run.get("error")
+            status = run.get("executionStatus")
+            if status is None and node_error:
+                # Older N8N versions omit executionStatus; a run-level error
+                # is the only failure signal there.
+                status = "error"
+            start = run.get("startTime")
+            nodes.append({
+                "node": node_name,
+                "status": status,
+                "executionTimeMs": run.get("executionTime"),
+                "startTime": start if isinstance(start, (int, float)) else None,
+                "error": _summarise_error(node_error),
+            })
+    nodes.sort(key=lambda n: (n["startTime"] is None, n["startTime"] or 0))
+
+    return {
+        "id": raw.get("id", id),
+        "status": raw.get("status"),
+        "finished": raw.get("finished"),
+        "mode": raw.get("mode"),
+        "workflowId": raw.get("workflowId"),
+        "startedAt": raw.get("startedAt"),
+        "stoppedAt": raw.get("stoppedAt"),
+        "lastNodeExecuted": result_data.get("lastNodeExecuted"),
+        "nodeCount": len(nodes),
+        "nodes": nodes,
+        "error": _summarise_error(result_data.get("error")),
+    }
+# --- end shared helpers ---
+
+
+def _request(
+    method: str,
+    path: str,
+    body: dict | None = None,
+    *,
+    timeout: float = 30,
+    deadline: float | None = None,
+) -> Any:
+    """HTTP helper. ``timeout`` bounds each socket operation (connect, each
+    recv); ``deadline``, if given, is a hard cap in seconds on reading the
+    response body as a whole. Every transport failure surfaces as a
+    RuntimeError naming the method and path."""
     url = f"{N8N_URL}{path}"
     data = json.dumps(body).encode("utf-8") if body is not None else None
     req = urllib.request.Request(url, data=data, method=method)
     req.add_header("Content-Type", "application/json")
     req.add_header("Accept", "application/json")
     req.add_header("X-N8N-API-KEY", N8N_TOKEN)
+    # A mutation whose response is lost may still have been applied.
+    unknown = (
+        "" if method == "GET"
+        else "; the request was sent, so the change MAY have been applied -- re-read before retrying"
+    )
+    deadline_at = time.monotonic() + deadline if deadline is not None else None
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            raw = resp.read().decode("utf-8")
-            return json.loads(raw) if raw else {}
+            payload = _read_body(resp, deadline_at)
     except urllib.error.HTTPError as e:
         try:
             err_body = e.read().decode("utf-8", errors="replace")
@@ -115,6 +302,27 @@ def _request(method: str, path: str, body: dict | None = None, *, timeout: int =
         raise RuntimeError(f"N8N {method} {path} -> HTTP {e.code}: {err_body}")
     except urllib.error.URLError as e:
         raise RuntimeError(f"N8N {method} {path} -> network error: {e.reason}")
+    except _DeadlineExceeded:
+        raise RuntimeError(
+            f"N8N {method} {path} -> exceeded the {deadline}s total deadline reading the "
+            f"response body (payload too large or too slow to stream){unknown}"
+        )
+    except TimeoutError:
+        # A read-phase timeout (urlopen() connected, but a recv while reading
+        # the body exceeded `timeout`) is raised directly, NOT wrapped as
+        # URLError, so it needs its own clause.
+        raise RuntimeError(
+            f"N8N {method} {path} -> no data for {timeout}s while reading the response "
+            f"body (stalled, or too large/slow to stream){unknown}"
+        )
+    except (http.client.HTTPException, OSError) as e:
+        # Connection closed or reset mid-body (IncompleteRead,
+        # ConnectionResetError, ...) or a malformed status line.
+        raise RuntimeError(
+            f"N8N {method} {path} -> connection dropped mid-response "
+            f"({type(e).__name__}: {e}){unknown}"
+        )
+    return _decode_json(method, path, payload)
 
 
 # ---------------------------------------------------------------------------
@@ -265,22 +473,22 @@ def list_workflows(
 @mcp.tool()
 def get_workflow(id: str) -> dict:
     """Get a workflow's full JSON."""
-    return _request("GET", f"/api/v1/workflows/{id}")
+    return _request("GET", f"/api/v1/workflows/{_path_id(id, 'workflow id')}")
 
 
-@mcp.tool()
-def update_workflow(id: str, workflow: dict) -> dict:
-    """
-    Update a workflow via PUT — Full Replace model (CHG-2026-271).
-    Settings sanitisation: CHG-2026-275 / DEC-D001-STAB-005-006-002.
-    Rejects partial payloads. Captures snapshot. Validates post-write. Restores on failure.
-    """
+def _update_workflow_core(id: str, workflow: dict) -> dict:
+    """Exact, unchanged body of update_workflow (CHG-2026-271 Full Replace +
+    CHG-2026-275 settings sanitisation). Renamed, not rewritten, so the
+    D007 group-B trace/consent envelope below wraps this call without
+    altering its control flow — no regression to this behaviour or to
+    PR35's get_execution_summary, which does not go through this path."""
     if not isinstance(workflow, dict) or not workflow:
         raise ValueError("update_workflow: 'workflow' must be a non-empty dict (Full Replace — partial payloads rejected)")
     if "nodes" not in workflow or not isinstance(workflow.get("nodes"), list):
         raise ValueError("update_workflow: 'nodes' missing or not a list — Full payload required")
     if "connections" not in workflow:
         raise ValueError("update_workflow: 'connections' missing — Full payload required")
+    id = _path_id(id, "workflow id")
     # Snapshot
     snapshot = get_workflow(id)
     snap_node_count = len(snapshot.get("nodes", []))
@@ -377,16 +585,45 @@ def update_workflow(id: str, workflow: dict) -> dict:
             "settings_keys_removed": removed_settings_keys})
     return result
 
+
+@mcp.tool()
+def update_workflow(id: str, workflow: dict) -> dict:
+    """
+    Update a workflow via PUT — Full Replace model (CHG-2026-271).
+    Settings sanitisation: CHG-2026-275 / DEC-D001-STAB-005-006-002.
+    Rejects partial payloads. Captures snapshot. Validates post-write. Restores on failure.
+
+    D007 group-B trace/consent envelope (RELEASE_D007_SYNAPSYS_MCP_FFE_MUTATION_
+    SAFETY_ENFORCEMENT_V1): wraps the above, unchanged, behaviour with one
+    CONFIGURATION_RUNTIME_MUTATION trace event; does not alter its control flow.
+    """
+    return ws.with_trace_envelope(
+        tool="update_workflow", consent_classes=[ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION],
+        target=f"workflow:{id}", trace_sink=_trace_sink,
+        fn=lambda: _update_workflow_core(id, workflow),
+    )
+
+
 @mcp.tool()
 def activate_workflow(id: str) -> dict:
     """Activate a workflow."""
-    return _request("POST", f"/api/v1/workflows/{id}/activate")
+    # id is validated inside the envelope so a rejected id is still traced.
+    return ws.with_trace_envelope(
+        tool="activate_workflow", consent_classes=[ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION],
+        target=f"workflow:{id}", trace_sink=_trace_sink,
+        fn=lambda: _request("POST", f"/api/v1/workflows/{_path_id(id, 'workflow id')}/activate"),
+    )
 
 
 @mcp.tool()
 def deactivate_workflow(id: str) -> dict:
     """Deactivate a workflow."""
-    return _request("POST", f"/api/v1/workflows/{id}/deactivate")
+    # id is validated inside the envelope so a rejected id is still traced.
+    return ws.with_trace_envelope(
+        tool="deactivate_workflow", consent_classes=[ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION],
+        target=f"workflow:{id}", trace_sink=_trace_sink,
+        fn=lambda: _request("POST", f"/api/v1/workflows/{_path_id(id, 'workflow id')}/deactivate"),
+    )
 
 
 @mcp.tool()
@@ -414,7 +651,41 @@ def list_executions(
 def get_execution(id: str, include_data: bool = False) -> dict:
     """Get a single execution."""
     suffix = "?includeData=true" if include_data else ""
-    return _request("GET", f"/api/v1/executions/{id}{suffix}")
+    return _request("GET", f"/api/v1/executions/{_path_id(id, 'execution id')}{suffix}")
+
+
+@mcp.tool()
+def get_execution_summary(id: str, timeout: int = 50) -> dict:
+    """Get a single execution's per-node timing/status/error summary,
+    without the full node input/output payloads.
+
+    Returns per-node name/status/executionTime/startTime (plus any node-level
+    error), and the top-level error (node, type, name, message, description,
+    httpCode) if the execution failed. Node input/output bodies are never
+    returned, and error text is clipped to 2000 characters.
+
+    N8N's API has no way to fetch run metadata without the payloads, so this
+    tool still downloads and parses the full includeData=true response
+    internally -- it shrinks what the caller receives, not what the server
+    transfers or holds in memory while summarising.
+
+    `timeout` (1-300 seconds) is a TOTAL deadline for reading the response,
+    measured from the start of the request, not a per-read idle timeout. Each
+    network wait (connect, waiting for headers) is also capped at `timeout`,
+    so only a slow connect followed by a slow first byte can push the call
+    past it, to at most 2x `timeout`. The default of 50s is chosen to finish
+    inside the ~60s tool-call limit common in MCP clients; raise it only if your
+    client allows longer calls, otherwise the client gives up first and you
+    get an opaque transport timeout instead of this tool's clear error.
+    """
+    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not 1 <= timeout <= _SUMMARY_MAX_TIMEOUT:
+        raise ValueError(f"timeout must be between 1 and {_SUMMARY_MAX_TIMEOUT} seconds, got {timeout!r}")
+    exec_id = _path_id(id, "execution id")
+    raw = _request(
+        "GET", f"/api/v1/executions/{exec_id}?includeData=true",
+        timeout=timeout, deadline=timeout,
+    )
+    return _summarise_execution(raw, exec_id)
 
 
 @mcp.tool()
@@ -425,10 +696,18 @@ def list_credentials(limit: int = 50) -> dict:
 
 @mcp.tool()
 def trigger_webhook(path: str, payload: dict | None = None) -> dict:
-    """Trigger a webhook by path."""
+    """Trigger a webhook by path.
+
+    D007 group-B trace/consent envelope: classified DATA_MUTATION (it
+    invokes a workflow's execution, not n8n's own configuration state, but
+    the workflow it triggers may itself mutate operational data downstream)."""
     body = payload if payload is not None else {}
-    path = path.lstrip("/")
-    return _request("POST", f"/webhook/{path}", body)
+    clean_path = path.lstrip("/")
+    return ws.with_trace_envelope(
+        tool="trigger_webhook", consent_classes=[ws.CONSENT_DATA_MUTATION],
+        target=f"webhook:{clean_path}", trace_sink=_trace_sink,
+        fn=lambda: _request("POST", f"/webhook/{clean_path}", body),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -464,8 +743,7 @@ CREATE_REJECTED_KEYS: tuple[str, ...] = (
 )
 
 
-@mcp.tool()
-def create_workflow(workflow: dict) -> dict:
+def _create_workflow_core(workflow: dict) -> dict:
     """
     Create a NEW n8n workflow (inactive by default).
 
@@ -567,6 +845,20 @@ def create_workflow(workflow: dict) -> dict:
     }
 
 
+@mcp.tool()
+def create_workflow(workflow: dict) -> dict:
+    """Create a NEW n8n workflow (inactive by default). See _create_workflow_core
+    for the full contract (CHG-2026-400 / STWD-MCP-CREATE-WORKFLOW-PATCH-AUTHORITY-v0.1).
+
+    D007 group-B trace/consent envelope: wraps the above, unchanged, behaviour
+    with one CONFIGURATION_RUNTIME_MUTATION trace event."""
+    return ws.with_trace_envelope(
+        tool="create_workflow", consent_classes=[ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION],
+        target=f"workflow:{workflow.get('name')}", trace_sink=_trace_sink,
+        fn=lambda: _create_workflow_core(workflow),
+    )
+
+
 # ---------------------------------------------------------------------------
 # STWD-H1-MCP-BIND-WORKFLOW-CREDENTIALS-BY-ID-PATCH-AUTHORITY-v0.1 (additive)
 # Narrow, safety-bounded credential-reference binding for INACTIVE workflows.
@@ -590,8 +882,7 @@ def _bind_scan_reject(obj: Any, path: str = "bindings") -> None:
             _bind_scan_reject(v, f"{path}[{i}]")
 
 
-@mcp.tool()
-def bind_workflow_credentials_by_id(workflow_id: str, bindings: dict) -> dict:
+def _bind_workflow_credentials_by_id_core(workflow_id: str, bindings: dict) -> dict:
     """
     Bind credential REFERENCES (id + name only) to nodes of an INACTIVE workflow.
 
@@ -685,6 +976,21 @@ def bind_workflow_credentials_by_id(workflow_id: str, bindings: dict) -> dict:
         "activation_performed": False,
         "rollback": "re-bind prior refs from before_refs, or DELETE /api/v1/workflows/" + workflow_id,
     }
+
+
+@mcp.tool()
+def bind_workflow_credentials_by_id(workflow_id: str, bindings: dict) -> dict:
+    """Bind credential REFERENCES (id + name only) to nodes of an INACTIVE workflow.
+    See _bind_workflow_credentials_by_id_core for the full contract
+    (STWD-H1-MCP-BIND-WORKFLOW-CREDENTIALS-BY-ID-PATCH-AUTHORITY-v0.1).
+
+    D007 group-B trace/consent envelope: wraps the above, unchanged, behaviour
+    with one CONFIGURATION_RUNTIME_MUTATION trace event."""
+    return ws.with_trace_envelope(
+        tool="bind_workflow_credentials_by_id", consent_classes=[ws.CONSENT_CONFIGURATION_RUNTIME_MUTATION],
+        target=f"workflow:{workflow_id}", trace_sink=_trace_sink,
+        fn=lambda: _bind_workflow_credentials_by_id_core(workflow_id, bindings),
+    )
 
 
 # ---------------------------------------------------------------------------
