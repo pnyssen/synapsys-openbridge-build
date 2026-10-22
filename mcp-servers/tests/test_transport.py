@@ -942,3 +942,48 @@ def test_oauth_debug_middleware_unknown_or_malformed_error_is_unclassified(caplo
         logged = " ".join(r.getMessage() for r in caplog.records)
         assert "unclassified" in logged
         assert "leaked" not in logged
+
+
+# ---------------------------------------------------------------------------
+# deploy/mcp-vps/Dockerfile — every local module the servers import is copied
+# ---------------------------------------------------------------------------
+
+import ast  # noqa: E402
+
+DOCKERFILE = MCP_SERVERS_DIR.parent / "deploy" / "mcp-vps" / "Dockerfile"
+
+
+def _local_imports(path: Path) -> set[str]:
+    """Top-level names of sibling mcp-servers/ modules imported anywhere in path."""
+    local = {p.stem for p in MCP_SERVERS_DIR.glob("*.py")}
+    names: set[str] = set()
+    for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        if isinstance(node, ast.Import):
+            names.update(a.name.split(".")[0] for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            names.add(node.module.split(".")[0])
+    return names & local
+
+
+def test_dockerfile_copies_every_local_module_the_servers_import():
+    """Twice now a server-side helper module was imported by the servers but
+    not COPYed into the image (_azure_auth.py, fixed in 9dde769; then
+    _write_safety.py), so every container built from main crashed on start.
+    Resolve the full transitive set of local imports from the two entry
+    scripts and require each to be in the Dockerfile's COPY lines."""
+    copied = set()
+    for line in DOCKERFILE.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if parts and parts[0] == "COPY":
+            copied.update(Path(p).stem for p in parts[1:-1] if p.startswith("mcp-servers/") and p.endswith(".py"))
+
+    needed: set[str] = set()
+    frontier = ["odoo_mcp", "n8n_mcp"]
+    while frontier:
+        mod = frontier.pop()
+        if mod in needed:
+            continue
+        needed.add(mod)
+        frontier.extend(_local_imports(MCP_SERVERS_DIR / f"{mod}.py") - needed)
+
+    assert needed - copied == set(), f"Dockerfile does not COPY: {sorted(needed - copied)}"
