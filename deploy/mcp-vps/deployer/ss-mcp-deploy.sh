@@ -96,7 +96,7 @@ run)
   [ "$NEW" = "$OLD" ] && exit 0
   # Don't retry a commit that already failed and rolled back; wait for a new merge.
   [ "$NEW" = "$(cat "$STATE_DIR/failed_sha" 2>/dev/null)" ] && exit 0
-  g merge-base --is-ancestor "$OLD" "$NEW" 2>/dev/null || log "WARN ${OLD:0:7} is not an ancestor of ${NEW:0:7} (history moved)"
+  g merge-base --is-ancestor "$OLD" "$NEW" 2>/dev/null || { log "HOLD divergent deployment history: ${OLD:0:7} -> ${NEW:0:7}; reconcile first"; exit 1; }
   SVCS=$(services_for "$OLD" "$NEW")
   log "DEPLOY ${OLD:0:7} -> ${NEW:0:7} services: ${SVCS:-none} commits: $(g log --oneline "$OLD..$NEW" 2>/dev/null | wc -l)"
   for s in $SVCS; do id=$(image_of "$s"); [ -n "$id" ] && "$DOCKER" tag "$id" "ss-prev/$s"; done
