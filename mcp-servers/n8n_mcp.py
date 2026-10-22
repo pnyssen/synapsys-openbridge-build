@@ -712,6 +712,12 @@ class WebhookAuthError(Exception):
     """Profile unknown, incomplete, or not bound to the requested path."""
 
 
+# Headers _request() sets itself; a profile must never override them (in
+# particular X-N8N-API-KEY, which would swap the server's API credential).
+_RESERVED_WEBHOOK_HEADERS = frozenset({"x-n8n-api-key", "content-type", "accept", "host", "content-length"})
+_HEADER_NAME_RE = re.compile(r"^[!#$%&'*+.^_`|~0-9A-Za-z-]+$")
+
+
 def _load_webhook_auth_profile(name: str) -> dict:
     enabled = {p.strip().lower() for p in os.environ.get("N8N_WEBHOOK_AUTH_PROFILES", "").split(",") if p.strip()}
     key = (name or "").strip().lower()
@@ -723,6 +729,11 @@ def _load_webhook_auth_profile(name: str) -> dict:
     paths = {p.strip().strip("/") for p in os.environ.get(prefix + "PATHS", "").split(",") if p.strip()}
     if not header or not value or not paths:
         raise WebhookAuthError(f"AUTH_PROFILE_INCOMPLETE: '{name}' missing HEADER, VALUE or PATHS")
+    # Validate here so http.client never raises its own "Invalid header
+    # value %r" error, which would echo the secret. Never include the value.
+    if (not _HEADER_NAME_RE.match(header) or header.lower() in _RESERVED_WEBHOOK_HEADERS
+            or any(c in value for c in "\r\n\0")):
+        raise WebhookAuthError(f"AUTH_PROFILE_INVALID: '{name}' has a reserved/invalid HEADER or invalid VALUE")
     return {"header": header, "value": value, "paths": paths}
 
 
