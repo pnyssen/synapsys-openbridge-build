@@ -41,11 +41,12 @@ class StaticBearerTokenVerifier(_FastMCPTokenVerifier):
     even though this check itself has no I/O.
     """
 
-    def __init__(self, expected_token: str):
+    def __init__(self, expected_token: str, scopes: list[str] | None = None):
         if not expected_token:
             raise ValueError("StaticBearerTokenVerifier requires a non-empty token")
         super().__init__()
         self._expected = expected_token
+        self._scopes = list(scopes) if scopes else ["mcp"]
 
     async def verify_token(self, token: str):
         from mcp.server.auth.provider import AccessToken
@@ -55,7 +56,7 @@ class StaticBearerTokenVerifier(_FastMCPTokenVerifier):
         return AccessToken(
             token=token,
             client_id="synapsys-static-client",
-            scopes=["mcp"],
+            scopes=list(self._scopes),
         )
 
     def verify_sync(self, token: str) -> bool:
