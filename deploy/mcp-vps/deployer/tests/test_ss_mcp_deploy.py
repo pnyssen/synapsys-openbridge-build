@@ -28,6 +28,8 @@ a = sys.argv[1:]
 img = lambda s: f"mcp-vps-{s}"
 def copy(src, dst):
     shutil.rmtree(dst, ignore_errors=True); dst.parent.mkdir(parents=True, exist_ok=True); shutil.copytree(src, dst)
+if a[:2] == ["compose", "version"]:
+    sys.exit(0)
 if a[0] == "compose":
     a = a[3:]
     if a[0] == "up":
