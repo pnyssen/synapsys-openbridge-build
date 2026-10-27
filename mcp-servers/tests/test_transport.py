@@ -742,3 +742,312 @@ def test_rejected_mutation_ids_are_still_traced(n8n_module, monkeypatch):
             call()
     assert [e["result"] for e in events] == ["error"] * 3
     assert all("invalid N8N workflow id" in e["refusal_reason"] for e in events)
+
+
+def test_azure_auth_keeps_cimd_enabled(monkeypatch):
+    """CIMD must stay on (FastMCP's default) — ChatGPT's connector always
+    presents a URL-based CIMD client_id at /authorize and has no fallback to
+    plain DCR (/register) when CIMD is unsupported. Disabling it was tried
+    and confirmed live against the deployed server on 2026-08-07 to break
+    ChatGPT's connector entirely ("Client Not Registered" at /authorize,
+    never reaching consent) rather than fix it — see the comment in
+    build_combined_auth(). This test guards against that regression
+    reappearing."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.server._cimd_manager is not None
+
+
+# ---------------------------------------------------------------------------
+# _oauth_debug_middleware.py — logs OAuth error response bodies server-side
+# ---------------------------------------------------------------------------
+
+from starlette.applications import Starlette  # noqa: E402
+from starlette.middleware import Middleware  # noqa: E402
+from starlette.responses import JSONResponse  # noqa: E402
+from starlette.routing import Route  # noqa: E402
+from starlette.testclient import TestClient  # noqa: E402
+
+from _oauth_debug_middleware import OAuthErrorLoggingMiddleware  # noqa: E402
+
+
+def _build_debug_app(path: str, status_code: int, body: dict):
+    async def endpoint(request):
+        return JSONResponse(body, status_code=status_code)
+
+    return Starlette(
+        routes=[Route(path, endpoint, methods=["GET", "POST"])],
+        middleware=[Middleware(OAuthErrorLoggingMiddleware)],
+    )
+
+
+def test_oauth_debug_middleware_logs_safe_error_code_and_passes_body(caplog):
+    app = _build_debug_app(
+        "/token", 401, {"error": "unauthorized_client", "error_description": "boom"}
+    )
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 401
+    assert response.json() == {
+        "error": "unauthorized_client",
+        "error_description": "boom",
+    }
+    assert any("unauthorized_client" in r.message for r in caplog.records)
+    assert not any("boom" in r.message for r in caplog.records)
+
+
+def test_oauth_debug_middleware_ignores_success_responses(caplog):
+    app = _build_debug_app("/token", 200, {"access_token": "shh"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 200
+    assert not caplog.records
+
+
+def test_oauth_debug_middleware_ignores_unrelated_paths(caplog):
+    app = _build_debug_app("/mcp", 401, {"error": "unauthorized"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/mcp")
+
+    assert response.status_code == 401
+    assert not caplog.records
+
+
+def test_azure_auth_fixes_cimd_private_key_jwt_audience_double_slash():
+    """FastMCP 3.4.x builds the CIMD private_key_jwt JWT audience as
+    f"{self.base_url}/token" without stripping self.base_url's trailing
+    slash (pydantic AnyHttpUrl always serializes a bare-domain URL with
+    one), producing a double-slash "expected" audience that a correctly-
+    formed client assertion's single-slash aud claim never matches —
+    confirmed live against the deployed server 2026-08-07: every
+    private_key_jwt CIMD client (ChatGPT's connector) was rejected with
+    HTTP 401 invalid_client / "audience mismatch" purely because of this
+    double slash, through no fault of the client. This guards the
+    monkeypatch that fixes it at the one call site FastMCP builds it from."""
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+
+    authenticator = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud//token",
+    )
+    assert authenticator._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+    # A URL that never had the bug must pass through unchanged.
+    authenticator2 = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud/token",
+    )
+    assert authenticator2._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+
+def test_oauth_debug_middleware_redacts_sensitive_descriptions(caplog):
+    app = _build_debug_app("/token", 401, {
+        "error": "invalid_client", "error_description": "client_secret=example-placeholder",
+        "access_token": "fake-token-should-never-appear-in-logs",
+    })
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = TestClient(app).post("/token")
+    assert response.status_code == 401
+    assert response.json()["error_description"] == "client_secret=example-placeholder"
+    logged = " ".join(r.message for r in caplog.records)
+    assert "invalid_client" in logged
+    assert "client_secret" not in logged
+    assert "fake-token-should-never-appear-in-logs" not in logged
+
+
+def test_azure_auth_token_endpoint_is_single_slash_on_pinned_fastmcp(monkeypatch):
+    """FastMCP 4.1.1 strips the trailing slash pydantic adds to a bare-domain
+    base_url before building the token endpoint (the CIMD private_key_jwt
+    `aud`), so the 3.4.x double-slash workaround above is a no-op on the
+    pinned version. Guards that upstream behaviour against a silent change."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert str(auth.server.base_url).endswith("/")
+    assert auth.server.token_endpoint_url == "https://mcp.example.com/token"
+
+
+def test_oauth_debug_middleware_on_real_fastmcp_app_never_logs_secrets(monkeypatch, caplog):
+    """End-to-end on the real FastMCP 4.1.1 HTTP app with the production
+    middleware list: a rejected /token exchange logs only the OAuth error
+    code — not the submitted client_secret, not the error_description — and
+    the unauthenticated /mcp endpoint passes through untouched."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("oauth-middleware-e2e")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+
+    with caplog.at_level("WARNING", logger="oauth_debug"), TestClient(app) as client:
+        token = client.post("/token", data={
+            "grant_type": "authorization_code",
+            "code": "not-a-code",
+            "client_id": "unknown-client",
+            "client_secret": "submitted-secret-must-not-be-logged",
+        })
+        mcp = client.post(
+            "/mcp",
+            json={"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+            headers={"accept": "application/json, text/event-stream"},
+        )
+
+    assert token.status_code == 401
+    assert token.json()["error"] == "invalid_client"
+    assert mcp.status_code == 401
+
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "POST /token -> 401 invalid_client" in logged
+    assert "submitted-secret-must-not-be-logged" not in logged
+    description = token.json().get("error_description")
+    assert description, "SDK should return a description to the client"
+    assert description not in logged
+    assert "/mcp" not in logged
+
+
+def test_oauth_debug_middleware_classifies_registration_errors(caplog):
+    app = _build_debug_app("/register", 400, {
+        "error": "invalid_client_metadata", "error_description": "redirect_uris: secret-ish detail",
+    })
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        TestClient(app).post("/register")
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "invalid_client_metadata" in logged
+    assert "secret-ish detail" not in logged
+
+
+def test_oauth_debug_middleware_unknown_or_malformed_error_is_unclassified(caplog):
+    for body in ({"error": "client_secret=leaked"}, ["not", "a", "dict"]):
+        caplog.clear()
+        app = _build_debug_app("/token", 400, body)
+        with caplog.at_level("WARNING", logger="oauth_debug"):
+            TestClient(app).post("/token")
+        logged = " ".join(r.getMessage() for r in caplog.records)
+        assert "unclassified" in logged
+        assert "leaked" not in logged
+
+
+# ---------------------------------------------------------------------------
+# deploy/mcp-vps/Dockerfile — every local module the servers import is copied
+# ---------------------------------------------------------------------------
+
+import ast  # noqa: E402
+
+DOCKERFILE = MCP_SERVERS_DIR.parent / "deploy" / "mcp-vps" / "Dockerfile"
+
+
+def _local_imports(path: Path) -> set[str]:
+    """Top-level names of sibling mcp-servers/ modules imported anywhere in path."""
+    local = {p.stem for p in MCP_SERVERS_DIR.glob("*.py")}
+    names: set[str] = set()
+    for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        if isinstance(node, ast.Import):
+            names.update(a.name.split(".")[0] for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            names.add(node.module.split(".")[0])
+    return names & local
+
+
+def test_dockerfile_copies_every_local_module_the_servers_import():
+    """Twice now a server-side helper module was imported by the servers but
+    not COPYed into the image (_azure_auth.py, fixed in 9dde769; then
+    _write_safety.py), so every container built from main crashed on start.
+    Resolve the full transitive set of local imports from the two entry
+    scripts and require each to be in the Dockerfile's COPY lines."""
+    copied = set()
+    for line in DOCKERFILE.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if parts and parts[0] == "COPY":
+            copied.update(Path(p).stem for p in parts[1:-1] if p.startswith("mcp-servers/") and p.endswith(".py"))
+
+    needed: set[str] = set()
+    frontier = ["odoo_mcp", "n8n_mcp"]
+    while frontier:
+        mod = frontier.pop()
+        if mod in needed:
+            continue
+        needed.add(mod)
+        frontier.extend(_local_imports(MCP_SERVERS_DIR / f"{mod}.py") - needed)
+
+    assert needed - copied == set(), f"Dockerfile does not COPY: {sorted(needed - copied)}"
+
+
+def test_static_bearer_still_works_on_real_app_when_entra_is_enabled(monkeypatch):
+    """fastmcp 4.x MultiAuth applies the Azure server's required_scopes
+    (mcp.access) to the static bearer verifier too; before the fix every
+    bearer-token client got 403 insufficient_scope once Entra was configured
+    (reproduced against the built image). Real http_app, real middleware."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("bearer-with-entra")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    init = {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {
+        "protocolVersion": "2025-06-18", "capabilities": {},
+        "clientInfo": {"name": "t", "version": "0"}}}
+    headers = {"accept": "application/json, text/event-stream"}
+
+    with TestClient(app) as client:
+        ok = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer shared-token"})
+        wrong = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer not-the-token"})
+        missing = client.post("/mcp", json=init, headers=headers)
+
+    assert ok.status_code == 200, ok.text
+    assert wrong.status_code == 401
+    assert missing.status_code == 401
+
+
+def test_entra_scope_requirement_is_not_weakened(monkeypatch):
+    """The fix grants the static token the scope; it must not lower the
+    scope MultiAuth requires of Entra-issued tokens."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setenv("MCP_OAUTH_SCOPE", "mcp.access")
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.required_scopes == ["mcp.access"]
+    assert auth.server.required_scopes == ["mcp.access"]
+
+
+def test_audience_patch_never_touches_scheme_slashes():
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+    for url in ("https://token.example.com/token", "https://token.example.com//token"):
+        a = PrivateKeyJWTClientAuthenticator(provider=None, cimd_manager=None, token_endpoint_url=url)
+        assert a._token_endpoint_url == "https://token.example.com/token"
+
+
+def test_oauth_debug_middleware_preserves_repeated_headers_on_error():
+    async def endpoint(request):
+        r = JSONResponse({"error": "access_denied"}, status_code=403)
+        r.raw_headers.append((b"set-cookie", b"a=1"))
+        r.raw_headers.append((b"set-cookie", b"b=2"))
+        return r
+
+    app = Starlette(routes=[Route("/consent", endpoint, methods=["POST"])],
+                    middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    response = TestClient(app).post("/consent")
+    assert response.status_code == 403
+    assert response.json() == {"error": "access_denied"}
+    assert response.headers.get_list("set-cookie") == ["a=1", "b=2"]
