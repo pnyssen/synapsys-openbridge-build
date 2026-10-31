@@ -1,0 +1,36 @@
+{
+ "_provenance": "Item 32 is REAL (read from pnyssen/synapsys-openbridge-build via the GitHub connector, 2026-10-31, body trimmed). PR 61 title is real (merge commit 7d9285d). All other items are SYNTHETIC, written to exercise each rule; the advisory ids are made up.",
+ "repo": "pnyssen/synapsys-openbridge-build",
+ "issues": [
+  {"number": 32, "state": "CLOSED", "html_url": "https://github.com/pnyssen/synapsys-openbridge-build/issues/32",
+   "title": "D007 decision needed: Active Outcome Supervisor — bounded pilot (RELEASE_PREPARATION | MODIFY | HOLD)",
+   "body": "## What this is\n\nA D007 decision request has been sitting READY_TO_SEND in Working Memory."},
+  {"number": 101, "state": "open", "html_url": "https://example.invalid/101",
+   "title": "Add CI check that every candidate skill declares mirrors",
+   "body": "check_mirrors.py runs only by hand. A workflow should run it on every pull request."},
+  {"number": 102, "state": "open", "html_url": "https://example.invalid/102",
+   "title": "Odoo model field x_ss_example_flag missing from package schema",
+   "body": "The portability package does not list this field, found only by reading Odoo."},
+  {"number": 103, "state": "open", "html_url": "https://example.invalid/103",
+   "title": "Add CI check that every candidate skill declares mirrors",
+   "body": "Duplicate report of 101 from another lane."},
+  {"number": 104, "state": "open", "html_url": "https://example.invalid/104",
+   "title": "Clarify who gives D007 release for connector changes",
+   "body": "Authority for connector configuration is unclear to the Steward."}
+ ],
+ "pulls": [
+  {"number": 61, "state": "open", "html_url": "https://example.invalid/pull/61",
+   "title": "Bump fastmcp from 4.1.1 to 4.1.3 in /mcp-servers", "body": "Dependabot version bump."}
+ ],
+ "check_runs": [
+  {"id": 9001, "name": "mcp-tests", "conclusion": "failure", "html_url": "https://example.invalid/run/9001",
+   "output": {"summary": "pytest: 2 failed in mcp-servers/tests/test_transport.py"}},
+  {"id": 9002, "name": "codeql", "conclusion": "success", "html_url": "https://example.invalid/run/9002",
+   "output": {"summary": "ok"}}
+ ],
+ "advisories": [
+  {"ghsa_id": "GHSA-9xhq-2c8f-v4rm", "cve_id": "CVE-2099-12345", "state": "open",
+   "summary": "Synthetic advisory for a transitive dependency", "description": "Mentions CWE-79. Synthetic.",
+   "html_url": "https://example.invalid/advisory/1"}
+ ]
+}

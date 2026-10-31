@@ -1,0 +1,29 @@
+{
+ "affected_lanes": [],
+ "authority_state": "HELD (trigger detection is not authority)",
+ "category": "authority",
+ "delete_merge_defer": "Merge if same category and title as another card in this run.",
+ "evidence": {
+  "first_line": "Authority for connector configuration is unclear to the Steward.",
+  "state": "open",
+  "url": "https://example.invalid/104"
+ },
+ "id": "LRN-GH-54dcb9c894",
+ "kind": "requirement",
+ "merged_signals": [
+  "pnyssen/synapsys-openbridge-build#issue#104"
+ ],
+ "next_valid_movement": "Navigator rank (QIU) and route",
+ "nist_function": "GOVERN",
+ "observing_lane": "claude_code",
+ "owning_service_candidates": [
+  "SC-04 Capability Encoding and Reuse",
+  "SC-05 Assurance Audit and Learning"
+ ],
+ "ppv": "Potential",
+ "root_cause": "[unobserved]",
+ "scope": "synapsys_wide",
+ "signal": "pnyssen/synapsys-openbridge-build issue #104: Clarify who gives D007 release for connector changes",
+ "source_type": "github",
+ "standard_refs": []
+}

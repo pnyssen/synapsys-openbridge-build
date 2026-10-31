@@ -1,0 +1,29 @@
+{
+ "affected_lanes": [],
+ "authority_state": "HELD (trigger detection is not authority)",
+ "category": "tooling",
+ "delete_merge_defer": "Merge if same category and title as another card in this run.",
+ "evidence": {
+  "first_line": "Dependabot version bump.",
+  "state": "open",
+  "url": "https://example.invalid/pull/61"
+ },
+ "id": "LRN-GH-8e9bbed4ae",
+ "kind": "capability",
+ "merged_signals": [
+  "pnyssen/synapsys-openbridge-build#pull_request#61"
+ ],
+ "next_valid_movement": "Navigator rank (QIU) and route",
+ "nist_function": "MANAGE",
+ "observing_lane": "claude_code",
+ "owning_service_candidates": [
+  "SC-04 Capability Encoding and Reuse",
+  "SC-05 Assurance Audit and Learning"
+ ],
+ "ppv": "Potential",
+ "root_cause": "[unobserved]",
+ "scope": "synapsys_wide",
+ "signal": "pnyssen/synapsys-openbridge-build pull_request #61: Bump fastmcp from 4.1.1 to 4.1.3 in /mcp-servers",
+ "source_type": "github",
+ "standard_refs": []
+}

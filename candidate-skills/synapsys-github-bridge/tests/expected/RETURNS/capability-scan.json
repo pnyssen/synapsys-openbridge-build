@@ -1,0 +1,85 @@
+[
+ {
+  "calls_used": 7,
+  "lane": "synthetic-lane-A",
+  "layers_read_before_first_search": [
+   "capsule",
+   "index",
+   "prior_decisions",
+   "queue_view",
+   "streams_returns"
+  ],
+  "layers_read_before_first_search_n": "5/5",
+  "misses_corrected": 0,
+  "per_probe": [
+   {
+    "calls": 6,
+    "hit": true,
+    "id": "P1",
+    "miss_corrected": false,
+    "path_cited": [
+     "MESH_QUEUE/CURRENT.md",
+     "MESH_QUEUE/LENS/HANDOVER_QUEUE.json"
+    ],
+    "search_terms": []
+   },
+   {
+    "calls": 0,
+    "hit": true,
+    "id": "P2",
+    "miss_corrected": false,
+    "path_cited": [
+     "MESH_QUEUE/KIT/FOUNDATION_INDEX_v1.md"
+    ],
+    "search_terms": []
+   },
+   {
+    "calls": 1,
+    "hit": true,
+    "id": "P5",
+    "miss_corrected": false,
+    "path_cited": [
+     "MESH_QUEUE/LENS/HANDOVER_QUEUE.json"
+    ],
+    "search_terms": []
+   }
+  ],
+  "probes_passed": "3/5",
+  "probes_scored": 3,
+  "scored_by": "scan harness (offline). Drafter never validates its own return; a second lane scores it."
+ },
+ {
+  "calls_used": 4,
+  "lane": "synthetic-lane-B",
+  "layers_read_before_first_search": [],
+  "layers_read_before_first_search_n": "0/5",
+  "misses_corrected": 1,
+  "per_probe": [
+   {
+    "calls": 3,
+    "hit": true,
+    "id": "P1",
+    "miss_corrected": true,
+    "path_cited": [
+     "MESH_QUEUE/LENS/HANDOVER_QUEUE.json"
+    ],
+    "search_terms": [
+     "cross AI bridge"
+    ]
+   },
+   {
+    "calls": 1,
+    "hit": false,
+    "id": "P4",
+    "miss_corrected": false,
+    "path_cited": "[unobserved]",
+    "search_terms": [
+     "Avalira Business asset"
+    ]
+   }
+  ],
+  "probes_passed": "1/5",
+  "probes_scored": 2,
+  "scored_by": "scan harness (offline). Drafter never validates its own return; a second lane scores it."
+ }
+]

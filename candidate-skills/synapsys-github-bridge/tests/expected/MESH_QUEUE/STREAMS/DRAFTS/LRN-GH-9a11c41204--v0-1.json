@@ -1,0 +1,29 @@
+{
+ "affected_lanes": [],
+ "authority_state": "HELD (trigger detection is not authority)",
+ "category": "schema_field",
+ "delete_merge_defer": "Merge if same category and title as another card in this run.",
+ "evidence": {
+  "first_line": "The portability package does not list this field, found only by reading Odoo.",
+  "state": "open",
+  "url": "https://example.invalid/102"
+ },
+ "id": "LRN-GH-9a11c41204",
+ "kind": "requirement",
+ "merged_signals": [
+  "pnyssen/synapsys-openbridge-build#issue#102"
+ ],
+ "next_valid_movement": "Navigator rank (QIU) and route",
+ "nist_function": "MANAGE",
+ "observing_lane": "claude_code",
+ "owning_service_candidates": [
+  "SC-04 Capability Encoding and Reuse",
+  "SC-05 Assurance Audit and Learning"
+ ],
+ "ppv": "Potential",
+ "root_cause": "[unobserved]",
+ "scope": "synapsys_wide",
+ "signal": "pnyssen/synapsys-openbridge-build issue #102: Odoo model field x_ss_example_flag missing from package schema",
+ "source_type": "github",
+ "standard_refs": []
+}

@@ -1,0 +1,29 @@
+{
+ "affected_lanes": [],
+ "authority_state": "HELD (trigger detection is not authority)",
+ "category": "tooling",
+ "delete_merge_defer": "Merge if same category and title as another card in this run.",
+ "evidence": {
+  "first_line": "pytest: 2 failed in mcp-servers/tests/test_transport.py",
+  "state": "open",
+  "url": "https://example.invalid/run/9001"
+ },
+ "id": "LRN-GH-2f75b5dd48",
+ "kind": "defect",
+ "merged_signals": [
+  "pnyssen/synapsys-openbridge-build#ci_failure#9001"
+ ],
+ "next_valid_movement": "Navigator rank (QIU) and route",
+ "nist_function": "MANAGE",
+ "observing_lane": "claude_code",
+ "owning_service_candidates": [
+  "SC-04 Capability Encoding and Reuse",
+  "SC-05 Assurance Audit and Learning"
+ ],
+ "ppv": "Potential",
+ "root_cause": "[unobserved]",
+ "scope": "synapsys_wide",
+ "signal": "pnyssen/synapsys-openbridge-build ci_failure #9001: CI mcp-tests failure",
+ "source_type": "github",
+ "standard_refs": []
+}

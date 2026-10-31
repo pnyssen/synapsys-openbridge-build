@@ -1,0 +1,15 @@
+{"_provenance": "SYNTHETIC call log: a lane that reads resolver layers before searching.",
+ "lane": "synthetic-lane-A",
+ "probes": [
+  {"id": "P1", "calls": [
+    {"tool": "read", "path": "MESH_QUEUE/CURRENT.md", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/KIT/NAVIGATOR_STATE_CAPSULE.json", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/KIT/FOUNDATION_INDEX_v1.md", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/HEALTH/REVIEWS_APPEND_20261031_AVL3.md", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/LENS/HANDOVER_QUEUE.json", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/RETURNS/S2-AVL-R3-20261030--return.md", "result": "hit"}],
+   "answer_paths": ["MESH_QUEUE/CURRENT.md", "MESH_QUEUE/LENS/HANDOVER_QUEUE.json"]},
+  {"id": "P2", "calls": [], "answer_paths": ["MESH_QUEUE/KIT/FOUNDATION_INDEX_v1.md"], "states_gap": true},
+  {"id": "P5", "calls": [{"tool": "read", "path": "MESH_QUEUE/LENS/HANDOVER_QUEUE.json", "result": "hit"}],
+   "answer_paths": ["MESH_QUEUE/LENS/HANDOVER_QUEUE.json"]}
+ ]}

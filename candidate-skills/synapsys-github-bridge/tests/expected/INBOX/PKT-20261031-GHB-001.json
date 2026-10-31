@@ -1,0 +1,53 @@
+{
+ "artefacts": [
+  {
+   "path": "MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-2f75b5dd48--v0-1.json",
+   "sha256": "b6e4ee21bf3db4a8e3f8fadb852a84d97caaa07cb7627aa309afe209c452f987"
+  },
+  {
+   "path": "MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-54dcb9c894--v0-1.json",
+   "sha256": "63fac42fa9f4bbc866d626a059d51bbc5ae0e2c9c05f0c8ce08d2205a7a702f9"
+  },
+  {
+   "path": "MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-8e9bbed4ae--v0-1.json",
+   "sha256": "c59e81c5096681703d8e23800a49c0cfaf43fa79313d9f8366cd83fc8b97fa03"
+  },
+  {
+   "path": "MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-9a11c41204--v0-1.json",
+   "sha256": "2b4f7605510f285a119cac9e8e86c575c0ec24f71aa12dcdd6fc19b8b718ce52"
+  },
+  {
+   "path": "MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-e6b0e15477--v0-1.json",
+   "sha256": "ebb777cbb4c6fd7cf3454a05c3438e743d737c2a2ace08d5386e73924cca18b6"
+  },
+  {
+   "path": "RETURNS/capability-scan.json",
+   "sha256": "2334edeca51109e015cf5cd4ea557851e4ef04cff491c1e12a25b04f55788651"
+  },
+  {
+   "path": "RETURNS/github-bridge-dry-run--return.md",
+   "sha256": "d617fd8ea865903280137a0dae23ef0bf62c07a6f8000ce498bedead7d237757"
+  },
+  {
+   "path": "RETURNS/github-mirror-plan.json",
+   "sha256": "7bc19cd3eddacc06f0b81dada018f976c3b3310ecf1af48bc307ba57d6504270"
+  }
+ ],
+ "authority": "Candidate only. No ACCEPT row for writes. No Odoo, N8N, canon, registry or PPV movement.",
+ "context": "CTX-SS",
+ "created": "2026-10-31",
+ "excluded": [
+  "GitHub or Working Memory write",
+  "connector or configuration change (D007)",
+  "outsider contact"
+ ],
+ "from": "claude-code",
+ "id": "PKT-20261031-GHB-001",
+ "job": "github-bridge-dry-run: dry-run candidate for CAP-009 (scan) and CAP-010 (GitHub mirror)",
+ "ppv": "Potential",
+ "priority": "WATCH",
+ "release_class": "RC-00",
+ "tested_number": "8 signals -> 5 cards",
+ "verb": "implements_candidate",
+ "work_object_id": "WO-NAVIGATOR-AUTONOMOUS-GOAL-PORTFOLIO-CONTROL-001"
+}

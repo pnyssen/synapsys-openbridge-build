@@ -1,0 +1,79 @@
+{
+ "canary": {
+  "card": "LRN-GH-e6b0e15477",
+  "steps": [
+   "prestate: list issues + labels",
+   "create ONE issue for this card",
+   "read back: title, labels, WM path and sha256 match",
+   "rollback: close as not_planned",
+   "poststate: issue closed, no other issue touched",
+   "receipt: sha256 of readback"
+  ]
+ },
+ "issues": [
+  {
+   "body": "**Card** `LRN-GH-e6b0e15477`  \u00b7  PPV **Potential**  \u00b7  authority HELD\n\nWorking Memory path: `MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-e6b0e15477--v0-1.json`\nsha256: `ebb777cbb4c6fd7cf3454a05c3438e743d737c2a2ace08d5386e73924cca18b6`\n\n**Signal:** pnyssen/synapsys-openbridge-build advisory #GHSA-9xhq-2c8f-v4rm: Advisory GHSA-9xhq-2c8f-v4rm Synthetic advisory for a transitive dependency\n**Source:** https://example.invalid/advisory/1\n\nWorking Memory holds the card and evidence; Odoo stays operational truth; this issue is a\ntechnical working copy, never the source of truth. Status changes flow back to the card as a delta.",
+   "card": "LRN-GH-e6b0e15477",
+   "labels": [
+    "kind:defect",
+    "category:security",
+    "scope:synapsys_wide",
+    "ppv:potential",
+    "nist:manage"
+   ],
+   "title": "[LRN-GH-e6b0e15477] Advisory GHSA-9xhq-2c8f-v4rm Synthetic advisory for a transitive dependency"
+  },
+  {
+   "body": "**Card** `LRN-GH-9a11c41204`  \u00b7  PPV **Potential**  \u00b7  authority HELD\n\nWorking Memory path: `MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-9a11c41204--v0-1.json`\nsha256: `2b4f7605510f285a119cac9e8e86c575c0ec24f71aa12dcdd6fc19b8b718ce52`\n\n**Signal:** pnyssen/synapsys-openbridge-build issue #102: Odoo model field x_ss_example_flag missing from package schema\n**Source:** https://example.invalid/102\n\nWorking Memory holds the card and evidence; Odoo stays operational truth; this issue is a\ntechnical working copy, never the source of truth. Status changes flow back to the card as a delta.",
+   "card": "LRN-GH-9a11c41204",
+   "labels": [
+    "kind:requirement",
+    "category:schema_field",
+    "scope:synapsys_wide",
+    "ppv:potential",
+    "nist:manage"
+   ],
+   "title": "[LRN-GH-9a11c41204] Odoo model field x_ss_example_flag missing from package schema"
+  },
+  {
+   "body": "**Card** `LRN-GH-2f75b5dd48`  \u00b7  PPV **Potential**  \u00b7  authority HELD\n\nWorking Memory path: `MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-2f75b5dd48--v0-1.json`\nsha256: `b6e4ee21bf3db4a8e3f8fadb852a84d97caaa07cb7627aa309afe209c452f987`\n\n**Signal:** pnyssen/synapsys-openbridge-build ci_failure #9001: CI mcp-tests failure\n**Source:** https://example.invalid/run/9001\n\nWorking Memory holds the card and evidence; Odoo stays operational truth; this issue is a\ntechnical working copy, never the source of truth. Status changes flow back to the card as a delta.",
+   "card": "LRN-GH-2f75b5dd48",
+   "labels": [
+    "kind:defect",
+    "category:tooling",
+    "scope:synapsys_wide",
+    "ppv:potential",
+    "nist:manage"
+   ],
+   "title": "[LRN-GH-2f75b5dd48] CI mcp-tests failure"
+  },
+  {
+   "body": "**Card** `LRN-GH-8e9bbed4ae`  \u00b7  PPV **Potential**  \u00b7  authority HELD\n\nWorking Memory path: `MESH_QUEUE/STREAMS/DRAFTS/LRN-GH-8e9bbed4ae--v0-1.json`\nsha256: `c59e81c5096681703d8e23800a49c0cfaf43fa79313d9f8366cd83fc8b97fa03`\n\n**Signal:** pnyssen/synapsys-openbridge-build pull_request #61: Bump fastmcp from 4.1.1 to 4.1.3 in /mcp-servers\n**Source:** https://example.invalid/pull/61\n\nWorking Memory holds the card and evidence; Odoo stays operational truth; this issue is a\ntechnical working copy, never the source of truth. Status changes flow back to the card as a delta.",
+   "card": "LRN-GH-8e9bbed4ae",
+   "labels": [
+    "kind:capability",
+    "category:tooling",
+    "scope:synapsys_wide",
+    "ppv:potential",
+    "nist:manage"
+   ],
+   "title": "[LRN-GH-8e9bbed4ae] Bump fastmcp from 4.1.1 to 4.1.3 in /mcp-servers"
+  }
+ ],
+ "labels_required": [
+  "category:schema_field",
+  "category:security",
+  "category:tooling",
+  "kind:capability",
+  "kind:defect",
+  "kind:requirement",
+  "nist:manage",
+  "ppv:potential",
+  "scope:synapsys_wide"
+ ],
+ "mode": "DRY_RUN",
+ "skipped_not_mirrored": [
+  "LRN-GH-54dcb9c894"
+ ],
+ "writes_performed": 0
+}

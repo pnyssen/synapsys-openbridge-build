@@ -1,0 +1,11 @@
+{"_provenance": "SYNTHETIC call log modelled on the Avalira miss in AVL-004: one paraphrased search, then a read that corrects it.",
+ "lane": "synthetic-lane-B",
+ "probes": [
+  {"id": "P1", "calls": [
+    {"tool": "search", "query": "cross AI bridge", "result": "miss"},
+    {"tool": "read", "path": "MESH_QUEUE/CURRENT.md", "result": "hit"},
+    {"tool": "read", "path": "MESH_QUEUE/LENS/HANDOVER_QUEUE.json", "result": "hit"}],
+   "answer_paths": ["MESH_QUEUE/LENS/HANDOVER_QUEUE.json"]},
+  {"id": "P4", "calls": [{"tool": "search", "query": "Avalira Business asset", "result": "miss"}],
+   "answer_paths": []}
+ ]}
