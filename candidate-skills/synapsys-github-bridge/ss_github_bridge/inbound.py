@@ -29,8 +29,9 @@ def signals_from_payload(repo: str, payload: Dict[str, Any]) -> List[Dict[str, A
         out.append(_signal(repo, "issue", it["number"], it["title"], it.get("body"),
                            it["state"].lower(), it.get("html_url", it.get("url", ""))))
     for it in payload.get("pulls", []):
+        state = "merged" if (it.get("merged_at") or it.get("merged")) else it["state"].lower()
         out.append(_signal(repo, "pull_request", it["number"], it["title"], it.get("body"),
-                           it["state"].lower(), it.get("html_url", "")))
+                           state, it.get("html_url", "")))
     for it in payload.get("check_runs", []):
         if it.get("conclusion") in ("failure", "timed_out", "cancelled", "action_required"):
             out.append(_signal(repo, "ci_failure", it["id"], f"CI {it['name']} {it['conclusion']}",

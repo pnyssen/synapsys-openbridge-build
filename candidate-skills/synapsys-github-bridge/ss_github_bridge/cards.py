@@ -150,8 +150,9 @@ def build_cards(signals: Iterable[Dict[str, Any]], cap: Optional[int]) -> Dict[s
     unique: Dict[str, Dict[str, Any]] = {}
     for sig in signals:
         key = signal_key(sig)
-        if key in unique or sig.get("state", "open") != "open":
-            deleted.append(key)          # exact duplicate, or no longer open
+        merged_pr = sig.get("type") == "pull_request" and sig.get("state") == "merged"
+        if key in unique or (sig.get("state", "open") != "open" and not merged_pr):
+            deleted.append(key)          # exact duplicate, or no longer open (a merged PR is a learning Signal)
             continue
         unique[key] = sig
     by_title: Dict[str, Dict[str, Any]] = {}

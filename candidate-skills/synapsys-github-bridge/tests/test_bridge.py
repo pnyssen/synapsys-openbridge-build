@@ -12,7 +12,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
 
-from ss_github_bridge import cards, inbound, labels, mirror, scan  # noqa: E402
+from ss_github_bridge import cards, inbound, labels, mirror, returns, scan  # noqa: E402
 
 FIX = HERE / "fixtures"
 
@@ -141,3 +141,90 @@ def test_dry_run_matches_expected_files(tmp_path):
 def test_commit_flag_refused(tmp_path):
     r = run_cli(tmp_path, "--fixture", str(FIX / "github_payload.json"), "--commit")
     assert r.returncode == 3 and not list(tmp_path.iterdir())
+
+
+# --- negative case 1: the emitted packet must meet Mesh Queue Contract v2 --
+# Governed 27 verbs as listed in MESH_QUEUE/LENS/HANDOVER_QUEUE.json (verbs_27, read 2026-10-31).
+GOVERNED_27 = (
+    "sense", "map", "capture", "derive", "instantiates", "compound", "composes", "consumes", "route",
+    "engage", "balance", "evidences", "join", "commit", "execute", "parent", "succeed", "package",
+    "seize", "transform", "supersedes", "filter", "requires", "implements_candidate", "validates",
+    "challenge", "verify",
+)
+PACKET_REQUIRED = ("id", "from", "verb", "goal", "context", "oba_test", "sources", "scope",
+                   "expected_return", "priority", "created")
+
+
+def packet_contract_errors(packet):
+    """Transcription of MESH_QUEUE_CONTRACT_v2 'Packet (JSON <= 4 KB)'. Malformed = worker returns HOLD."""
+    errs = [f"missing {k}" for k in PACKET_REQUIRED if k not in packet]
+    if packet.get("verb") not in GOVERNED_27:
+        errs.append("verb not in the governed 27")
+    oba = packet.get("oba_test")
+    if isinstance(oba, dict):
+        errs += [f"oba_test missing {k}" for k in ("outcome", "measure", "benefit", "asset", "boundary") if k not in oba]
+    srcs = packet.get("sources")
+    if isinstance(srcs, list):
+        import re as _re
+        for s in srcs:
+            if not (isinstance(s, dict) and s.get("path") and _re.fullmatch(r"[0-9a-f]{64}", str(s.get("sha256", "")))):
+                errs.append(f"bad source entry {s!r}")
+        if not srcs:
+            errs.append("no sources")
+    scope = packet.get("scope")
+    if isinstance(scope, dict):
+        errs += [f"scope missing {k}" for k in ("allowed", "excluded", "release_class") if k not in scope]
+        if not str(scope.get("release_class", "")).startswith("RC-"):
+            errs.append("unknown release class")
+    if packet.get("priority") not in ("NOW", "WATCH"):
+        errs.append("priority must be NOW or WATCH")
+    if len(json.dumps(packet).encode()) > 4096:
+        errs.append("over 4 KB")
+    return errs
+
+
+H64 = "a" * 64
+
+
+def test_inbound_packet_meets_mesh_queue_v2_contract():
+    p = returns.inbound_packet("PKT-20261031-GHB-001", "github-bridge-dry-run", "8 signals -> 5 cards",
+                               {"MESH_QUEUE/STREAMS/DRAFTS/x.json": H64}, "2026-10-31")
+    assert packet_contract_errors(p) == []
+    assert "release_class" not in p and "excluded" not in p      # they belong inside scope
+    assert p["scope"]["release_class"] == "RC-00"
+
+
+def test_contract_validator_rejects_the_old_packet_shape():
+    old = {"id": "PKT-1", "from": "claude-code", "verb": "implements_candidate", "context": "CTX-SS",
+           "release_class": "RC-00", "job": "x", "artefacts": [], "excluded": [], "priority": "WATCH",
+           "created": "2026-10-31"}
+    errs = packet_contract_errors(old)
+    for k in ("goal", "oba_test", "sources", "scope", "expected_return"):
+        assert f"missing {k}" in errs
+    assert packet_contract_errors({**old, "verb": "nine-verb loop"}).count("verb not in the governed 27") == 1
+
+
+def test_committed_golden_packet_meets_the_contract():
+    golden = json.load(open(HERE / "expected" / "INBOX" / "PKT-20261031-GHB-001.json"))
+    assert packet_contract_errors(golden) == []
+
+
+# --- negative case 2: a merged PR is a learning Signal and must not be deleted ---
+def _pr(number, **kw):
+    return {"number": number, "title": f"PR {number} change", "body": "", "html_url": f"u/{number}", **kw}
+
+
+def test_merged_pr_is_kept_in_both_api_shapes_and_other_non_open_are_still_deleted():
+    payload = {"repo": "o/r", "pulls": [
+        _pr(1, state="closed", merged_at="2026-10-31T06:04:26Z"),   # REST: closed + merged_at
+        _pr(2, state="MERGED"),                                      # GraphQL shape
+        _pr(3, state="open"),                                        # control: open PR kept
+        _pr(4, state="closed", merged_at=None),                      # control: closed unmerged dropped
+    ], "issues": [{"number": 9, "state": "CLOSED", "title": "Old issue", "body": "", "html_url": "u/9"}]}
+    out = cards.build_cards(inbound.signals_from_payload("o/r", payload), cap=None)
+    kept = {c["merged_signals"][0].split("#")[-1]: c for c in out["cards"]}
+    assert set(kept) == {"1", "2", "3"}
+    assert kept["1"]["evidence"]["state"] == "merged" and kept["2"]["evidence"]["state"] == "merged"
+    assert kept["3"]["evidence"]["state"] == "open"
+    assert sorted(out["deleted"]) == ["o/r#issue#9", "o/r#pull_request#4"]
+    assert all(cards.validate_card(c) == [] for c in out["cards"])

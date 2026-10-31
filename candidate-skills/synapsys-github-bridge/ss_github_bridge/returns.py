@@ -28,17 +28,25 @@ def render_return(task: str, verb: str, tested_number: str, drill: List[str],
 
 def inbound_packet(packet_id: str, task: str, tested_number: str, artefacts: Dict[str, str],
                    created: str) -> Dict[str, Any]:
+    sources = [{"path": p, "sha256": h} for p, h in sorted(artefacts.items())]
     return {
         "id": packet_id, "from": "claude-code", "verb": "implements_candidate",
         "work_object_id": "WO-NAVIGATOR-AUTONOMOUS-GOAL-PORTFOLIO-CONTROL-001",
-        "context": "CTX-SS", "release_class": "RC-00",
+        "context": "CTX-SS",
+        "goal": f"{task}: dry-run candidate for CAP-009 (scan) and CAP-010 (GitHub mirror)",
         "job": f"{task}: dry-run candidate for CAP-009 (scan) and CAP-010 (GitHub mirror)",
+        "oba_test": {"outcome": f"{task} candidate filed", "measure": tested_number,
+                     "benefit": "[unobserved]", "asset": "[unobserved]", "boundary": "INTERNAL"},
+        "sources": sources,
+        "scope": {"allowed": ["read-only checks and candidate files"],
+                  "excluded": ["GitHub or Working Memory write", "connector or configuration change (D007)",
+                               "outsider contact"],
+                  "release_class": "RC-00"},
+        "expected_return": f"RETURNS/{packet_id}--return.md",
         "ppv": "Potential",
         "authority": "Candidate only. No ACCEPT row for writes. No Odoo, N8N, canon, registry or PPV movement.",
-        "artefacts": [{"path": p, "sha256": h} for p, h in sorted(artefacts.items())],
+        "artefacts": sources,
         "tested_number": tested_number,
-        "excluded": ["GitHub or Working Memory write", "connector or configuration change (D007)",
-                     "outsider contact"],
         "priority": "WATCH", "created": created,
     }
 
