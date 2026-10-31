@@ -23,17 +23,34 @@ REQUIRED_POINTERS = (
 )
 
 
+# The addressing rule is the exact goal prefix only. Wording that widens it (a lane
+# field, or a name in free text) must not appear in the entrypoint.
+FORBIDDEN_PHRASES = (
+    "or a `lane` of",
+    "`lane` of `claude_code`",
+    "owner_lane",
+)
+
+
 def missing_pointers(text: str) -> list[str]:
     return [p for p in REQUIRED_POINTERS if p not in text]
 
 
+def forbidden_present(text: str) -> list[str]:
+    return [p for p in FORBIDDEN_PHRASES if p in text]
+
+
 def main(argv: list[str] | None = None) -> int:
     path = Path((argv or sys.argv[1:] or [str(Path(__file__).resolve().parent.parent / "CLAUDE.md")])[0])
-    missing = missing_pointers(path.read_text(encoding="utf-8"))
+    text = path.read_text(encoding="utf-8")
+    missing = missing_pointers(text)
+    widened = forbidden_present(text)
     for p in missing:
         print(f"[MISSING] {p}")
+    for p in widened:
+        print(f"[FORBIDDEN] {p}")
     print(f"{len(REQUIRED_POINTERS) - len(missing)}/{len(REQUIRED_POINTERS)} pointers present in {path.name}")
-    return 1 if missing else 0
+    return 1 if (missing or widened) else 0
 
 
 if __name__ == "__main__":
