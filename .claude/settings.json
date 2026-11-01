@@ -8,11 +8,6 @@
     "synapsys-n8n-readonly-code",
     "synapsys-odoo-readonly-code"
   ],
-  {
-  "enabledMcpjsonServers": [
-    "synapsys-n8n-readonly-code",
-    "synapsys-odoo-readonly-code"
-  ],
   "hooks": {
     "SessionStart": [
       {
