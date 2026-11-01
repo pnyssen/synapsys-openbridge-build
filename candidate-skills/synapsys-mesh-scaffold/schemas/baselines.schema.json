@@ -1,0 +1,13 @@
+{
+ "$comment": "descriptive schema, candidate v0.1; rules live in ss_scaffold/rules.py",
+ "module": "baselines",
+ "row": [
+  "id",
+  "has_target",
+  "baseline(null if unknown)",
+  "observed",
+  "unit",
+  "as_at",
+  "source"
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "$comment": "descriptive schema, candidate v0.1; rules live in ss_scaffold/rules.py",
+ "module": "raci",
+ "required": [
+  "revision_date",
+  "rows"
+ ],
+ "row": [
+  "outcome_id",
+  "cells",
+  "accountable"
+ ],
+ "cell": "R|A|C|I|D or [n]; a cell counts only when accepted"
+}

@@ -1,0 +1,16 @@
+{
+ "$comment": "descriptive schema, candidate v0.1; rules live in ss_scaffold/rules.py",
+ "module": "contribution_test",
+ "row": [
+  "benefit",
+  "kind",
+  "has_target",
+  "in_chain",
+  "counterfactual",
+  "contribution",
+  "evidence",
+  "bear_case",
+  "verdict(keep|reframe|drop)",
+  "owner"
+ ]
+}

@@ -1,0 +1,257 @@
+{
+ "context": "CTX-GENERIC-A",
+ "raci": {
+  "revision_date": "2026-10-31",
+  "columns": [
+   {
+    "party": "P1",
+    "perspective": "Internal",
+    "lens": "[n]"
+   },
+   {
+    "party": "P2",
+    "perspective": "Membrane",
+    "lens": "[n]"
+   },
+   {
+    "party": "P3",
+    "perspective": "Membrane",
+    "lens": "[n]"
+   },
+   {
+    "party": "P4",
+    "perspective": "External",
+    "lens": "[n]"
+   },
+   {
+    "party": "P5",
+    "perspective": "External",
+    "lens": "[n]"
+   },
+   {
+    "party": "P6",
+    "perspective": "External",
+    "lens": "[n]"
+   }
+  ],
+  "rows": [
+   {
+    "outcome_id": "OUT-01",
+    "cells": [
+     "[n]",
+     "C (proposal: contact)",
+     "[n]",
+     "R (proposal: guides)",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-02",
+    "cells": [
+     "[n]",
+     "C (proposal: contact)",
+     "[n]",
+     "R (proposal: guides)",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-03",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-04",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-05",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-06",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-07",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-08",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-09",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-10",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-11",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-12",
+    "cells": [
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "[n]"
+   },
+   {
+    "outcome_id": "OUT-13",
+    "cells": [
+     "D (proposal)",
+     "[n]",
+     "R (proposal)",
+     "C (proposal)",
+     "[n]",
+     "[n]"
+    ],
+    "accountable": "P1 (proposal)",
+    "decision": true
+   }
+  ]
+ },
+ "contribution_test": [
+  {
+   "benefit": "B1",
+   "kind": "funding",
+   "has_target": true,
+   "in_chain": true,
+   "counterfactual": "[n]",
+   "contribution": "[n]",
+   "evidence": "[n]",
+   "bear_case": "[n]",
+   "verdict": "[n]",
+   "owner": "[n]"
+  },
+  {
+   "benefit": "B2",
+   "kind": "market",
+   "has_target": true,
+   "in_chain": true,
+   "counterfactual": "c",
+   "contribution": "m",
+   "evidence": "src/path",
+   "bear_case": "pessimistic case incl. five shocks",
+   "verdict": "keep",
+   "owner": "P1"
+  }
+ ],
+ "baselines": [
+  {
+   "id": "OUT-01",
+   "has_target": true,
+   "baseline": null,
+   "observed": false,
+   "unit": "[n]",
+   "as_at": "[n]",
+   "source": "[n]"
+  },
+  {
+   "id": "B2",
+   "has_target": true,
+   "baseline": 12.5,
+   "observed": true,
+   "unit": "t",
+   "as_at": "2026-10-01",
+   "source": "src/path"
+  }
+ ],
+ "shock_readiness": [
+  {
+   "id": "OUT-01",
+   "shocks": {
+    "anchor_lost": {
+     "dependence": "low",
+     "evidence": "src/path"
+    },
+    "approval_delayed": {
+     "dependence": "[n]"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+ "$comment": "descriptive schema, candidate v0.1; rules live in ss_scaffold/rules.py",
+ "module": "shock_readiness",
+ "row": [
+  "id",
+  "shocks{anchor_lost,approval_delayed,finance_shock,community_opposition,key_person_lost:{dependence(none|low|high),evidence,mitigation,owner,successor_role,test_result}}"
+ ]
+}
