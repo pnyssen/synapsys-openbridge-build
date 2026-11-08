@@ -20,6 +20,7 @@ configure Entra before it can start.
 from __future__ import annotations
 
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -51,6 +52,57 @@ def _entra_env() -> dict[str, str] | None:
     return values
 
 
+def _fix_cimd_private_key_jwt_audience_bug() -> None:
+    """Patch a FastMCP 3.4.4/3.4.5 bug in the CIMD private_key_jwt token
+    endpoint: it builds the JWT audience it validates against as
+    f"{self.base_url}/token" (oauth_proxy/proxy.py:2061) without stripping
+    self.base_url's trailing slash — and self.base_url is a pydantic
+    AnyHttpUrl, which always serializes a bare-domain URL WITH a trailing
+    slash (confirmed directly: this deployment's own
+    /.well-known/oauth-authorization-server advertises
+    "issuer": ".../hstgr.cloud/"). The result is a double slash
+    (".../hstgr.cloud//token") that the server then requires as the JWT
+    `aud` claim — but the client (correctly) sets `aud` to the
+    single-slash token_endpoint actually advertised in that same metadata
+    document, so every private_key_jwt CIMD client (confirmed: ChatGPT's
+    connector) is rejected with HTTP 401 invalid_client / "audience
+    mismatch", through no fault of its own. Reproduced directly against
+    this deployment 2026-08-07 (server log: "Bearer token rejected...
+    audience mismatch (got '.../token', expected '..//token')").
+
+    FastMCP 4.1.x fixed this upstream (OAuthProxy.token_endpoint_url now
+    strips base_url's trailing slash before appending "/token"; verified
+    against the pinned fastmcp==4.1.1). On 4.1.1 the replace below therefore
+    never matches and the patch is a no-op; it is retained only as a guard
+    against a regression or an accidental downgrade, and
+    test_azure_auth_token_endpoint_is_single_slash_on_pinned_fastmcp pins the
+    upstream behaviour so a change to it is caught in CI.
+
+    Patches PrivateKeyJWTClientAuthenticator.__init__ to collapse that one
+    specific double slash before it's stored, at the one call site FastMCP
+    builds it from — without editing the vendored package (which a
+    `pip install --upgrade fastmcp` would silently discard). Safe to call
+    even when CIMD/private_key_jwt is never exercised (bearer-only or
+    Entra-without-CIMD deployments): the patched class is simply never
+    instantiated in that case.
+    """
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    if getattr(PrivateKeyJWTClientAuthenticator, "_synapsys_audience_fix", False):
+        return  # already patched (e.g. odoo_mcp.py and n8n_mcp.py both call this)
+
+    original_init = PrivateKeyJWTClientAuthenticator.__init__
+
+    def patched_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw):
+        # Only a doubled slash directly before a trailing "token" path segment
+        # (never the scheme's "//", e.g. https://token.example.com/token).
+        token_endpoint_url = re.sub(r"(?<!:)//token$", "/token", token_endpoint_url)
+        original_init(self, provider, cimd_manager, token_endpoint_url, *a, **kw)
+
+    PrivateKeyJWTClientAuthenticator.__init__ = patched_init
+    PrivateKeyJWTClientAuthenticator._synapsys_audience_fix = True
+
+
 def build_combined_auth(mcp_auth_token: str) -> Any:
     """Return the `auth=` value for `FastMCP(...)` / `mcp.auth = ...`.
 
@@ -61,16 +113,25 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
     sys.path.insert(0, str(Path(__file__).parent))
     from _bearer_auth import StaticBearerTokenVerifier  # noqa: E402
 
-    bearer_verifier = StaticBearerTokenVerifier(mcp_auth_token)
-
     entra = _entra_env()
     if entra is None:
-        return bearer_verifier
+        return StaticBearerTokenVerifier(mcp_auth_token)
 
     from fastmcp.server.auth.auth import MultiAuth
     from fastmcp.server.auth.providers.azure import AzureProvider
 
+    _fix_cimd_private_key_jwt_audience_bug()
+
     scope = os.environ.get("MCP_OAUTH_SCOPE", "mcp.access")
+
+    # fastmcp 4.x MultiAuth enforces the server's required_scopes on EVERY
+    # verifier's token, the static bearer included (3.4.x did not), so a
+    # bearer token carrying only "mcp" is refused 403 insufficient_scope as
+    # soon as Entra is configured. Grant the static token the same scope:
+    # holding it is already full trust. Do NOT instead pass
+    # MultiAuth(required_scopes=[]) — that would drop the scope check for
+    # Entra-issued tokens too.
+    bearer_verifier = StaticBearerTokenVerifier(mcp_auth_token, scopes=["mcp", scope])
 
     azure_provider = AzureProvider(
         client_id=entra["OAUTH_CLIENT_ID"],
@@ -79,6 +140,18 @@ def build_combined_auth(mcp_auth_token: str) -> Any:
         required_scopes=[scope],
         identifier_uri=entra["MCP_API_AUDIENCE"],
         base_url=entra["MCP_PUBLIC_URL"],
+        # CIMD MUST stay enabled (its 3.4.x default) — do not set
+        # enable_cimd=False here again. ChatGPT's connector always presents a
+        # URL-based CIMD client_id (https://chatgpt.com/oauth/<id>/client.json)
+        # at /authorize; it has no fallback to plain DCR (/register) when CIMD
+        # is unsupported. Disabling CIMD was tried and confirmed live against
+        # this deployment 2026-08-07 to make ChatGPT's connector *worse*, not
+        # better: instead of reaching /token and failing there (the original
+        # symptom), it fails immediately at /authorize with "Client Not
+        # Registered" and never reaches consent at all — see
+        # mcp-servers/_oauth_debug_middleware.py for the actual next
+        # diagnostic step (logging the real OAuth error body server-side,
+        # which the SDK otherwise only returns to the client, never logs).
     )
 
     # AzureProvider assumes one app plays both roles (OAuth client AND

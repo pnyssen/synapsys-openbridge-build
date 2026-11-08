@@ -378,13 +378,23 @@ def test_azure_auth_identifier_uri_matches_api_app_not_connector(monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# n8n_mcp.py / n8n_mcp_readonly.py — _request() read-timeout handling and
-# get_execution_summary() (fix for get_execution(include_data=true) failing
-# unhandled/uncaught on large, long-running executions -- see
-# 05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-VISUAL-COMPLETION-001/
-# CONTROLLER_CYCLES/20260823--claude-code--return--common-gate-runtime-slo-
-# recovery--v0-1.md for the production evidence this fixes)
+# n8n_mcp.py / n8n_mcp_readonly.py — _request() transport-failure handling,
+# id validation, and get_execution_summary() (fix for
+# get_execution(include_data=true) failing unhandled on large, long-running
+# executions -- see 05_AI_RETURNS_HASHED/WO-NAVIGATOR-MVP-INTEGRATION-AND-
+# VISUAL-COMPLETION-001/CONTROLLER_CYCLES/20260823--claude-code--return--
+# common-gate-runtime-slo-recovery--v0-1.md for the production evidence)
 # ---------------------------------------------------------------------------
+
+import inspect  # noqa: E402
+import json as _json  # noqa: E402
+import socket  # noqa: E402
+import struct  # noqa: E402
+import threading  # noqa: E402
+import time  # noqa: E402
+
+N8N_MODULES = ["n8n_readonly_module", "n8n_module"]
+
 
 @pytest.fixture
 def n8n_readonly_module(monkeypatch):
@@ -395,43 +405,204 @@ def n8n_readonly_module(monkeypatch):
     return n8n_mcp_readonly
 
 
-def _mock_urlopen_raising(exc):
-    class _Ctx:
-        def __enter__(self):
-            raise exc
-        def __exit__(self, *a):
-            return False
-    return lambda *a, **k: _Ctx()
+def test_n8n_servers_share_identical_helpers(n8n_readonly_module, n8n_module):
+    """The two servers carry duplicated transport/summary helpers (each file
+    must stay deployable on its own). Fail loudly if the copies drift."""
+    for name in ("_path_id", "_read_body", "_decode_json", "_clip",
+                 "_summarise_error", "_summarise_execution", "get_execution_summary"):
+        a = getattr(n8n_readonly_module, name)
+        b = getattr(n8n_module, name)
+        a, b = getattr(a, "fn", a), getattr(b, "fn", b)  # unwrap FastMCP tools
+        assert inspect.getsource(a) == inspect.getsource(b), f"{name} drifted"
+    for const in ("_READ_CHUNK", "_SUMMARY_MAX_TIMEOUT", "_SUMMARY_TEXT_LIMIT"):
+        assert getattr(n8n_readonly_module, const) == getattr(n8n_module, const)
+    assert n8n_readonly_module._ID_RE.pattern == n8n_module._ID_RE.pattern
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
-def test_request_read_timeout_raises_clean_runtime_error(module_name, request, monkeypatch):
-    """A read-phase timeout (urlopen() connects, but resp.read() exceeds
-    `timeout` streaming a large body) raises TimeoutError directly -- NOT
-    wrapped as urllib.error.URLError. Before this fix that propagated
-    unhandled out of the tool function; now it must surface as a clean,
-    bounded RuntimeError naming the timeout and the likely cause."""
+# --- real-socket transport failures ----------------------------------------
+
+def _serve_once(behaviour):
+    """One-shot local HTTP server: accept a connection, swallow the request,
+    then hand the raw socket to `behaviour`. Returns the base URL."""
+    srv = socket.socket()
+    srv.bind(("127.0.0.1", 0))
+    srv.listen(1)
+
+    def run():
+        conn, _ = srv.accept()
+        try:
+            conn.recv(65536)
+            behaviour(conn)
+        except OSError:
+            pass
+        finally:
+            conn.close()
+            srv.close()
+
+    threading.Thread(target=run, daemon=True).start()
+    return f"http://127.0.0.1:{srv.getsockname()[1]}"
+
+
+def _stall_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100\r\n\r\n{")
+    time.sleep(3)
+
+
+def _close_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100000\r\n\r\n{\"a\":")
+
+
+def _reset_mid_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100000\r\n\r\n{\"a\":")
+    conn.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack("ii", 1, 0))
+
+
+def _html_body(conn):
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 22\r\n\r\n<html>Bad Gateway</html>"[:61])
+
+
+def _slow_drip(conn):
+    # Each byte arrives well inside the per-read timeout, so only a TOTAL
+    # deadline can stop this.
+    conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 200\r\n\r\n")
+    for _ in range(200):
+        conn.send(b" ")
+        time.sleep(0.2)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("behaviour, expected", [
+    (_stall_mid_body, "no data for 1s"),
+    (_close_mid_body, "connection dropped mid-response (IncompleteRead"),
+    (_reset_mid_body, "connection dropped mid-response"),
+    (_html_body, "not valid UTF-8 JSON"),
+])
+def test_request_transport_failures_raise_runtime_error(module_name, behaviour, expected, request, monkeypatch):
     module = request.getfixturevalue(module_name)
-    monkeypatch.setattr(
-        module.urllib.request, "urlopen", _mock_urlopen_raising(TimeoutError())
-    )
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(behaviour))
     with pytest.raises(RuntimeError) as exc_info:
-        module._request("GET", "/api/v1/executions/9999?includeData=true", timeout=45)
-    msg = str(exc_info.value)
-    assert "timed out after 45s" in msg
-    assert "too large" in msg or "slow" in msg
+        module._request("GET", "/api/v1/executions/1", timeout=1)
+    assert expected in str(exc_info.value)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_request_deadline_caps_total_time_on_slow_drip(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(_slow_drip))
+    t0 = time.monotonic()
+    with pytest.raises(RuntimeError) as exc_info:
+        module._request("GET", "/api/v1/executions/1", timeout=1.5, deadline=1.5)
+    elapsed = time.monotonic() - t0
+    assert "1.5s total deadline" in str(exc_info.value)
+    assert elapsed < 2.5, f"deadline overran: {elapsed:.2f}s"
+
+
+def _ok_response(payload, chunked):
+    def behaviour(conn):
+        if chunked:
+            conn.sendall(b"HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n"
+                         + b"%x\r\n" % len(payload) + payload + b"\r\n0\r\n\r\n")
+        else:
+            conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n" % len(payload) + payload)
+    return behaviour
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("chunked", [False, True])
+@pytest.mark.parametrize("size", [10, 300_000])  # one recv, and many 64 KiB reads
+def test_request_deadline_success_path_returns_full_body(module_name, chunked, size, request, monkeypatch):
+    """Regression: the deadline loop once touched the socket after http.client
+    had closed it at the end of a Content-Length body, raising EBADF on every
+    successful live call. Failure-path tests alone did not catch it."""
+    module = request.getfixturevalue(module_name)
+    expected = {"blob": "x" * size}
+    payload = _json.dumps(expected).encode()
+    monkeypatch.setattr(module, "N8N_URL", _serve_once(_ok_response(payload, chunked)))
+    assert module._request("GET", "/api/v1/executions/1", timeout=5, deadline=5) == expected
+
+
+def test_request_mutation_failure_warns_change_may_have_applied(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "N8N_URL", _serve_once(_close_mid_body))
+    with pytest.raises(RuntimeError) as exc_info:
+        n8n_module._request("POST", "/api/v1/workflows/abc/activate", timeout=1)
+    assert "MAY have been applied" in str(exc_info.value)
+
+
+def test_request_get_failure_has_no_mutation_warning(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "N8N_URL", _serve_once(_close_mid_body))
+    with pytest.raises(RuntimeError) as exc_info:
+        n8n_module._request("GET", "/api/v1/workflows/abc", timeout=1)
+    assert "MAY have been applied" not in str(exc_info.value)
+
+
+# --- id validation ----------------------------------------------------------
+
+def _forbid_request(*a, **k):
+    raise AssertionError("_request must not be called for an invalid argument")
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("bad_id", ["../credentials", "..", "1?includeData=false", "1#", "1/2", "", "a" * 65, "1 2"])
+def test_path_tools_reject_unsafe_ids(module_name, bad_id, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", _forbid_request)
+    for call in (lambda: module.get_workflow(bad_id),
+                 lambda: module.get_execution(bad_id),
+                 lambda: module.get_execution_summary(bad_id)):
+        with pytest.raises(ValueError):
+            call()
+
+
+def test_mutation_tools_reject_unsafe_ids(n8n_module, monkeypatch):
+    monkeypatch.setattr(n8n_module, "_request", _forbid_request)
+    for call in (lambda: n8n_module.activate_workflow("../x"),
+                 lambda: n8n_module.deactivate_workflow("../x"),
+                 lambda: n8n_module.update_workflow("../x", {"nodes": [], "connections": {}})):
+        with pytest.raises(ValueError):
+            call()
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_path_tools_accept_real_n8n_ids(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    seen = []
+    monkeypatch.setattr(module, "_request", lambda method, path, *a, **k: seen.append(path) or {})
+    module.get_workflow("KpjCoiFNrjTNbbat")
+    module.get_execution(12345, include_data=True)
+    assert seen == ["/api/v1/workflows/KpjCoiFNrjTNbbat", "/api/v1/executions/12345?includeData=true"]
+
+
+# --- get_execution_summary --------------------------------------------------
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("bad_timeout", [0, -1, 301, True, "60", None])
+def test_get_execution_summary_rejects_out_of_range_timeout(module_name, bad_timeout, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", _forbid_request)
+    with pytest.raises(ValueError):
+        module.get_execution_summary("9999", timeout=bad_timeout)
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+def test_get_execution_summary_passes_timeout_as_total_deadline(module_name, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    calls = []
+    monkeypatch.setattr(module, "_request", lambda *a, **k: calls.append(k) or {})
+    module.get_execution_summary("9999")
+    module.get_execution_summary("9999", timeout=120)
+    assert calls == [{"timeout": 50, "deadline": 50}, {"timeout": 120, "deadline": 120}]
 
 
 def _large_execution_payload():
-    """A realistic-shaped execution response with the same structure this
-    session observed live (data.resultData.runData keyed by node name, each
-    a list of run dicts with executionStatus/executionTime/startTime, plus
-    large per-node input/output data this fix must never return)."""
+    """Execution response in N8N's shape (data.resultData.runData keyed by
+    node name, each a list of run dicts with executionStatus/executionTime/
+    startTime), carrying large per-node payloads the summary must drop."""
     huge_blob = "x" * 500_000  # stand-in for a large record/file payload
     return {
         "id": "9999",
         "status": "success",
         "finished": True,
+        "mode": "trigger",
         "workflowId": "WF123",
         "startedAt": "2026-08-23T06:00:51.040Z",
         "stoppedAt": "2026-08-23T06:46:18.606Z",
@@ -439,16 +610,16 @@ def _large_execution_payload():
             "resultData": {
                 "lastNodeExecuted": "Write Controller Receipt SCHEDULE",
                 "runData": {
-                    "Read Method Registry SCHEDULE": [{
-                        "executionStatus": "success",
-                        "executionTime": 1794,
-                        "startTime": 1000,
-                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
-                    }],
                     "Read Pattern Register SCHEDULE": [{
                         "executionStatus": "success",
                         "executionTime": 900,
                         "startTime": 2000,
+                        "data": {"main": [[{"json": {"blob": huge_blob}}]]},
+                    }],
+                    "Read Method Registry SCHEDULE": [{
+                        "executionStatus": "success",
+                        "executionTime": 1794,
+                        "startTime": 1000,
                         "data": {"main": [[{"json": {"blob": huge_blob}}]]},
                     }],
                 },
@@ -458,18 +629,29 @@ def _large_execution_payload():
 
 
 def _large_execution_error_payload():
+    """Failed execution, with the error serialised the way N8N's
+    NodeApiError.toJSON() does: name/message/description/httpCode/node plus
+    stack and context, the last two of which must never be returned."""
     d = _large_execution_payload()
     d["status"] = "error"
     d["finished"] = False
-    d["data"]["resultData"]["error"] = {
+    node_error = {
+        "name": "NodeApiError",
+        "message": "Forbidden - perhaps check your credentials?",
+        "description": "You are not allowed to access 'Pattern Register' records. " + "y" * 5000,
+        "httpCode": "403",
         "node": {"name": "Read Pattern Register SCHEDULE", "type": "n8n-nodes-base.odoo"},
-        "errorResponse": {"name": "odoo.exceptions.AccessError"},
-        "message": "You are not allowed to access 'Pattern Register' records.",
+        "stack": "NodeApiError: Forbidden\n    at secret/internal/path.js:1:1",
+        "context": {"requestOptions": {"marker": "SENTINEL-NOT-RETURNED"}},
     }
+    d["data"]["resultData"]["error"] = node_error
+    run = d["data"]["resultData"]["runData"]["Read Pattern Register SCHEDULE"][0]
+    del run["executionStatus"]  # older N8N: only the run-level error marks failure
+    run["error"] = node_error
     return d
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+@pytest.mark.parametrize("module_name", N8N_MODULES)
 def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_name, request, monkeypatch):
     module = request.getfixturevalue(module_name)
     monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_payload())
@@ -478,6 +660,7 @@ def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_n
 
     assert result["id"] == "9999"
     assert result["status"] == "success"
+    assert result["mode"] == "trigger"
     assert result["nodeCount"] == 2
     # Sorted by startTime -- Method Registry (1000) before Pattern Register (2000)
     assert [n["node"] for n in result["nodes"]] == [
@@ -485,16 +668,15 @@ def test_get_execution_summary_omits_large_payload_and_extracts_timings(module_n
         "Read Pattern Register SCHEDULE",
     ]
     assert result["nodes"][1]["executionTimeMs"] == 900
+    assert result["nodes"][1]["error"] is None
     assert result["error"] is None
 
-    # The whole point of this tool: never hold or return the large blobs.
-    import json as _json
     serialised = _json.dumps(result)
     assert "x" * 1000 not in serialised
     assert len(serialised) < 5_000
 
 
-@pytest.mark.parametrize("module_name", ["n8n_readonly_module", "n8n_module"])
+@pytest.mark.parametrize("module_name", N8N_MODULES)
 def test_get_execution_summary_extracts_error_detail(module_name, request, monkeypatch):
     module = request.getfixturevalue(module_name)
     monkeypatch.setattr(module, "_request", lambda *a, **k: _large_execution_error_payload())
@@ -502,10 +684,31 @@ def test_get_execution_summary_extracts_error_detail(module_name, request, monke
     result = module.get_execution_summary("9999")
 
     assert result["status"] == "error"
-    assert result["error"]["node"] == "Read Pattern Register SCHEDULE"
-    assert result["error"]["nodeType"] == "n8n-nodes-base.odoo"
-    assert result["error"]["errorName"] == "odoo.exceptions.AccessError"
-    assert "Pattern Register" in result["error"]["message"]
+    err = result["error"]
+    assert err["node"] == "Read Pattern Register SCHEDULE"
+    assert err["nodeType"] == "n8n-nodes-base.odoo"
+    assert err["name"] == "NodeApiError"
+    assert err["httpCode"] == "403"
+    assert "Forbidden" in err["message"]
+    assert "Pattern Register" in err["description"]
+    assert len(err["description"]) < module._SUMMARY_TEXT_LIMIT + 100  # clipped
+
+    failed = next(n for n in result["nodes"] if n["node"] == "Read Pattern Register SCHEDULE")
+    assert failed["status"] == "error"  # derived: no executionStatus on older N8N
+    assert failed["error"]["name"] == "NodeApiError"
+
+    serialised = _json.dumps(result)
+    assert "SENTINEL-NOT-RETURNED" not in serialised
+    assert "secret/internal/path" not in serialised
+
+
+@pytest.mark.parametrize("module_name", N8N_MODULES)
+@pytest.mark.parametrize("raw", [[], "oops", {"data": "not-a-dict"}, {"data": {"resultData": {"runData": []}}}])
+def test_get_execution_summary_tolerates_malformed_responses(module_name, raw, request, monkeypatch):
+    module = request.getfixturevalue(module_name)
+    monkeypatch.setattr(module, "_request", lambda *a, **k: raw)
+    result = module.get_execution_summary("9999")
+    assert result["id"] == "9999"
 
 
 def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
@@ -524,3 +727,327 @@ def test_azure_auth_accepts_bare_api_app_guid_as_audience(monkeypatch):
     assert bare_guid in verifier.audience
     assert ENTRA_VARS["MCP_API_AUDIENCE"] in verifier.audience
     assert ENTRA_VARS["OAUTH_CLIENT_ID"] in verifier.audience
+
+
+def test_rejected_mutation_ids_are_still_traced(n8n_module, monkeypatch):
+    """Id validation runs inside the D007 trace envelope, so a refused id
+    still emits its one trace event rather than bypassing the trace."""
+    events = []
+    monkeypatch.setattr(n8n_module, "_trace_sink", events.append)
+    monkeypatch.setattr(n8n_module, "_request", _forbid_request)
+    for call in (lambda: n8n_module.activate_workflow("../x"),
+                 lambda: n8n_module.deactivate_workflow("../x"),
+                 lambda: n8n_module.update_workflow("../x", {"nodes": [], "connections": {}})):
+        with pytest.raises(ValueError):
+            call()
+    assert [e["result"] for e in events] == ["error"] * 3
+    assert all("invalid N8N workflow id" in e["refusal_reason"] for e in events)
+
+
+def test_azure_auth_keeps_cimd_enabled(monkeypatch):
+    """CIMD must stay on (FastMCP's default) — ChatGPT's connector always
+    presents a URL-based CIMD client_id at /authorize and has no fallback to
+    plain DCR (/register) when CIMD is unsupported. Disabling it was tried
+    and confirmed live against the deployed server on 2026-08-07 to break
+    ChatGPT's connector entirely ("Client Not Registered" at /authorize,
+    never reaching consent) rather than fix it — see the comment in
+    build_combined_auth(). This test guards against that regression
+    reappearing."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.server._cimd_manager is not None
+
+
+# ---------------------------------------------------------------------------
+# _oauth_debug_middleware.py — logs OAuth error response bodies server-side
+# ---------------------------------------------------------------------------
+
+from starlette.applications import Starlette  # noqa: E402
+from starlette.middleware import Middleware  # noqa: E402
+from starlette.responses import JSONResponse  # noqa: E402
+from starlette.routing import Route  # noqa: E402
+from starlette.testclient import TestClient  # noqa: E402
+
+from _oauth_debug_middleware import OAuthErrorLoggingMiddleware  # noqa: E402
+
+
+def _build_debug_app(path: str, status_code: int, body: dict):
+    async def endpoint(request):
+        return JSONResponse(body, status_code=status_code)
+
+    return Starlette(
+        routes=[Route(path, endpoint, methods=["GET", "POST"])],
+        middleware=[Middleware(OAuthErrorLoggingMiddleware)],
+    )
+
+
+def test_oauth_debug_middleware_logs_safe_error_code_and_passes_body(caplog):
+    app = _build_debug_app(
+        "/token", 401, {"error": "unauthorized_client", "error_description": "boom"}
+    )
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 401
+    assert response.json() == {
+        "error": "unauthorized_client",
+        "error_description": "boom",
+    }
+    assert any("unauthorized_client" in r.message for r in caplog.records)
+    assert not any("boom" in r.message for r in caplog.records)
+
+
+def test_oauth_debug_middleware_ignores_success_responses(caplog):
+    app = _build_debug_app("/token", 200, {"access_token": "shh"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/token")
+
+    assert response.status_code == 200
+    assert not caplog.records
+
+
+def test_oauth_debug_middleware_ignores_unrelated_paths(caplog):
+    app = _build_debug_app("/mcp", 401, {"error": "unauthorized"})
+    client = TestClient(app)
+
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = client.post("/mcp")
+
+    assert response.status_code == 401
+    assert not caplog.records
+
+
+def test_azure_auth_fixes_cimd_private_key_jwt_audience_double_slash():
+    """FastMCP 3.4.x builds the CIMD private_key_jwt JWT audience as
+    f"{self.base_url}/token" without stripping self.base_url's trailing
+    slash (pydantic AnyHttpUrl always serializes a bare-domain URL with
+    one), producing a double-slash "expected" audience that a correctly-
+    formed client assertion's single-slash aud claim never matches —
+    confirmed live against the deployed server 2026-08-07: every
+    private_key_jwt CIMD client (ChatGPT's connector) was rejected with
+    HTTP 401 invalid_client / "audience mismatch" purely because of this
+    double slash, through no fault of the client. This guards the
+    monkeypatch that fixes it at the one call site FastMCP builds it from."""
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+
+    authenticator = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud//token",
+    )
+    assert authenticator._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+    # A URL that never had the bug must pass through unchanged.
+    authenticator2 = PrivateKeyJWTClientAuthenticator(
+        provider=None,
+        cimd_manager=None,
+        token_endpoint_url="https://n8n-mcp.srv1536619.hstgr.cloud/token",
+    )
+    assert authenticator2._token_endpoint_url == "https://n8n-mcp.srv1536619.hstgr.cloud/token"
+
+
+def test_oauth_debug_middleware_redacts_sensitive_descriptions(caplog):
+    app = _build_debug_app("/token", 401, {
+        "error": "invalid_client", "error_description": "client_secret=example-placeholder",
+        "access_token": "fake-token-should-never-appear-in-logs",
+    })
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        response = TestClient(app).post("/token")
+    assert response.status_code == 401
+    assert response.json()["error_description"] == "client_secret=example-placeholder"
+    logged = " ".join(r.message for r in caplog.records)
+    assert "invalid_client" in logged
+    assert "client_secret" not in logged
+    assert "fake-token-should-never-appear-in-logs" not in logged
+
+
+def test_azure_auth_token_endpoint_is_single_slash_on_pinned_fastmcp(monkeypatch):
+    """FastMCP 4.1.1 strips the trailing slash pydantic adds to a bare-domain
+    base_url before building the token endpoint (the CIMD private_key_jwt
+    `aud`), so the 3.4.x double-slash workaround above is a no-op on the
+    pinned version. Guards that upstream behaviour against a silent change."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert str(auth.server.base_url).endswith("/")
+    assert auth.server.token_endpoint_url == "https://mcp.example.com/token"
+
+
+def test_oauth_debug_middleware_on_real_fastmcp_app_never_logs_secrets(monkeypatch, caplog):
+    """End-to-end on the real FastMCP 4.1.1 HTTP app with the production
+    middleware list: a rejected /token exchange logs only the OAuth error
+    code — not the submitted client_secret, not the error_description — and
+    the unauthenticated /mcp endpoint passes through untouched."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("oauth-middleware-e2e")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+
+    with caplog.at_level("WARNING", logger="oauth_debug"), TestClient(app) as client:
+        token = client.post("/token", data={
+            "grant_type": "authorization_code",
+            "code": "not-a-code",
+            "client_id": "unknown-client",
+            "client_secret": "submitted-secret-must-not-be-logged",
+        })
+        mcp = client.post(
+            "/mcp",
+            json={"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+            headers={"accept": "application/json, text/event-stream"},
+        )
+
+    assert token.status_code == 401
+    assert token.json()["error"] == "invalid_client"
+    assert mcp.status_code == 401
+
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "POST /token -> 401 invalid_client" in logged
+    assert "submitted-secret-must-not-be-logged" not in logged
+    description = token.json().get("error_description")
+    assert description, "SDK should return a description to the client"
+    assert description not in logged
+    assert "/mcp" not in logged
+
+
+def test_oauth_debug_middleware_classifies_registration_errors(caplog):
+    app = _build_debug_app("/register", 400, {
+        "error": "invalid_client_metadata", "error_description": "redirect_uris: secret-ish detail",
+    })
+    with caplog.at_level("WARNING", logger="oauth_debug"):
+        TestClient(app).post("/register")
+    logged = " ".join(r.getMessage() for r in caplog.records)
+    assert "invalid_client_metadata" in logged
+    assert "secret-ish detail" not in logged
+
+
+def test_oauth_debug_middleware_unknown_or_malformed_error_is_unclassified(caplog):
+    for body in ({"error": "client_secret=leaked"}, ["not", "a", "dict"]):
+        caplog.clear()
+        app = _build_debug_app("/token", 400, body)
+        with caplog.at_level("WARNING", logger="oauth_debug"):
+            TestClient(app).post("/token")
+        logged = " ".join(r.getMessage() for r in caplog.records)
+        assert "unclassified" in logged
+        assert "leaked" not in logged
+
+
+# ---------------------------------------------------------------------------
+# deploy/mcp-vps/Dockerfile — every local module the servers import is copied
+# ---------------------------------------------------------------------------
+
+import ast  # noqa: E402
+
+DOCKERFILE = MCP_SERVERS_DIR.parent / "deploy" / "mcp-vps" / "Dockerfile"
+
+
+def _local_imports(path: Path) -> set[str]:
+    """Top-level names of sibling mcp-servers/ modules imported anywhere in path."""
+    local = {p.stem for p in MCP_SERVERS_DIR.glob("*.py")}
+    names: set[str] = set()
+    for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        if isinstance(node, ast.Import):
+            names.update(a.name.split(".")[0] for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            names.add(node.module.split(".")[0])
+    return names & local
+
+
+def test_dockerfile_copies_every_local_module_the_servers_import():
+    """Twice now a server-side helper module was imported by the servers but
+    not COPYed into the image (_azure_auth.py, fixed in 9dde769; then
+    _write_safety.py), so every container built from main crashed on start.
+    Resolve the full transitive set of local imports from the two entry
+    scripts and require each to be in the Dockerfile's COPY lines."""
+    copied = set()
+    for line in DOCKERFILE.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if parts and parts[0] == "COPY":
+            copied.update(Path(p).stem for p in parts[1:-1] if p.startswith("mcp-servers/") and p.endswith(".py"))
+
+    needed: set[str] = set()
+    frontier = ["odoo_mcp", "n8n_mcp"]
+    while frontier:
+        mod = frontier.pop()
+        if mod in needed:
+            continue
+        needed.add(mod)
+        frontier.extend(_local_imports(MCP_SERVERS_DIR / f"{mod}.py") - needed)
+
+    assert needed - copied == set(), f"Dockerfile does not COPY: {sorted(needed - copied)}"
+
+
+def test_static_bearer_still_works_on_real_app_when_entra_is_enabled(monkeypatch):
+    """fastmcp 4.x MultiAuth applies the Azure server's required_scopes
+    (mcp.access) to the static bearer verifier too; before the fix every
+    bearer-token client got 403 insufficient_scope once Entra was configured
+    (reproduced against the built image). Real http_app, real middleware."""
+    from fastmcp import FastMCP
+
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+
+    server = FastMCP("bearer-with-entra")
+    server.auth = _azure_auth.build_combined_auth("shared-token")
+    app = server.http_app(middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    init = {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {
+        "protocolVersion": "2025-06-18", "capabilities": {},
+        "clientInfo": {"name": "t", "version": "0"}}}
+    headers = {"accept": "application/json, text/event-stream"}
+
+    with TestClient(app) as client:
+        ok = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer shared-token"})
+        wrong = client.post("/mcp", json=init, headers={**headers, "Authorization": "Bearer not-the-token"})
+        missing = client.post("/mcp", json=init, headers=headers)
+
+    assert ok.status_code == 200, ok.text
+    assert wrong.status_code == 401
+    assert missing.status_code == 401
+
+
+def test_entra_scope_requirement_is_not_weakened(monkeypatch):
+    """The fix grants the static token the scope; it must not lower the
+    scope MultiAuth requires of Entra-issued tokens."""
+    for name, value in ENTRA_VARS.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setenv("MCP_OAUTH_SCOPE", "mcp.access")
+
+    auth = _azure_auth.build_combined_auth("shared-token")
+    assert auth.required_scopes == ["mcp.access"]
+    assert auth.server.required_scopes == ["mcp.access"]
+
+
+def test_audience_patch_never_touches_scheme_slashes():
+    from fastmcp.server.auth.auth import PrivateKeyJWTClientAuthenticator
+
+    _azure_auth._fix_cimd_private_key_jwt_audience_bug()
+    for url in ("https://token.example.com/token", "https://token.example.com//token"):
+        a = PrivateKeyJWTClientAuthenticator(provider=None, cimd_manager=None, token_endpoint_url=url)
+        assert a._token_endpoint_url == "https://token.example.com/token"
+
+
+def test_oauth_debug_middleware_preserves_repeated_headers_on_error():
+    async def endpoint(request):
+        r = JSONResponse({"error": "access_denied"}, status_code=403)
+        r.raw_headers.append((b"set-cookie", b"a=1"))
+        r.raw_headers.append((b"set-cookie", b"b=2"))
+        return r
+
+    app = Starlette(routes=[Route("/consent", endpoint, methods=["POST"])],
+                    middleware=[Middleware(OAuthErrorLoggingMiddleware)])
+    response = TestClient(app).post("/consent")
+    assert response.status_code == 403
+    assert response.json() == {"error": "access_denied"}
+    assert response.headers.get_list("set-cookie") == ["a=1", "b=2"]

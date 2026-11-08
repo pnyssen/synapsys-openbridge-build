@@ -1,0 +1,10 @@
+[Unit]
+Description=Check main for merged MCP changes every 5 minutes (CHG-2027-093)
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
