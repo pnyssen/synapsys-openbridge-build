@@ -396,3 +396,102 @@ def test_profile_refuses_non_ascii_value_without_echoing_it(n8n_auth_module, mon
         n8n_auth_module.trigger_webhook("dispatch-submit", {}, auth_profile="w15_dispatch")
     assert seen == {}
     assert "€" not in str(ei.value) and "abc" not in str(ei.value)
+
+
+# ---------------------------------------------------------------------------
+# D001 2026-11-14 — Systems Integration MCP invocation-only profile.
+# These tests validate the existing exact-path parser; they do NOT claim that
+# the server-side profile is provisioned or that inactive workflows can run.
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def systems_integration_module(n8n_auth_module, monkeypatch):
+    # Reuse the proven W15 fixture; preserving W15 is a regression requirement.
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_PROFILES", "w15_dispatch,systems_integration")
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_SYSTEMS_INTEGRATION_HEADER", "X-Test-Auth")
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_SYSTEMS_INTEGRATION_VALUE", SECRET)
+    monkeypatch.setenv(
+        "N8N_WEBHOOK_AUTH_SYSTEMS_INTEGRATION_PATHS",
+        "d007-svc-identity-probe-v2,d007-cbc-c1c4-cr-register-v1",
+    )
+    return n8n_auth_module
+
+
+@pytest.mark.parametrize("approved_path", [
+    "d007-svc-identity-probe-v2",
+    "d007-cbc-c1c4-cr-register-v1",
+])
+def test_systems_integration_profile_can_invoke_only_approved_paths(systems_integration_module, monkeypatch, approved_path):
+    seen, traced = _capture(systems_integration_module, monkeypatch)
+    assert systems_integration_module.trigger_webhook(
+        approved_path, {"control_marker": "TEST_ONLY"}, auth_profile="systems_integration"
+    ) == {"status": "validated"}
+    assert seen["path"] == "/webhook/" + approved_path
+    assert seen["extra_headers"] == {"X-Test-Auth": SECRET}
+    assert traced[0]["target"] == "webhook:" + approved_path + "|auth_profile:systems_integration"
+    assert SECRET not in repr(traced)
+
+
+@pytest.mark.parametrize("bad_path", [
+    "d007-*",
+    "d007-future-unauthorised-v9",
+    "d007-svc-identity-probe-v3",
+    "d007-cbc-c1c4-cr-register-v1/extra",
+    "d007-cbc-c1c4-cr-register-v1?force=true",
+    "dispatch-submit",
+    "dispatch-complete",
+    "d009-assurance",
+    "api/v1/workflows",
+    "../d007-svc-identity-probe-v2",
+])
+def test_systems_integration_profile_denies_unregistered_or_admin_paths(systems_integration_module, monkeypatch, bad_path):
+    seen, traced = _capture(systems_integration_module, monkeypatch)
+    with pytest.raises(systems_integration_module.WebhookAuthError, match="AUTH_PATH_NOT_ALLOWED"):
+        systems_integration_module.trigger_webhook(
+            bad_path, {}, auth_profile="systems_integration"
+        )
+    assert seen == {}
+    assert traced == []
+
+
+def test_existing_w15_profile_keeps_its_own_allowlist(systems_integration_module, monkeypatch):
+    seen, _ = _capture(systems_integration_module, monkeypatch)
+    systems_integration_module.trigger_webhook(
+        "dispatch-submit", {"control_marker": "TEST_ONLY"}, auth_profile="w15_dispatch"
+    )
+    assert seen["path"] == "/webhook/dispatch-submit"
+    assert seen["extra_headers"] == {"X-Test-Auth": SECRET}
+    seen.clear()
+    with pytest.raises(systems_integration_module.WebhookAuthError, match="AUTH_PATH_NOT_ALLOWED"):
+        systems_integration_module.trigger_webhook(
+            "d007-svc-identity-probe-v2", {}, auth_profile="w15_dispatch"
+        )
+    assert seen == {}
+
+
+def test_systems_integration_profile_requires_explicit_enablement(systems_integration_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_PROFILES", "w15_dispatch")
+    seen, _ = _capture(systems_integration_module, monkeypatch)
+    with pytest.raises(systems_integration_module.WebhookAuthError, match="AUTH_PROFILE_UNKNOWN"):
+        systems_integration_module.trigger_webhook(
+            "d007-svc-identity-probe-v2", {}, auth_profile="systems_integration"
+        )
+    assert seen == {}
+
+
+def test_systems_integration_profile_without_server_secret_fails_closed(systems_integration_module, monkeypatch):
+    monkeypatch.setenv("N8N_WEBHOOK_AUTH_SYSTEMS_INTEGRATION_VALUE", "")
+    seen, _ = _capture(systems_integration_module, monkeypatch)
+    with pytest.raises(systems_integration_module.WebhookAuthError, match="AUTH_PROFILE_INCOMPLETE"):
+        systems_integration_module.trigger_webhook(
+            "d007-svc-identity-probe-v2", {}, auth_profile="systems_integration"
+        )
+    assert seen == {}
+
+
+def test_systems_integration_without_auth_profile_does_not_inject_secret(systems_integration_module, monkeypatch):
+    seen, traced = _capture(systems_integration_module, monkeypatch)
+    systems_integration_module.trigger_webhook("d007-svc-identity-probe-v2", {"test": True})
+    assert seen["path"] == "/webhook/d007-svc-identity-probe-v2"
+    assert seen["extra_headers"] is None
+    assert traced[0]["target"] == "webhook:d007-svc-identity-probe-v2"
