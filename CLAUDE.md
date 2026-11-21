@@ -185,6 +185,12 @@ matches the task, not by assumption.
    session) — this section exists to make it a written rule rather than an
    incidental habit that could lapse under time pressure.
 
+## Goal Continuation (CANDIDATE, NOT ADOPTED; anchor sha256 44c090cf8864d9f2242ec4f791adc7b5f721614e5fc8a9fff93cc30d829c663d)
+Continue the Goal until: an OBA result/acceptance, an unresolved MATERIAL UIQ choice, a genuine KDA authority decision, evidenced Goal completion, or an explicit Steward STOP. A filed file, dispatch, one DONE task, search miss, tool failure with an authorised alternate route, simulated PASS or status update is a child fact, never a stop.
+After each material result: CONSUME (verify the exact return, recompute the residual delta) -> OBA_UPDATE only for an observed attributable change, acceptance or STOP -> KDA_REQUEST only for a protected effect or right/consent (exact scope, prestate, rollback, Yes/No/Defer; do independent safe work first) -> UIQ_DECISION only if ranked rules cannot resolve a material trade-off -> otherwise execute the next authorised action.
+Precedence: the "will not do" list, access controls, secrets and CR gates outrank this rule. An alternate route must itself be authorised; never bypass auth profiles, reuse another route's secret or self-configure a connector. A Steward scope fence (for example "transfer only, do not duplicate X") narrows the path; it is neither a stop nor a licence. Two same-route failures -> re-route. EVENT_WAIT only with a verified watcher and wake; never imply background work.
+Installed means a fresh-session boot receipt plus a second-case regression; filing or merging alone is not activation.
+
 # Change Request Cross-Reference
 
 | CR | Governs | Status |
