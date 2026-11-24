@@ -1,0 +1,65 @@
+{
+  "http_response_option_replacements": [
+    {
+      "node": "Read Packet",
+      "path": "parameters.options.response.response",
+      "replace_with": {
+        "fullResponse": true,
+        "neverError": true,
+        "outputPropertyName": "data",
+        "responseFormat": "file"
+      }
+    },
+    {
+      "node": "Read Source",
+      "path": "parameters.options.response.response",
+      "replace_with": {
+        "fullResponse": true,
+        "neverError": true,
+        "outputPropertyName": "data",
+        "responseFormat": "file"
+      }
+    }
+  ],
+  "node_code_full_replacements": [
+    {
+      "jsCode": "function sha256Bytes(u){if(!(u instanceof Uint8Array))throw new Error('SHA256_INPUT_NOT_BYTES');const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const l=u.length;const n=(((l+8)>>6)+1)<<6;const b=new Uint8Array(n);b.set(u);b[l]=0x80;const bl=l*8;const hi=Math.floor(bl/4294967296);b[n-8]=(hi>>>24)&255;b[n-7]=(hi>>>16)&255;b[n-6]=(hi>>>8)&255;b[n-5]=hi&255;b[n-4]=(bl>>>24)&255;b[n-3]=(bl>>>16)&255;b[n-2]=(bl>>>8)&255;b[n-1]=bl&255;const W=new Array(64);const r=(x,c)=>(x>>>c)|(x<<(32-c));for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)W[i]=(b[o+4*i]<<24)|(b[o+4*i+1]<<16)|(b[o+4*i+2]<<8)|b[o+4*i+3];for(let i=16;i<64;i++){const s0=r(W[i-15],7)^r(W[i-15],18)^(W[i-15]>>>3);const s1=r(W[i-2],17)^r(W[i-2],19)^(W[i-2]>>>10);W[i]=(W[i-16]+s0+W[i-7]+s1)|0;}let [a,bb,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const S1=r(e,6)^r(e,11)^r(e,25);const ch=(e&f)^(~e&g);const t1=(h+S1+ch+K[i]+W[i])|0;const S0=r(a,2)^r(a,13)^r(a,22);const mj=(a&bb)^(a&c)^(bb&c);const t2=(S0+mj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=bb;bb=a;a=(t1+t2)|0;}H=[(H[0]+a)|0,(H[1]+bb)|0,(H[2]+c)|0,(H[3]+d)|0,(H[4]+e)|0,(H[5]+f)|0,(H[6]+g)|0,(H[7]+h)|0];}return H.map(x=>(x>>>0).toString(16).padStart(8,'0')).join('');}\n\nconst BASE='/sites/SynapSys/Shared Documents/SynapSys-Control/11_WORKING_MEMORY/';const SP='https://synapsysgroup.sharepoint.com/sites/SynapSys/_api/web/';const fileUrl=(p)=>SP+\"GetFileByServerRelativeUrl('\"+encodeURI(BASE+p)+\"')\";\nconst out=[];const reads=$input.all();\nfor(let i=0;i<reads.length;i++){\n // v1.1 SOURCE-INTEGRITY FIX: packet bytes arrive as a binary property (responseFormat=file); the digest is over the raw received bytes, never over a parsed/re-serialised string.\n const st=(reads[i].json||{}).statusCode;if(st!==undefined&&Number(st)!==200)continue;\n let buf;try{buf=await this.helpers.getBinaryDataBuffer(i,'data')}catch(e){continue}\n if(!buf||!buf.length)continue;\n const meta=$('Packet Paths').itemMatching(i).json;\n const pkSha=sha256Bytes(buf);\n let p;try{p=JSON.parse(new TextDecoder('utf-8').decode(buf))}catch(e){continue}\n if(!p||p.route!=='lane_v1')continue;\n const lane=String(p.lane||'');if(!['D001','D008','D011'].includes(lane))continue;\n const er=String(p.expected_return||'');\n const em=er.match(/^MESH_QUEUE\\/RETURNS\\/RETURN_(D0\\d\\d)_[A-Z0-9_]+(_v\\d+)?\\.md$/);if(!em||em[1]!==lane)continue;\n if(meta.caller_packet_sha256&&meta.caller_packet_sha256!==pkSha)continue;\n const srcs=Array.isArray(p.sources)?p.sources:[];\n if(srcs.length<2||srcs.length>8)continue;\n if(!/^MESH_QUEUE\\/KIT\\/LANES\\/D0\\d\\d_LANE_PROFILE_v\\d+\\.md$/.test(String(srcs[0].path))||!String(srcs[0].path).includes(lane+'_LANE_PROFILE'))continue;\n if(!/^MESH_QUEUE\\/KIT\\/LANES\\/CORE_D000_D001_D002_PROFILE_v\\d+\\.md$/.test(String(srcs[1].path)))continue;\n if(!srcs.every(s=>s&&/^[A-Za-z0-9_\\/.\\-]+$/.test(String(s.path||''))&&/^[a-f0-9]{64}$/.test(String(s.sha256||''))&&!String(s.path).includes('..')))continue;\n out.push({json:{lane,packet_path:meta.packet_path,packet_sha256:pkSha,packet_bytes:buf.length,packet:p,expected_return:er,return_name:er.split('/').pop(),return_check_url:fileUrl(er)+'?$select=Name'}});\n}\nreturn out;\n",
+      "node": "Gate Packets"
+    },
+    {
+      "jsCode": "function sha256Bytes(u){if(!(u instanceof Uint8Array))throw new Error('SHA256_INPUT_NOT_BYTES');const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const l=u.length;const n=(((l+8)>>6)+1)<<6;const b=new Uint8Array(n);b.set(u);b[l]=0x80;const bl=l*8;const hi=Math.floor(bl/4294967296);b[n-8]=(hi>>>24)&255;b[n-7]=(hi>>>16)&255;b[n-6]=(hi>>>8)&255;b[n-5]=hi&255;b[n-4]=(bl>>>24)&255;b[n-3]=(bl>>>16)&255;b[n-2]=(bl>>>8)&255;b[n-1]=bl&255;const W=new Array(64);const r=(x,c)=>(x>>>c)|(x<<(32-c));for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)W[i]=(b[o+4*i]<<24)|(b[o+4*i+1]<<16)|(b[o+4*i+2]<<8)|b[o+4*i+3];for(let i=16;i<64;i++){const s0=r(W[i-15],7)^r(W[i-15],18)^(W[i-15]>>>3);const s1=r(W[i-2],17)^r(W[i-2],19)^(W[i-2]>>>10);W[i]=(W[i-16]+s0+W[i-7]+s1)|0;}let [a,bb,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const S1=r(e,6)^r(e,11)^r(e,25);const ch=(e&f)^(~e&g);const t1=(h+S1+ch+K[i]+W[i])|0;const S0=r(a,2)^r(a,13)^r(a,22);const mj=(a&bb)^(a&c)^(bb&c);const t2=(S0+mj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=bb;bb=a;a=(t1+t2)|0;}H=[(H[0]+a)|0,(H[1]+bb)|0,(H[2]+c)|0,(H[3]+d)|0,(H[4]+e)|0,(H[5]+f)|0,(H[6]+g)|0,(H[7]+h)|0];}return H.map(x=>(x>>>0).toString(16).padStart(8,'0')).join('');}\n\nconst reads=$input.all();const meta=$('Fan Out Sources').all();const pkts=$('Pending Only').all();\nconst MAXS=60000, MAXT=200000;\nconst out=[];\nfor(const pk of pkts){\n const P=pk.json;const checks=[];let total=0;let bodies='';let ok=true;\n for(let i=0;i<meta.length;i++){ if(meta[i].json.packet_path!==P.packet_path)continue;\n  // v1.1 SOURCE-INTEGRITY FIX: digest is computed over the raw received bytes (binary property), before any decoding. Text is decoded only afterwards, for the prompt.\n  const r=reads[i]||{json:{}};const hdr=(r.json||{}).headers||{};const stRaw=(r.json||{}).statusCode;const st=stRaw===undefined?null:Number(stRaw);\n  const ct=String(hdr['content-type']||'');const cl=(hdr['content-length']!==undefined&&hdr['content-length']!==null&&hdr['content-length']!=='')?Number(hdr['content-length']):null;\n  let buf=null;try{buf=await this.helpers.getBinaryDataBuffer(i,'data')}catch(e){buf=null}\n  let got='READ_FAILED',bytes=0,cls='',txt='';\n  if(buf&&buf.length>0&&(st===null||st===200)){got=sha256Bytes(buf);bytes=buf.length;txt=new TextDecoder('utf-8').decode(buf);}\n  else{cls=(st!==null&&st!==200)?'HTTP_'+st:(buf&&buf.length===0?'EMPTY_BODY':'NO_BINARY_BODY');}\n  const match=got===meta[i].json.src_sha;\n  if(!match&&got!=='READ_FAILED'){\n   cls='RAW_BYTES_DIFFER';\n   if(cl!==null&&cl!==bytes)cls='LENGTH_MISMATCH_CONTENT_LENGTH_'+cl+'_RECEIVED_'+bytes;\n   else{try{const compact=sha256Bytes(new TextEncoder().encode(JSON.stringify(JSON.parse(txt))));if(compact===meta[i].json.src_sha)cls='PINNED_DIGEST_IS_OF_COMPACT_JSON_NOT_RAW_BYTES';}catch(e){}}\n  }\n  if(!match)ok=false;checks.push({path:meta[i].json.src_path,expected:meta[i].json.src_sha,observed:got,match,bytes,status:st===null?'UNREPORTED':st,content_type:ct,mismatch_class:cls});\n  let t=txt.length>MAXS?txt.slice(0,MAXS)+'\\n[TRUNCATED at '+MAXS+' chars]':txt; if(total+t.length>MAXT){t='[OMITTED: total size cap]';} total+=t.length;\n  bodies+='\\n\\n===== SOURCE '+meta[i].json.src_path+' (sha256 '+got+', '+(match?'MATCH':'MISMATCH')+') =====\\n'+t;}\n const pkt=P.packet;\n const prompt=['You are the SynapSys domain lane '+pkt.lane+'. Your role, charter extract and outcome measures are in the FIRST source (your lane profile); the SECOND source is the core profile (Stewardship D000, Governance D001, Methods D002) you work within. The work below was produced by other lanes (mostly Anthropic Claude). Your output is a domain view only: NON_AUTHORISING_DOMAIN_VIEW. You cannot approve, release, promote value or change anything.',\n 'Rules: use only the hash-verified sources supplied; never invent evidence; where evidence is missing say INSUFFICIENT_EVIDENCE. Separate evidenced, inferred and claimed. Triangulate: read each finding from the Steward, Collaborator and Client perspectives. Stay inside your domain authority; name any matter belonging to another domain instead of deciding it.',\n 'Packet id: '+pkt.id,'Packet path: '+P.packet_path+' (sha256 '+P.packet_sha256+')','Goal: '+(pkt.goal||''),'Context: '+(pkt.context||''),\n 'Tests:',...(Array.isArray(pkt.tests)?pkt.tests:[]).map((t,i)=>'  '+(i+1)+'. '+t),\n 'Output, for each question: Outcome (the measurable outcome your domain needs, with measure and target); Situation (what the sources show); Complication (why it is a problem now); Critical question; Answer and proposed solution (with conditions, owner and closure test); Evidence cited; Dissent or open items. Then any matter outside the questions. End with exactly one final line: position: SUPPORT or position: SUPPORT_WITH_CONDITIONS or position: OBJECT or position: INSUFFICIENT_EVIDENCE. No other line may begin with position:.',\n bodies].join('\\n');\n out.push({json:{lane:pkt.lane,packet_path:P.packet_path,packet_sha256:P.packet_sha256,packet_id:pkt.id,expected_return:P.expected_return,return_name:P.return_name,source_checks:checks,sources_ok:ok,prompt}});\n}\nreturn out;\n",
+      "node": "Assemble Prompt"
+    }
+  ],
+  "node_code_replacements": [
+    {
+      "expect_count": 1,
+      "find": "ctx.source_checks.map(c=>'- '+c.path+' expected '+c.expected+' observed '+c.observed+' '+(c.match?'MATCH':'MISMATCH'))",
+      "node": "Build Return",
+      "replace": "ctx.source_checks.map(c=>'- '+c.path+' expected '+c.expected+' observed '+c.observed+' '+(c.match?'MATCH':'MISMATCH')+' bytes '+(c.bytes===undefined?'n/a':c.bytes)+' http '+(c.status===undefined?'n/a':c.status)+(c.mismatch_class?' class '+c.mismatch_class:''))"
+    }
+  ],
+  "requires": [
+    "attributable CR with x_test_evidence + x_rollback_plan registered BEFORE update_workflow",
+    "D007 effect release",
+    "rollback = re-apply versionId 85db4098-1679-4e04-afd1-9374b6f0af8b node definitions (n8n version history)"
+  ],
+  "schema": "synapsys.n8n-node-patch/0.1-CANDIDATE",
+  "status": "CANDIDATE_NOT_APPLIED__NO_AUTHORITY_TO_DEPLOY",
+  "target_workflow": {
+    "id": "pnCEHhZWIDaRfrLe",
+    "name_prefix": "Domain Lane Runner v1",
+    "precondition_active": true,
+    "precondition_versionId": "85db4098-1679-4e04-afd1-9374b6f0af8b"
+  },
+  "unchanged_by_design": [
+    "Accept header",
+    "credentials",
+    "webhook auth",
+    "List INBOX",
+    "Select Lane Packets",
+    "Pick Model",
+    "OpenAI Lane",
+    "File Return (create-only)"
+  ]
+}

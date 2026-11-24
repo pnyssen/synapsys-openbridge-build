@@ -1,0 +1,9 @@
+PASS A1 apply on matching version exits 0
+PASS A2 both HTTP nodes -> responseFormat=file, outputPropertyName=data, fullResponse
+PASS A3 Gate/Assemble code replaced and contain sha256Bytes + getBinaryDataBuffer
+PASS A4 Build Return anchor replaced once; old text gone
+PASS A5 NEG drifted versionId refused (exit 3)
+PASS A6 NEG inactive workflow refused (exit 3)
+PASS A7 NEG anchor missing refused (exit 3)
+PASS A8 NEG anchor duplicated refused (exit 3)
+SUMMARY pass=8 fail=0

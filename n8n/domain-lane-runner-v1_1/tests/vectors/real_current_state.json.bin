@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "work_object_id": "WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001",
+  "current_revision": 56,
+  "state_path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/STATE_CONTROL/STATE_v56.json",
+  "state_sha256": "d2de2edbaece0f780ea603a5acf6dc21b54c56cb5bb589c1f01118dc9c09b269",
+  "expected_return": "ODOO_CHANGE_REQUEST_DECISION_CHG-2026-767",
+  "sole_writer": "ChatGPT Hub / Navigator",
+  "updated_at": "2026-10-10T05:16:53.551Z",
+  "pointer_semantics": "MUTABLE_CAS_POINTER_ONLY__REFERENCED_STATE_IMMUTABLE",
+  "previous_pointer": {
+    "current_revision": 55,
+    "state_sha256": "166384be3183e1b1aa9538453cedba58b0868d7efd2a93a01c898f0d4b5f7b9d",
+    "pointer_file_sha256": "READBACK_REQUIRED"
+  },
+  "reconciliation_reference": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/STATE_CONTROL/STATE_v56.json",
+  "advanced_by": "ChatGPT Hub / Navigator via SC-09 continuity route; bridge hash defect corroborated; CHG-2026-767 registered pending"
+}

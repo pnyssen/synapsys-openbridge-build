@@ -1,0 +1,209 @@
+{
+  "acceptance": "One true end-to-end G2 rehearsal, injected-failure rollback, independent assurance, qualified controller and executor invocation, human user-journey acceptance, second-cycle pass",
+  "actual_invocation_probe": {
+    "caller": "ChatGPT",
+    "effects": "NONE_CLAIMED",
+    "mode": "E0_READ_ONLY",
+    "no_auth_retry": true,
+    "path": "synapsys-universal-service-execution-resolver-v2",
+    "result": "HTTP403_AUTHORIZATION_DATA_IS_WRONG",
+    "workflow_execution": "NOT_OBSERVED"
+  },
+  "ai_composition_roles": {
+    "ChatGPT": [
+      "controller",
+      "source_and_runtime_read",
+      "candidate_validation"
+    ],
+    "ClaudeCode": [
+      "sole_source_builder",
+      "isolated_builder_tests"
+    ],
+    "D007": [
+      "bounded_release",
+      "qualified_hostinger_executor"
+    ],
+    "D009": [
+      "independent_source_and_effect_assurance"
+    ],
+    "Steward": [
+      "scoped_decision",
+      "human_outcome_acceptance"
+    ]
+  },
+  "candidate_applicability": "RC02-P2_FIXTURE_ONLY__RESOLVE_CURRENT_WORK_OBJECT_AND_TARGET_AT_EACH_NEW_INVOCATION",
+  "existing_negative": "C02 fabricated CHG-2027-999 returned exit 0 GO, which is a FAIL; must be corrected and retested by effect owner",
+  "field_preconditions": {
+    "must_not_change_lifecycle_or_method_binding": true,
+    "must_reread_current_catalogue_record": true,
+    "must_semantically_diff_all_existing_obligations": true,
+    "requires_scoped_D001_and_D007": true
+  },
+  "forbidden_automatic_changes": [
+    "x_service_status",
+    "x_processability_state",
+    "x_validation_status",
+    "x_method_id",
+    "x_canonical_status",
+    "x_service_ppv_ceiling"
+  ],
+  "identity": {
+    "authority": "NO_SERVICE_UPGRADE_AUTHORISED__NO_HOSTINGER_RELEASE",
+    "candidate_version": "20.0.2.4.2",
+    "context_id": "CTX-SS",
+    "controller_expected_return": "ODOO_CHANGE_REQUEST_DECISION_CHG-2026-767",
+    "controller_state_revision": 56,
+    "controller_state_sha256": "d2de2edbaece0f780ea603a5acf6dc21b54c56cb5bb589c1f01118dc9c09b269",
+    "installed_version_observed": "20.0.2.4.0",
+    "method_code": "D002-WRB",
+    "method_id": 16,
+    "method_model": "x_ss_method_registry",
+    "method_version": "v1.0",
+    "register_last_write": "2026-10-15 20:42:43",
+    "service_code": "GV-TEC-001",
+    "service_id": 35,
+    "service_model": "x_service_catalogue",
+    "service_name": "Recursive Claude Code Technology Enablement",
+    "service_registry": "V19 Odoo",
+    "service_version": "EXISTING_ACTIVE_CONTRACT__NO_UPGRADE_APPLIED",
+    "source_git_commit": "7278898fb49d4eff5cdc27d37864fed0bdc0f8dc",
+    "source_tree_sha256": "d066f56080681a4e07806479bc6d43bb0032f725cd2168d74e45c8879d7f15c2",
+    "target_database": "synapsys_v20",
+    "target_url": "https://odoo20.srv1536619.hstgr.cloud",
+    "work_object_id": "WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001"
+  },
+  "last_observed_actor_capabilities": {
+    "ChatGPT": {
+      "candidate_validation": "OBSERVED_ISOLATED_LOCAL_TEST",
+      "claude_code_invocation": "NOT_EXPOSED",
+      "hostinger_execution": "NOT_EXPOSED",
+      "qualified_service_invocation": "WEBHOOK_INVOKED_HTTP403_AUTH_REJECTED",
+      "source_and_runtime_read": "OBSERVED_DIRECT_READS"
+    },
+    "ClaudeCode": {
+      "live_activation": "NOT_TESTED_THIS_SESSION",
+      "sole_source_builder": "PRODUCER_FILED_43_FILE_CANDIDATE"
+    },
+    "D007": {
+      "exact_hostinger_release": "NOT_VERIFIED",
+      "service_catalogue": "ACTIVE_V19"
+    },
+    "D009": {
+      "earlier_four_file_assurance": "HOLD",
+      "full_tree_independent_assurance": "NOT_VERIFIED"
+    },
+    "HostingerExecutor": {
+      "restore": "NOT_VERIFIED",
+      "source_transfer": "NOT_VERIFIED",
+      "upgrade": "NOT_VERIFIED"
+    },
+    "UniversalResolver": {
+      "chatgpt_live_call": "HTTP403_AUTH_REJECTED",
+      "gv_tec_001_registered_routes": 5,
+      "qualified_routes_observed": 0,
+      "v1": "ACTIVE_READ_ONLY_PROFILE_RESOLVER",
+      "v2": "ACTIVE_CONTEXT_GATED_READ_ONLY_PROFILE_RESOLVER"
+    }
+  },
+  "observable_service_entrypoint": "UNIVERSAL_SERVICE_EXECUTION_RESOLVER_V2_ACTIVE__CHATGPT_WEBHOOK_AUTH_HTTP403",
+  "operation": "APPEND_UNDER_EXISTING_SERVICE_WITH_SEMANTIC_DIFF_AND_GOVERNED_APPROVAL_ONLY",
+  "required_receipt_fields": [
+    "invocation_id",
+    "service_code",
+    "service_version",
+    "caller",
+    "state_sha256",
+    "required_now",
+    "native_tool_probe",
+    "test_result",
+    "capability_mode",
+    "selected_complement",
+    "independence",
+    "evidence_refs",
+    "authority_ceiling",
+    "next_action"
+  ],
+  "safety": "READINESS_CLASSIFIER_ONLY__NEVER_GRANTS_CHG_RELEASE_OR_EXECUTES_HOSTINGER",
+  "schema": "synapsys.gv-tec-001.hostinger-v20-release-qualification/0.1-CANDIDATE",
+  "service_contract_additions": {
+    "x_authority_gate_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Executor must independently READ an attributable CHG and bound D007 release from authoritative services, verifying scope, target UUID, full tree, validity, state and non-Claude D009 outcome. Caller-supplied strings, local matching hashes, approved design-only CHGs and service catalogue status are not authority. Reject forged CHG-2027-999, expired/foreign permissions, wrong target, reused decision, stale state, D009 self-assurance, missing restore and runner identity. Existing C02 gate and installer are HELD after false-GO adversarial reproduction.",
+    "x_deterministic_tech_requirements": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Four gates: qualified complete Git source; ZIP-optional allowlisted staged SSH/rsync transfer with DESTINATION hashes; tested atomic one-writer Odoo module upgrade after verified consistent full restore; post-version, signed-in roles, browser 390 px, second-cycle, human acceptance. No live tree overlay; no fixed destination assumption. Recovery restores consistent DB, filestore, code trio after schema change.",
+    "x_execution_input_contract": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Bind exact Work Object/current state, expected return, Git commit, complete addon tree and per-file hashes, source dependencies and migration, target host/database UUID/container/mount, role and capability test receipts, approved CHG and D007 effect release, D009 independent assurance, consistent DB+filestore recovery pair, negative tests and acceptance actor. A file format/ZIP is optional, not a release identity.",
+    "x_execution_outcome_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Return release_id, consumed Work Object/state/hash, source and target identities; each gate with actual evidence/missing controls; actor->capability direct-probe receipt (runtime, version, native mode, permission, controlled failure, expiry); chosen AI complement/independence; transfer hash readback; restore test; rehearsal; authority/D007; actual version/readback/UI/role/mobile checks; false HOLD/PROCEED; recovery and second-cycle result; human acceptance; exact one NEXT and replay state. Do not label untested gates PASSED.",
+    "x_execution_profile_requirements": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Service progression: source -> transfer -> rehearsal -> authority -> install -> accept/recover, each with exact immutable release ID and truthful FILED/TRANSFERRED/VERIFIED/REHEARSED/INSTALLED/ACCEPTED states. Preserve completed work and main path; two retries in same class -> qualified alternative or local HOLD. Run AI capability and composition challenge before choosing provider. Separate 316-row load as another release.",
+    "x_observation_learning_contract": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Record AI capability availability/delta, capability substitution impact, failed actor/route, no-ZIP recovery, duplicate/idle cycles, false admission, cross-context leak, tested rollback/restore, duration and cost, incident owner and original-failure retest. Qualify one subsequent comparable cycle before proposing durable service effectiveness. Do not treat preparation as Benefit or Asset.",
+    "x_provider_fallback_policy": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] ZIP absence must not block directory/rsync transfer when qualified. Substitute only pretested transport/actor with equal identity, rights, source, evidence and negative tests. Never substitute W11 Odoo.sh for Hostinger. Missing provider means HOLD; never infer that a tool listing equals executable entitlement.",
+    "x_return_acceptance_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-CANDIDATE] Reject any service result with invalid source/target/state, claimed capability without an actual native probe, untested required AI, Claude-as-D009 reviewer, forged self-supplied authority, absent destination hash, inconsistent G2 restore, no release, mock tests called production, missing changed-condition acceptance, or unsupported installed version. Accept separate readiness versus installer execution versus observed Outcome; independent readback after effects."
+  },
+  "service_contract_transformations": {
+    "x_ai_capability_requirements": {
+      "add_values": [
+        "release_native_actor_probe",
+        "independent_assurer_probe",
+        "ssh_rsync_target_identity_and_hash",
+        "odoo_runtime_upgrade_and_recovery",
+        "approved_effect_and_authority_resolver",
+        "capability_complement_routing",
+        "original_failure_adversarial_retest",
+        "role_browser_mobile_acceptance"
+      ],
+      "do_not_replace_existing_values": true,
+      "method": "MERGE_UNIQUE_JSON_ARRAY__READ_LIVE_BEFORE_WRITE"
+    }
+  },
+  "source_qualification_gaps": [
+    "full_tree_D009",
+    "runtime_dependency_F1",
+    "role_policy_F2_F3",
+    "existing_sudo_F4",
+    "website_migration_F5"
+  ],
+  "stage_execution_owners": {
+    "PROVEN_INSTALLATION": [
+      "Steward",
+      "D007_QUALIFIED_HOSTINGER_EXECUTOR",
+      "D009"
+    ],
+    "QUALIFIED_SOURCE": [
+      "ClaudeCode",
+      "D009",
+      "ChatGPT"
+    ],
+    "RELIABLE_TRANSFER": [
+      "D007_QUALIFIED_HOSTINGER_EXECUTOR"
+    ],
+    "VERIFIED_ACCEPTANCE": [
+      "D007",
+      "ChatGPT",
+      "Steward"
+    ]
+  },
+  "stages": {
+    "PROVEN_INSTALLATION": [
+      "authenticated_authority",
+      "exact_d007_release",
+      "consistent_restore_test",
+      "actual_upgrade_rehearsal",
+      "atomic_one_writer"
+    ],
+    "QUALIFIED_SOURCE": [
+      "source_identity",
+      "complete_tree",
+      "dependency_validation",
+      "independent_source_challenge"
+    ],
+    "RELIABLE_TRANSFER": [
+      "verified_target_route",
+      "destination_hash_readback",
+      "safe_retry_test"
+    ],
+    "VERIFIED_ACCEPTANCE": [
+      "installed_version_readback",
+      "role_and_context_negatives",
+      "browser_390px",
+      "human_acceptance",
+      "second_cycle_no_effect"
+    ]
+  },
+  "status": "NOT_INSTALLED__NOT_SERVICE_CATALOGUE_WRITTEN__NON_AUTHORISING"
+}

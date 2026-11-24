@@ -1,0 +1,28 @@
+PASS T05 sha256Bytes == node:crypto on 21 lengths (0..1 MiB, block boundaries) and all-256-byte vector
+PASS T05b sha256Bytes rejects non-bytes input (string)
+PASS T01 ORIGINAL v1 transport+hash reproduces the recorded false mismatch on the real alias (observed bc454ae0..., expected c553c4f9...) :: observed=bc454ae0c41e023e raw=c553c4f99968cd15 compactBytes=9617 rawBytes=10846
+PASS T01b ORIGINAL v1 ".txt alias" workaround fails identically (name/extension irrelevant)
+PASS T02 v1.1 real alias (10,846 B) raw-byte digest == pinned c553c4f9...; sources_ok
+PASS T03 v1.1 SECOND equivalent real JSON traversal (CURRENT_STATE.json, 1,025 B) == 049eda7c...; sources_ok
+PASS T03b v1.1 same bytes under .txt / text/plain still MATCH (digest independent of name and MIME)
+PASS T04 repeat traversal (two sources, run twice): identical checks, no state carried
+PASS T04b prompt carries the RAW text (pretty-printed, not compacted)
+PASS T05c ORIGINAL v1 padding formula (l+9) reproduced as wrong exactly at len%64==55 (lens 55,119,183,247,311,375,439,503,567,631,695)
+PASS T05d v1.1 formula (l+8) correct for every length 0..700
+PASS T05e v1.1 end-to-end: a 119-byte source (len%64==55) now MATCHES; v1 hash of the same bytes would not
+PASS T07 NEG single-bit tamper, same length => MISMATCH, sources_ok=false, class RAW_BYTES_DIFFER
+PASS T08 NEG truncated transfer vs Content-Length => fail closed, class LENGTH_MISMATCH
+PASS T09 NEG HTTP 404 error body => READ_FAILED, class HTTP_404, never hashed as the source
+PASS T10 NEG empty body => READ_FAILED / EMPTY_BODY
+PASS T10b NEG no binary property at all => READ_FAILED / NO_BINARY_BODY
+PASS T11 NEG pinned digest is of COMPACT JSON, raw bytes differ => still FAIL (digest not silently redefined) but classified PINNED_DIGEST_IS_OF_COMPACT_JSON_NOT_RAW_BYTES
+PASS T06 BOM + CRLF + non-ASCII + invalid UTF-8 bytes: digest over raw bytes == node:crypto
+PASS T07b NEG one bad source among good ones => sources_ok=false for the packet (provider gate closed)
+PASS T12 Gate: pretty-printed packet accepted; packet_sha256 is the RAW-byte digest, not the compact one
+PASS T12b Gate: caller-supplied raw digest accepted when equal
+PASS T12c NEG Gate: caller-supplied COMPACT digest (the v1 behaviour) now rejected
+PASS T12d NEG Gate: wrong caller digest rejected
+PASS T13 NEG Gate: non-JSON body skipped; HTTP 500 skipped; empty skipped
+PASS T14 NEG Gate: wrong lane / bad return name / profile path outside KIT rejected
+PASS T15 Build Return replacement text present exactly once and differs from original
+SUMMARY pass=27 fail=0
