@@ -1,0 +1,219 @@
+diff --git a/synapsys/__manifest__.py b/synapsys/__manifest__.py
+--- a/synapsys/__manifest__.py
++++ b/synapsys/__manifest__.py
+@@ -1,6 +1,6 @@
+ {
+     'name': 'SynapSys',
+-    'version': '20.0.2.4.0',
++    'version': '20.0.2.4.2',
+     'summary': 'SynapSys kinematic Mesh: Contexts, value thread, Services, FFE lens, fractal evidence',
+     'category': 'Services/SynapSys',
+     'author': 'SynapSys Pty Ltd',
+@@ -12,6 +12,7 @@
+         'views/synapsys_views.xml',
+         'views/synapsys_screens.xml',
+         'views/synapsys_menus.xml',
++        'views/synapsys_enable_peers.xml',
+     ],
+     'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml']},
+     'post_init_hook': 'post_init_hook',
+diff --git a/synapsys/controllers/arch_map.py b/synapsys/controllers/arch_map.py
+--- a/synapsys/controllers/arch_map.py
++++ b/synapsys/controllers/arch_map.py
+@@ -10,6 +10,7 @@
+ """
+ import json
+ import os
++from html import escape
+ 
+ from odoo import http
+ from odoo.http import request
+@@ -17,12 +18,75 @@
+ ROOT = 'N.CONTEXT'
+ 
+ 
++# REVIEW NAVIGATION ONLY. All noun identities, meaning and maturity come from the ONE live mesh registry.
++# No noun is promoted or classified as a new K-kind by this listing.
++def _noun_review_index(graph, expanded=True):
++    labels = ('Form', 'Flow', 'Evolve', 'Mesh', 'Unmapped')
++    rows = {group: [] for group in labels}
++    nouns = [e for e in graph.els.values() if e.get('cls') == 'N']
++    for element in sorted(nouns, key=lambda e: (labels.index(e.get('menu')) if e.get('menu') in labels else 99,
++                                                 e.get('label') or e['id'])):
++        group = element.get('menu') if element.get('menu') in ('Form', 'Flow', 'Evolve', 'Mesh') else 'Unmapped'
++        state = str(element.get('status') or 'UNRESOLVED')
++        noun_id = escape(str(element['id']), quote=True)
++        label = escape(str(element.get('label') or element['id']))
++        status = escape(state)
++        q = len(element.get('open_questions') or ())
++        rows[group].append('<li><a href="#" data-obj="%s" data-trail="">%s</a>'
++                           ' <span class="sm mut">%s · %d open questions</span></li>'
++                           % (noun_id, label, status, q))
++    sections = ''.join('<details><summary>%s (%d)</summary><ul>%s</ul></details>' %
++                       (escape(group), len(rows[group]), ''.join(rows[group]))
++                       for group in labels if rows[group])
++    question_count = sum(len(e.get('open_questions') or ()) for e in nouns)
++    state_counts = {status: sum(1 for e in nouns if (e.get('status') or 'UNRESOLVED') == status)
++                    for status in ('RULED', 'PROPOSAL', 'OPEN', 'UNRESOLVED')}
++    state_caption = ', '.join('%s %d' % (status, state_counts[status])
++                              for status in state_counts if state_counts[status])
++    return ('<div class="aj" data-section="noun-review-index">'
++            '<details%s><summary>Review all %d nouns · %d open questions · %s</summary>'
++            '<p class="sm mut">Source: one candidate Mesh registry. Each noun opens the same Value, '
++            'Kinematics, Fractals and Form / Flow / Evolve review. RULED, PROPOSAL and OPEN '
++            'are source states, not approvals. K-kind is Context-bound where unresolved. '
++            'No Odoo record instance or accepted Benefit is implied.</p>%s</details></div>'
++            % (' open' if expanded else '', len(nouns), question_count, escape(state_caption), sections))
++
++
++def _noun_shape_review(graph, requested_id):
++    """Truthful source-bound review of noun shape; no fabricated kind/size/resolution."""
++    e = graph.els.get(requested_id or ROOT)
++    if not e or e.get('cls') != 'N':
++        return ''
++    def val(key):
++        value = e.get(key)
++        if value is None or value == '' or value == [] or value == {}:
++            return 'UNSOURCED'
++        return escape(str(value), quote=True)
++    label = escape(str(e.get('label') or e.get('id') or requested_id))
++    q = len(e.get('open_questions') or ())
++    return ('<div class="aj" data-section="noun-shape-review"><section>'
++            '<h2>Shape of %s</h2><p class="sm mut">Enable review only. '
++            'Values are the current candidate Mesh source, not an accepted operational object.</p>'
++            '<ul><li>Definition: %s</li><li>Source: %s</li>'
++            '<li>Kind (source description): %s</li><li>Size: %s</li>'
++            '<li>Resolution: %s</li><li>Source state: %s</li>'
++            '<li>Unresolved questions: %d</li></ul></section></div>'
++            % (label, val('definition'), val('definition_source'), val('kind'),
++               val('size'), val('resolution'), val('status'), q))
++
++
+ class ArchitectureMap(http.Controller):
+ 
+     @http.route(['/synapsys/architecture/map/data', '/synapsys/architecture/map/object'], type='jsonrpc', auth='user')
+     def map_data(self, object_id=None, trail=None):
++        # Enable review is explicitly Steward/system-only while rights R1 is unresolved.
++        # Keep the existing registry authority source; do not broaden disclosure via the new all-noun index.
++        if not (request.env.user.has_group('synapsys.group_synapsys_steward')
++                or request.env.user.has_group('base.group_system')):
++            return ('<div class="aj"><p>Architecture noun review is limited to the Steward '
++                    'until the Collaborator access boundary is independently tested.</p></div>')
+         from odoo.addons.synapsys_mesh import arch_check, binding, journey, journey_ui
+-        Reg = request.env['synapsys.mesh.registry'].sudo()   # R1: unchanged from the base
++        Reg = request.env['synapsys.mesh.registry'].sudo()   # R1: restricted at controller boundary for review
+         reg = Reg.search([('state', '=', 'active')], limit=1) or Reg.search([], order='id desc', limit=1)
+         if not reg:
+             return '<div class="aj"><p>No architecture registry is loaded. Nothing is shown and nothing is claimed.</p></div>'
+@@ -40,4 +104,4 @@
+             rep = None
+         ids = [t for t in (trail or '').split(',') if t]
+         j = journey.journey(g, object_id or ROOT, ids, rep, None, None, arch_check.check(reg.body))
+-        return journey_ui.render(j)
++        return _noun_review_index(g, expanded=(not object_id or object_id == ROOT)) + _noun_shape_review(g, object_id or ROOT) + journey_ui.render(j)
+diff --git a/synapsys/static/src/home.xml b/synapsys/static/src/home.xml
+--- a/synapsys/static/src/home.xml
++++ b/synapsys/static/src/home.xml
+@@ -4,6 +4,6 @@
+         <div class="o_action h-100 overflow-auto bg-view"><t t-out="this.state.html"/></div>
+     </t>
+     <t t-name="synapsys.ArchMap">
+-        <div class="o_action h-100 overflow-auto bg-view" t-on-click="onClick"><t t-out="this.state.html"/></div>
++        <div class="o_action h-100 overflow-auto bg-view" t-on-click="this.onClick"><t t-out="this.state.html"/></div>
+     </t>
+ </templates>
+diff --git a/synapsys/views/synapsys_enable_peers.xml b/synapsys/views/synapsys_enable_peers.xml
+new file mode 100644
+--- /dev/null
++++ b/synapsys/views/synapsys_enable_peers.xml
+@@ -0,0 +1,90 @@
++<?xml version="1.0" encoding="utf-8"?>
++<odoo>
++  <!-- Enable review extension: one Mesh, six heading peers; Architecture/35 existing leaves remain untouched. -->
++  <!-- Verb catalogue views disable writes in UI only; backend ACL is unchanged. -->
++  <record id="view_peer_verb_list_enable" model="ir.ui.view">
++    <field name="name">synapsys.verb.peer.enable.list</field>
++    <field name="model">synapsys.verb</field>
++    <field name="arch" type="xml"><list create="0" edit="0" delete="0" import="0"><field name="name"/><field name="plane"/><field name="action"/><field name="direction"/><field name="authority_requirement"/><field name="human_only"/><field name="grammar_status"/></list></field>
++  </record>
++  <menuitem id="menu_peer_form_enable" name="Form" parent="menu_root" sequence="4"/>
++  <record id="action_peer_orient_enable" model="ir.actions.act_window">
++    <field name="name">Orient</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Orient')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_form_orient_enable" name="Orient" parent="menu_peer_form_enable" sequence="1" action="action_peer_orient_enable"/>
++  <record id="action_peer_canonicalise_enable" model="ir.actions.act_window">
++    <field name="name">Canonicalise</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Canonicalise')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_form_canonicalise_enable" name="Canonicalise" parent="menu_peer_form_enable" sequence="2" action="action_peer_canonicalise_enable"/>
++  <record id="action_peer_structure_enable" model="ir.actions.act_window">
++    <field name="name">Structure</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Structure')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_form_structure_enable" name="Structure" parent="menu_peer_form_enable" sequence="3" action="action_peer_structure_enable"/>
++  <menuitem id="menu_peer_flow_enable" name="Flow" parent="menu_root" sequence="5"/>
++  <record id="action_peer_assure_enable" model="ir.actions.act_window">
++    <field name="name">Assure</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Assure')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_flow_assure_enable" name="Assure" parent="menu_peer_flow_enable" sequence="1" action="action_peer_assure_enable"/>
++  <record id="action_peer_navigate_enable" model="ir.actions.act_window">
++    <field name="name">Navigate</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Navigate')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_flow_navigate_enable" name="Navigate" parent="menu_peer_flow_enable" sequence="2" action="action_peer_navigate_enable"/>
++  <record id="action_peer_compose_enable" model="ir.actions.act_window">
++    <field name="name">Compose</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Compose')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_flow_compose_enable" name="Compose" parent="menu_peer_flow_enable" sequence="3" action="action_peer_compose_enable"/>
++  <menuitem id="menu_peer_evolve_enable" name="Evolve" parent="menu_root" sequence="6"/>
++  <record id="action_peer_activate_enable" model="ir.actions.act_window">
++    <field name="name">Activate</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Activate')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_evolve_activate_enable" name="Activate" parent="menu_peer_evolve_enable" sequence="1" action="action_peer_activate_enable"/>
++  <record id="action_peer_transform_enable" model="ir.actions.act_window">
++    <field name="name">Transform</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Transform')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_evolve_transform_enable" name="Transform" parent="menu_peer_evolve_enable" sequence="2" action="action_peer_transform_enable"/>
++  <record id="action_peer_project_enable" model="ir.actions.act_window">
++    <field name="name">Project</field><field name="res_model">synapsys.verb</field>
++    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Project')]</field>
++    <field name="context">{}</field>
++    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
++  </record>
++  <menuitem id="menu_peer_evolve_project_enable" name="Project" parent="menu_peer_evolve_enable" sequence="3" action="action_peer_project_enable"/>
++  <record id="action_enable_architecture_register" model="ir.actions.act_window">
++    <field name="name">Architecture register</field>
++    <field name="res_model">synapsys.architecture</field>
++    <field name="view_mode">list,form</field>
++    <field name="context">{}</field>
++  </record>
++  <menuitem id="menu_enable_architecture_register" name="Architecture register" parent="menu_arch_form" sequence="13" action="action_enable_architecture_register" groups="synapsys.group_synapsys_steward"/>
++  <record id="action_enable_lexicon_register" model="ir.actions.act_window">
++    <field name="name">Lexicon</field>
++    <field name="res_model">synapsys.lexicon</field>
++    <field name="view_mode">list,form</field>
++    <field name="context">{}</field>
++  </record>
++  <menuitem id="menu_enable_lexicon_register" name="Lexicon" parent="menu_arch_form" sequence="14" action="action_enable_lexicon_register" groups="synapsys.group_synapsys_steward"/>
++</odoo>

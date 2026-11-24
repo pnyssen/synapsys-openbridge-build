@@ -1,0 +1,217 @@
+[
+ {
+  "path": "__init__.py",
+  "sha256": "9723d3eb2dd460a27378bef8c47818bb27db755f70c3f026de57330ab326fa49",
+  "bytes": 81
+ },
+ {
+  "path": "__manifest__.py",
+  "sha256": "e91c6a67ed67869bed979ee6420f526665a81fcf64fade96fcb1bf20f1c23ba9",
+  "bytes": 761
+ },
+ {
+  "path": "controllers/__init__.py",
+  "sha256": "2301384b388a1b6228530e76eb2a26189f7ce0e9489a500fb79920621832a30b",
+  "bytes": 42
+ },
+ {
+  "path": "controllers/arch_map.py",
+  "sha256": "724f635de3bbc1a64b67d84c052beb221db64a9ef1c82786b1fbffd17f3221ac",
+  "bytes": 6844
+ },
+ {
+  "path": "controllers/home.py",
+  "sha256": "6b2ceab02c8d4ac83fcd79fe3160de5fdb7a00346b73d5df8ba65c90adf9f815",
+  "bytes": 7660
+ },
+ {
+  "path": "data/domain_instructions/CORE_D000_D001_D002_PROFILE_v1.md",
+  "sha256": "edb383d21526419735b55979961bc51f06b8bf470039b0910c47cb036b3bf07a",
+  "bytes": 2754
+ },
+ {
+  "path": "data/domain_instructions/D001_LANE_PROFILE_v1.md",
+  "sha256": "13bf255bb0c5839fd67ca263abc477caf964155fb2a191a029eb0698576b3478",
+  "bytes": 1466
+ },
+ {
+  "path": "data/domain_instructions/D003_LANE_PROFILE_v1.md",
+  "sha256": "7caa36e7b8b08fb2969b8a7f2aedc6af83146e70e3c7476fc874934f3803af7d",
+  "bytes": 1106
+ },
+ {
+  "path": "data/domain_instructions/D004_LANE_PROFILE_v1.md",
+  "sha256": "447386a0be4cee21aa1a9103fc47277048d13156d5bc828007f21e60bf7084a8",
+  "bytes": 1077
+ },
+ {
+  "path": "data/domain_instructions/D005_LANE_PROFILE_v1.md",
+  "sha256": "eca7ce84d8ccc8ff07494347aa4b1da483ff42f15b92e1111d76adf1638a2b44",
+  "bytes": 1036
+ },
+ {
+  "path": "data/domain_instructions/D006_LANE_PROFILE_v1.md",
+  "sha256": "7d5d1172f1141de374def1fd393af495f87258b12cfe9e60f33886a72c6bdc69",
+  "bytes": 946
+ },
+ {
+  "path": "data/domain_instructions/D007_LANE_PROFILE_v1.md",
+  "sha256": "0337d2e132d196de41826322a7212958ff0630150e57eb7690c7e154b6e6accb",
+  "bytes": 1023
+ },
+ {
+  "path": "data/domain_instructions/D008_LANE_PROFILE_v1.md",
+  "sha256": "02c2b54fb31ad1593e64087d0d9bd5d3600a313202b211c808e90d8714a2c987",
+  "bytes": 1018
+ },
+ {
+  "path": "data/domain_instructions/D009_LANE_PROFILE_v1.md",
+  "sha256": "0342da264ca800c7b7aa2f2daba182e4b6a6c756af14fe4beaf009a51f476118",
+  "bytes": 1225
+ },
+ {
+  "path": "data/domain_instructions/D009_LANE_PROFILE_v2.md",
+  "sha256": "873a8817b56970c0f1111f3c492eaf2360e0c158e5c302391002a4ee08bbb29e",
+  "bytes": 1208
+ },
+ {
+  "path": "data/domain_instructions/D010_LANE_PROFILE_v1.md",
+  "sha256": "604c2fcdde727309374163515c72ceb30ea04f6a47f10b7a92ca515bfeeb63b5",
+  "bytes": 1095
+ },
+ {
+  "path": "data/domain_instructions/D011_LANE_PROFILE_v1.md",
+  "sha256": "1897dce6e43ec6ddb4552c69c60d98d4f8a63d1e0ad13e39d7e4d28a066ddc79",
+  "bytes": 1770
+ },
+ {
+  "path": "data/domain_instructions/instructions.json",
+  "sha256": "690bedb1b6d2dce5a429c6d718ccfb4eddfe934e0a454f4e9550e0c16dca1d4b",
+  "bytes": 4882
+ },
+ {
+  "path": "data/reference.json",
+  "sha256": "e579683fca1ca4db01d79859ffd16d9ad9c88aa6f21206e1ec763598c2cd0d1a",
+  "bytes": 11291
+ },
+ {
+  "path": "hooks.py",
+  "sha256": "4a335aa45fadea30060f11568120b8cb97e9cd0f93d27320987e20182ac73936",
+  "bytes": 4116
+ },
+ {
+  "path": "migrations/20.0.2.4.0/post-migrate.py",
+  "sha256": "3a32ebdf04d998e9bf9d1608d62e8b147b93c95c2c1e90398d166b9b39bc49bc",
+  "bytes": 682
+ },
+ {
+  "path": "migrations/20.0.2.4.0/pre-migrate.py",
+  "sha256": "065995418f218011d56a5930dfbfe02b6d3782d237f3e01d635c525f8c496590",
+  "bytes": 767
+ },
+ {
+  "path": "models/__init__.py",
+  "sha256": "86f70f03b00dfb93d05b468628ac9ca90a1d7b9ab47db447568ad374a35e031b",
+  "bytes": 66
+ },
+ {
+  "path": "models/navigator.py",
+  "sha256": "0f90ab256b2e6b75095013b33c26d60da3f5d23ecf46114bc6a69d4e423cae1b",
+  "bytes": 5880
+ },
+ {
+  "path": "models/synapsys.py",
+  "sha256": "2b64d40f51ff5fb03ee07ba166aa496dadf3937d7a6823c4c8f0c9fcb9a66085",
+  "bytes": 60652
+ },
+ {
+  "path": "models/work.py",
+  "sha256": "c44628751187be429e1087965199250e8460def0502dd46db56c593989489589",
+  "bytes": 18053
+ },
+ {
+  "path": "security/ir.access.csv",
+  "sha256": "2da94277b2601f5c1af8f95b255c152eda5db720b4d061897ac577195d0d50f8",
+  "bytes": 7803
+ },
+ {
+  "path": "security/synapsys_security.xml",
+  "sha256": "8da5d54670ccf2cb5ed6a64603b3161f59c789062fe9388240b7f28cf9cd0085",
+  "bytes": 2573
+ },
+ {
+  "path": "static/description/icon.png",
+  "sha256": "6b7fa434f92a8b80aab02d9bf1a12e49ffcae424e4013a1c4f68b67e3d2bbcd0",
+  "bytes": 70
+ },
+ {
+  "path": "static/src/home.js",
+  "sha256": "6a7661642a43c9d977759ff4cf4bd9662ec7d507d9820e0684dae5d41d81f1e6",
+  "bytes": 1203
+ },
+ {
+  "path": "static/src/home.xml",
+  "sha256": "ad1751a5aa013f14203573acd104ec2609f15d9455aafa3b145bd9699d06b562",
+  "bytes": 380
+ },
+ {
+  "path": "tests/__init__.py",
+  "sha256": "e7fa61a1fb9d650b8faca48f6a09b1b138f0ddf580ddcfa01cb7eed56aa3451a",
+  "bytes": 226
+ },
+ {
+  "path": "tests/test_cia_library.py",
+  "sha256": "791affc59883be4635f40d85e18c8fb6ee65459f4298707fb8afa94acd14f46f",
+  "bytes": 3728
+ },
+ {
+  "path": "tests/test_domain_instructions.py",
+  "sha256": "b71f1a9b30dc626357b9f6f1e1d3a09c554f92c0c06168aa315f6313afbf475a",
+  "bytes": 5108
+ },
+ {
+  "path": "tests/test_home.py",
+  "sha256": "c458a891857053c51c34225ab6d1fe70ec799712cfa10f80bd9e5437cd8af631",
+  "bytes": 721
+ },
+ {
+  "path": "tests/test_intelligence_access.py",
+  "sha256": "af6a1561d483d78f749befff3943a0dc9716d129c522276d1f75667cb0acd6f2",
+  "bytes": 1804
+ },
+ {
+  "path": "tests/test_journey.py",
+  "sha256": "9ba1a5a44bc179ca418484d03490bf110523fe0caa0a7682693bafb7b9f27f23",
+  "bytes": 8171
+ },
+ {
+  "path": "tests/test_kinematic_contract.py",
+  "sha256": "5df567c9dfbce9b085d39d14a5f947749b9bc20c79ba480a6641d948446db75a",
+  "bytes": 6888
+ },
+ {
+  "path": "tests/test_synapsys.py",
+  "sha256": "64f692155bb41d4bbb5d4793d0198ec7e16a35d5bd71b54917a2f9eb1ca66433",
+  "bytes": 11103
+ },
+ {
+  "path": "views/synapsys_enable_peers.xml",
+  "sha256": "e622114fa714520c68602c7323b1f9ae63d625bee3088339acd143113287176a",
+  "bytes": 7137
+ },
+ {
+  "path": "views/synapsys_menus.xml",
+  "sha256": "85f5708e41de83c24a2220832a557d9889a9fe5413dca3d9311cd53d5541456c",
+  "bytes": 5544
+ },
+ {
+  "path": "views/synapsys_screens.xml",
+  "sha256": "ddc3554d1ae5e676e8688de53c720b79357e36d1244b4dd6491a3285dcded5dc",
+  "bytes": 7960
+ },
+ {
+  "path": "views/synapsys_views.xml",
+  "sha256": "be05239f57624ac2c2490fcd1f86f624599599ff6fe04a7be667dab92c72e19b",
+  "bytes": 67916
+ }
+]

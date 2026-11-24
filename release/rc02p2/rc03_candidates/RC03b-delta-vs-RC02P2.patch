@@ -1,0 +1,75 @@
+diff --git a/synapsys/migrations/20.0.2.4.2/pre-migrate.py b/synapsys/migrations/20.0.2.4.2/pre-migrate.py
+new file mode 100644
+index 0000000..045f568
+--- /dev/null
++++ b/synapsys/migrations/20.0.2.4.2/pre-migrate.py
+@@ -0,0 +1,11 @@
++def migrate(cr, version):
++    """Upgrade safety on databases where the website module is installed.
++
++    website adds ir.ui.view.visibility (required, default 'public'). When this module upgrades, it loads
++    before website, so the ORM does not yet know the field and new views insert without it: the NOT NULL
++    column then fails the whole upgrade (Odoo.sh build 42381149, 20 Nov 2026). Give the column the same
++    default website's ORM uses, at database level. No effect where website is not installed."""
++    cr.execute("""SELECT 1 FROM information_schema.columns
++                  WHERE table_name = 'ir_ui_view' AND column_name = 'visibility'""")
++    if cr.fetchone():
++        cr.execute("ALTER TABLE ir_ui_view ALTER COLUMN visibility SET DEFAULT 'public'")
+diff --git a/synapsys/views/synapsys_enable_peers.xml b/synapsys/views/synapsys_enable_peers.xml
+index 40fa74d..cbdc2c2 100644
+--- a/synapsys/views/synapsys_enable_peers.xml
++++ b/synapsys/views/synapsys_enable_peers.xml
+@@ -73,18 +73,4 @@
+     <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+   </record>
+   <menuitem id="menu_peer_evolve_project_enable" name="Project" parent="menu_peer_evolve_enable" sequence="3" action="action_peer_project_enable"/>
+-  <record id="action_enable_architecture_register" model="ir.actions.act_window">
+-    <field name="name">Architecture register</field>
+-    <field name="res_model">synapsys.architecture</field>
+-    <field name="view_mode">list,form</field>
+-    <field name="context">{}</field>
+-  </record>
+-  <menuitem id="menu_enable_architecture_register" name="Architecture register" parent="menu_arch_form" sequence="13" action="action_enable_architecture_register" groups="synapsys.group_synapsys_steward"/>
+-  <record id="action_enable_lexicon_register" model="ir.actions.act_window">
+-    <field name="name">Lexicon</field>
+-    <field name="res_model">synapsys.lexicon</field>
+-    <field name="view_mode">list,form</field>
+-    <field name="context">{}</field>
+-  </record>
+-  <menuitem id="menu_enable_lexicon_register" name="Lexicon" parent="menu_arch_form" sequence="14" action="action_enable_lexicon_register" groups="synapsys.group_synapsys_steward"/>
+ </odoo>
+diff --git a/synapsys_v19_reference/__manifest__.py b/synapsys_v19_reference/__manifest__.py
+index 8232d87..b949eb4 100644
+--- a/synapsys_v19_reference/__manifest__.py
++++ b/synapsys_v19_reference/__manifest__.py
+@@ -1,15 +1,15 @@
+ {
+     'name': 'SynapSys V19 reference carry-over (Architecture, Lexicon, source envelope)',
+-    'version': '20.0.0.3.0',
++    'version': '20.0.0.4.0',
+     'summary': 'Typed Architecture and Lexicon references plus an immutable V19 source envelope. Code only.',
+     'description': 'D007 task 213 R1/R2 (RETURN_D007_V20_ARCHITECTURE_BULK_MIGRATION_MAP_RULING_20261119_v1.md, '
+                    '978fe42c). Ships no V19 data. The source-pack load is guarded by the clean-dev allowlist in '
+                    'synapsys_migration_load (empty: refuses every database until released under R4). '
+-                   'Steward-only read; no menus; no ACL widening on existing models; no fields added to existing models.',
++                   'Steward-only read; two Steward-only register menus under synapsys.menu_arch_form (RC03); no ACL widening on existing models; no fields added to existing models.',
+     'author': 'SynapSys Pty Ltd',
+     'license': 'LGPL-3',
+     'depends': ['synapsys', 'synapsys_migration_load'],
+-    'data': ['security/ir.access.csv', 'views/reference_views.xml', 'data/cron.xml'],
++    'data': ['security/ir.access.csv', 'views/reference_views.xml', 'views/register_homes.xml', 'data/cron.xml'],
+     'post_init_hook': 'post_init_hook',
+     'installable': True,
+     'application': False,
+diff --git a/synapsys_v19_reference/views/register_homes.xml b/synapsys_v19_reference/views/register_homes.xml
+new file mode 100644
+index 0000000..158d9e3
+--- /dev/null
++++ b/synapsys_v19_reference/views/register_homes.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<odoo>
++  <!-- RC03 candidate: the two Steward-only register homes live with the models and actions they open (F1). -->
++  <menuitem id="menu_enable_architecture_register" name="Architecture register" parent="synapsys.menu_arch_form" sequence="13" action="action_synapsys_architecture" groups="synapsys.group_synapsys_steward"/>
++  <menuitem id="menu_enable_lexicon_register" name="Lexicon" parent="synapsys.menu_arch_form" sequence="14" action="action_synapsys_lexicon" groups="synapsys.group_synapsys_steward"/>
++</odoo>
