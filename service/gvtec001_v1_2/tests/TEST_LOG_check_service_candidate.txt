@@ -1,0 +1,14 @@
+PASS K1 happy path against a synthetic live record and the REAL logs -> exit 0, no FAIL line :: SUMMARY failures=0
+PASS K2 NEG already applied (idempotency: no double append) -> exit 3
+PASS K3 NEG target field missing on live -> exit 3
+PASS K4 NEG live already holds an addition -> duplicate refused
+PASS K5 NEG live capability field not a JSON array -> exit 3
+PASS K6 NEG candidate touches a forbidden automatic field -> exit 3
+PASS K7 NEG registry claims a test id that is not in any log -> exit 3
+PASS K8 NEG evidence log containing a FAIL for a claimed test -> exit 3 (FAIL evidence is not passing evidence)
+PASS K9 NEG unmarked claim of an SSH route -> exit 3
+PASS K10 NEG maturity numbers inflated vs registry -> exit 3
+PASS K11 NEG NOT_RUN class half-claimed with a test -> exit 3
+PASS K12 NEG no evidence logs supplied -> every PASSED_OFFLINE claim refused, exit 3
+PASS K13 NEG candidate claims ENFORCED while classes are NOT_RUN -> exit 3
+SUMMARY pass=13 fail=0

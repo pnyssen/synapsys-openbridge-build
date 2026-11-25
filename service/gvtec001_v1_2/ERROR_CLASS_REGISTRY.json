@@ -1,0 +1,252 @@
+{
+ "classes": [
+  {
+   "code": "SRC_TRANSFORMED_IN_TRANSPORT",
+   "description": "pinned digest computed over parsed/re-serialised content",
+   "note": "n8n harness (mock)",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "T01",
+    "T01b",
+    "T02",
+    "T03",
+    "T11",
+    "T16a",
+    "T16b"
+   ]
+  },
+  {
+   "code": "SRC_TAMPERED_SAME_LENGTH",
+   "description": "single-bit change, same length",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "T07",
+    "T07b",
+    "V5"
+   ]
+  },
+  {
+   "code": "SRC_TRUNCATED_OR_PARTIAL",
+   "description": "short body / missing file after transfer",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "T08",
+    "V6"
+   ]
+  },
+  {
+   "code": "SRC_HTTP_ERROR_BODY",
+   "description": "error body hashed as if it were the source",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "T09",
+    "T10",
+    "T10b"
+   ]
+  },
+  {
+   "code": "HASH_ROUTINE_LENGTH_BOUNDARY",
+   "description": "SHA-256 padding wrong at length = 55 mod 64",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "T05",
+    "T05c",
+    "T05d",
+    "T05e"
+   ]
+  },
+  {
+   "code": "DEST_STALE_OR_EXTRA_FILE",
+   "description": "overlay/stale file at the destination",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V7",
+    "V12"
+   ]
+  },
+  {
+   "code": "DEST_MANIFEST_SUBSTITUTED",
+   "description": "manifest differs from the pinned hash",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V4",
+    "P10"
+   ]
+  },
+  {
+   "code": "DEST_ADDON_MISSING",
+   "description": "whole addon absent at the destination",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V9",
+    "V11"
+   ]
+  },
+  {
+   "code": "DEST_VERIFIER_NOT_READ_ONLY",
+   "description": "verifier or prestate script writes to the target",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V13",
+    "P2",
+    "P14"
+   ]
+  },
+  {
+   "code": "PRESTATE_DRIFT",
+   "description": "live addon tree differs from the recorded baseline",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "P4"
+   ]
+  },
+  {
+   "code": "PRESTATE_PREREQUISITE_OR_DISCOVERY",
+   "description": "tool, container or addons mount missing/ambiguous",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P13"
+   ]
+  },
+  {
+   "code": "PRESTATE_DB_FACTS_UNAVAILABLE",
+   "description": "database.uuid or DB facts unavailable",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "P11",
+    "P12"
+   ]
+  },
+  {
+   "code": "SRC_UNDECLARED_REVERSE_DEPENDENCY",
+   "description": "data references a model only a dependent addon defines",
+   "note": "static check only; Odoo runtime NOT_RUN",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "STATIC_F1"
+   ]
+  },
+  {
+   "code": "MIGRATION_MISSING_FOR_NEW_VIEW",
+   "description": "new ir.ui.view without a visibility-default pre-migrate",
+   "note": "static check only; Odoo runtime NOT_RUN",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "STATIC_F5"
+   ]
+  },
+  {
+   "code": "RENDER_INJECTION_OR_BAD_INPUT",
+   "description": "hostile registry text / invalid object id / trail",
+   "note": "bundled registry v0.3; Odoo stubbed",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "D009_T3_A_NO_EXCEPTION",
+    "D009_T3_A_NO_REFLECTION",
+    "D009_T3_B_HOSTILE_REGISTRY"
+   ]
+  },
+  {
+   "code": "FABRICATED_APPROVAL",
+   "description": "syntactically valid but unattributable approval",
+   "note": "D007 executor not built; earlier C02 false-GO is the original failure to retest",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "APPROVAL_WRONG_SCOPE_OR_EXPIRED",
+   "description": "valid approval for another scope or past expiry",
+   "note": "D007",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "TARGET_IDENTITY_MISMATCH",
+   "description": "wrong host, database or database.uuid",
+   "note": "needs the console P0 receipt; script tested only against a shim",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "RUN_LOCK_MISSING_OR_STALE",
+   "description": "no lock, stale lock, or second writer",
+   "note": "D007",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "RECOVERY_PAIR_MISSING_OR_INCONSISTENT",
+   "description": "no consistent DB+filestore backup, or restore fails",
+   "note": "D007; VM-level backups are stale and VM-wide",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "UPGRADE_FAILS_MIDWAY",
+   "description": "module upgrade fails; recovery by rehearsed restore",
+   "note": "D007 isolated rehearsal",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "WRONG_VERSION_OR_MISSING_UI_AFTER_RUN",
+   "description": "runtime success but wrong version or no UI",
+   "note": "post-install acceptance",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "ROLE_OR_CONTEXT_LEAK",
+   "description": "collaborator denied/over-granted; cross-Context or sudo disclosure",
+   "note": "runtime role tests; static reading only",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "BUILDER_SELF_ASSURANCE",
+   "description": "builder supplies its own independent assurance",
+   "note": "D009 independence gate not exercised",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "RECEIPT_EXPIRED_OR_ROUTE_REVOKED",
+   "description": "capability receipt expired or route revoked",
+   "note": "handshake endpoint not built",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "REQUEST_REPLAYED_TWICE",
+   "description": "same request twice must not double-write",
+   "note": "read path idempotent only (T04); no protected write exists to test",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "CALLER_CAPABILITY_CLAIM_FAILS",
+   "description": "AI claims a tool that fails on use",
+   "note": "handshake endpoint not built",
+   "status": "NOT_RUN",
+   "tests": []
+  }
+ ],
+ "rule": "A class may be PASSED_OFFLINE only if every listed test id appears as a PASS line in the supplied logs. Service maturity is ENFORCED only when no class is NOT_RUN.",
+ "schema": "synapsys.error-class-registry/1"
+}

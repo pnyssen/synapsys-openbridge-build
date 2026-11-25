@@ -1,0 +1,63 @@
+{
+ "append": {
+  "x_authority_gate_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] The executor reads an attributable CHG and bounded D007 release from authoritative services and verifies scope, target identity, tree identity, validity, state and the non-Claude assessment. Caller-supplied strings, local matching hashes, design-only CHGs, catalogue status, chat approvals and builder self-assurance are not authority. A direct Steward decision is recorded by id and still needs its CHG/D007 effect release.",
+  "x_deterministic_tech_requirements": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] (1) Source is a Git-pinned commit reproducible from baseline plus patch, with static dependency and migration checks. (2) Every reader of a pinned source verifies raw received bytes before decoding; a transformed copy never redefines a pinned digest; every SHA-256 routine passes the length-boundary conformance test. (3) Transfer may use any QUALIFIED route; success is the destination verifier returning MATCH_ALL (read-only, fail-closed), not the transport exit status. (4) A read-only P0 prestate receipt (addon-tree match to baseline, database.uuid, image id, compose hash, DB facts) precedes any write. (5) Installation requires a consistent DB+filestore recovery pair, a throwaway restore, a rehearsed upgrade with injected failure, one RUN_LOCK holder. A VM-wide backup is not a rollback for one addon.",
+  "x_execution_input_contract": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Release input binds, by value: Work Object and state revision/hash; Git commit and per-addon release manifest sha256; verifier and prestate-script sha256; target identity (host, container image id, database name, database.uuid taken from the P0 receipt); the scoped CHG id and D007 effect-release id; recorded Steward decisions; the non-Claude D009 assessment of the same commit; recovery-pair ids; RUN_LOCK id; invocation id and idempotency key (sha256 over the preceding bindings) with an expiry. A file format, archive or transfer method is never a release identity.",
+  "x_execution_outcome_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Return per stage: status in NOT_RUN | PASSED | FAILED | HELD with an error-class code from ERROR_CLASS_REGISTRY; p0 receipt (verdict and sha256), staging receipt, rehearsal log hashes, install log hashes, post-install readback. Never label an untested stage PASSED. Report registry maturity as passed/total error classes and list every NOT_RUN class.",
+  "x_execution_profile_requirements": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Stage progression: source -> transfer -> prestate -> rehearsal -> authority -> install -> accept/recover, each with exact release id and truthful state. A later stage starts when its own prerequisites hold; post-install acceptance is never a prerequisite for starting an authorised install. After two failures in the same transport class, change the failure mechanism or the qualified route rather than repeat. Independent source work continues while a protected effect is held.",
+  "x_observation_learning_contract": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Anti-fragility loop: every failure or near-miss yields (1) the failure mechanism, (2) a regression test that reproduces the original failure, (3) a control proving that test can fail, (4) a versioned append to this contract, (5) a recurrence check in the next comparable cycle. Measure recurrence, time-to-detect and NOT_RUN count. No claim of improvement without a second comparable cycle.",
+  "x_provider_fallback_policy": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Select the transport from OBSERVED capability, not assumption. Qualified today: the Steward/D007 console route. SSH/rsync from an AI runtime and Hostinger-API compose delivery are UNINSTALLED until qualified; each needs the same identity, rights, destination verification and negative tests. A missing qualified route is HOLD, not a reason to weaken a check.",
+  "x_return_acceptance_schema": "[HOSTINGER-V20-RELEASE-QUALIFICATION-v1.2-CANDIDATE] Reject a result lacking: destination MATCH_ALL receipt for the frozen manifest; P0 receipt MATCH_ALL with a non-empty database.uuid; recovery proof; the D009 assessment of the same commit; the D007 effect release; or reporting any NOT_RUN error class as passed."
+ },
+ "capability_add_values": [
+  "release_native_actor_probe",
+  "independent_assurer_probe",
+  "destination_hash_verification_any_transport",
+  "read_only_prestate_receipt",
+  "isolated_restore_rehearsal",
+  "raw_byte_source_integrity",
+  "approved_effect_and_authority_resolver",
+  "capability_complement_routing",
+  "original_failure_adversarial_retest",
+  "mutation_controlled_test_authoring",
+  "role_browser_mobile_acceptance"
+ ],
+ "forbidden_automatic_changes": [
+  "x_service_status",
+  "x_processability_state",
+  "x_validation_status",
+  "x_method_id",
+  "x_canonical_status",
+  "x_service_ppv_ceiling",
+  "x_lifecycle_gate",
+  "x_active"
+ ],
+ "maturity_claim": {
+  "enforced": false,
+  "error_classes_total": 27,
+  "not_run": 12,
+  "passed_offline": 15,
+  "registry": "ERROR_CLASS_REGISTRY.json"
+ },
+ "operation": "APPEND_ONLY_WITH_PREFIX_CHECK__READ_LIVE_BEFORE_WRITE",
+ "removed_from_v1_1": [
+  "ssh_rsync_target_identity_and_hash (SSH/rsync is not a qualified route; replaced by destination_hash_verification_any_transport)"
+ ],
+ "requires_before_write": [
+  "read live record and run check_service_candidate.py (exit 0)",
+  "D001 + D004 material-scope decision",
+  "attributable CHG + D007 effect release",
+  "non-Claude D009 assessment of this exact candidate",
+  "readback after write"
+ ],
+ "schema": "synapsys.gv-tec-001.release-service-upgrade/1.2-CANDIDATE",
+ "separator": "\n\n",
+ "status": "CANDIDATE_NOT_APPLIED__NO_SERVICE_WRITE_AUTHORISED",
+ "supersedes_candidate": "v1_1 sha256 c553c4f99968cd15adbccd2eaf7197f0db36b8914cd5b9fa44a442b7fa540e7e",
+ "target": {
+  "method": "D002-WRB",
+  "model": "x_service_catalogue",
+  "record_id": 35,
+  "service_code": "GV-TEC-001"
+ }
+}

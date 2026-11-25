@@ -1,0 +1,15 @@
+PASS P1 happy path: discovery finds the one addons mount; baseline on disk -> P0_MATCH_ALL exit 0 :: rc=0
+PASS P2 read-only discipline: every docker call is inspect / printenv / psql with read-only session; no cp/run/rm/restart/compose/stop :: 6 calls
+PASS P3 receipt carries DB facts incl. the F5 fact (ir_ui_view.visibility default) and compose hash line
+PASS P4 NEG on-disk single-bit drift vs baseline -> P0_DIFF exit 3, changed file named in receipt
+PASS P5 NEG docker not installed -> refuse exit 2 with explicit reason
+PASS P6 NEG DB container not running -> exit 4
+PASS P7 NEG two candidate addon mounts -> exit 4 (ambiguous), mounts printed for the operator
+PASS P8 explicit ADDONS override resolves the ambiguity -> exit 0
+PASS P9 NEG no mount contains synapsys -> exit 4
+PASS P10 NEG manifest hash differs from the expected -> exit 3 BEFORE any docker call
+PASS P11 NEG empty database.uuid -> exit 5 P0_DB_FACTS_UNAVAILABLE (cannot claim a prestate without it)
+PASS P12 NEG psql failure -> exit 5
+PASS P13 NEG OUT inside the addons dir -> refuse exit 2 (receipt must never touch the addon tree)
+PASS P14 addons tree unchanged by a P0 run (file set identical) :: 260 files
+SUMMARY pass=14 fail=0

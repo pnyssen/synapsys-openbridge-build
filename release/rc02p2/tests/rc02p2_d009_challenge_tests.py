@@ -37,8 +37,8 @@ for oid in bad_ids:
             for marker in ('<script>alert(1)</script>', '<img src=x onerror=alert(1)>'):
                 if marker in out: reflected.append((oid[:30], tr[:20], marker))
         except Exception as e: exc.append((oid[:30], tr[:20], type(e).__name__, str(e)[:80]))
-chk('(a) %d invalid object_id x trail combinations: no exception' % (len(bad_ids) * len(bad_trails)), not exc, str(exc[:3]))
-chk('(a) no raw hostile markup reflected from object_id/trail into the page', not reflected, str(reflected[:3]))
+chk('D009_T3_A_NO_EXCEPTION %d invalid object_id x trail combinations: no exception' % (len(bad_ids) * len(bad_trails)), not exc, str(exc[:3]))
+chk('D009_T3_A_NO_REFLECTION no raw hostile markup reflected from object_id/trail into the page', not reflected, str(reflected[:3]))
 # (b) hostile registry text through the real renderer
 P = '<img src=x onerror=alert(1)>"\'><script>alert(2)</script>&amp;'
 hostile = json.loads(body)
@@ -58,5 +58,5 @@ for oid in targets:
         except Exception as e: leaks.append(('EXC', oid, type(e).__name__, str(e)[:60])); continue
         for m in raw_markers:
             if m in out: leaks.append((oid, tr[:12], m))
-chk('(b) hostile registry strings across %d pages: no raw tag/handler survives rendering' % (len(targets) * 2), not leaks, str(leaks[:4]))
+chk('D009_T3_B_HOSTILE_REGISTRY hostile registry strings across %d pages: no raw tag/handler survives rendering' % (len(targets) * 2), not leaks, str(leaks[:4]))
 sys.exit(0 if all(res) else 3)
