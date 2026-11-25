@@ -86,7 +86,8 @@
    "status": "PASSED_OFFLINE",
    "tests": [
     "V9",
-    "V11"
+    "V11",
+    "V28"
    ]
   },
   {
@@ -111,16 +112,14 @@
   },
   {
    "code": "PRESTATE_PREREQUISITE_OR_DISCOVERY",
-   "description": "tool, container or addons mount missing/ambiguous",
-   "note": "",
+   "description": "tool, container or Odoo addons_path missing",
+   "note": "shim only",
    "status": "PASSED_OFFLINE",
    "tests": [
     "P5",
     "P6",
-    "P7",
     "P8",
-    "P9",
-    "P13"
+    "P9"
    ]
   },
   {
@@ -160,6 +159,85 @@
     "D009_T3_A_NO_EXCEPTION",
     "D009_T3_A_NO_REFLECTION",
     "D009_T3_B_HOSTILE_REGISTRY"
+   ]
+  },
+  {
+   "code": "DEST_SYMLINK_OR_SPECIAL_ENTRY",
+   "description": "symlink (file, directory, dangling, addon root, addons_path entry), FIFO or device in the addon tree",
+   "note": "V14 reproduces the externally reported false MATCH_ALL; mutation control re-introduces it and fails V14-V16,P15",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V12",
+    "V14",
+    "V15",
+    "V16",
+    "V17",
+    "V21",
+    "V26",
+    "P15",
+    "P20"
+   ]
+  },
+  {
+   "code": "DEST_UNEXPECTED_DIRECTORY",
+   "description": "empty or extra directory not implied by the manifest",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V20"
+   ]
+  },
+  {
+   "code": "DEST_RECEIPT_INSIDE_TREE",
+   "description": "receipt or output written inside an examined addon tree",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V18",
+    "V19",
+    "P13"
+   ]
+  },
+  {
+   "code": "DEST_ADDON_SHADOWED",
+   "description": "same addon in two addons_path entries",
+   "note": "Odoo implicit core path not examined",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V25",
+    "P7"
+   ]
+  },
+  {
+   "code": "VERIFIED_DIR_NOT_THE_DIR_ODOO_LOADS",
+   "description": "verifying a directory other than the addons_path Odoo loads; container vs host mount disagree",
+   "note": "shim only: in-container call form and /proc/1/cmdline semantics NOT yet seen on the real host",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "V23",
+    "V24",
+    "P1",
+    "P9",
+    "P17",
+    "P18"
+   ]
+  },
+  {
+   "code": "SECRET_LEAK_IN_RECEIPT",
+   "description": "password or raw command line captured in a receipt",
+   "note": "mutation control leaks the command line and fails P19",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "P19"
+   ]
+  },
+  {
+   "code": "ODOO_DB_TARGET_MISMATCH",
+   "description": "check aimed at a different database than Odoo is configured for",
+   "note": "",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "P16"
    ]
   },
   {
@@ -243,6 +321,34 @@
    "code": "CALLER_CAPABILITY_CLAIM_FAILS",
    "description": "AI claims a tool that fails on use",
    "note": "handshake endpoint not built",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "P0_ON_REAL_HOST",
+   "description": "P0 receipt produced on the real Hostinger host (python3 -I -c in the real Odoo image, real /proc/1/cmdline, real mounts)",
+   "note": "D007 console; only a shim has run",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "DIRECT_ACTION_ACCESS_BYPASS",
+   "description": "user without the menu opens the verb catalogue action by id/URL/RPC",
+   "note": "F3 acceptance (runtime, per role)",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "BACKEND_ACL_WRITE_ATTEMPT_BY_COLLABORATOR",
+   "description": "collaborator create/write/unlink on synapsys.verb via RPC despite read-only XML views",
+   "note": "F3 acceptance: XML read-only is UI-only",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "CROSS_CONTEXT_READ_THROUGH_NEW_MENUS",
+   "description": "collaborator in one Context reads another Context through the new menus or journey",
+   "note": "F3/F4 acceptance",
    "status": "NOT_RUN",
    "tests": []
   }

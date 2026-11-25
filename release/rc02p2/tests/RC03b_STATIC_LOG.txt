@@ -63,4 +63,3 @@ PASS F1 synapsys_mesh/views/registry_views.xml res_model synapsys.mesh.entry is 
 PASS F1 synapsys_mesh/views/registry_views.xml res_model synapsys.mesh.entry is defined in addon or its dependencies :: defined in ['synapsys_mesh']
 PASS F5 version 20.0.2.4.2 adds ir.ui.view => pre-migrate sets ir_ui_view.visibility default for THIS version
 PASS manifest version of synapsys is 20.0.2.4.2
-rc03b static exit=0

@@ -9,6 +9,23 @@ PASS V8 __pycache__ and .pyc ignored -> still MATCH_ALL
 PASS V9 NEG whole addon missing -> ADDON_DIR_MISSING exit 3
 PASS V10 --only scopes the check to the two changed addons -> MATCH_ALL despite synapsys_mesh absent
 PASS V11 NEG addon not in manifest -> NOT_IN_MANIFEST exit 3
-PASS V12 NEG symlink inside addon -> flagged (extra), exit 3
+PASS V12 NEG symlinked FILE inside addon -> flagged SYMLINK_FILE, exit 3
 PASS V13 verifier is read-only: target tree (files, sizes, mtimes, hashes, dirs) identical before and after a run; receipt written elsewhere :: 355 entries
-SUMMARY pass=13 fail=0
+PASS V14 NEG (reported defect) unexpected SYMLINKED DIRECTORY in an otherwise matching addon -> DIFF exit 3, SYMLINK_DIR named :: [{'kind': 'SYMLINK_DIR', 'path': 'linked_dir'}]
+PASS V15 NEG symlink directory pointing INSIDE the tree is still refused
+PASS V16 NEG dangling symlink -> SYMLINK_BROKEN, exit 3
+PASS V17 NEG addon ROOT is a symlink -> ADDON_ROOT_SYMLINK exit 3 (resolved target reported)
+PASS V18 NEG receipt destination inside an addon tree -> refused exit 2, nothing written
+PASS V19 NEG receipt destination in the addons root directory -> refused exit 2
+PASS V19b receipt outside every examined tree is written
+PASS V20 NEG unexpected (empty) directory -> DIFF unexpected_dirs
+PASS V21 NEG FIFO/special file -> SPECIAL_FILE, exit 3
+PASS V22 manifest on stdin (--manifest -) with the right hash -> MATCH_ALL
+PASS V22b NEG manifest on stdin with the wrong hash -> refuse
+PASS V23 the exact in-container invocation form (python3 -I -c "<script>" ... < manifest) -> MATCH_ALL
+PASS V24 addons-path: each addon resolved in the FIRST path that holds it (synapsys in A, v19_reference in B) -> MATCH_ALL
+PASS V25 NEG same addon in two addons-path entries -> SHADOWED_MULTIPLE_LOCATIONS, exit 3 (even if identical)
+PASS V26 NEG an addons-path ENTRY that is a symlink -> refused
+PASS V27 NEG addons-path entry that is not a directory -> refused
+PASS V28 NEG addon absent from every addons-path entry -> ADDON_DIR_MISSING
+SUMMARY pass=30 fail=0

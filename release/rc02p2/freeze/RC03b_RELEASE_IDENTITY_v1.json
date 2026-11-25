@@ -1,8 +1,26 @@
 {
  "context": "CTX-SS",
+ "external_review": [
+  {
+   "added_beyond_the_finding": "verification now runs INSIDE the Odoo container over the addons_path Odoo is configured to load (first-match, duplicates refused) and cross-checks the host mount; secrets are never recorded",
+   "also_confirmed": [
+    "symlinked addon root accepted",
+    "receipt could be written inside the addon tree"
+   ],
+   "finding": "verifier v1 silently ignored symlinked directories (false MATCH_ALL)",
+   "fix": "verify_on_target v2 + release_manifest refuse every symlink/special file/unexpected directory/shadowed addon/receipt inside tree; V14-V28 and P15-P20; mutation controls fail as intended",
+   "source": "ChatGPT (relayed input, not authority)",
+   "status": "CONFIRMED_INDEPENDENTLY_BY_CLAUDE_CODE_THEN_FIXED"
+  },
+  {
+   "F2": "Steward approved F2 as built (RC03b). RC03c (narrow F2) is offered as an evidenced alternative: collaborators keep the exact baseline journey, only the new panels stay Steward-only. NOT adopted unless the Steward revises F2.",
+   "F3": "Conditionally accepted: runtime role/ACL/direct-action/cross-Context tests are registered as NOT_RUN error classes and are acceptance conditions; read-only XML is not treated as a control.",
+   "source": "ChatGPT F2/F3 recommendation"
+  }
+ ],
  "label": "RC03b",
  "open_before_install": [
-  "P0 console prestate receipt MATCH_ALL with database.uuid",
+  "P0 v2 console prestate receipt P0_MATCH_ALL (container view) with database.uuid and a non-conflicting host view; verifier/P0 have only been run against a shim, never on the real host",
   "isolated restore + two-addon upgrade rehearsal incl. injected-failure rollback",
   "non-Claude D009 assessment of commit 360a2b4f",
   "scope-specific CHG + D007 effect release",
@@ -40,6 +58,7 @@
   ]
  },
  "status": "FROZEN_FOR_D009_ASSESSMENT_AND_ISOLATED_REHEARSAL__NOT_APPROVED_FOR_INSTALL__NOT_INSTALLED",
+ "steward_decision_status": "F2_F3_APPROVED_AS_BUILT__STANDS_UNLESS_STEWARD_REVISES__RC03c_OFFERED",
  "steward_decisions": [
   {
    "does_not_confer": [
@@ -63,19 +82,19 @@
  ],
  "tooling": [
   {
-   "bytes": 3257,
+   "bytes": 6676,
    "path": "release/rc02p2/target_verify/verify_on_target.py",
-   "sha256": "b210fa78d2120be7d19a43a6c9f065dbcac33f5a5d71b1e4bcb9bc4b3f5d1232"
+   "sha256": "5d2061895d881930770be38023c4c4d0370ad7c5fbebf3f327cb9400ddfe49ca"
   },
   {
-   "bytes": 5467,
+   "bytes": 9826,
    "path": "release/rc02p2/target_verify/p0_prestate_receipt.sh",
-   "sha256": "ac2458926ef539d33a48875b8d5808def9f82727f20208143f36c8125d17f324"
+   "sha256": "4b1657fd6c6c8d7f5338ab8d6d32fa3f02c7b96cf50b244dd34726c0dcdba6fa"
   },
   {
-   "bytes": 2024,
+   "bytes": 2443,
    "path": "release/rc02p2/target_verify/release_manifest.py",
-   "sha256": "17576d2aac0df8e715ce71d355da0aad44c2c1e537edd4d78dd4438153a6e284"
+   "sha256": "0fde021caca37e08e7694e4b4aa9eff35abc4d315fc7fedbc8cdb26f08a28f3d"
   },
   {
    "bytes": 32324,
@@ -93,19 +112,24 @@
    "sha256": "33ef92fa3d040a3317d07a9a5527f3f465b7707c03e57ef8f442ed8024cf2259"
   },
   {
+   "bytes": 2280,
+   "path": "release/rc02p2/rc03_candidates/RC03c-F2-narrow-delta-vs-RC03b.patch",
+   "sha256": "54b5208c1d40e4a28f1ecced82bd43d6aa031921fc9a2dace06551a5935893bc"
+  },
+  {
    "bytes": 4732,
    "path": "service/gvtec001_v1_2/check_service_candidate.py",
    "sha256": "944c95a4685b0ba700b75f0189a112725b4e817dda0257268c59f6b856efe518"
   },
   {
-   "bytes": 6101,
+   "bytes": 9028,
    "path": "service/gvtec001_v1_2/ERROR_CLASS_REGISTRY.json",
-   "sha256": "e393eb1f2744eb7655434e8efb1ab5fce86f36d0dba1b2ab0ad39019090da906"
+   "sha256": "8b5b966a4e1f07cb2435b4e217aaf9c832719ec123d7b551ed8f624480ed5f09"
   },
   {
-   "bytes": 6079,
+   "bytes": 6432,
    "path": "service/gvtec001_v1_2/GV-TEC-001_V20_release_service_upgrade_v1_2_CANDIDATE.json",
-   "sha256": "605463e361b6457dffff2a13a3d8180029787ab8a2f0d8371b4d4a344ff045e7"
+   "sha256": "c091c5eaa1b542a5db7aa7820dacb22088311fc56c3579f2ee0efbf4468a9cea"
   },
   {
    "bytes": 11804,

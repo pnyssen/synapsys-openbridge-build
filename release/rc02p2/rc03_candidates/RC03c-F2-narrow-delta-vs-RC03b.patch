@@ -1,0 +1,30 @@
+diff --git a/synapsys/controllers/arch_map.py b/synapsys/controllers/arch_map.py
+index b59e96c..7769e09 100644
+--- a/synapsys/controllers/arch_map.py
++++ b/synapsys/controllers/arch_map.py
+@@ -79,12 +79,10 @@ class ArchitectureMap(http.Controller):
+ 
+     @http.route(['/synapsys/architecture/map/data', '/synapsys/architecture/map/object'], type='jsonrpc', auth='user')
+     def map_data(self, object_id=None, trail=None):
+-        # Enable review is explicitly Steward/system-only while rights R1 is unresolved.
+-        # Keep the existing registry authority source; do not broaden disclosure via the new all-noun index.
+-        if not (request.env.user.has_group('synapsys.group_synapsys_steward')
+-                or request.env.user.has_group('base.group_system')):
+-            return ('<div class="aj"><p>Architecture noun review is limited to the Steward '
+-                    'until the Collaborator access boundary is independently tested.</p></div>')
++        # RC03c: the NEW noun review panels are Steward/system-only while rights R1 is unresolved.
++        # Everyone else receives exactly the baseline journey (unchanged behaviour, no new disclosure).
++        privileged = bool(request.env.user.has_group('synapsys.group_synapsys_steward')
++                          or request.env.user.has_group('base.group_system'))
+         from odoo.addons.synapsys_mesh import arch_check, binding, journey, journey_ui
+         Reg = request.env['synapsys.mesh.registry'].sudo()   # R1: restricted at controller boundary for review
+         reg = Reg.search([('state', '=', 'active')], limit=1) or Reg.search([], order='id desc', limit=1)
+@@ -104,4 +102,7 @@ class ArchitectureMap(http.Controller):
+             rep = None
+         ids = [t for t in (trail or '').split(',') if t]
+         j = journey.journey(g, object_id or ROOT, ids, rep, None, None, arch_check.check(reg.body))
+-        return _noun_review_index(g, expanded=(not object_id or object_id == ROOT)) + _noun_shape_review(g, object_id or ROOT) + journey_ui.render(j)
++        base_html = journey_ui.render(j)
++        if not privileged:
++            return base_html
++        return _noun_review_index(g, expanded=(not object_id or object_id == ROOT)) + _noun_shape_review(g, object_id or ROOT) + base_html

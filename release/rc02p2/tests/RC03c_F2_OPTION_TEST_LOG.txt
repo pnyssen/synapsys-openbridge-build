@@ -1,0 +1,9 @@
+PASS C1 RC03b (F2 as approved): collaborator gets only the notice, no journey :: 143 bytes
+PASS C2 RC03c: collaborator gets EXACTLY the baseline journey (byte-identical to the original controller output) :: 11667 bytes
+PASS C3 RC03c: collaborator sees none of the NEW panels (no noun-review-index, no noun-shape-review)
+PASS C4 Steward output identical in RC03b and RC03c (F2-narrow changes nobody else)
+PASS C5 RC03c collaborator on a specific object + trail == baseline for that object
+PASS C6 RC03c collaborator: no new panel even for a specific object (shape review stays Steward-only)
+PASS C7 RC03c system administrator treated as privileged
+PASS C8 RC03c: R1 is NOT fixed - the registry is still read with sudo() (disclosure to any logged-in user is the baseline, unchanged)
+SUMMARY pass=8 fail=0

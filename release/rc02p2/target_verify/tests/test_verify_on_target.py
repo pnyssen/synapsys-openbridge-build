@@ -33,7 +33,7 @@ rc, r = run(t6, RC); chk('V9 NEG whole addon missing -> ADDON_DIR_MISSING exit 3
 rc, r = run(t6, RC, only='synapsys,synapsys_v19_reference'); chk('V10 --only scopes the check to the two changed addons -> MATCH_ALL despite synapsys_mesh absent', rc == 0 and sorted(r['addons']) == ['synapsys', 'synapsys_v19_reference'])
 rc, r = run(t2, RC, only='no_such_addon'); chk('V11 NEG addon not in manifest -> NOT_IN_MANIFEST exit 3', rc == 3 and r['addons']['no_such_addon']['status'] == 'NOT_IN_MANIFEST')
 t7 = fresh(SRC_RC); os.symlink('/etc/hostname', os.path.join(t7, 'synapsys', 'link.txt'))
-rc, r = run(t7, RC); chk('V12 NEG symlink inside addon -> flagged (extra), exit 3', rc == 3 and 'link.txt' in r['addons']['synapsys']['extra'])
+rc, r = run(t7, RC); chk('V12 NEG symlinked FILE inside addon -> flagged SYMLINK_FILE, exit 3', rc == 3 and {'path': 'link.txt', 'kind': 'SYMLINK_FILE'} in r['addons']['synapsys']['unexpected_links_or_special'])
 def snap(d):
     out = {}
     for dp, dn, fn in os.walk(d):
@@ -43,4 +43,44 @@ def snap(d):
     return out
 t8 = fresh(SRC_RC); s0 = snap(t8); rc, r = run(t8, RC, extra=['--receipt', os.path.join(tempfile.mkdtemp(), 'r.json')]); s1 = snap(t8)
 chk('V13 verifier is read-only: target tree (files, sizes, mtimes, hashes, dirs) identical before and after a run; receipt written elsewhere', rc == 0 and s0 == s1 and len(s0) > 100, '%d entries' % len(s0))
+
+# ---- v2 controls (V14 reproduces the independently reported false MATCH_ALL on v1)
+def runx(args, stdin=None, code=None):
+    c = ([sys.executable, '-I', '-c', open(os.path.join(root, 'verify_on_target.py')).read()] if code else V) + args
+    r = subprocess.run(c, capture_output=True, text=True, input=stdin); 
+    try: j = json.loads(r.stdout)
+    except Exception: j = {}
+    return r.returncode, j
+MS = sh(RC); base_args = lambda d, extra=(): ['--addons-dir', d, '--manifest', RC, '--manifest-sha256', MS, '--only', 'synapsys'] + list(extra)
+t9 = fresh(SRC_RC); out_dir = tempfile.mkdtemp(); open(os.path.join(out_dir, 'evil.py'), 'w').write('x'); os.symlink(out_dir, os.path.join(t9, 'synapsys', 'linked_dir'))
+rc, r = runx(base_args(t9)); pk = r['addons']['synapsys']['unexpected_links_or_special']
+chk('V14 NEG (reported defect) unexpected SYMLINKED DIRECTORY in an otherwise matching addon -> DIFF exit 3, SYMLINK_DIR named', rc == 3 and r['verdict'] == 'DIFF' and {'path': 'linked_dir', 'kind': 'SYMLINK_DIR'} in pk, str(pk))
+t10 = fresh(SRC_RC); os.symlink(os.path.join(t10, 'synapsys', 'models'), os.path.join(t10, 'synapsys', 'models_alias'))
+rc, r = runx(base_args(t10)); chk('V15 NEG symlink directory pointing INSIDE the tree is still refused', rc == 3 and any(x['kind'] == 'SYMLINK_DIR' for x in r['addons']['synapsys']['unexpected_links_or_special']))
+t11 = fresh(SRC_RC); os.symlink('/nonexistent/target', os.path.join(t11, 'synapsys', 'dangling'))
+rc, r = runx(base_args(t11)); chk('V16 NEG dangling symlink -> SYMLINK_BROKEN, exit 3', rc == 3 and {'path': 'dangling', 'kind': 'SYMLINK_BROKEN'} in r['addons']['synapsys']['unexpected_links_or_special'])
+t12 = fresh(SRC_RC); real = os.path.join(os.path.dirname(t12), 'real_synapsys'); shutil.move(os.path.join(t12, 'synapsys'), real); os.symlink(real, os.path.join(t12, 'synapsys'))
+rc, r = runx(base_args(t12)); chk('V17 NEG addon ROOT is a symlink -> ADDON_ROOT_SYMLINK exit 3 (resolved target reported)', rc == 3 and r['addons']['synapsys']['status'] == 'ADDON_ROOT_SYMLINK' and r['addons']['synapsys']['resolves_to'] == os.path.realpath(real))
+t13 = fresh(SRC_RC); rp = os.path.join(t13, 'synapsys', 'receipt.json'); rc, r = runx(base_args(t13, ['--receipt', rp]))
+chk('V18 NEG receipt destination inside an addon tree -> refused exit 2, nothing written', rc == 2 and r.get('verdict') == 'REFUSE_RECEIPT_INSIDE_EXAMINED_TREE' and not os.path.exists(rp))
+rp2 = os.path.join(t13, 'receipt_at_root.json'); rc, r = runx(base_args(t13, ['--receipt', rp2])); chk('V19 NEG receipt destination in the addons root directory -> refused exit 2', rc == 2 and not os.path.exists(rp2))
+rp3 = os.path.join(tempfile.mkdtemp(), 'ok.json'); rc, r = runx(base_args(t13, ['--receipt', rp3])); chk('V19b receipt outside every examined tree is written', rc == 0 and os.path.exists(rp3))
+t14 = fresh(SRC_RC); os.makedirs(os.path.join(t14, 'synapsys', 'empty_extra_dir'))
+rc, r = runx(base_args(t14)); chk('V20 NEG unexpected (empty) directory -> DIFF unexpected_dirs', rc == 3 and r['addons']['synapsys']['unexpected_dirs'] == ['empty_extra_dir'])
+t15 = fresh(SRC_RC); os.mkfifo(os.path.join(t15, 'synapsys', 'pipe'))
+rc, r = runx(base_args(t15)); chk('V21 NEG FIFO/special file -> SPECIAL_FILE, exit 3', rc == 3 and {'path': 'pipe', 'kind': 'SPECIAL_FILE'} in r['addons']['synapsys']['unexpected_links_or_special'])
+t16 = fresh(SRC_RC); man_bytes = open(RC, 'rb').read().decode()
+rc, r = runx(['--addons-dir', t16, '--manifest', '-', '--manifest-sha256', MS, '--only', 'synapsys'], stdin=man_bytes); chk('V22 manifest on stdin (--manifest -) with the right hash -> MATCH_ALL', rc == 0 and r['verdict'] == 'MATCH_ALL')
+rc, r = runx(['--addons-dir', t16, '--manifest', '-', '--manifest-sha256', '0' * 64, '--only', 'synapsys'], stdin=man_bytes); chk('V22b NEG manifest on stdin with the wrong hash -> refuse', rc == 3 and r['verdict'] == 'REFUSE_MANIFEST_HASH_MISMATCH')
+rc, r = runx(['--addons-dir', t16, '--manifest', '-', '--manifest-sha256', MS, '--only', 'synapsys'], stdin=man_bytes, code=True); chk('V23 the exact in-container invocation form (python3 -I -c "<script>" ... < manifest) -> MATCH_ALL', rc == 0 and r['verdict'] == 'MATCH_ALL')
+A = fresh(SRC_RC); B = tempfile.mkdtemp(); shutil.move(os.path.join(A, 'synapsys_v19_reference'), os.path.join(B, 'synapsys_v19_reference'))
+ap = lambda *ps: os.pathsep.join(ps); pa = lambda path, only='synapsys,synapsys_v19_reference': ['--addons-path', path, '--manifest', RC, '--manifest-sha256', MS, '--only', only]
+rc, r = runx(pa(ap(A, B))); chk('V24 addons-path: each addon resolved in the FIRST path that holds it (synapsys in A, v19_reference in B) -> MATCH_ALL', rc == 0 and r['addons']['synapsys_v19_reference']['location'].startswith(B))
+C = tempfile.mkdtemp(); shutil.copytree(SRC_RC + '/synapsys', os.path.join(C, 'synapsys'))
+rc, r = runx(pa(ap(A, B, C))); chk('V25 NEG same addon in two addons-path entries -> SHADOWED_MULTIPLE_LOCATIONS, exit 3 (even if identical)', rc == 3 and r['addons']['synapsys']['status'] == 'SHADOWED_MULTIPLE_LOCATIONS')
+L = os.path.join(tempfile.mkdtemp(), 'linkpath'); os.symlink(A, L)
+rc, r = runx(pa(ap(L, B))); chk('V26 NEG an addons-path ENTRY that is a symlink -> refused', rc == 3 and r['path_entries'][0]['status'] == 'ADDONS_PATH_ENTRY_SYMLINK')
+rc, r = runx(pa(ap(A, '/no/such/dir', B))); chk('V27 NEG addons-path entry that is not a directory -> refused', rc == 3 and r['path_entries'][1]['status'] == 'ADDONS_PATH_ENTRY_NOT_A_DIR')
+rc, r = runx(pa(ap(A), 'synapsys_v19_reference')); chk('V28 NEG addon absent from every addons-path entry -> ADDON_DIR_MISSING', rc == 3 and r['addons']['synapsys_v19_reference']['status'] == 'ADDON_DIR_MISSING')
+
 ok = all(res); print('SUMMARY pass=%d fail=%d' % (sum(res), len(res) - sum(res))); sys.exit(0 if ok else 1)

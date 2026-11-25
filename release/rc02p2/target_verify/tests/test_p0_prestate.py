@@ -1,8 +1,15 @@
-"""Tests p0_prestate_receipt.sh against a docker SHIM (no real docker): discovery, fail-closed codes, read-only call discipline."""
-import json, os, re, shutil, stat, subprocess, sys, tempfile
+"""Tests p0_prestate_receipt.sh (v2) against a docker SHIM: in-container python calls run the REAL python3 on the host against a fixture
+'container' (conf + cmdline files, addons dirs). Checks discovery, fail-closed codes, view conflict, secrets hygiene and read-only call discipline."""
+import json, os, re, shutil, subprocess, sys, tempfile
 here = os.path.dirname(os.path.abspath(__file__)); root = os.path.dirname(here); P0 = os.path.join(root, 'p0_prestate_receipt.sh')
 SRC_BASE = sys.argv[1]
 SHIM = r'''#!/usr/bin/env bash
+args=("$@"); idx=-1; for i in "${!args[@]}"; do [ "${args[$i]}" = python3 ] && idx=$i; done
+if [ "$idx" -ge 0 ]; then
+  ctr=${args[$((idx-1))]}; fl=""; [ "${args[0]}" = exec ] && [ "${args[1]}" = -i ] && fl="-i "
+  echo "exec ${fl}${ctr} python3 -I -c <code> ${args[*]:$((idx+4))}" >> "$SHIM_LOG"
+  exec python3 "${args[@]:$((idx+1))}"
+fi
 echo "$*" >> "$SHIM_LOG"
 case "$1" in
  inspect) fmt="$3"; name="$4"
@@ -21,53 +28,62 @@ esac
 '''
 res = []
 def chk(n, c, d=''): c = bool(c); res.append(c); print(('PASS ' if c else 'FAIL ') + n + (' :: ' + d if d else ''))
-def mk(extra_dirs=0, tweak=None, no_mount=False):
+def mk(conf_extra='', cmdline=None, tweak=None, extra_path_dirs=(), mounts_override=None, conf_addons=None, conf=True):
     w = tempfile.mkdtemp(); a = os.path.join(w, 'addons1'); shutil.copytree(SRC_BASE, a)
     if tweak: tweak(a)
-    mounts = [] if no_mount else [{'Source': a, 'Destination': '/mnt/extra-addons'}]
-    for i in range(extra_dirs):
-        b = os.path.join(w, 'addons%d' % (i + 2)); shutil.copytree(SRC_BASE, b); mounts.append({'Source': b, 'Destination': '/x%d' % i})
+    others = []
+    for i, name in enumerate(extra_path_dirs):
+        d = os.path.join(w, name); shutil.copytree(SRC_BASE, d); others.append(d)
+    paths = conf_addons if conf_addons is not None else [a] + others
+    cf = os.path.join(w, 'odoo.conf')
+    if conf: open(cf, 'w').write('[options]\naddons_path = %s\nadmin_passwd = SECRETADMIN\ndb_password = SECRETPW\ndb_host = db\n%s\n' % (','.join(paths), conf_extra))
+    cl = os.path.join(w, 'cmdline'); open(cl, 'wb').write(('\0'.join(['odoo', '--db_password=SECRETCLI'] + (cmdline or [])) + '\0').encode())
+    mounts = mounts_override if mounts_override is not None else [{'Source': p, 'Destination': p, 'Type': 'bind'} for p in paths]
     mj = os.path.join(w, 'mounts.json'); json.dump(mounts, open(mj, 'w'))
     sb = os.path.join(w, 'bin'); os.mkdir(sb); d = os.path.join(sb, 'docker'); open(d, 'w').write(SHIM); os.chmod(d, 0o755)
     nb = os.path.join(w, 'nodocker'); os.mkdir(nb)
-    for c in ['bash', 'python3', 'sha256sum', 'cut', 'grep', 'tr', 'head', 'sed', 'date', 'mkdir', 'cat', 'dirname', 'wc', 'sort']:
+    for c in ['bash', 'python3', 'sha256sum', 'cut', 'grep', 'tr', 'head', 'sed', 'date', 'mkdir', 'cat', 'dirname', 'wc', 'sort', 'printf']:
         p = shutil.which(c); os.symlink(p, os.path.join(nb, c)) if p else None
-    return w, a, mj, sb, nb
-def run(w, mj, path_dir, env_extra=None):
-    out = os.path.join(w, 'out'); log = os.path.join(w, 'docker.log')
-    env = {'PATH': path_dir + os.pathsep + os.environ['PATH'] if path_dir.endswith('bin') else path_dir, 'SHIM_LOG': log, 'SHIM_MOUNTS': mj, 'OUT': out, 'HOME': w}
-    env.update(env_extra or {})
+    return dict(w=w, a=a, others=others, cf=cf, cl=cl, mj=mj, sb=sb, nb=nb)
+def run(m, path_dir=None, env_extra=None):
+    out = os.path.join(m['w'], 'out'); log = os.path.join(m['w'], 'docker.log')
+    env = {'PATH': (path_dir or m['sb']) + (os.pathsep + os.environ['PATH'] if (path_dir or m['sb']).endswith('bin') else ''), 'SHIM_LOG': log, 'SHIM_MOUNTS': m['mj'], 'OUT': out, 'HOME': m['w'],
+           'ODOO_CONF_PATH': m['cf'], 'ODOO_CMDLINE_PATH': m['cl'], 'COMPOSE': os.path.join(m['w'], 'docker-compose.yml')}
+    open(env['COMPOSE'], 'w').write('services: {}\n'); env.update(env_extra or {})
     r = subprocess.run(['/bin/bash', P0], capture_output=True, text=True, env=env)
-    return r.returncode, r.stdout, r.stderr, out, (open(log).read() if os.path.exists(log) else '')
-ALLOWED = re.compile(r'^(inspect -f \S+.* \S+|exec \S+ printenv POSTGRES_USER|exec -i -e PGOPTIONS=-c default_transaction_read_only=on \S+ psql .*)$')
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb)
-rec = json.load(open(os.path.join(out, 'p0_receipt.json'))) if os.path.exists(os.path.join(out, 'p0_receipt.json')) else {}
-chk('P1 happy path: discovery finds the one addons mount; baseline on disk -> P0_MATCH_ALL exit 0', rc == 0 and 'P0_VERDICT=P0_MATCH_ALL' in so and rec.get('database_uuid') == 'TEST-UUID-1234' and rec['verifier']['verdict'] == 'MATCH_ALL', 'rc=%d' % rc)
+    rec = json.load(open(os.path.join(out, 'p0_receipt.json'))) if os.path.exists(os.path.join(out, 'p0_receipt.json')) else {}
+    return r.returncode, r.stdout, r.stderr, out, (open(log).read() if os.path.exists(log) else ''), rec
+ALLOWED = re.compile(r'^(inspect -f \S+.* \S+|exec \S+ printenv POSTGRES_USER|exec \S+ python3 -I -c <code> \S+ \S+|exec -i \S+ python3 -I -c <code> --addons-path \S+ --manifest - --manifest-sha256 \S+ --only \S+|exec -i -e PGOPTIONS=-c default_transaction_read_only=on \S+ psql .*)$')
+m = mk(); rc, so, se, out, log, rec = run(m)
+chk('P1 happy path: Odoo config read in-container, addons verified in-container AND on the host mount -> P0_MATCH_ALL exit 0', rc == 0 and 'P0_VERDICT=P0_MATCH_ALL' in so and rec['container_view']['verdict'] == 'MATCH_ALL' and rec['host_view']['verdict'] == 'MATCH_ALL' and rec['database_uuid'] == 'TEST-UUID-1234', 'rc=%d se=%s' % (rc, se[-120:]))
 lines = [l for l in log.splitlines() if l]
-chk('P2 read-only discipline: every docker call is inspect / printenv / psql with read-only session; no cp/run/rm/restart/compose/stop', lines and all(ALLOWED.match(l) for l in lines) and 'RO_VIOLATION' not in log and not re.search(r'\b(cp|run|rm|restart|stop|start|up|down|compose|kill|commit|update|create)\b', ' '.join(l.split(' ', 1)[0] for l in lines)), '%d calls' % len(lines))
-chk('P3 receipt carries DB facts incl. the F5 fact (ir_ui_view.visibility default) and compose hash line', any(f.startswith('ir_ui_view.visibility.default=') for f in rec.get('db_facts', [])) and rec.get('compose_sha256'))
-def tw(a): p = os.path.join(a, 'synapsys', 'controllers', 'arch_map.py'); b = bytearray(open(p, 'rb').read()); b[100] ^= 1; open(p, 'wb').write(bytes(b))
-w, a, mj, sb, nb = mk(tweak=tw); rc, so, se, out, log = run(w, mj, sb)
-rec = json.load(open(os.path.join(out, 'p0_receipt.json')))
-chk('P4 NEG on-disk single-bit drift vs baseline -> P0_DIFF exit 3, changed file named in receipt', rc == 3 and rec['verdict'] == 'P0_DIFF' and rec['verifier']['addons']['synapsys']['changed'] == ['controllers/arch_map.py'])
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, nb)
-chk('P5 NEG docker not installed -> refuse exit 2 with explicit reason', rc == 2 and 'prerequisite missing: docker' in se and 'P0_VERDICT=REFUSE_2' in so)
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb, {'SHIM_DOWN': 'odoo20-db-1'})
-chk('P6 NEG DB container not running -> exit 4', rc == 4 and 'not running' in se)
-w, a, mj, sb, nb = mk(extra_dirs=1); rc, so, se, out, log = run(w, mj, sb)
-chk('P7 NEG two candidate addon mounts -> exit 4 (ambiguous), mounts printed for the operator', rc == 4 and 'found 2 candidates' in se)
-rc, so, se, out, log = run(w, mj, sb, {'ADDONS': a, 'OUT': os.path.join(w, 'out2')})
-chk('P8 explicit ADDONS override resolves the ambiguity -> exit 0', rc == 0)
-w, a, mj, sb, nb = mk(no_mount=True); rc, so, se, out, log = run(w, mj, sb)
-chk('P9 NEG no mount contains synapsys -> exit 4', rc == 4 and 'found 0 candidates' in se)
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb, {'MSHA': '0' * 64})
-chk('P10 NEG manifest hash differs from the expected -> exit 3 BEFORE any docker call', rc == 3 and log == '' and 'P0_VERDICT=REFUSE_3' in so)
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb, {'SHIM_UUID': ''})
-chk('P11 NEG empty database.uuid -> exit 5 P0_DB_FACTS_UNAVAILABLE (cannot claim a prestate without it)', rc == 5 and 'P0_DB_FACTS_UNAVAILABLE' in so)
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb, {'SHIM_PSQL_FAIL': '1'})
-chk('P12 NEG psql failure -> exit 5', rc == 5)
-w, a, mj, sb, nb = mk(); rc, so, se, out, log = run(w, mj, sb, {'OUT': os.path.join(a, 'receipts')})
-chk('P13 NEG OUT inside the addons dir -> refuse exit 2 (receipt must never touch the addon tree)', rc == 2 and 'OUT must not be inside' in se)
-w, a, mj, sb, nb = mk(); before = sorted((dp, f) for dp, dn, fn in os.walk(a) for f in fn); rc, so, se, out, log = run(w, mj, sb); after = sorted((dp, f) for dp, dn, fn in os.walk(a) for f in fn)
-chk('P14 addons tree unchanged by a P0 run (file set identical)', rc == 0 and before == after, '%d files' % len(before))
+chk('P2 read-only discipline: only inspect / printenv / in-container python3 over stdin / psql with a read-only session; no cp/run/rm/restart/compose/stop/write verbs', lines and all(ALLOWED.match(l) for l in lines) and 'RO_VIOLATION' not in log and not re.search(r'\b(cp|run|rm|restart|stop|start|up|down|compose|kill|commit|update|create|tee)\b', ' '.join(l.split(' ')[0] for l in lines)) and any('exec -i' in l and '--manifest -' in l for l in lines), '%d calls' % len(lines))
+chk('P3 receipt carries DB facts incl. the F5 fact, compose hash, and the whitelisted Odoo config (source recorded)', any(f.startswith('ir_ui_view.visibility.default=') for f in rec['db_facts']) and rec['compose_sha256'] and rec['odoo_config_whitelist']['addons_path_source'] == 'conf')
+def drift(a): p = os.path.join(a, 'synapsys', 'controllers', 'arch_map.py'); b = bytearray(open(p, 'rb').read()); b[100] ^= 1; open(p, 'wb').write(bytes(b))
+m = mk(tweak=drift); rc, so, se, out, log, rec = run(m)
+chk('P4 NEG on-disk single-bit drift -> P0_DIFF exit 3; changed file named', rc == 3 and rec['verdict'] == 'P0_DIFF' and rec['container_view']['addons']['synapsys']['changed'] == ['controllers/arch_map.py'])
+m = mk(); rc, so, se, out, log, rec = run(m, path_dir=m['nb']); chk('P5 NEG docker not installed -> refuse exit 2', rc == 2 and 'prerequisite missing: docker' in se)
+m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'SHIM_DOWN': 'odoo20-db-1'}); chk('P6 NEG DB container not running -> exit 4', rc == 4 and 'not running' in se)
+m = mk(extra_path_dirs=['addons2']); rc, so, se, out, log, rec = run(m)
+chk('P7 NEG the same addon exists in two Odoo addons_path entries -> SHADOWED, P0_DIFF exit 3 (shadowing proven, not assumed)', rc == 3 and rec['container_view']['addons']['synapsys']['status'] == 'SHADOWED_MULTIPLE_LOCATIONS')
+m = mk(conf=False, cmdline=[]); rc, so, se, out, log, rec = run(m); chk('P8 NEG no addons_path in config or command line -> exit 4', rc == 4 and 'no addons_path' in se, 'rc=%d se=%s' % (rc, se[-200:].replace(chr(10), ' | ')))
+m = mk(conf_addons=['/definitely/not/here'], cmdline=['--addons-path=PLACEHOLDER']); open(m['cl'], 'wb').write(('\0'.join(['odoo', '--db_password=SECRETCLI', '--addons-path=' + m['a']]) + '\0').encode())
+m['mj'] and json.dump([{'Source': m['a'], 'Destination': m['a']}], open(m['mj'], 'w')); rc, so, se, out, log, rec = run(m)
+chk('P9 command-line --addons-path overrides the config file (as Odoo does) -> uses cmdline, exit 0', rc == 0 and rec['odoo_config_whitelist']['addons_path_source'] == 'cmdline')
+m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'MSHA': '0' * 64}); chk('P10 NEG manifest hash differs from expected -> exit 3 BEFORE any docker call', rc == 3 and log == '' and 'P0_VERDICT=REFUSE_3' in so)
+m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'SHIM_UUID': ''}); chk('P11 NEG empty database.uuid -> exit 5 (no prestate claim without it)', rc == 5 and 'P0_DB_FACTS_UNAVAILABLE' in so)
+m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'SHIM_PSQL_FAIL': '1'}); chk('P12 NEG psql failure -> exit 5', rc == 5)
+m = mk(); od = os.path.join(m['a'], 'receipts'); rc, so, se, out, log, rec = run(m, env_extra={'OUT': od}); chk('P13 NEG OUT inside the addons dir -> refuse exit 2 and NOTHING written there', rc == 2 and not os.path.exists(od))
+m = mk(); before = sorted((dp, f) for dp, dn, fn in os.walk(m['a']) for f in fn); rc, so, se, out, log, rec = run(m); after = sorted((dp, f) for dp, dn, fn in os.walk(m['a']) for f in fn)
+chk('P14 addons tree unchanged by a P0 run', rc == 0 and before == after, '%d files' % len(before))
+def linkdir(a): o = tempfile.mkdtemp(); os.symlink(o, os.path.join(a, 'synapsys', 'linked_dir'))
+m = mk(tweak=linkdir); rc, so, se, out, log, rec = run(m); chk('P15 NEG symlinked directory inside an addon -> P0_DIFF exit 3 (the reported verifier defect, now through the whole P0 path)', rc == 3 and {'path': 'linked_dir', 'kind': 'SYMLINK_DIR'} in rec['container_view']['addons']['synapsys']['unexpected_links_or_special'])
+m = mk(conf_extra='db_name = some_other_db'); rc, so, se, out, log, rec = run(m); chk('P16 NEG Odoo is configured for a different database than the one checked -> exit 4', rc == 4 and 'some_other_db' in se)
+m = mk(); host = os.path.join(m['w'], 'hostcopy'); shutil.copytree(m['a'], host); drift(host); json.dump([{'Source': host, 'Destination': m['a']}], open(m['mj'], 'w')); rc, so, se, out, log, rec = run(m)
+chk('P17 NEG container view matches but the host mount source differs -> P0_VIEW_CONFLICT exit 3', rc == 3 and rec['verdict'] == 'P0_VIEW_CONFLICT' and 'HOST_VIEW=DIFF' in so)
+m = mk(mounts_override=[]); rc, so, se, out, log, rec = run(m); chk('P18 host mount mapping unavailable -> container view still authoritative: exit 0, HOST_VIEW=UNAVAILABLE flagged', rc == 0 and 'HOST_VIEW=UNAVAILABLE' in so and rec['host_view'] == 'UNAVAILABLE')
+m = mk(); rc, so, se, out, log, rec = run(m); blob = so + se + ''.join(open(os.path.join(dp, f), errors='replace').read() for dp, dn, fn in os.walk(out) for f in fn)
+chk('P19 NEG secrets hygiene: db_password / admin_passwd / --db_password never appear in stdout, stderr or any file in OUT', rc == 0 and not re.search('SECRETPW|SECRETADMIN|SECRETCLI', blob), '%d chars scanned' % len(blob))
+m = mk(); lk = os.path.join(m['w'], 'link_addons'); os.symlink(m['a'], lk); open(m['cf'], 'w').write('[options]\naddons_path = %s\n' % lk); json.dump([{'Source': m['a'], 'Destination': lk}], open(m['mj'], 'w')); rc, so, se, out, log, rec = run(m)
+chk('P20 NEG an addons_path ENTRY that is a symlink -> refused, exit 3', rc == 3 and rec['container_view']['path_entries'][0]['status'] == 'ADDONS_PATH_ENTRY_SYMLINK')
 print('SUMMARY pass=%d fail=%d' % (sum(res), len(res) - sum(res))); sys.exit(0 if all(res) else 1)

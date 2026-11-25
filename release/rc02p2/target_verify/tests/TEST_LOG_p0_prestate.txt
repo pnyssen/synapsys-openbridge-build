@@ -1,15 +1,21 @@
-PASS P1 happy path: discovery finds the one addons mount; baseline on disk -> P0_MATCH_ALL exit 0 :: rc=0
-PASS P2 read-only discipline: every docker call is inspect / printenv / psql with read-only session; no cp/run/rm/restart/compose/stop :: 6 calls
-PASS P3 receipt carries DB facts incl. the F5 fact (ir_ui_view.visibility default) and compose hash line
-PASS P4 NEG on-disk single-bit drift vs baseline -> P0_DIFF exit 3, changed file named in receipt
-PASS P5 NEG docker not installed -> refuse exit 2 with explicit reason
+PASS P1 happy path: Odoo config read in-container, addons verified in-container AND on the host mount -> P0_MATCH_ALL exit 0 :: rc=0 se=
+PASS P2 read-only discipline: only inspect / printenv / in-container python3 over stdin / psql with a read-only session; no cp/run/rm/restart/compose/stop/write verbs :: 8 calls
+PASS P3 receipt carries DB facts incl. the F5 fact, compose hash, and the whitelisted Odoo config (source recorded)
+PASS P4 NEG on-disk single-bit drift -> P0_DIFF exit 3; changed file named
+PASS P5 NEG docker not installed -> refuse exit 2
 PASS P6 NEG DB container not running -> exit 4
-PASS P7 NEG two candidate addon mounts -> exit 4 (ambiguous), mounts printed for the operator
-PASS P8 explicit ADDONS override resolves the ambiguity -> exit 0
-PASS P9 NEG no mount contains synapsys -> exit 4
-PASS P10 NEG manifest hash differs from the expected -> exit 3 BEFORE any docker call
-PASS P11 NEG empty database.uuid -> exit 5 P0_DB_FACTS_UNAVAILABLE (cannot claim a prestate without it)
+PASS P7 NEG the same addon exists in two Odoo addons_path entries -> SHADOWED, P0_DIFF exit 3 (shadowing proven, not assumed)
+PASS P8 NEG no addons_path in config or command line -> exit 4 :: rc=4 se=P0_REFUSE[4]: no addons_path found in Odoo config or command line (conf_found/cmdline_found in /tmp/tmpdfo1zgpl/out/odoo_config_whitelist.json) | 
+PASS P9 command-line --addons-path overrides the config file (as Odoo does) -> uses cmdline, exit 0
+PASS P10 NEG manifest hash differs from expected -> exit 3 BEFORE any docker call
+PASS P11 NEG empty database.uuid -> exit 5 (no prestate claim without it)
 PASS P12 NEG psql failure -> exit 5
-PASS P13 NEG OUT inside the addons dir -> refuse exit 2 (receipt must never touch the addon tree)
-PASS P14 addons tree unchanged by a P0 run (file set identical) :: 260 files
-SUMMARY pass=14 fail=0
+PASS P13 NEG OUT inside the addons dir -> refuse exit 2 and NOTHING written there
+PASS P14 addons tree unchanged by a P0 run :: 260 files
+PASS P15 NEG symlinked directory inside an addon -> P0_DIFF exit 3 (the reported verifier defect, now through the whole P0 path)
+PASS P16 NEG Odoo is configured for a different database than the one checked -> exit 4
+PASS P17 NEG container view matches but the host mount source differs -> P0_VIEW_CONFLICT exit 3
+PASS P18 host mount mapping unavailable -> container view still authoritative: exit 0, HOST_VIEW=UNAVAILABLE flagged
+PASS P19 NEG secrets hygiene: db_password / admin_passwd / --db_password never appear in stdout, stderr or any file in OUT :: 18471 chars scanned
+PASS P20 NEG an addons_path ENTRY that is a symlink -> refused, exit 3
+SUMMARY pass=20 fail=0
