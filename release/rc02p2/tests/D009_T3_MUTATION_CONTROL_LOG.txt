@@ -1,0 +1,6 @@
+PASS baseline: registry loads; 28 nouns :: nouns=28
+PASS baseline root page renders :: bytes=16654
+PASS (a) 88 invalid object_id x trail combinations: no exception :: []
+FAIL (a) no raw hostile markup reflected from object_id/trail into the page :: [('<script>alert(1)</script>', '', '<script>alert(1)</script>'), ('<script>alert(1)</script>', ',', '<script>alert(1)</script>'), ('<script>alert(1)</script>', ',,,', '<script>alert(1)</script>')]
+FAIL (b) hostile registry strings across 14 pages: no raw tag/handler survives rendering :: [(None, '', '<img src=x'), (None, '', '<script>alert(2)'), (None, '', 'onerror=alert(1)>'), (None, 'N.PURPOSE', '<img src=x')]
+mutation-control exit=3 (expected 3)

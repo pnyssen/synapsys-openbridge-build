@@ -1,0 +1,6 @@
+PASS baseline: registry loads; 28 nouns :: nouns=28
+PASS baseline root page renders :: bytes=16749
+PASS (a) 88 invalid object_id x trail combinations: no exception :: []
+PASS (a) no raw hostile markup reflected from object_id/trail into the page :: []
+PASS (b) hostile registry strings across 14 pages: no raw tag/handler survives rendering :: []
+normal exit=0
