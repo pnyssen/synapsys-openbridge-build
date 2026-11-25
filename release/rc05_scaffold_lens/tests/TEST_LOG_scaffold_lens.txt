@@ -1,0 +1,24 @@
+test_S10_collaborator_outside_context_denied (__main__.T.test_S10_collaborator_outside_context_denied) ... ok
+test_S11_no_mutation_no_writes (__main__.T.test_S11_no_mutation_no_writes) ... ok
+test_S12_bad_inputs (__main__.T.test_S12_bad_inputs) ... ok
+test_S13_no_privileged_or_write_calls_in_source (__main__.T.test_S13_no_privileged_or_write_calls_in_source) ... /home/user/synapsys-openbridge-build/release/rc05_scaffold_lens/tests/test_scaffold_lens.py:91: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/user/synapsys-openbridge-build/release/rc05_scaffold_lens/tests/../src/scaffold_lens.py' mode='r' encoding='utf-8'>
+  code = re.sub(r'""".*?"""', "", open(SRC).read(), flags=re.S)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_S14_depth_is_cumulative (__main__.T.test_S14_depth_is_cumulative) ... ok
+test_S1_registry_identity (__main__.T.test_S1_registry_identity) ... ok
+test_S2_hctx_roles_human_readable (__main__.T.test_S2_hctx_roles_human_readable) ... ok
+test_S3_enable_is_definition_only (__main__.T.test_S3_enable_is_definition_only) ... ok
+test_S4_enhance_roles_peers_hold_when_no_source (__main__.T.test_S4_enhance_roles_peers_hold_when_no_source) ... ok
+test_S5_enrich_with_valid_library_source (__main__.T.test_S5_enrich_with_valid_library_source) ... ok
+test_S6_incorrect_source_hash_rejected (__main__.T.test_S6_incorrect_source_hash_rejected) ... ok
+test_S6b_unknown_source_rejected (__main__.T.test_S6b_unknown_source_rejected) ... ok
+test_S7_foreign_context_rejected (__main__.T.test_S7_foreign_context_rejected) ... ok
+test_S8_client_clamped_no_evidence (__main__.T.test_S8_client_clamped_no_evidence) ... ok
+test_S9_unknown_actor_refused (__main__.T.test_S9_unknown_actor_refused) ... ok
+test_S15_evidence_gate_independent_of_depth_clamp (__main__.T2.test_S15_evidence_gate_independent_of_depth_clamp) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.007s
+
+OK
