@@ -76,7 +76,7 @@
    "status": "PASSED_OFFLINE",
    "tests": [
     "V4",
-    "P10"
+    "H3"
    ]
   },
   {
@@ -307,6 +307,21 @@
     "E4",
     "E5",
     "E6"
+   ]
+  },
+  {
+   "code": "PREFLIGHT_INPUTS_NOT_PINNED_OR_OVERRIDABLE",
+   "description": "expected prestate, verifier or manifest trusted without a hash, or substitutable through the environment (false P0_MATCH_ALL with an altered expectation)",
+   "note": "original failure reproduced on commit 8fe87353 (exit 0 P0_MATCH_ALL); mutation controls (unpinned expected, restored env overrides, docker call before pins) fail H1-H4/H6",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "H1",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H6",
+    "H7"
    ]
   },
   {

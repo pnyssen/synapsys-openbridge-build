@@ -2,6 +2,15 @@
  "context": "CTX-SS",
  "external_review": [
   {
+   "finding": "P0 v3 loaded expected_prestate.json and verify_on_target.py without checking their hashes (and allowed env overrides), so an altered expectation matching an altered database could return a false P0_MATCH_ALL; also the suggested checkout command used rm -rf",
+   "fix": "P0 v4: three pinned constants (verifier, expected state, baseline manifest) checked before any docker call or file creation; env overrides for pins/manifest/expected/scope removed; receipt records pin statuses and the script's own sha256; checkout is a fresh directory with an exact-commit check (no rm -rf)",
+   "limit": "the script cannot vouch for itself: its own hash and the Git commit are verified by the operator against values given outside the repo",
+   "reproduced": "yes - exit 0 P0_MATCH_ALL on commit 8fe87353 with an altered expectation and a matching database (tests/ORIGINAL_FAILURE_UNPINNED_EXPECTED_STATE.txt)",
+   "source": "ChatGPT fourth review (relayed input, not authority)",
+   "tests": "P0 44/44, verifier 39/39; three mutation controls fail as intended (the first draft of one control was invalid and was redone)",
+   "verdict_received": "PASS_WITH_CONDITIONS for preparation; installation HOLD"
+  },
+  {
    "confirmed_correct": "ir_module_module.latest_version is the stored Installed Version; the SQL needed no change",
    "finding": "host-mount mapping required every addons_path entry to equal a mount destination (parent-directory mounts and mixed custom + image-native entries returned exit 6 on valid hosts)",
    "fix": "P0 v3 resolves the host path of the entry that actually supplies the release addons by longest-prefix against Docker mounts; image-native entries classified IMAGE_NATIVE_NOT_HOST_MOUNTED; partial or unmounted supply stays exit 6",
@@ -108,9 +117,9 @@
    "sha256": "0e1ebe20b289d513b5241efec04d2b576aeca0eb57fbeb5877c0ecf1bd34106d"
   },
   {
-   "bytes": 15848,
+   "bytes": 17064,
    "path": "release/rc02p2/target_verify/p0_prestate_receipt.sh",
-   "sha256": "ad6d78dd82da6cf9c0bfd60594c9da716856ebb2d0ba2bcb3285e30438869c60"
+   "sha256": "706915b3948bf0dc3e9e91084aa28e6c33152eaa08db8005a903c2c829ccb3bf"
   },
   {
    "bytes": 1217,
@@ -148,14 +157,14 @@
    "sha256": "944c95a4685b0ba700b75f0189a112725b4e817dda0257268c59f6b856efe518"
   },
   {
-   "bytes": 11195,
+   "bytes": 11739,
    "path": "service/gvtec001_v1_2/ERROR_CLASS_REGISTRY.json",
-   "sha256": "82ddf96515264ffde0fe15288dc35e4daed17205b6e5e693e4f5cd60b7eb4f1f"
+   "sha256": "2812043b984d9b4a0d3c9b646a6fb0958aecaf9278ae45a193de02a52e42fb9b"
   },
   {
-   "bytes": 6976,
+   "bytes": 7161,
    "path": "service/gvtec001_v1_2/GV-TEC-001_V20_release_service_upgrade_v1_2_CANDIDATE.json",
-   "sha256": "da9d2fe09d3ea2c3f97ba223e2035dd94b236639d66847840858e82e182bcb05"
+   "sha256": "63bdb604bbb6d4b1262b33749598bdd2fef8bc149c3f9ec1f7bd9efc0b161cad"
   },
   {
    "bytes": 11804,
