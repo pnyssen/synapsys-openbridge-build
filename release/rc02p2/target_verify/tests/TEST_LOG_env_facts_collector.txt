@@ -1,0 +1,10 @@
+PASS F1 collects: exit 0, COLLECTED, an INDEX with hashes of every output file
+PASS F2 NEG secrets hygiene: no secret from env values, command line (inline AND separate-token), compose file, or odoo.conf appears in any output :: leaked=[] over 5446 chars
+PASS F3 container facts kept: mounts (source/destination/type), networks, image, compose project/files, env NAMES only
+PASS F4 Odoo config whitelist carries addons_path, data_dir, workers, db_user, db_host; never db_password/admin_passwd
+PASS F5 DB sizing facts and host capacity recorded (db_size_bytes, attachments, disk/mem)
+PASS F6 compose file hashed and kept only in MASKED form (secret values replaced, structure kept)
+PASS F7 call discipline: only inspect / ps / network ls / volume ls / system df / printenv / odoo --version / in-container python reading config / read-only psql :: 13 calls
+PASS F8 NEG OUT inside a mounted source dir -> refused exit 2, nothing written
+PASS F9 NEG DBNAME with shell metacharacters -> refused exit 2 before any docker call
+SUMMARY pass=9 fail=0
