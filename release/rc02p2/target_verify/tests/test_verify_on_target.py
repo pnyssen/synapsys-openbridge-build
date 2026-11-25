@@ -83,4 +83,25 @@ rc, r = runx(pa(ap(L, B))); chk('V26 NEG an addons-path ENTRY that is a symlink 
 rc, r = runx(pa(ap(A, '/no/such/dir', B))); chk('V27 NEG addons-path entry that is not a directory -> refused', rc == 3 and r['path_entries'][1]['status'] == 'ADDONS_PATH_ENTRY_NOT_A_DIR')
 rc, r = runx(pa(ap(A), 'synapsys_v19_reference')); chk('V28 NEG addon absent from every addons-path entry -> ADDON_DIR_MISSING', rc == 3 and r['addons']['synapsys_v19_reference']['status'] == 'ADDON_DIR_MISSING')
 
+# ---- receipt-location safeguard on EVERY path (external finding 2) + symlinked receipt targets (found while fixing)
+BAD = ['--manifest-sha256', '0' * 64]
+def args_bad(d, extra=()): return ['--addons-dir', d, '--manifest', RC] + BAD + ['--only', 'synapsys'] + list(extra)
+t20 = fresh(SRC_RC); rp = os.path.join(t20, 'synapsys', 'diag.json'); rc, r = runx(args_bad(t20, ['--receipt', rp]))
+chk('V29 NEG (original regression) WRONG manifest hash + receipt inside an addon dir -> refused exit 2, NOTHING written', rc == 2 and r.get('verdict') == 'REFUSE_RECEIPT_INSIDE_EXAMINED_TREE' and not os.path.exists(rp))
+ok_dir = tempfile.mkdtemp(); rp = os.path.join(ok_dir, 'diag.json'); rc, r = runx(args_bad(t20, ['--receipt', rp]))
+chk('V30 manifest-hash refusal with a SAFE receipt location still writes its diagnostic (exit 3)', rc == 3 and r['verdict'] == 'REFUSE_MANIFEST_HASH_MISMATCH' and json.load(open(rp))['verdict'] == 'REFUSE_MANIFEST_HASH_MISMATCH')
+t21 = fresh(SRC_RC); victim = os.path.join(t21, 'synapsys', '__manifest__.py'); before = sh(victim); rd = tempfile.mkdtemp(); os.symlink(victim, os.path.join(rd, 'r.json'))
+rc, r = runx(base_args(t21, ['--receipt', os.path.join(rd, 'r.json')])); chk('V31 NEG receipt path is a SYMLINK to an addon source file -> refused exit 2, addon file byte-identical', rc == 2 and r['verdict'] == 'REFUSE_RECEIPT_PATH_IS_A_SYMLINK' and sh(victim) == before)
+outside = os.path.join(tempfile.mkdtemp(), 'x.json'); open(outside, 'w').write('x'); rd = tempfile.mkdtemp(); os.symlink(outside, os.path.join(rd, 'r.json'))
+rc, r = runx(base_args(t21, ['--receipt', os.path.join(rd, 'r.json')])); chk('V32 NEG receipt path is any symlink (even to a harmless file) -> refused exit 2', rc == 2 and open(outside).read() == 'x')
+t22 = fresh(SRC_RC); ld = os.path.join(tempfile.mkdtemp(), 'linkdir'); os.symlink(os.path.join(t22, 'synapsys'), ld)
+rc, r = runx(base_args(t22, ['--receipt', os.path.join(ld, 'r.json')])); chk('V33 NEG receipt inside a symlinked DIRECTORY that resolves into the tree -> refused exit 2', rc == 2 and not os.path.exists(os.path.join(t22, 'synapsys', 'r.json')))
+t23 = fresh(SRC_RC); real = os.path.join(tempfile.mkdtemp(), 'real_synapsys'); shutil.move(os.path.join(t23, 'synapsys'), real); os.symlink(real, os.path.join(t23, 'synapsys'))
+rc, r = runx(base_args(t23, ['--receipt', os.path.join(real, 'r.json')])); chk('V34 NEG addon root is a symlink and the receipt is inside ITS TARGET tree -> refused exit 2', rc == 2 and not os.path.exists(os.path.join(real, 'r.json')))
+t24 = fresh(SRC_RC); rc, r = runx(base_args(t24, ['--receipt', tempfile.mkdtemp()])); chk('V35 NEG receipt path is an existing directory -> refused exit 2', rc == 2 and r['verdict'] == 'REFUSE_RECEIPT_PATH_IS_A_DIRECTORY')
+t25 = fresh(SRC_RC); rp = os.path.join(t25, 'synapsys', 'd.json'); c = [sys.executable, '-I', os.path.join(root, 'verify_on_target.py'), '--addons-dir', t25, '--manifest', '/nonexistent/manifest.json', '--manifest-sha256', '0' * 64, '--receipt', rp]
+r = subprocess.run(c, capture_output=True, text=True); chk('V36 NEG refusal happens BEFORE the manifest is read: missing manifest + receipt inside tree -> exit 2, not a crash', r.returncode == 2 and not os.path.exists(rp) and 'Traceback' not in r.stderr)
+t26 = fresh(SRC_RC); rp = os.path.join(t26, 'synapsys', 'd.json'); rc, r = runx(['--addons-dir', t26, '--manifest', '-', '--manifest-sha256', '0' * 64, '--only', 'synapsys', '--receipt', rp], stdin='{}')
+chk('V37 NEG stdin manifest with wrong hash + receipt inside tree -> exit 2, nothing written', rc == 2 and not os.path.exists(rp))
+
 ok = all(res); print('SUMMARY pass=%d fail=%d' % (sum(res), len(res) - sum(res))); sys.exit(0 if ok else 1)

@@ -2,6 +2,16 @@
  "context": "CTX-SS",
  "external_review": [
   {
+   "finding_1": "P0 could report full success without host-side corroboration",
+   "finding_2": "verifier manifest-hash failure path skipped the receipt-location check (diagnostic could be written inside an addon dir)",
+   "fix_1": "P0_MATCH_ALL now requires two agreeing views; container-only is P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE, exit 6, evidence_class CONTAINER_ONLY, not gate evidence; an ADDONS override must itself be the mount source",
+   "fix_2": "receipt destination validated before the manifest is read and again on every output path; additionally a symlinked receipt path (found while fixing: it overwrote an addon source file), symlinked/target directories and symlinked addon-root targets are refused",
+   "source": "ChatGPT second review (relayed input, not authority)",
+   "steward_f2_f3": "not re-asked; D007 validates attribution and scope at release admission",
+   "tests": "verifier 39/39, P0 23/23; mutation controls restore each original defect and fail the regression tests",
+   "verdict_received": "PASS_WITH_CONDITIONS for preparation; production HOLD"
+  },
+  {
    "added_beyond_the_finding": "verification now runs INSIDE the Odoo container over the addons_path Odoo is configured to load (first-match, duplicates refused) and cross-checks the host mount; secrets are never recorded",
    "also_confirmed": [
     "symlinked addon root accepted",
@@ -82,14 +92,14 @@
  ],
  "tooling": [
   {
-   "bytes": 6676,
+   "bytes": 7850,
    "path": "release/rc02p2/target_verify/verify_on_target.py",
-   "sha256": "5d2061895d881930770be38023c4c4d0370ad7c5fbebf3f327cb9400ddfe49ca"
+   "sha256": "0e1ebe20b289d513b5241efec04d2b576aeca0eb57fbeb5877c0ecf1bd34106d"
   },
   {
-   "bytes": 9826,
+   "bytes": 11051,
    "path": "release/rc02p2/target_verify/p0_prestate_receipt.sh",
-   "sha256": "4b1657fd6c6c8d7f5338ab8d6d32fa3f02c7b96cf50b244dd34726c0dcdba6fa"
+   "sha256": "b847f382828f0b61962c0d6fe24b7fd896cf498e26c61404fcd6cdb4d22757e9"
   },
   {
    "bytes": 2443,
@@ -122,14 +132,14 @@
    "sha256": "944c95a4685b0ba700b75f0189a112725b4e817dda0257268c59f6b856efe518"
   },
   {
-   "bytes": 9028,
+   "bytes": 9844,
    "path": "service/gvtec001_v1_2/ERROR_CLASS_REGISTRY.json",
-   "sha256": "8b5b966a4e1f07cb2435b4e217aaf9c832719ec123d7b551ed8f624480ed5f09"
+   "sha256": "65a5044802d3e30ef1ce44f07e276ae774ddc9a2a7bb308d7ba17f354f9337d6"
   },
   {
-   "bytes": 6432,
+   "bytes": 6692,
    "path": "service/gvtec001_v1_2/GV-TEC-001_V20_release_service_upgrade_v1_2_CANDIDATE.json",
-   "sha256": "c091c5eaa1b542a5db7aa7820dacb22088311fc56c3579f2ee0efbf4468a9cea"
+   "sha256": "addd1061bf6e6aca2ddecda44a2ac3854021ee612855b3ba53ccb6c3d08ef07d"
   },
   {
    "bytes": 11804,

@@ -7,7 +7,7 @@ Modes (exactly one):  --addons-dir DIR            examine DIR/<addon> for each a
 Manifest: --manifest FILE | --manifest -  (JSON on stdin; use with: docker exec -i CTR python3 -I -c "$(cat verify_on_target.py)" ... < manifest.json)
 Required: --manifest-sha256 HEX.   Optional: --only a,b   --receipt FILE (refused if it lies inside any examined tree)
 Refuses (never 'MATCH'): symlinks of ANY kind (file, directory, broken, addon root, addons-path entry), sockets/FIFOs/devices, unexpected directories,
-missing/extra/changed files, shadowed addons, manifest hash mismatch. __pycache__ and .pyc are ignored. Exit 0 only on MATCH_ALL, else 3 (2 = unsafe receipt location).
+missing/extra/changed files, shadowed addons, manifest hash mismatch. __pycache__ and .pyc are ignored. Exit 0 only on MATCH_ALL, else 3 (2 = unsafe receipt location: inside any examined tree, a symlink, or a directory - checked before anything is read or written, on every path including refusals).
 Limit: a point-in-time read; it does not stop concurrent modification."""
 import argparse, datetime, hashlib, json, os, platform, socket, stat, sys
 def scan(root):
@@ -38,17 +38,37 @@ def expected_dirs(files):
 def inside(path, trees):
     p = os.path.realpath(path)
     return any(p == t or p.startswith(t.rstrip(os.sep) + os.sep) for t in trees)
+def protected_trees(roots):
+    """realpath of each root plus every symlinked child of a root (their targets are examined/loaded trees too)."""
+    t = set()
+    for r in roots:
+        t.add(os.path.realpath(r))
+        try:
+            for e in os.scandir(r):
+                if e.is_symlink(): t.add(os.path.realpath(e.path))
+        except OSError: pass
+    return sorted(t)
+def receipt_problem(receipt, roots):
+    """Return a refusal reason or None. Checked BEFORE the manifest is read and before any output, so no failure path can write inside a tree."""
+    if not receipt: return None
+    ap = os.path.abspath(receipt)
+    if os.path.islink(ap): return 'RECEIPT_PATH_IS_A_SYMLINK'
+    if os.path.isdir(ap): return 'RECEIPT_PATH_IS_A_DIRECTORY'
+    if inside(os.path.dirname(ap) or '.', protected_trees(roots)) or inside(ap, protected_trees(roots)): return 'RECEIPT_INSIDE_EXAMINED_TREE'
+    return None
 def main():
     ap = argparse.ArgumentParser(); g = ap.add_mutually_exclusive_group(required=True); g.add_argument('--addons-dir'); g.add_argument('--addons-path')
     ap.add_argument('--manifest', required=True); ap.add_argument('--manifest-sha256', required=True); ap.add_argument('--only'); ap.add_argument('--receipt')
     a = ap.parse_args()
+    roots = [os.path.abspath(a.addons_dir)] if a.addons_dir else [os.path.abspath(p) for p in a.addons_path.split(os.pathsep) if p]
+    why = receipt_problem(a.receipt, roots)
+    if why: print(json.dumps({'verifier': 'verify_on_target/2', 'verdict': 'REFUSE_' + why, 'receipt': a.receipt}, indent=1, sort_keys=True)); sys.exit(2)
     raw = sys.stdin.buffer.read() if a.manifest == '-' else open(a.manifest, 'rb').read(); msha = hashlib.sha256(raw).hexdigest()
     rec = {'verifier': 'verify_on_target/2', 'utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'host': socket.gethostname(), 'python': platform.python_version(),
            'mode': 'addons-dir' if a.addons_dir else 'addons-path', 'manifest_sha256_observed': msha, 'manifest_sha256_expected': a.manifest_sha256.lower(), 'addons': {}, 'path_entries': []}
-    if msha != a.manifest_sha256.lower(): rec['verdict'] = 'REFUSE_MANIFEST_HASH_MISMATCH'; return finish(rec, a, 3, [])
+    if msha != a.manifest_sha256.lower(): rec['verdict'] = 'REFUSE_MANIFEST_HASH_MISMATCH'; return finish(rec, a, 3, roots)
     m = json.loads(raw.decode('utf-8')); rec['release_label'] = m.get('label'); rec['git_commit'] = m.get('git_commit')
     names = a.only.split(',') if a.only else sorted(m['addons'])
-    roots = [os.path.abspath(a.addons_dir)] if a.addons_dir else [os.path.abspath(p) for p in a.addons_path.split(os.pathsep) if p]
     ok = True
     for p in roots:
         info = {'path': p, 'is_symlink': os.path.islink(p), 'realpath': os.path.realpath(p), 'is_dir': os.path.isdir(p)}
@@ -75,8 +95,8 @@ def main():
     rec['verdict'] = 'MATCH_ALL' if ok else 'DIFF'
     return finish(rec, a, 0 if ok else 3, examined + [os.path.realpath(r) for r in roots])
 def finish(rec, a, code, trees):
-    if a.receipt and trees and inside(os.path.dirname(os.path.abspath(a.receipt)) or '.', trees):
-        rec['verdict'] = 'REFUSE_RECEIPT_INSIDE_EXAMINED_TREE'; print(json.dumps(rec, indent=1, sort_keys=True)); sys.exit(2)
+    why = receipt_problem(a.receipt, trees)
+    if why: rec['verdict'] = 'REFUSE_' + why; print(json.dumps(rec, indent=1, sort_keys=True)); sys.exit(2)
     s = json.dumps(rec, indent=1, sort_keys=True); print(s)
     if a.receipt: open(a.receipt, 'w', encoding='utf-8').write(s + '\n')
     sys.exit(code)

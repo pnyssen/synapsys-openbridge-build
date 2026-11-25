@@ -3,7 +3,8 @@
 # What it proves: (1) the files Odoo is CONFIGURED TO LOAD (effective addons_path read from the running container, resolved first-match like Odoo,
 #   duplicates refused, symlinks refused) equal the baseline manifest, byte for byte, as seen INSIDE the container;
 #   (2) the host-side mount source agrees (second view; refuses on conflict); (3) database.uuid, module versions and the F5 visibility-default fact from the DB (read-only session).
-# Exit: 0 P0_MATCH_ALL | 2 prerequisite missing/unsafe | 3 manifest hash refused, DIFF or view conflict | 4 discovery failed / config mismatch | 5 database facts unavailable
+# Exit: 0 P0_MATCH_ALL (TWO agreeing views: in-container AND host mount source) | 2 prerequisite missing/unsafe | 3 manifest hash refused, DIFF or view conflict | 4 discovery failed / config mismatch
+#       5 database facts unavailable | 6 P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE (container view only: NOT full verification, not a release-gate pass)
 # Writes ONLY into $OUT. Uses only: docker inspect, docker exec (printenv, python3 read-only checks fed over stdin, psql SELECTs), sha256sum, python3. Never prints passwords (whitelisted keys only).
 set -u -o pipefail
 ODOO_CTR=${ODOO_CTR:-odoo20-odoo-1}; DB_CTR=${DB_CTR:-odoo20-db-1}; DBNAME=${DBNAME:-synapsys_v20}; COMPOSE=${COMPOSE:-/opt/odoo20/docker-compose.yml}
@@ -71,13 +72,17 @@ if [ "${DBN_EFF:--}" != "-" ] && [ "$DBN_EFF" != "$DBNAME" ]; then die 4 "Odoo i
 # (1) AUTHORITATIVE VIEW: the verifier runs inside the container over the paths Odoo loads; script and manifest arrive on argv/stdin, nothing is copied or written there.
 docker exec -i "$ODOO_CTR" python3 -I -c "$(cat "$HERE/verify_on_target.py")" --addons-path "$APATH" --manifest - --manifest-sha256 "$MSHA" --only "$ONLY" < "$MANIFEST" > "$OUT/verify_container.json" 2>"$OUT/verify_container.err"; CRC=$?
 # (2) SECOND VIEW: map each addons_path entry to its host mount source (or use ADDONS=<host dir> as an override) and verify there, outside the container.
-HOSTARGS=$(python3 -I - "$OUT/odoo_config_whitelist.json" "$OUT/odoo_mounts.json" "${ADDONS:-}" <<'PY'
-import json, sys
-cfg = json.load(open(sys.argv[1])); mounts = json.load(open(sys.argv[2])); override = sys.argv[3]
-if override: print('--addons-dir ' + override); sys.exit(0)
+HOSTARGS=$(python3 -I - "$OUT/odoo_config_whitelist.json" "$OUT/odoo_mounts.json" "${ADDONS:-}" "$OUT/host_view_note.txt" <<'PY'
+import json, os, sys
+cfg = json.load(open(sys.argv[1])); mounts = json.load(open(sys.argv[2])); override = sys.argv[3]; note = sys.argv[4]
 dest = {m.get('Destination'): m.get('Source') for m in mounts}
 srcs = [dest.get(p) for p in cfg['addons_path']]
-print('' if not srcs or any(s is None for s in srcs) else '--addons-path ' + ':'.join(srcs))
+if override:
+    ok = {os.path.realpath(x) for x in srcs if x}
+    if os.path.realpath(override) in ok and len(cfg['addons_path']) == 1: print('--addons-dir ' + override); sys.exit(0)
+    open(note, 'w').write('ADDONS_OVERRIDE_IS_NOT_THE_MOUNT_SOURCE_OF_THE_ONLY_ADDONS_PATH_ENTRY (override cannot corroborate what the container loads)\n'); print(''); sys.exit(0)
+if not srcs or any(x is None for x in srcs): open(note, 'w').write('NO_HOST_MOUNT_SOURCE_FOR_EVERY_ADDONS_PATH_ENTRY\n'); print(''); sys.exit(0)
+print('--addons-path ' + ':'.join(srcs))
 PY
 )
 HRC=NA
@@ -107,7 +112,12 @@ host_bad = hrc not in ('NA', '0')
 if drc != 0 or not uuid: v, code = 'P0_DB_FACTS_UNAVAILABLE', 5
 elif crc != 0: v, code = 'P0_DIFF', 3
 elif host_bad: v, code = 'P0_VIEW_CONFLICT', 3
+elif hrc == 'NA': v, code = 'P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE', 6
 else: v, code = 'P0_MATCH_ALL', 0
+ev = 'TWO_VIEW' if v == 'P0_MATCH_ALL' else ('CONTAINER_ONLY' if v == 'P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE' else 'NONE')
+rec['evidence_class'] = ev; rec['qualifies_as_two_view_gate_evidence'] = (ev == 'TWO_VIEW'); rec['host_view_note'] = r('host_view_note.txt').strip()
 rec['verdict'] = v; s = json.dumps(rec, indent=1, sort_keys=True) + '\n'; open(os.path.join(out, 'p0_receipt.json'), 'w').write(s)
-print('P0_VERDICT=' + v); print('HOST_VIEW=' + ('UNAVAILABLE' if hrc == 'NA' else ('MATCH' if hrc == '0' else 'DIFF'))); print('RECEIPT=' + os.path.join(out, 'p0_receipt.json')); print('RECEIPT_SHA256=' + hashlib.sha256(s.encode()).hexdigest()); sys.exit(code)
+print('P0_VERDICT=' + v); print('EVIDENCE_CLASS=' + ev); print('HOST_VIEW=' + ('UNAVAILABLE' if hrc == 'NA' else ('MATCH' if hrc == '0' else 'DIFF'))); print('RECEIPT=' + os.path.join(out, 'p0_receipt.json')); print('RECEIPT_SHA256=' + hashlib.sha256(s.encode()).hexdigest())
+if code == 6: print('NOTE: container view only - re-run so that every addons_path entry maps to a host mount source (or ADDONS=<that dir> for a single entry) to obtain the second view. Do not treat this as full verification.')
+sys.exit(code)
 PY

@@ -28,4 +28,13 @@ PASS V25 NEG same addon in two addons-path entries -> SHADOWED_MULTIPLE_LOCATION
 PASS V26 NEG an addons-path ENTRY that is a symlink -> refused
 PASS V27 NEG addons-path entry that is not a directory -> refused
 PASS V28 NEG addon absent from every addons-path entry -> ADDON_DIR_MISSING
-SUMMARY pass=30 fail=0
+PASS V29 NEG (original regression) WRONG manifest hash + receipt inside an addon dir -> refused exit 2, NOTHING written
+PASS V30 manifest-hash refusal with a SAFE receipt location still writes its diagnostic (exit 3)
+PASS V31 NEG receipt path is a SYMLINK to an addon source file -> refused exit 2, addon file byte-identical
+PASS V32 NEG receipt path is any symlink (even to a harmless file) -> refused exit 2
+PASS V33 NEG receipt inside a symlinked DIRECTORY that resolves into the tree -> refused exit 2
+PASS V34 NEG addon root is a symlink and the receipt is inside ITS TARGET tree -> refused exit 2
+PASS V35 NEG receipt path is an existing directory -> refused exit 2
+PASS V36 NEG refusal happens BEFORE the manifest is read: missing manifest + receipt inside tree -> exit 2, not a crash
+PASS V37 NEG stdin manifest with wrong hash + receipt inside tree -> exit 2, nothing written
+SUMMARY pass=39 fail=0
