@@ -1,0 +1,14 @@
+PASS V1 prestate: target == baseline manifest -> MATCH_ALL, exit 0 :: 14 addons
+PASS V2 baseline target vs RC03b manifest -> DIFF exit 3 with exact delta :: synapsys=DIFF v19=DIFF
+PASS V3 RC03b delivered intact -> MATCH_ALL exit 0 (post-staging receipt)
+PASS V4 NEG wrong --manifest-sha256 -> REFUSE, exit 3, no addon examined
+PASS V5 NEG single-bit corruption, same size -> DIFF changed=[controllers/arch_map.py]
+PASS V6 NEG partial transfer (file missing) -> DIFF missing
+PASS V7 NEG unexpected extra file -> DIFF extra (stale/overlay file not allowed)
+PASS V8 __pycache__ and .pyc ignored -> still MATCH_ALL
+PASS V9 NEG whole addon missing -> ADDON_DIR_MISSING exit 3
+PASS V10 --only scopes the check to the two changed addons -> MATCH_ALL despite synapsys_mesh absent
+PASS V11 NEG addon not in manifest -> NOT_IN_MANIFEST exit 3
+PASS V12 NEG symlink inside addon -> flagged (extra), exit 3
+PASS V13 verifier is read-only: target tree (files, sizes, mtimes, hashes, dirs) identical before and after a run; receipt written elsewhere :: 355 entries
+SUMMARY pass=13 fail=0
