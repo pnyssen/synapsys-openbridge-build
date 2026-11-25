@@ -1,0 +1,285 @@
+{
+  "schema_version": "2.1",
+  "state_revision": 56,
+  "updated_at": "2026-10-10T05:16:53.551Z",
+  "work_object_id": "WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001",
+  "domain_context": "CTX-SS",
+  "queue_item": "SC-02/SC-09 bridge-hash recovery: pending decision on CHG-2026-767; SC-05/D009 targeted re-assurance remains downstream.",
+  "goal_anchor_path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/MAIN_PATH/20260908--sc09--goal-anchor--synapsys-canonical-reference-architecture--v1-0.md",
+  "goal_anchor_version": "v1.0",
+  "goal_anchor_sha256_or_verification_state": "DIRECT_READBACK_PASS__UNCHANGED_FROM_REV45",
+  "current_goal_step": "Resolve the D009 ingress hash defect through an attributable decision and bounded D007 bridge release, then obtain targeted SC-05 assurance against exact current state/evidence hashes; preserve Tranche A and do not rerun it.",
+  "work_class": "BLOCKER_RECOVERY",
+  "main_path_item": "Mandatory Common Service Module rollout A-J",
+  "direct_goal_contribution": "Restores reliable exact-byte D009 assurance ingress while preserving the completed canonical architecture and Tranche A evidence.",
+  "opportunity_cost": "Do not repeat Tranche A D007 implementation, activate JQ003, migrate callers, widen workflow scope, or change authentication/credentials; the key remains protected and unchanged until go-live.",
+  "blocker_containment_boundary": "Only the assurance ingress and its linked D001 decision are held. Preserve prior architecture and D007 evidence. No bridge mutation, D007 release, D009 invocation, production resubmission, caller migration, credential rotation/upgrading, auth/ACL change, value/canon movement, or PPV movement occurred.",
+  "return_to_main_path_condition": "After the pending CR has an attributable exact-scope decision, route only the approved bridge hash correction to D007; require exact two-node readback and isolated positive/negative evidence; then dispatch the current state and exact D007 evidence through SC-05/D009 and consume only an exact-hash filed/read-back return. Resume A-J rollout only under current authority.",
+  "goal_completion": {
+    "coherent_graph_metamodel": "COMPLETE",
+    "purpose_verbs_strategies_assets_spine": "COMPLETE",
+    "canonical_27_verbs_architectural_role": "COMPLETE",
+    "relationship_cardinality_and_source_truth_grounding": "COMPLETE",
+    "service_method_pattern_skill_work_value_integration": "COMPLETE",
+    "mesh_gate_evidence_ppv_authority_single_model": "COMPLETE",
+    "platform_identity_alignment_odoo_wm_obsidian_agent_n8n_ai": "COMPLETE",
+    "three_real_end_to_end_replays": "COMPLETE",
+    "sparse_rich_cross_context_cases": "COMPLETE",
+    "obsidian_and_3d_same_governed_model_acceptance": "COMPLETE",
+    "d009_no_blocking_integrity_finding_final": "PARTIAL",
+    "steward_reference_model_acceptance": "COMPLETE",
+    "regression_and_rollout": "PARTIAL"
+  },
+  "controller_lane": "ChatGPT Hub / Navigator",
+  "participating_lanes": [
+    "ChatGPT Hub / Navigator",
+    "D007",
+    "D009",
+    "N8N",
+    "Odoo",
+    "Working Memory"
+  ],
+  "engaged_domains": [
+    "D001",
+    "D002",
+    "D007",
+    "D009"
+  ],
+  "not_engaged_domains": [
+    "D003",
+    "D004",
+    "D005",
+    "D006",
+    "D008",
+    "D010"
+  ],
+  "current_wave": "D009_INGRESS_HASH_RECOVERY",
+  "current_gate": "D001_DECISION_FOR_CHG-2026-767",
+  "current_step": "Live N8N readback confirms workflow 6tgii0QZPWgViBou version bc8c588e-463d-4687-a0a5-5f7473f6ef4a still fetches state as text and hashes decoded text. The bounded pending-only Odoo request CHG-2026-767 (record 1302) was created and read back with approval_status=pending, route=d001_steward, implementation_status=planned, and no authority_reference. No D007 release or D009 call has occurred.",
+  "steps": [
+    {
+      "step": 1,
+      "name": "Architecture/metamodel and common module contract",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 2,
+      "name": "Steward mandatory-module target decision A-J",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 3,
+      "name": "Tranche A exact read-layer candidate and prestate",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 4,
+      "name": "Independent D009 preflight",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 5,
+      "name": "Exact D007 protected implementation release",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 6,
+      "name": "JQ003 read-layer implementation/readback",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 7,
+      "name": "Sparse/rich/cross-Context regression",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 8,
+      "name": "D009 transport A/B stress test",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 9,
+      "name": "D009 postimplementation equivalence/bypass assurance",
+      "status": "HELD"
+    },
+    {
+      "step": 10,
+      "name": "A-J consumer migration and hard enforcement",
+      "status": "NOT_STARTED"
+    },
+    {
+      "step": 11,
+      "name": "Final architecture rollout assurance and new-Context inheritance",
+      "status": "NOT_STARTED"
+    },
+    {
+      "step": 12,
+      "name": "Read-only D009 ingress hash diagnosis and live workflow corroboration",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 13,
+      "name": "Pending-only Odoo change request CHG-2026-767 registration and exact readback",
+      "status": "COMPLETE"
+    },
+    {
+      "step": 14,
+      "name": "Attributable D001/Steward decision for the exact bridge change scope",
+      "status": "HELD"
+    },
+    {
+      "step": 15,
+      "name": "Exact D007 bridge release, bounded implementation and readback",
+      "status": "NOT_STARTED"
+    },
+    {
+      "step": 16,
+      "name": "SC-05/D009 hash-bound targeted re-assurance and remaining rollout",
+      "status": "NOT_STARTED"
+    }
+  ],
+  "expected_return": {
+    "return_id": "ODOO_CHANGE_REQUEST_DECISION_CHG-2026-767",
+    "lane": "D001 / Steward",
+    "filename": "ODOO:x_ss_change_request/1302/CHG-2026-767",
+    "required_fields": [
+      "record_id=1302",
+      "x_reference=CHG-2026-767",
+      "x_approval_status=approved|rejected",
+      "attributable x_approved_by",
+      "x_authority_reference",
+      "decision bound to workflow 6tgii0QZPWgViBou version bc8c588e-463d-4687-a0a5-5f7473f6ef4a and nodes a2e/a2f only",
+      "decision timestamp"
+    ],
+    "required_state_revision": 56,
+    "scope": "Decision on pending CR registration only. Approval, if given, must bind the exact two-node binary-hash correction; it does not authorize key rotation, authentication/ACL changes, caller changes, other workflow edits, or PPV/canon movement."
+  },
+  "last_return": {
+    "return_id": "USER_PROVIDED_D009_INGRESS_DIAGNOSTIC_EXECUTION_151660",
+    "classification": "UNEXPECTED_RETURN_RELEVANT__NOT_SC05_RETURN",
+    "consumed_state_revision": 55,
+    "return_path": "User-provided diagnostic in this conversation; no filed return file",
+    "result": "Live workflow readback corroborates the text response format and string hashing; execution 151660 is reported as 409 STATE_HASH_MISMATCH before worker/provider. Exact internal byte transformation remains unisolated. This is not the expected SC-05/D009 return."
+  },
+  "closed_delta": [
+    "STATE_v53 exact-path fetch confirmed current; STATE_v54 and STATE_v55 exact paths absent before this transition.",
+    "JQ003 remains version 66ca23f6-57d0-454f-b0c7-9af27bcd4ef0, inactive, 44 nodes; D007 return remains intact.",
+    "A-path test: generic authenticated D009 relay definition/version unchanged but production webhook returns HTTP404 not registered; no assurance executed through that path.",
+    "A-path fallback test: credential-aware D009 bridge timed out and produced no current revision53 worker execution.",
+    "B-path test: direct unauthenticated D009 worker ingress returned HTTP403 and failed closed with no assurance/state mutation or credential exposure.",
+    "N8N MCP exposes webhook trigger and activate/deactivate surfaces only; no non-mutating direct workflow-run bypass exists.",
+    "Odoo Change Request and Release searches found no current authority record for D009 relay recovery.",
+    "Historical D009 execution115146 PASS_WITH_CONDITIONS against state52 is preserved as relevant evidence but is not accepted as the revision54 expected return because it was not filed/read back and consumed stale state relative to current controller.",
+    "No protected runtime mutation, credential change, JQ003 activation, caller migration, PPV, Benefit, Asset, Service lifecycle or canon movement occurred.",
+    "Current live N8N workflow 6tgii0QZPWgViBou readback confirms version bc8c588e-463d-4687-a0a5-5f7473f6ef4a, node a2e responseFormat=text, and node a2f hashes the text representation; no bridge fix has been applied.",
+    "Created Odoo x_ss_change_request record 1302 / CHG-2026-767 through pending-only direct registration; exact readback confirms pending, d001_steward route, planned implementation, no authority reference, and no release.",
+    "Per Philip Nyssen's direct instruction, the exposed key is protected and unchanged; no rotation/upgrade/authentication change before go-live, and the secret value was not copied into the request."
+  ],
+  "remaining_delta": [
+    "Obtain and verify the exact attributable D001/Steward decision on Odoo record 1302 / CHG-2026-767.",
+    "Only if approved, deliver the exact two-node scope through a valid D007 release route; verify prestate/rollback, implement, read back and test without changing credentials or unrelated workflow content.",
+    "After implementation, file/read back and dispatch the then-current state plus exact D007 evidence through SC-05/D009; consume only a matching exact-hash return.",
+    "Continue remaining regression and A-J rollout only under current authority; keep D009 final integrity and regression/rollout criteria PARTIAL until evidenced."
+  ],
+  "evidence_state": "LIVE_BRIDGE_TEXT_HASH_DEFECT_CORROBORATED__CR_CHG-2026-767_REGISTERED_PENDING_D001__D009_REASSURANCE_NOT_RUN",
+  "reality_state": "CURRENT_BRIDGE_ACTIVE_UNCHANGED__RAW_BYTE_FIX_NOT_IMPLEMENTED__TRANCHE_A_D007_EVIDENCE_PRESERVED",
+  "ppv_state": "Potential__NO_MOVEMENT",
+  "authority_state": "CHG-2026-767_PENDING_D001__NO_D007_RELEASE_OR_IMPLEMENTATION__D009_NON_AUTHORISING__KEY_PROTECTED_UNCHANGED_UNTIL_GO_LIVE__NO_VALUE_OR_CANON_MOVEMENT",
+  "authority_reference": "Pending Odoo CR 1302 / CHG-2026-767; x_authority_reference is unset. User instruction is to protect the key and defer upgrade until go-live only; it is not an implementation approval. W10 and W11 are not used as approval routes.",
+  "held_items": [
+    "D001/Steward decision on CR 1302 is pending; no D007 release or bridge implementation yet.",
+    "D009 targeted assurance is downstream of the bridge correction; prior conflicting D009 return remains unconsumed.",
+    "Credential rotation/upgrade and authentication/ACL changes remain deferred until go-live per Philip Nyssen; secret value withheld.",
+    "Tranche A D007 rerun, JQ003 activation/caller migration, PPV/Benefit/Asset/Service lifecycle/canon movement remain held."
+  ],
+  "stop_conditions": [
+    "Any exact state/hash or Odoo record identity conflict.",
+    "Any attempt to use W10/W11 to self-approve or validate this correction.",
+    "Any attempt to mutate the bridge before the exact D001 decision and D007 release.",
+    "Any credential/auth/ACL change or disclosure before go-live.",
+    "Blocking D009 integrity result or replay conflict.",
+    "Any unapproved scope expansion or value/canon movement."
+  ],
+  "next_action": {
+    "actor": "D001 / Steward through the governed Odoo decision route; Hub/Navigator to consume",
+    "action": "Record an attributable decision on pending CR CHG-2026-767 (Odoo x_ss_change_request id 1302), bound to the exact workflow version and nodes a2e/a2f. If approved, route only that exact scope to D007 for a release; keep the key unchanged until go-live.",
+    "destination": "Odoo x_ss_change_request id 1302; then the authenticated D007 release route",
+    "expected_return": "ODOO_CHANGE_REQUEST_DECISION_CHG-2026-767"
+  },
+  "source_files": [
+    "STATE_CONTROL/STATE_v53.json",
+    "MAIN_PATH/20260908--sc09--goal-anchor--synapsys-canonical-reference-architecture--v1-0.md",
+    "RETURN_D007_CSM_R1_JQ003_IMPLEMENTATION_V1.json",
+    "D009_INPUTS/20261008--d009-postimplementation-assurance-transport-hold-v1.md",
+    "D009_INPUTS/20261008--d009-transport-ab-stress-rev53-v1.md",
+    "DECISION_PACKAGES/D009_RELAY_WEBHOOK_REGISTRATION_RECOVERY_REV52_V1.md",
+    "N8N:96UoiUGM6VGfdK8M@66ca23f6-57d0-454f-b0c7-9af27bcd4ef0",
+    "N8N:vR3gnFQIdqjCnXY8@6e0ee23c-2dcf-497e-bcac-d8fb33d6e27c",
+    "N8N:6tgii0QZPWgViBou",
+    "N8N:7N5mIIiAbGWoFsS2",
+    "N8N:execution115146 historical state52 assurance evidence",
+    "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/STATE_CONTROL/STATE_v54.json",
+    "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/RETURN_D007_CSM_R1_JQ003_IMPLEMENTATION_V1.json",
+    "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/RETURN_D009_CSM_R1_POSTIMPLEMENTATION_ASSURANCE_V1.json",
+    "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/D007_RETURNS/RETURN_D007_D009_RELAY_REGISTRATION_REFRESH_20261008_V1.json",
+    "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CURRENT_CONTROL_POINTER.md",
+    "Odoo:x_ss_change_request#1302:CHG-2026-767",
+    "N8N:6tgii0QZPWgViBou@bc8c588e-463d-4687-a0a5-5f7473f6ef4a",
+    "N8N:execution151660 (reported 409; provider_called=false; worker_called=false)",
+    "USER_RETURN:2026-10-10 D009 ingress hash diagnostic (conversation; not a filed assurance return)"
+  ],
+  "replay_validity": "REV56__CAS_CANDIDATE_FROM_REV55__CR_1302_READBACK_PENDING_D001_DECISION__NO_D007_RELEASE_OR_IMPLEMENTATION__NO_D009_CALL__KEY_UNCHANGED__PPV_NO_MOVEMENT",
+  "consumed_state_revision": 55,
+  "produced_state_revision": 56,
+  "sole_writer_lane": "ChatGPT Hub / Navigator",
+  "hash_conflicts": [
+    {
+      "subject": "STATE_v54.json",
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/STATE_CONTROL/STATE_v54.json",
+      "claimed_by_prior_D009": "be72489931d0a5f4a7a531491d986b30fd15a624784bd9f9d75c7395b65ba5fd",
+      "exact_current_readback": "282971c1699e662c58683cef6de26b249096a0b8b26191fcffa905615a50957d",
+      "status": "CONFLICT"
+    },
+    {
+      "subject": "RETURN_D007_CSM_R1_JQ003_IMPLEMENTATION_V1.json",
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/RETURN_D007_CSM_R1_JQ003_IMPLEMENTATION_V1.json",
+      "claimed_by_prior_D009": "10216a60e3543b0eadf0bbf67ef8ad1c53e040e4925878f8b9866d27bcb9430f",
+      "exact_current_readback": "cb9b76fb8b7ed16813ff2f53c3096b7316d7565ba5df126e96e7f4d2074ae18d",
+      "status": "CONFLICT"
+    },
+    {
+      "subject": "CURRENT_CONTROL_POINTER.md",
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CURRENT_CONTROL_POINTER.md",
+      "claims_revision": 51,
+      "claims_state_sha256": "68482be24ac5aa833c0e78a6456b4884049140af3e32bcd9d16faf774a5757ba",
+      "current_pointer_revision": 54,
+      "current_pointer_state_sha256": "282971c1699e662c58683cef6de26b249096a0b8b26191fcffa905615a50957d",
+      "status": "STALE_PROJECTION__CURRENT_STATE_JSON_CONTROLS"
+    }
+  ],
+  "completed_delta": [
+    "SC-09 continuity rebase: exact STATE_v54 and CURRENT_STATE pointer reconciled; prior D009 return's two conflicting hashes recorded as unconsumed; stale Markdown control projection recorded; exact D007 implementation return preserved; D007 rerun explicitly excluded."
+  ],
+  "downstream_expected_return": {
+    "return_id": "RETURN_D009_CSM_R1_HASH_BOUND_REASSURANCE_V1",
+    "lane": "D009 / SC-05",
+    "filename": "RETURN_D009_CSM_R1_HASH_BOUND_REASSURANCE_V1.json",
+    "status": "PENDING_AFTER_APPROVED_D007_BRIDGE_FIX",
+    "requirements": [
+      "exact then-current state revision and raw SHA-256",
+      "exact D007 implementation-evidence path and SHA-256",
+      "prior D009 hash conflict reconciliation",
+      "independent non-authorising verdict and replay-validity"
+    ]
+  },
+  "exact_change_request": {
+    "model": "x_ss_change_request",
+    "record_id": 1302,
+    "reference": "CHG-2026-767",
+    "approval_status": "pending",
+    "implementation_status": "planned",
+    "approval_route": "d001_steward",
+    "authority_reference": null,
+    "readback_status": "PASS"
+  }
+}

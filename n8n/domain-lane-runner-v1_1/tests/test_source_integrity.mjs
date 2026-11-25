@@ -8,7 +8,7 @@ const build=(f)=>fs.readFileSync(path.join(root,'src',f),'utf8').replace('/*__SH
 const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;
 const sha=(b)=>crypto.createHash('sha256').update(b).digest('hex');
 const V=(n)=>fs.readFileSync(path.join(here,'vectors',n));
-const ALIAS=V('real_alias_gvtec001_candidate_c553.json.bin'), STATE=V('real_current_state.json.bin');
+const ALIAS=V('real_alias_gvtec001_candidate_c553.json.bin'), STATE=V('real_current_state.json.bin'), SV56=V('real_state_v56_alias_d2de.json.bin');
 let pass=0,fail=0; const log=[];
 function check(id,desc,cond,detail=''){ (cond?pass++:fail++); const l=`${cond?'PASS':'FAIL'} ${id} ${desc}${detail?' :: '+detail:''}`; log.push(l); console.log(l); }
 
@@ -73,6 +73,13 @@ check('T04b','prompt carries the RAW text (pretty-printed, not compacted)',r1.pr
   check('T05d','v1.1 formula (l+8) correct for every length 0..700',fixBad.length===0);
   const f55=Buffer.alloc(119,0x61); const asm=await A([{path:'f.md',expected:sha(f55),bytes:f55,headers:{'content-length':'119'}}]);
   check('T05e','v1.1 end-to-end: a 119-byte source (len%64==55) now MATCHES; v1 hash of the same bytes would not',asm.sources_ok===true&&origFn(new Uint8Array(f55))!==sha(f55)); }
+
+
+// ---- T16 SECOND RECORDED FAILURE (execution 430528): STATE_v56 alias, expected d2de2edb.., observed b0972b18..
+check('T16a','ORIGINAL v1 transport+hash on the real STATE_v56 alias reproduces the recorded false mismatch b0972b18... (falsifiable prediction of the root cause)',
+  originalHash(originalTransport(SV56))==='b0972b187cf9de90745e2f184d562991798fe2fc69f3284d07bee4f4c93accf4'&&sha(SV56)==='d2de2edbaece0f780ea603a5acf6dc21b54c56cb5bb589c1f01118dc9c09b269');
+{ const r=await A([{path:'s.json',expected:'d2de2edbaece0f780ea603a5acf6dc21b54c56cb5bb589c1f01118dc9c09b269',bytes:SV56,headers:hdr(SV56)}]);
+  check('T16b','v1.1 real STATE_v56 alias (16,545 B) raw-byte digest == d2de2edb...; sources_ok',r.sources_ok===true&&r.source_checks[0].bytes===16545); }
 
 // ---- negatives (must fail closed)
 const tam=Buffer.from(ALIAS); tam[100]^=0x01;

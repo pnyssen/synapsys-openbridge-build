@@ -10,6 +10,8 @@ PASS T04b prompt carries the RAW text (pretty-printed, not compacted)
 PASS T05c ORIGINAL v1 padding formula (l+9) reproduced as wrong exactly at len%64==55 (lens 55,119,183,247,311,375,439,503,567,631,695)
 PASS T05d v1.1 formula (l+8) correct for every length 0..700
 PASS T05e v1.1 end-to-end: a 119-byte source (len%64==55) now MATCHES; v1 hash of the same bytes would not
+PASS T16a ORIGINAL v1 transport+hash on the real STATE_v56 alias reproduces the recorded false mismatch b0972b18... (falsifiable prediction of the root cause)
+PASS T16b v1.1 real STATE_v56 alias (16,545 B) raw-byte digest == d2de2edb...; sources_ok
 PASS T07 NEG single-bit tamper, same length => MISMATCH, sources_ok=false, class RAW_BYTES_DIFFER
 PASS T08 NEG truncated transfer vs Content-Length => fail closed, class LENGTH_MISMATCH
 PASS T09 NEG HTTP 404 error body => READ_FAILED, class HTTP_404, never hashed as the source
@@ -25,4 +27,4 @@ PASS T12d NEG Gate: wrong caller digest rejected
 PASS T13 NEG Gate: non-JSON body skipped; HTTP 500 skipped; empty skipped
 PASS T14 NEG Gate: wrong lane / bad return name / profile path outside KIT rejected
 PASS T15 Build Return replacement text present exactly once and differs from original
-SUMMARY pass=27 fail=0
+SUMMARY pass=29 fail=0
