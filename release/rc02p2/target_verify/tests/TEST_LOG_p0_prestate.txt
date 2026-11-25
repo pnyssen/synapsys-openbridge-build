@@ -1,11 +1,11 @@
 PASS P1 happy path: Odoo config read in-container, addons verified in-container AND on the host mount -> P0_MATCH_ALL exit 0 :: rc=0 se=
-PASS P2 read-only discipline: only inspect / printenv / in-container python3 over stdin / psql with a read-only session; no cp/run/rm/restart/compose/stop/write verbs :: 8 calls
+PASS P2 read-only discipline: only inspect / printenv / in-container python3 over stdin / psql with a read-only session; no cp/run/rm/restart/compose/stop/write verbs :: 9 calls
 PASS P3 receipt carries DB facts incl. the F5 fact, compose hash, and the whitelisted Odoo config (source recorded)
 PASS P4 NEG on-disk single-bit drift -> P0_DIFF exit 3; changed file named
 PASS P5 NEG docker not installed -> refuse exit 2
 PASS P6 NEG DB container not running -> exit 4
 PASS P7 NEG the same addon exists in two Odoo addons_path entries -> SHADOWED, P0_DIFF exit 3 (shadowing proven, not assumed)
-PASS P8 NEG no addons_path in config or command line -> exit 4 :: rc=4 se=P0_REFUSE[4]: no addons_path found in Odoo config or command line (conf_found/cmdline_found in /tmp/tmpgof46bs0/out/odoo_config_whitelist.json) | 
+PASS P8 NEG no addons_path in config or command line -> exit 4 :: rc=4 se=P0_REFUSE[4]: no addons_path found in Odoo config or command line (conf_found/cmdline_found in /tmp/tmpqy1zanw7/out/odoo_config_whitelist.json) | 
 PASS P9 command-line --addons-path overrides the config file (as Odoo does) -> uses cmdline, exit 0
 PASS P10 NEG manifest hash differs from expected -> exit 3 BEFORE any docker call
 PASS P11 NEG empty database.uuid -> exit 5 (no prestate claim without it)
@@ -16,9 +16,24 @@ PASS P15 NEG symlinked directory inside an addon -> P0_DIFF exit 3 (the reported
 PASS P16 NEG Odoo is configured for a different database than the one checked -> exit 4
 PASS P17 NEG container view matches but the host mount source differs -> P0_VIEW_CONFLICT exit 3
 PASS P18 host mount mapping unavailable -> NOT a full pass: P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE, exit 6, evidence_class CONTAINER_ONLY, not gate evidence
-PASS P18b NEG an ADDONS override that is NOT the mount source cannot corroborate -> still exit 6 CONTAINER_ONLY with the reason recorded
+PASS P18b NEG no mount covers the addons path: an ADDONS override cannot manufacture corroboration -> exit 6 CONTAINER_ONLY, reason recorded
 PASS P18c ADDONS override equal to the mount source of the single addons_path entry -> TWO_VIEW exit 0
 PASS P18d NEG override with SEVERAL addons_path entries cannot stand in for the mapping -> exit 6 or 3, never 0
-PASS P19 NEG secrets hygiene: db_password / admin_passwd / --db_password never appear in stdout, stderr or any file in OUT :: 18595 chars scanned
+PASS P19 NEG secrets hygiene: db_password / admin_passwd / --db_password never appear in stdout, stderr or any file in OUT :: 22880 chars scanned
 PASS P20 NEG an addons_path ENTRY that is a symlink -> refused, exit 3
-SUMMARY pass=23 fail=0
+PASS M1 addon path INSIDE a mounted parent directory resolves to the host path -> P0_MATCH_ALL / TWO_VIEW (reproduced limitation fixed) :: rc=0
+PASS M2 custom (mounted) + image-native (unmounted) entries -> TWO_VIEW for our addons; the image-native entry is classified IMAGE_NATIVE_NOT_HOST_MOUNTED, never shown as host files
+PASS M4 nested mounts: the LONGEST matching destination wins (wrong parent source is ignored)
+PASS M5 trailing slashes on Destination/Source are normalised -> TWO_VIEW
+PASS M6 NEG string-prefix trap: a mount at /mnt/extra must NOT be treated as covering /mnt/extra-addons -> exit 6
+PASS M7 NEG release addons split across a mounted and an UNMOUNTED entry -> partial corroboration is refused: exit 6 CONTAINER_ONLY :: RELEASE_ADDONS_SUPPLIED_FROM_A_PATH_THAT_IS_NOT_HOST_MOUNTED: /tmp/tmpghwtr9rx/second
+PASS M8 NEG parent-mount layout, host content differs from the container -> P0_VIEW_CONFLICT exit 3
+PASS M9 NEG ADDONS override that is a copy, not the host path of the supplying entry -> exit 6 with reason
+PASS M10 ADDONS override equal to the resolved host path -> TWO_VIEW exit 0
+PASS E1 NEG DB module version differs from the observed baseline (synapsys 20.0.2.4.2 vs 20.0.2.4.0) -> P0_PRESTATE_MISMATCH exit 3, both sides listed
+PASS E2 NEG an unexpected extra synapsys* module is prestate drift -> exit 3
+PASS E3 receipt states what P0_MATCH_ALL does NOT cover and which conditions are enforced vs only recorded
+PASS E4 filestore missing is RECORDED as MISSING_OR_UNREADABLE (not enforced here) and cannot be mistaken for adequacy
+PASS E5 NEG DBNAME with shell metacharacters -> refused exit 2 before any docker call
+PASS E6 call discipline still holds with the v3 probes (filestore walk + mapping): only read-only forms :: 9 calls
+SUMMARY pass=38 fail=0

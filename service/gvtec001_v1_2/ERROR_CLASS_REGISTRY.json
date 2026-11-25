@@ -271,6 +271,45 @@
    ]
   },
   {
+   "code": "P0_MOUNT_LAYOUT_MISRESOLVED",
+   "description": "addon path inside a mounted parent dir, nested mounts, string-prefix lookalikes, split supply, image-native entries",
+   "note": "shim only; mutation controls (shortest-prefix, string-prefix) fail M4/M6",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "M1",
+    "M2",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10"
+   ]
+  },
+  {
+   "code": "MODULE_PRESTATE_DRIFT",
+   "description": "DB module states/versions differ from the baseline observed live",
+   "note": "expected list observed 2026-11-25 via the read-only V20 identity; mutation control fails E1/E2",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "E1",
+    "E2"
+   ]
+  },
+  {
+   "code": "P0_RESULT_OVERCLAIMED_AS_INSTALL_EVIDENCE",
+   "description": "P0_MATCH_ALL read as proof of recovery, company/filestore adequacy, authority or D009",
+   "note": "receipt carries not_covered and enforced-vs-recorded per condition",
+   "status": "PASSED_OFFLINE",
+   "tests": [
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+   ]
+  },
+  {
    "code": "FABRICATED_APPROVAL",
    "description": "syntactically valid but unattributable approval",
    "note": "D007 executor not built; earlier C02 false-GO is the original failure to retest",
@@ -379,6 +418,13 @@
    "code": "CROSS_CONTEXT_READ_THROUGH_NEW_MENUS",
    "description": "collaborator in one Context reads another Context through the new menus or journey",
    "note": "F3/F4 acceptance",
+   "status": "NOT_RUN",
+   "tests": []
+  },
+  {
+   "code": "COMPANY_AND_FILESTORE_ADEQUACY_FOR_RELEASE",
+   "description": "company identity and filestore reconciled against the release requirement and the recovery pair",
+   "note": "D007: P0 only RECORDS company and filestore size",
    "status": "NOT_RUN",
    "tests": []
   }

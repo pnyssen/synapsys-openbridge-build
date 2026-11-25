@@ -1,0 +1,22 @@
+{
+ "schema": "synapsys.expected-prestate/1",
+ "provenance": "Observed read-only through the V20 MCP identity jq003.readonly@synapsys.local, database synapsys_v20, on 2026-11-25 (ir.module.module). Compared against the DB by p0_prestate_receipt.sh: this is an ENFORCED check; any difference is a real prestate drift to be reconciled by D007 before the rehearsal baseline is trusted.",
+ "modules": [
+  "synapsys|installed|20.0.2.4.0",
+  "synapsys_base|uninstalled|",
+  "synapsys_benefit_asset_link|installed|20.0.0.1.0",
+  "synapsys_closure_stubs|installed|20.0.0.1.0",
+  "synapsys_context_portal|installed|20.0.0.1.1",
+  "synapsys_mesh|installed|20.0.0.7.0",
+  "synapsys_migration_load|installed|20.0.0.1.0",
+  "synapsys_platform|uninstalled|",
+  "synapsys_portal_scaffold|installed|20.0.0.1.0",
+  "synapsys_registers|installed|20.0.0.1.0",
+  "synapsys_registers_base|installed|20.0.0.1.0",
+  "synapsys_service_governance|installed|20.0.0.1.0",
+  "synapsys_v19_reference|installed|20.0.0.3.0",
+  "synapsys_value_preview_gateway|installed|20.0.0.1.0",
+  "website|installed|20.0.1.0"
+ ],
+ "note_latest_version": "ir_module_module.latest_version is the stored 'Installed Version'; it is empty for uninstalled modules."
+}

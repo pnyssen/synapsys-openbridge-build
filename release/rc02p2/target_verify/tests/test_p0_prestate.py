@@ -21,8 +21,8 @@ case "$1" in
  exec) if [ "$2" = "-i" ]; then
          case "$*" in *default_transaction_read_only=on*) ;; *) echo RO_VIOLATION >> "$SHIM_LOG";; esac
          cat >/dev/null; [ "${SHIM_PSQL_FAIL:-0}" = 1 ] && { echo "psql: error" >&2; exit 2; }
-         echo "database.uuid=${SHIM_UUID-TEST-UUID-1234}"; echo "module=synapsys|installed|20.0.2.4.0"
-         echo "ir_ui_view.visibility.default='public'::character varying"; echo "ir_ui_view.visibility.exists=1"
+         echo "database.uuid=${SHIM_UUID-TEST-UUID-1234}"; while IFS= read -r ml; do echo "module=$ml"; done < "$SHIM_MODULES"
+         echo "ir_ui_view.visibility.default='public'::character varying"; echo "ir_ui_view.visibility.exists=1"; echo "company=1|SynapSys Pty Ltd"
        else echo odoo; fi;;
 esac
 '''
@@ -35,8 +35,9 @@ def mk(conf_extra='', cmdline=None, tweak=None, extra_path_dirs=(), mounts_overr
     for i, name in enumerate(extra_path_dirs):
         d = os.path.join(w, name); shutil.copytree(SRC_BASE, d); others.append(d)
     paths = conf_addons if conf_addons is not None else [a] + others
-    cf = os.path.join(w, 'odoo.conf')
-    if conf: open(cf, 'w').write('[options]\naddons_path = %s\nadmin_passwd = SECRETADMIN\ndb_password = SECRETPW\ndb_host = db\n%s\n' % (','.join(paths), conf_extra))
+    cf = os.path.join(w, 'odoo.conf'); dd = os.path.join(w, 'data'); os.makedirs(os.path.join(dd, 'filestore', 'synapsys_v20', 'ab')); open(os.path.join(dd, 'filestore', 'synapsys_v20', 'ab', 'f1'), 'w').write('x' * 10)
+    mf = os.path.join(w, 'modules.txt'); open(mf, 'w').write('\n'.join(json.load(open(os.path.join(root, 'expected_prestate.json')))['modules']) + '\n')
+    if conf: open(cf, 'w').write('[options]\naddons_path = %s\nadmin_passwd = SECRETADMIN\ndb_password = SECRETPW\ndb_host = db\ndata_dir = %s\n%s\n' % (','.join(paths), dd, conf_extra))
     cl = os.path.join(w, 'cmdline'); open(cl, 'wb').write(('\0'.join(['odoo', '--db_password=SECRETCLI'] + (cmdline or [])) + '\0').encode())
     mounts = mounts_override if mounts_override is not None else [{'Source': p, 'Destination': p, 'Type': 'bind'} for p in paths]
     mj = os.path.join(w, 'mounts.json'); json.dump(mounts, open(mj, 'w'))
@@ -44,11 +45,11 @@ def mk(conf_extra='', cmdline=None, tweak=None, extra_path_dirs=(), mounts_overr
     nb = os.path.join(w, 'nodocker'); os.mkdir(nb)
     for c in ['bash', 'python3', 'sha256sum', 'cut', 'grep', 'tr', 'head', 'sed', 'date', 'mkdir', 'cat', 'dirname', 'wc', 'sort', 'printf']:
         p = shutil.which(c); os.symlink(p, os.path.join(nb, c)) if p else None
-    return dict(w=w, a=a, others=others, cf=cf, cl=cl, mj=mj, sb=sb, nb=nb)
+    return dict(w=w, a=a, others=others, cf=cf, cl=cl, mj=mj, sb=sb, nb=nb, mf=mf, dd=dd)
 def run(m, path_dir=None, env_extra=None):
     out = os.path.join(m['w'], 'out'); log = os.path.join(m['w'], 'docker.log')
     env = {'PATH': (path_dir or m['sb']) + (os.pathsep + os.environ['PATH'] if (path_dir or m['sb']).endswith('bin') else ''), 'SHIM_LOG': log, 'SHIM_MOUNTS': m['mj'], 'OUT': out, 'HOME': m['w'],
-           'ODOO_CONF_PATH': m['cf'], 'ODOO_CMDLINE_PATH': m['cl'], 'COMPOSE': os.path.join(m['w'], 'docker-compose.yml')}
+           'ODOO_CONF_PATH': m['cf'], 'ODOO_CMDLINE_PATH': m['cl'], 'SHIM_MODULES': m['mf'], 'COMPOSE': os.path.join(m['w'], 'docker-compose.yml')}
     open(env['COMPOSE'], 'w').write('services: {}\n'); env.update(env_extra or {})
     r = subprocess.run(['/bin/bash', P0], capture_output=True, text=True, env=env)
     rec = json.load(open(os.path.join(out, 'p0_receipt.json'))) if os.path.exists(os.path.join(out, 'p0_receipt.json')) else {}
@@ -82,13 +83,56 @@ m = mk(conf_extra='db_name = some_other_db'); rc, so, se, out, log, rec = run(m)
 m = mk(); host = os.path.join(m['w'], 'hostcopy'); shutil.copytree(m['a'], host); drift(host); json.dump([{'Source': host, 'Destination': m['a']}], open(m['mj'], 'w')); rc, so, se, out, log, rec = run(m)
 chk('P17 NEG container view matches but the host mount source differs -> P0_VIEW_CONFLICT exit 3', rc == 3 and rec['verdict'] == 'P0_VIEW_CONFLICT' and 'HOST_VIEW=DIFF' in so)
 m = mk(mounts_override=[]); rc, so, se, out, log, rec = run(m)
-chk('P18 host mount mapping unavailable -> NOT a full pass: P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE, exit 6, evidence_class CONTAINER_ONLY, not gate evidence', rc == 6 and 'P0_VERDICT=P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE' in so and rec['evidence_class'] == 'CONTAINER_ONLY' and rec['qualifies_as_two_view_gate_evidence'] is False and rec['host_view'] == 'UNAVAILABLE' and 'Do not treat this as full verification' in so and rec['container_view']['verdict'] == 'MATCH_ALL')
+chk('P18 host mount mapping unavailable -> NOT a full pass: P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE, exit 6, evidence_class CONTAINER_ONLY, not gate evidence', rc == 6 and 'P0_VERDICT=P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE' in so and rec['evidence_class'] == 'CONTAINER_ONLY' and rec['qualifies_as_two_view_gate_evidence'] is False and rec['host_view'] == 'UNAVAILABLE' and 'Not full verification' in so and rec['container_view']['verdict'] == 'MATCH_ALL')
 m = mk(mounts_override=[]); alt = os.path.join(m['w'], 'altcopy'); shutil.copytree(m['a'], alt); rc, so, se, out, log, rec = run(m, env_extra={'ADDONS': alt})
-chk('P18b NEG an ADDONS override that is NOT the mount source cannot corroborate -> still exit 6 CONTAINER_ONLY with the reason recorded', rc == 6 and rec['evidence_class'] == 'CONTAINER_ONLY' and 'NOT_THE_MOUNT_SOURCE' in rec['host_view_note'])
+chk('P18b NEG no mount covers the addons path: an ADDONS override cannot manufacture corroboration -> exit 6 CONTAINER_ONLY, reason recorded', rc == 6 and rec['evidence_class'] == 'CONTAINER_ONLY' and 'NOT_HOST_MOUNTED' in rec['host_view_note'])
 m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'ADDONS': m['a']}); chk('P18c ADDONS override equal to the mount source of the single addons_path entry -> TWO_VIEW exit 0', rc == 0 and rec['evidence_class'] == 'TWO_VIEW')
 m = mk(extra_path_dirs=['addons2']); rc, so, se, out, log, rec = run(m, env_extra={'ADDONS': m['a']}); chk('P18d NEG override with SEVERAL addons_path entries cannot stand in for the mapping -> exit 6 or 3, never 0', rc in (3, 6) and rc != 0)
 m = mk(); rc, so, se, out, log, rec = run(m); blob = so + se + ''.join(open(os.path.join(dp, f), errors='replace').read() for dp, dn, fn in os.walk(out) for f in fn)
 chk('P19 NEG secrets hygiene: db_password / admin_passwd / --db_password never appear in stdout, stderr or any file in OUT', rc == 0 and not re.search('SECRETPW|SECRETADMIN|SECRETCLI', blob), '%d chars scanned' % len(blob))
 m = mk(); lk = os.path.join(m['w'], 'link_addons'); os.symlink(m['a'], lk); open(m['cf'], 'w').write('[options]\naddons_path = %s\n' % lk); json.dump([{'Source': m['a'], 'Destination': lk}], open(m['mj'], 'w')); rc, so, se, out, log, rec = run(m)
 chk('P20 NEG an addons_path ENTRY that is a symlink -> refused, exit 3', rc == 3 and rec['container_view']['path_entries'][0]['status'] == 'ADDONS_PATH_ENTRY_SYMLINK')
+
+# ======== v3: mount-aware resolution, image-native classification, enforced module prestate, explicit coverage ========
+def layout(m, entries, mounts, native=()):
+    """entries: list of container paths (strings) written to odoo.conf; mounts: list of (Destination, Source)."""
+    open(m['cf'], 'w').write('[options]\naddons_path = %s\nadmin_passwd = SECRETADMIN\ndb_password = SECRETPW\ndata_dir = %s\n' % (','.join(entries), m['dd']))
+    json.dump([{'Source': s_, 'Destination': d_, 'Type': 'bind'} for d_, s_ in mounts], open(m['mj'], 'w'))
+def parent_layout():
+    m = mk(); w = m['w']; cont = os.path.join(w, 'mnt', 'extra-addons'); host = os.path.join(w, 'hostroot', 'extra-addons')
+    os.makedirs(os.path.dirname(cont)); os.makedirs(os.path.dirname(host)); shutil.copytree(m['a'], cont); shutil.copytree(m['a'], host)
+    layout(m, [cont], [(os.path.join(w, 'mnt'), os.path.join(w, 'hostroot'))]); m.update(cont=cont, host=host); return m
+m = parent_layout(); rc, so, se, out, log, rec = run(m)
+row = rec['mount_mapping'][0] if rec.get('mount_mapping') else {}
+chk('M1 addon path INSIDE a mounted parent directory resolves to the host path -> P0_MATCH_ALL / TWO_VIEW (reproduced limitation fixed)', rc == 0 and rec['evidence_class'] == 'TWO_VIEW' and row.get('classification') == 'MOUNTED' and row.get('host_path') == m['host'] and rec['host_view']['verdict'] == 'MATCH_ALL', 'rc=%d' % rc)
+m = parent_layout(); nat = os.path.join(m['w'], 'imagenative'); os.makedirs(os.path.join(nat, 'base_core')); open(os.path.join(nat, 'base_core', '__manifest__.py'), 'w').write('{}')
+layout(m, [m['cont'], nat], [(os.path.join(m['w'], 'mnt'), os.path.join(m['w'], 'hostroot'))]); rc, so, se, out, log, rec = run(m)
+cls = {r['container_path']: r['classification'] for r in rec['mount_mapping']}
+chk('M2 custom (mounted) + image-native (unmounted) entries -> TWO_VIEW for our addons; the image-native entry is classified IMAGE_NATIVE_NOT_HOST_MOUNTED, never shown as host files', rc == 0 and cls[m['cont']] == 'MOUNTED' and cls[nat] == 'IMAGE_NATIVE_NOT_HOST_MOUNTED' and [r for r in rec['mount_mapping'] if r['container_path'] == nat][0]['host_path'] is None)
+m = parent_layout(); wrong = os.path.join(m['w'], 'wrong'); os.makedirs(wrong)
+layout(m, [m['cont']], [(os.path.join(m['w'], 'mnt'), wrong), (m['cont'], m['host'])]); rc, so, se, out, log, rec = run(m)
+chk('M4 nested mounts: the LONGEST matching destination wins (wrong parent source is ignored)', rc == 0 and rec['mount_mapping'][0]['host_path'] == m['host'] and rec['mount_mapping'][0]['mount_destination'] == m['cont'])
+m = parent_layout(); layout(m, [m['cont']], [(os.path.join(m['w'], 'mnt') + '/', os.path.join(m['w'], 'hostroot') + '/')]); rc, so, se, out, log, rec = run(m)
+chk('M5 trailing slashes on Destination/Source are normalised -> TWO_VIEW', rc == 0 and rec['evidence_class'] == 'TWO_VIEW')
+m = parent_layout(); layout(m, [m['cont']], [(os.path.join(m['w'], 'mnt', 'extra'), m['host'])]); rc, so, se, out, log, rec = run(m)
+chk('M6 NEG string-prefix trap: a mount at /mnt/extra must NOT be treated as covering /mnt/extra-addons -> exit 6', rc == 6 and rec['mount_mapping'][0]['classification'] == 'IMAGE_NATIVE_NOT_HOST_MOUNTED')
+m = parent_layout(); second = os.path.join(m['w'], 'second'); os.makedirs(second); shutil.move(os.path.join(m['cont'], 'synapsys_v19_reference'), os.path.join(second, 'synapsys_v19_reference'))
+shutil.rmtree(os.path.join(m['host'], 'synapsys_v19_reference')); layout(m, [m['cont'], second], [(os.path.join(m['w'], 'mnt'), os.path.join(m['w'], 'hostroot'))]); rc, so, se, out, log, rec = run(m)
+chk('M7 NEG release addons split across a mounted and an UNMOUNTED entry -> partial corroboration is refused: exit 6 CONTAINER_ONLY', rc == 6 and rec['container_view']['verdict'] == 'MATCH_ALL' and 'NOT_HOST_MOUNTED' in rec['host_view_note'], rec.get('host_view_note', ''))
+m = parent_layout(); drift(m['host']); rc, so, se, out, log, rec = run(m)
+chk('M8 NEG parent-mount layout, host content differs from the container -> P0_VIEW_CONFLICT exit 3', rc == 3 and rec['verdict'] == 'P0_VIEW_CONFLICT')
+m = parent_layout(); alt = os.path.join(m['w'], 'altcopy'); shutil.copytree(m['host'], alt); rc, so, se, out, log, rec = run(m, env_extra={'ADDONS': alt})
+chk('M9 NEG ADDONS override that is a copy, not the host path of the supplying entry -> exit 6 with reason', rc == 6 and 'OVERRIDE_IS_NOT_THE_HOST_PATH' in rec['host_view_note'])
+m = parent_layout(); rc, so, se, out, log, rec = run(m, env_extra={'ADDONS': m['host']}); chk('M10 ADDONS override equal to the resolved host path -> TWO_VIEW exit 0', rc == 0 and rec['evidence_class'] == 'TWO_VIEW')
+# enforced module prestate + explicit coverage
+m = mk(); lines = open(m['mf']).read().splitlines(); lines = [l.replace('synapsys|installed|20.0.2.4.0', 'synapsys|installed|20.0.2.4.2') for l in lines]; open(m['mf'], 'w').write('\n'.join(lines) + '\n'); rc, so, se, out, log, rec = run(m)
+chk('E1 NEG DB module version differs from the observed baseline (synapsys 20.0.2.4.2 vs 20.0.2.4.0) -> P0_PRESTATE_MISMATCH exit 3, both sides listed', rc == 3 and rec['verdict'] == 'P0_PRESTATE_MISMATCH' and 'MODULE_PRESTATE=MISMATCH' in so and 'synapsys|installed|20.0.2.4.0' in rec['module_prestate_check']['missing_or_changed_expected'] and 'synapsys|installed|20.0.2.4.2' in rec['module_prestate_check']['unexpected_or_changed_observed'])
+m = mk(); open(m['mf'], 'a').write('synapsys_unknown_extra|installed|20.0.0.1.0\n'); rc, so, se, out, log, rec = run(m)
+chk('E2 NEG an unexpected extra synapsys* module is prestate drift -> exit 3', rc == 3 and 'synapsys_unknown_extra|installed|20.0.0.1.0' in rec['module_prestate_check']['unexpected_or_changed_observed'])
+m = mk(); rc, so, se, out, log, rec = run(m)
+chk('E3 receipt states what P0_MATCH_ALL does NOT cover and which conditions are enforced vs only recorded', rc == 0 and any('restore/recovery pair' in x for x in rec['not_covered']) and rec['release_prestate_conditions']['module_versions_and_states'] == 'ENFORCED' and rec['release_prestate_conditions']['company_identity'] == 'RECORDED_NOT_ENFORCED' and rec['company_facts'] == ['1|SynapSys Pty Ltd'] and rec['filestore']['exists'] and rec['filestore']['files'] == 1 and 'does NOT cover' in so)
+m = mk(); shutil.rmtree(os.path.join(m['dd'], 'filestore')); rc, so, se, out, log, rec = run(m)
+chk('E4 filestore missing is RECORDED as MISSING_OR_UNREADABLE (not enforced here) and cannot be mistaken for adequacy', rc == 0 and rec['release_prestate_conditions']['filestore_presence_and_size'] == 'MISSING_OR_UNREADABLE' and rec['filestore']['exists'] is False)
+m = mk(); rc, so, se, out, log, rec = run(m, env_extra={'DBNAME': 'x; rm -rf /'}); chk('E5 NEG DBNAME with shell metacharacters -> refused exit 2 before any docker call', rc == 2 and log == '')
+m = mk(); rc, so, se, out, log, rec = run(m); lines = [l for l in log.splitlines() if l]; chk('E6 call discipline still holds with the v3 probes (filestore walk + mapping): only read-only forms', lines and all(ALLOWED.match(l) for l in lines) and 'RO_VIOLATION' not in log, '%d calls' % len(lines))
 print('SUMMARY pass=%d fail=%d' % (sum(res), len(res) - sum(res))); sys.exit(0 if all(res) else 1)

@@ -2,6 +2,17 @@
  "context": "CTX-SS",
  "external_review": [
   {
+   "confirmed_correct": "ir_module_module.latest_version is the stored Installed Version; the SQL needed no change",
+   "finding": "host-mount mapping required every addons_path entry to equal a mount destination (parent-directory mounts and mixed custom + image-native entries returned exit 6 on valid hosts)",
+   "fix": "P0 v3 resolves the host path of the entry that actually supplies the release addons by longest-prefix against Docker mounts; image-native entries classified IMAGE_NATIVE_NOT_HOST_MOUNTED; partial or unmounted supply stays exit 6",
+   "reproduced": "yes - parent-directory mount returned exit 6 CONTAINER_ONLY",
+   "second_finding": "P0_MATCH_ALL does not enforce every release-prestate condition",
+   "second_fix": "module states/versions now ENFORCED against expected_prestate.json (observed live); company/filestore RECORDED_NOT_ENFORCED; receipt carries not_covered (recovery, authority, D009, role tests)",
+   "source": "ChatGPT third review (relayed input, not authority)",
+   "tests": "P0 38/38, verifier 39/39; three new mutation controls fail as intended",
+   "verdict_received": "PASS_WITH_CONDITIONS for the revised tools; production HOLD"
+  },
+  {
    "finding_1": "P0 could report full success without host-side corroboration",
    "finding_2": "verifier manifest-hash failure path skipped the receipt-location check (diagnostic could be written inside an addon dir)",
    "fix_1": "P0_MATCH_ALL now requires two agreeing views; container-only is P0_CONTAINER_VERIFIED_HOST_UNAVAILABLE, exit 6, evidence_class CONTAINER_ONLY, not gate evidence; an ADDONS override must itself be the mount source",
@@ -97,9 +108,14 @@
    "sha256": "0e1ebe20b289d513b5241efec04d2b576aeca0eb57fbeb5877c0ecf1bd34106d"
   },
   {
-   "bytes": 11051,
+   "bytes": 15848,
    "path": "release/rc02p2/target_verify/p0_prestate_receipt.sh",
-   "sha256": "b847f382828f0b61962c0d6fe24b7fd896cf498e26c61404fcd6cdb4d22757e9"
+   "sha256": "ad6d78dd82da6cf9c0bfd60594c9da716856ebb2d0ba2bcb3285e30438869c60"
+  },
+  {
+   "bytes": 1217,
+   "path": "release/rc02p2/target_verify/expected_prestate.json",
+   "sha256": "9a85c43a5500c0e4ee03dbc50506f584d73675870ca882fcc3ec2f1c53b607c5"
   },
   {
    "bytes": 2443,
@@ -132,14 +148,14 @@
    "sha256": "944c95a4685b0ba700b75f0189a112725b4e817dda0257268c59f6b856efe518"
   },
   {
-   "bytes": 9844,
+   "bytes": 11195,
    "path": "service/gvtec001_v1_2/ERROR_CLASS_REGISTRY.json",
-   "sha256": "65a5044802d3e30ef1ce44f07e276ae774ddc9a2a7bb308d7ba17f354f9337d6"
+   "sha256": "82ddf96515264ffde0fe15288dc35e4daed17205b6e5e693e4f5cd60b7eb4f1f"
   },
   {
-   "bytes": 6692,
+   "bytes": 6976,
    "path": "service/gvtec001_v1_2/GV-TEC-001_V20_release_service_upgrade_v1_2_CANDIDATE.json",
-   "sha256": "addd1061bf6e6aca2ddecda44a2ac3854021ee612855b3ba53ccb6c3d08ef07d"
+   "sha256": "da9d2fe09d3ea2c3f97ba223e2035dd94b236639d66847840858e82e182bcb05"
   },
   {
    "bytes": 11804,
