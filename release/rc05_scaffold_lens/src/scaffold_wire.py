@@ -4,7 +4,8 @@ RIGHTS: every read uses the CALLER'S OWN environment (request.env). No sudo(), n
 registry read right Odoo raises AccessError and this module returns REFUSED; it never falls back to elevated reads.
 Evidence and library records: no registered SC-04/GV-NAV-002 source exists in V20 yet, so none is passed. Every peer is
 therefore shown NO_OPERATING_SOURCE (HOLD), which is the truthful state. Nothing here invents a source.
-Policy default is conservative (a proposal, not a ruling): Collaborator is capped at Enhance, Steward may reach Enrich.
+Depth policy (Steward ruling, 26 Nov 2026, in chat): Steward and Collaborator may both reach Enrich. Context-bound evidence stays
+gated by Context membership in scaffold_lens (fail-closed: no recognised Context means no evidence).
 """
 import hashlib
 import json
@@ -15,7 +16,7 @@ except ImportError:  # offline tests load the module by path
     import scaffold_lens as sl
 
 GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
-DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enhance'}
+DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
 NOUN = 'N.CONTEXT'
 
 

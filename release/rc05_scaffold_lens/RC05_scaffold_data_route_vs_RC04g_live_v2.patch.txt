@@ -1,6 +1,6 @@
 diff -ruN a/synapsys/controllers/__init__.py b/synapsys/controllers/__init__.py
 --- a/synapsys/controllers/__init__.py	2026-11-26 23:05:02.425948708 +0000
-+++ b/synapsys/controllers/__init__.py	2026-11-26 23:05:02.431135268 +0000
++++ b/synapsys/controllers/__init__.py	2026-11-26 23:13:18.878248146 +0000
 @@ -1,3 +1,4 @@
  from . import home
  from . import arch_map
@@ -8,7 +8,7 @@ diff -ruN a/synapsys/controllers/__init__.py b/synapsys/controllers/__init__.py
 +from . import scaffold
 diff -ruN a/synapsys/controllers/scaffold.py b/synapsys/controllers/scaffold.py
 --- a/synapsys/controllers/scaffold.py	1970-01-01 00:00:00.000000000 +0000
-+++ b/synapsys/controllers/scaffold.py	2026-11-26 23:05:02.434310903 +0000
++++ b/synapsys/controllers/scaffold.py	2026-11-26 23:13:18.881336104 +0000
 @@ -0,0 +1,11 @@
 +from odoo import http
 +from odoo.http import request
@@ -23,7 +23,7 @@ diff -ruN a/synapsys/controllers/scaffold.py b/synapsys/controllers/scaffold.py
 +        return sw.scaffold_context(request.env, depth, context_id)
 diff -ruN a/synapsys/scaffold_lens.py b/synapsys/scaffold_lens.py
 --- a/synapsys/scaffold_lens.py	1970-01-01 00:00:00.000000000 +0000
-+++ b/synapsys/scaffold_lens.py	2026-11-26 23:05:02.432567858 +0000
++++ b/synapsys/scaffold_lens.py	2026-11-26 23:13:18.879980918 +0000
 @@ -0,0 +1,156 @@
 +"""Read-only scaffold lens projection (RC05 slice, source-ready candidate).
 +
@@ -183,15 +183,16 @@ diff -ruN a/synapsys/scaffold_lens.py b/synapsys/scaffold_lens.py
 +    return out
 diff -ruN a/synapsys/scaffold_wire.py b/synapsys/scaffold_wire.py
 --- a/synapsys/scaffold_wire.py	1970-01-01 00:00:00.000000000 +0000
-+++ b/synapsys/scaffold_wire.py	2026-11-26 23:05:02.432588999 +0000
-@@ -0,0 +1,62 @@
++++ b/synapsys/scaffold_wire.py	2026-11-26 23:13:18.880004514 +0000
+@@ -0,0 +1,63 @@
 +"""Wiring for the read-only scaffold lens: Odoo environment -> scaffold_lens inputs.
 +
 +RIGHTS: every read uses the CALLER'S OWN environment (request.env). No sudo(), no su, no writes. If the caller lacks the
 +registry read right Odoo raises AccessError and this module returns REFUSED; it never falls back to elevated reads.
 +Evidence and library records: no registered SC-04/GV-NAV-002 source exists in V20 yet, so none is passed. Every peer is
 +therefore shown NO_OPERATING_SOURCE (HOLD), which is the truthful state. Nothing here invents a source.
-+Policy default is conservative (a proposal, not a ruling): Collaborator is capped at Enhance, Steward may reach Enrich.
++Depth policy (Steward ruling, 26 Nov 2026, in chat): Steward and Collaborator may both reach Enrich. Context-bound evidence stays
++gated by Context membership in scaffold_lens (fail-closed: no recognised Context means no evidence).
 +"""
 +import hashlib
 +import json
@@ -202,7 +203,7 @@ diff -ruN a/synapsys/scaffold_wire.py b/synapsys/scaffold_wire.py
 +    import scaffold_lens as sl
 +
 +GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
-+DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enhance'}
++DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
 +NOUN = 'N.CONTEXT'
 +
 +

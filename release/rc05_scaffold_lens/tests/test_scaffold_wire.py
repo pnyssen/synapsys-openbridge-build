@@ -34,10 +34,17 @@ class T(unittest.TestCase):
         self.assertEqual(o["result"], "OK"); self.assertEqual(o["depth_effective"], "enrich"); self.assertEqual(len(o["roles"]), 7)
         self.assertEqual(o["registry_sha"], SHA); self.assertEqual(o["registry_version"], "0.3.5")
         for p in o["peers"]: self.assertEqual(p["operating_source"], "NO_OPERATING_SOURCE"); self.assertTrue(p["hold"])
-    def test_W2_collaborator_capped_at_enhance(self):
+    def test_W2_collaborator_reaches_enrich_but_evidence_is_context_gated(self):
         o = sw.scaffold_context(Env([COLL]), "enrich", "CTX-A")
-        self.assertEqual((o["depth_effective"], o["depth_clamped"]), ("enhance", True))
-        self.assertNotIn("definition_source", o); self.assertNotIn("evidence", o["peers"][0])
+        self.assertEqual((o["depth_effective"], o["depth_clamped"]), ("enrich", False))
+        self.assertIn("definition_source", o)
+        for p in o["peers"]: self.assertEqual(p["evidence"], [])  # none passed; none shown
+        # even if a record existed, a Collaborator with no recognised Context must not receive it
+        ev = [{"id": "E1", "noun_id": "N.SERVICE", "context_id": "CTX-A", "kind": "library", "source_ref": "L", "sha256": "a" * 64}]
+        o2 = sl.build_scaffold(json.loads(RAW), "N.CONTEXT", "enrich", sw.actor_from_env(Env([COLL])), ev,
+                               {"L": {"sha256": "a" * 64, "label": "x"}}, "CTX-A", sw.DEFAULT_ROLE_MAX_DEPTH)
+        s = {p["id"]: p for p in o2["peers"]}["N.SERVICE"]
+        self.assertEqual(s["evidence"], []); self.assertEqual(s["rejected_evidence"], [{"reason": "ACTOR_NOT_IN_CONTEXT"}])
     def test_W3_no_group_refused_before_any_read(self):
         e = Env([]); o = sw.scaffold_context(e, "enable"); self.assertEqual(o["reason"], "NO_RECOGNISED_ROLE"); self.assertEqual(e.log, [])
     def test_W4_no_registry_read_right_refused_no_fallback(self):
