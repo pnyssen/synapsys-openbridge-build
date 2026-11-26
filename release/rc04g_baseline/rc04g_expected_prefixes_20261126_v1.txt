@@ -1,0 +1,6 @@
+# RC04g worker-reported 16-char sha256 prefixes (RC04g install return, Addendum 2, 25 Nov 2026). CLAIMS, not verified evidence.
+# Format: <hex prefix> <path relative to /opt/odoo20/addons/synapsys>
+c101592a687bfefc lens_contract.py
+03b40742268f4c6a static/src/home.xml
+846509feaa4166be __manifest__.py
+4ce0c4cdbe74c9d0 tests/test_lens_contract.py
