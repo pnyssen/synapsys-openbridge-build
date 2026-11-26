@@ -68,10 +68,11 @@ def roles_for(reg, els, relationship_id):
     return sorted(rows, key=lambda x: (not x["required"], x["role_label"], x["bound_id"]))
 
 
-def _effective_depth(actor, requested):
+def _effective_depth(actor, requested, role_max_depth=None):
+    table = ROLE_MAX_DEPTH if role_max_depth is None else role_max_depth
     cap = None
     for g in actor.get("groups", ()):
-        m = ROLE_MAX_DEPTH.get(g)
+        m = table.get(g)
         if m and (cap is None or _depth_ix(m) > _depth_ix(cap)):
             cap = m
     if cap is None:
@@ -130,11 +131,11 @@ def _peer_block(els, noun_id, depth, actor, evidence, library_index, context_id)
     return block
 
 
-def build_scaffold(reg, noun_id, requested_depth, actor, evidence, library_index, context_id):
+def build_scaffold(reg, noun_id, requested_depth, actor, evidence, library_index, context_id, role_max_depth=None):
     els = index_registry(reg)
     if noun_id not in els:
         return {"result": "REFUSED", "reason": "UNKNOWN_NOUN"}
-    depth = _effective_depth(actor or {}, requested_depth)
+    depth = _effective_depth(actor or {}, requested_depth, role_max_depth)
     if depth is None:
         return {"result": "REFUSED", "reason": "NO_RECOGNISED_ROLE"}
     n = els[noun_id]
