@@ -1,0 +1,313 @@
+diff -ruN pa/synapsys/scaffold_wire.py pb/synapsys/scaffold_wire.py
+--- pa/synapsys/scaffold_wire.py	2026-11-27 08:25:15.000000000 +0000
++++ pb/synapsys/scaffold_wire.py	2026-11-27 09:34:41.271256235 +0000
+@@ -243,11 +243,11 @@
+ 
+ 
+ def menu_enable(env, action_id, menu_id=None, screen_id='', depth='enable'):
+-    """Enable panel for a bound menu's native view (RC06g). Read-only; the native action, view and rights are not touched.
++    """Page for a bound menu's native view (RC06g Enable panel; RC06h: all three depths, in the lens template). Read-only; the native action, view and rights are not touched.
+ 
+     Order is fail-closed and leaks nothing before entitlement: recognised role, then the binding for this action, then the actor's real read
+     right on the native model, and only then the anchors, the screen id and the content. A refusal is a reason code only."""
+-    if depth != 'enable':
++    if depth not in ('enable', 'enhance', 'enrich'):
+         return _refused('DEPTH_NOT_SUPPORTED')
+     try:
+         _rows, by_action, _by_menu = bindings()
+@@ -286,15 +286,15 @@
+             return _refused('SCREEN_NOT_BOUND_TO_MENU')
+     decl = decls[b['screen_id']]
+     if decl['screen_type'] == 'menu':
+-        out = sd.project_menu(decl, 'enable', actor_from_env(env), DEFAULT_ROLE_MAX_DEPTH)
++        out = sd.project_menu(decl, depth, actor_from_env(env), DEFAULT_ROLE_MAX_DEPTH)
+         if out.get('result') == 'OK':
+             out['sources_sha'] = declarations()[1]['sources_of'][decl['id']]
+     else:
+-        out = _project(env, decl, 'enable', '', need_evidence=bool(decl.get('peers')))
++        out = _project(env, decl, depth, '', need_evidence=depth != 'enable' or bool(decl.get('peers')))
+     if out.get('result') != 'OK':
+         return _refused(out.get('reason', 'NOT_AVAILABLE'))
+     if out.get('screen') != b['screen_id']:
+         return _refused('ANCHOR_MISMATCH')
+     return {'result': 'OK', 'screen_id': b['screen_id'], 'menu_id': b['menu_id'], 'action_id': b['action_id'], 'status': out.get('status'),
+-            'binding_status': b['binding_status'], 'html': sr.render_enable_panel(out, b['binding_status']), 'writes': 0}
++            'binding_status': b['binding_status'], 'depth': out.get('depth_effective'), 'html': sr.render_menu_page(out, b['binding_status']), 'writes': 0}
+ 
+diff -ruN pa/synapsys/screen_render.py pb/synapsys/screen_render.py
+--- pa/synapsys/screen_render.py	2026-11-27 08:25:15.000000000 +0000
++++ pb/synapsys/screen_render.py	2026-11-27 09:34:41.271394283 +0000
+@@ -5,6 +5,7 @@
+ Pure: every dynamic value is escaped; no scripts, no inline event handlers, no external URLs. Presentation only: it changes no
+ data, kind, PPV, approval or right.
+ """
++import re
+ from html import escape as _e
+ 
+ STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;color:#1f2933;box-sizing:border-box}'
+@@ -20,7 +21,7 @@
+          '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
+          '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
+          '.syn-sc table.tt{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}.syn-sc .tt th,.syn-sc .tt td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid #f0f2f5;overflow-wrap:anywhere}'
+-         '.syn-sc .tt td>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt details>div{white-space:normal}'
++         '.syn-sc .tt td:first-child>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt td:not(:first-child)>div{white-space:normal;overflow-wrap:anywhere}.syn-sc .tt details>div{white-space:normal}'
+          '.syn-sc details summary{cursor:pointer;color:#714b67;font-size:12px}'
+          '.syn-sc .cp{max-width:44rem}.syn-sc .cp .kv{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}'
+          '.syn-sc .cp .kv span:first-child{flex:0 0 12rem;min-width:0}.syn-sc .cp .kv span:last-child{flex:1 1 12rem;text-align:left}'
+@@ -77,10 +78,20 @@
+     return s + '</div>'
+ 
+ 
+-def _slot_answer(m):
+-    lead = m['frame'].get('answer_lead')
++def strip_status_prefix(answer, status):
++    """R6 (RC06h): an answer that opens with its own status word and a colon drops that prefix; the chip already carries the status."""
++    a = str(answer or '')
++    if status:
++        m = re.match(r'\s*' + re.escape(str(status)) + r'\s*:\s*', a, re.I)
++        if m and a[m.end():]:
++            return a[m.end():]
++    return answer
++
++
++def _slot_answer(m, lead=True):
++    lead = m['frame'].get('answer_lead') if lead else None
+     lead_html = ('<strong class="lead">%s:</strong> ' % _e(str(lead))) if lead else ''
+-    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(m['frame']['answer']))
++    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(strip_status_prefix(m['frame']['answer'], m['frame']['header'].get('status'))))
+ 
+ 
+ def _slot_trust(m):
+@@ -271,3 +282,156 @@
+         h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
+     return h + '<p class="nt">Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>'
+ 
++
++
++# --- RC06i: menu pages (all) and the Service 1-3-1 projection -------------------------------------------------------------------------------------
++# Placement (probe on dev, RC06g installed): body.o_web_client is a viewport-height flex column: navbar, .o_action_manager (flexible, overflow hidden), then
++# .o-main-components-container, which holds the panel. While a page is on screen the container is ordered above the action manager and the whole
++# web client grows to its content, so the page scrolls as ONE page (no scroll container inside the panel) and the native view keeps a full-height area
++# below the Records heading instead of being squeezed. All rules exist only while a page is on screen (:has(.syn-pg)); the style block travels with the html.
++PAGE_STYLE = (
++    '<style>'
++    '.o_web_client:has(.syn-pg){height:auto;min-height:100vh;overflow-y:auto}'
++    '.o_web_client:has(.syn-pg)>.o-main-components-container,.o_web_client:has(.syn-pg)>.syn-enable-panel{order:1;flex:0 0 auto}'
++    '.o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 0 auto;height:calc(100vh - 46px);min-height:24rem}'
++    '.syn-sc.syn-pg{padding-bottom:0}.syn-pg .syn-records{margin:10px 0 0;padding-top:8px;padding-bottom:6px;border-top:1px solid #e4e7eb}'
++    # R5: wrap, never clip, on every menu page; at 600 px and below the trust table becomes stacked rows that keep Source
++    '.syn-sc.syn-pg table.tt td>div{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}'
++    '.syn-sc.syn-pg summary{display:flex;align-items:center;min-height:44px}'
++    '@media (max-width:600px){.syn-sc.syn-pg table.tt{table-layout:auto}.syn-sc.syn-pg .tt thead{display:none}'
++    '.syn-sc.syn-pg .tt,.syn-sc.syn-pg .tt tbody,.syn-sc.syn-pg .tt tr,.syn-sc.syn-pg .tt td{display:block;width:100%}'
++    '.syn-sc.syn-pg .tt tr{border-top:1px solid #e4e7eb;padding:6px 0}.syn-sc.syn-pg .tt td,.syn-sc.syn-pg .tt td:nth-child(3){display:block;border-top:0;padding:2px 8px}'
++    '.syn-sc.syn-pg .tt td::before{display:block;color:#7b8794;font-size:10px}'
++    '.syn-sc.syn-pg .tt td:nth-child(1)::before{content:"Claim"}.syn-sc.syn-pg .tt td:nth-child(2)::before{content:"Status"}'
++    '.syn-sc.syn-pg .tt td:nth-child(3)::before{content:"Source"}.syn-sc.syn-pg .tt td:nth-child(4)::before{content:"Open question"}}'
++    # R1: the one Detail control (44 px targets, visible keyboard focus)
++    '.syn-detail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}.syn-detail .syn-detail-l{color:#52606d;margin-right:4px}'
++    '.syn-detail button{min-height:44px;min-width:44px;padding:0 14px;border:1px solid #9aa5b1;border-radius:6px;background:#fff;color:#1f2933;cursor:pointer;font:inherit}'
++    '.syn-detail button[aria-pressed="true"]{background:#714b67;color:#fff;border-color:#714b67}'
++    '.syn-detail button:focus-visible{outline:3px solid #1d4ed8;outline-offset:2px}'
++    '</style>')
++
++SERVICE_STYLE = (
++    '<style>'
++    # R4: the adopted 14 / 12 / 10 px hierarchy, Service projection only (every size set explicitly; nothing else in the page changes)
++    '.syn-sc.syn-sv,.syn-sc.syn-sv h1,.syn-sc.syn-sv h2,.syn-sc.syn-sv .an,.syn-sc.syn-sv .tl,.syn-sc.syn-sv .mv,.syn-sc.syn-sv .sb,.syn-sc.syn-sv p,.syn-sc.syn-sv li{font-size:14px;line-height:1.45}'
++    '.syn-sc.syn-sv h1,.syn-sc.syn-sv h2{font-weight:600;margin:0 0 4px}'
++    '.syn-sc.syn-sv .tg,.syn-sc.syn-sv .lb,.syn-sc.syn-sv .kv,.syn-sc.syn-sv table.tt,.syn-sc.syn-sv .tt td,.syn-sc.syn-sv .tt th,.syn-sc.syn-sv summary,.syn-sc.syn-sv button,.syn-sc.syn-sv .syn-detail-l,.syn-sc.syn-sv .sv-chain li{font-size:12px}'
++    '.syn-sc.syn-sv .tt td>div,.syn-sc.syn-sv .tt td div>*,.syn-sc.syn-sv .kv span,.syn-sc.syn-sv .kv li,.syn-sc.syn-sv .tt li,.syn-sc.syn-sv .cd p,.syn-sc.syn-sv .cd li{font-size:12px}'
++    '.syn-sc.syn-sv .nt,.syn-sc.syn-sv .sv-cap,.syn-sc.syn-sv .tt td::before{font-size:10px}'
++    '.syn-sv .sv-band,.syn-sv .sv-ap{border:1px solid #e4e7eb;border-radius:10px;padding:12px 14px;background:#fff}'
++    '.syn-sv .sv-answer h1{display:inline;margin-right:8px}.syn-sv .sv-ap .cd{border:0;padding:0;margin:0}'
++    '.syn-sv .sv-apertures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}'
++    '.syn-sv .sv-apertures>.sv-ap[data-aperture="evolve"].sv-wide{grid-column:1/-1}'
++    '.syn-sv .sv-ap p{margin:6px 0}.syn-sv .sv-cap{color:#7b8794;margin:0 0 4px}'
++    '.syn-sv .sv-value{background:#f8fafc;border-color:#cbd2d9}.syn-sv .sv-chain{list-style:none;margin:6px 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}'
++    '.syn-sv .sv-chain li{border:1px dashed #9aa5b1;border-radius:8px;padding:6px 8px;overflow-wrap:anywhere}'
++    '@media (max-width:700px){.syn-sv .sv-apertures{grid-template-columns:minmax(0,1fr);gap:6px;margin:6px 0}.syn-sv .sv-band,.syn-sv .sv-ap{padding:8px 10px}'
++    '.syn-sv .sv-chain{display:flex;flex-wrap:wrap;gap:6px}.syn-sv .sv-chain li{padding:4px 8px}.syn-sv .sv-ap p{margin:2px 0}.syn-sv .syn-detail{margin-top:6px}}'
++    '</style>')
++
++DEPTH_ORDER = ('enable', 'enhance', 'enrich')
++SERVICE_SCREEN = 'SCR.SERVICE.NOUN'
++MEASURES_SCREEN = 'SCR.MESH_MEASURES.MENU'
++VALUE_CHAIN = ('Service performance', 'Outcome', 'Verified Benefit contribution', 'Realisation', 'Enduring Asset effect')  # v1.3 section 1
++
++
++def detail_control(depth):
++    """R1: the ONE depth control of a menu page, rendered here and nowhere else. Pressed state is the depth that was served; a click is handled by the
++    client's single delegated handler and goes to the shared lens-mode service."""
++    b = ''.join('<button type="button" data-mode="%s" aria-pressed="%s">%s</button>' % (d, 'true' if d == depth else 'false', LABEL[d]) for d in DEPTH_ORDER)
++    return '<div class="syn-detail" role="group" aria-label="Detail level" data-control="detail"><span class="syn-detail-l">Detail</span>%s</div>' % b
++
++
++def _page_open(m, extra_cls=''):
++    return '<div class="syn-sc syn-pg%s" data-page="menu" data-screen="%s" data-screen-type="%s" data-depth="%s">' % (
++        extra_cls, _e(str(m['screen'])), _e(str(m['screen_type'])), _e(m['depth_effective']))
++
++
++def _page_foot(m, binding_status, compact=False):
++    eff = m['depth_effective']
++    note = '' if compact else DEPTH_NOTE.get(eff, '')  # the Service projection states depth in its own Detail control; the long how-to sentence is dropped there
++    if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
++        note += ' (Your role limits the depth to %s.)' % LABEL[eff]
++    if compact:
++        b = ('Binding: %s. ' % _e(str(binding_status))) if binding_status else ''
++        return '<p class="nt" data-slot="binding">%s%sPresentation only: this view changes no data, kind, PPV, approval or right.</p><h2 class="syn-records" data-slot="records">Records</h2></div>' % (b, _e(note.strip() + ' ' if note.strip() else ''))
++    h = ''
++    if binding_status:
++        h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
++    h += '<p class="nt">%s Presentation only: this view changes no data, kind, PPV, approval or right.</p>' % _e(note)
++    return h + '<h2 class="syn-records" data-slot="records">Records</h2></div>'
++
++
++def _measures_scope(m):
++    """R7: what this page does and does not know about Measures. No read, no count, no chart; the native list under Records is the only view of stored measures."""
++    return ('<div class="cd" data-slot="measures_scope"><p>Observations: not available on this screen. No stored measure is read here; the native list under Records shows what exists.</p>'
++            '<p>Owner: none declared on this screen.</p></div>')
++
++
++def render_menu_page(m, binding_status=None):
++    """A bound menu's page in the lens template. Service gets its 1-3-1 projection; every other menu page keeps the generic frame. In both, the page
++    definition comes first, the Detail control is inside the answer area, and the Records heading closes the page above the untouched native view."""
++    if not isinstance(m, dict) or m.get('result') != 'OK' or 'slots' not in m:
++        return ''
++    if m.get('screen') == SERVICE_SCREEN:
++        return render_service_page(m, binding_status)
++    eff = m['depth_effective']
++    h = STYLE + PAGE_STYLE + _page_open(m)
++    for slot in m['slots']:
++        if slot == 'answer':
++            h += _slot_answer(m, lead=False)  # the chip beside the title carries the status: no lead
++            h += detail_control(eff)
++        else:
++            h += SLOT_BUILDERS[slot](m)
++        if slot == 'movement' and m.get('screen') == MEASURES_SCREEN:
++            h += _measures_scope(m)
++    na = m.get('not_applicable')
++    if na:
++        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
++    return h + _page_foot(m, binding_status)
++
++
++def _service_header(m):
++    hd = m['frame']['header']
++    return '<div data-slot="header"><h1>%s %s</h1></div>' % (_e(hd['noun']), _pill(hd.get('status') or 'UNSOURCED'))
++
++
++def _form_line(m):
++    ver = m.get('registry_version')
++    if ver:
++        return '<p class="sv-line" data-line="form">Definition source: registry %s, %s.</p>' % (_e(str(ver)), _e(str(m.get('registry_state') or 'state not given')))
++    return '<p class="sv-line" data-line="form">No registry source is declared for this screen.</p>'
++
++
++def _evolve_line(m):
++    t = m['frame']['trust']
++    return '<p class="sv-line" data-line="evolve">Trust: %s %s.</p>' % (_pill(t['status'] or 'UNSOURCED'), _e(_plural(t['source_count'], 'source')))
++
++
++def render_service_page(m, binding_status=None):
++    """RC06i: the Service page in the adopted 1-3-1 layout (Service Catalogue Master Reference v1.3 s1): one full-width Answer band, three operating
++    apertures Form / Flow / Evolve, one always-visible Value band. Built only from the slots the projection already returns; nothing is inferred
++    (Form / Flow / Evolve here group what is shown, they are not x_ffe_state). A slot with no source says so."""
++    eff = m['depth_effective']
++    ix = DEPTH_ORDER.index(eff)
++    h = STYLE + PAGE_STYLE + SERVICE_STYLE + _page_open(m, ' syn-sv').replace('data-page="menu"', 'data-page="menu" data-projection="service-1-3-1"')
++    h += '<section class="sv-band sv-answer" data-band="answer">' + _service_header(m) + _slot_answer(m, lead=False) + SLOT_BUILDERS['trust'](m) + detail_control(eff) + '</section>'
++    wide = ' sv-wide' if ix == 2 else ''
++    form = '<section class="sv-ap" data-aperture="form"><h2>Form</h2><p class="sv-cap">SynapSys: definition and alignment</p>' + _form_line(m)
++    flow = '<section class="sv-ap" data-aperture="flow"><h2>Flow</h2><p class="sv-cap">Disciplines: operation and movement</p>' + SLOT_BUILDERS['movement'](m)
++    evolve = '<section class="sv-ap%s" data-aperture="evolve"><h2>Evolve</h2><p class="sv-cap">Mesh: evidence, learning and value realisation</p>' % wide + _evolve_line(m)
++    if ix >= 1:
++        form += SLOT_BUILDERS['made_of'](m)
++        flow += SLOT_BUILDERS['peers'](m)
++    if ix >= 2:
++        evolve += SLOT_BUILDERS['open_questions'](m) + SLOT_BUILDERS['trust_table'](m) + SLOT_BUILDERS['technical'](m)
++    h += '<div class="sv-apertures" data-band="apertures">' + form + '</section>' + flow + '</section>' + evolve + '</section></div>'
++    h += ('<section class="sv-band sv-value" data-band="value"><h2>Value</h2>'
++          '<p class="sv-cap" data-slot="value_definition">Definition of the value chain, from the Service Catalogue Master Reference v1.3. It is not a record of this Service.</p>'
++          '<ol class="sv-chain">%s</ol>'
++          '<p data-slot="value_records">Benefits and Assets recorded against this Service are not read on this screen.</p></section>') % ''.join('<li>%s</li>' % _e(v) for v in VALUE_CHAIN)
++    na = m.get('not_applicable')
++    if na:
++        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
++    return h + _page_foot(m, binding_status, compact=True)
+diff -ruN pa/synapsys/static/src/enable_panel.js pb/synapsys/static/src/enable_panel.js
+--- pa/synapsys/static/src/enable_panel.js	2026-11-27 08:25:15.000000000 +0000
++++ pb/synapsys/static/src/enable_panel.js	2026-11-27 09:34:41.268932927 +0000
+@@ -1,19 +1,32 @@
+ import { registry } from "@web/core/registry";
+ import { rpc } from "@web/core/network/rpc";
+-import { Component, proxy, markup } from "@odoo/owl";
++import { Component, proxy, markup, onWillDestroy } from "@odoo/owl";
+ import { useBus, useService } from "@web/core/utils/hooks";
+ 
+-// Read-only Enable panel for a bound menu's native view (RC06g). It never replaces or edits the native view, action, menu or any record.
+-// It asks ONE read-only route about the window action now on screen (by action id) and shows what the route returns, or nothing at all:
+-// a refusal, an error or an action that is not bound leaves no panel and no trace. It writes nothing and derives no id from a label.
++// Read-only page head for a bound menu's native view (RC06g panel; RC06h lens template; RC06i: one server-rendered Detail control).
++// It never replaces or edits the native view, action, menu or any record. It asks ONE read-only route about the window action now on screen
++// (by action id) at the shared presentation depth (the same shared lens-mode service as the Context page; no second depth state) and shows what the route returns, or nothing:
++// a refusal, an error or an action that is not bound leaves no panel and no tabs. It writes nothing and derives no id from a label.
++const MODES = ["enable", "enhance", "enrich"];
++
+ export class SynapsysEnablePanel extends Component {
+     static template = "synapsys.EnablePanel";
+     setup() {
+-        this.state = proxy({ html: "", actionId: null });
++        this.state = proxy({ html: "", key: null });
+         this.action = useService("action");
++        this.lm = useService("synapsys_lens_mode");
+         useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", () => this.refresh());
++        const off = this.lm.subscribe(() => this.refresh());
++        onWillDestroy(off);
+         this.refresh();
+     }
++    onClick(ev) {
++        // the one Detail control is rendered by the server inside the page; this single delegated handler is the only place a click becomes a depth change
++        const b = ev.target && ev.target.closest ? ev.target.closest("[data-control='detail'] [data-mode]") : null;
++        if (b && MODES.includes(b.dataset.mode)) {
++            this.lm.setMode(b.dataset.mode);
++        }
++    }
+     currentActionId() {
+         const ctrl = this.action && this.action.currentController;
+         const act = ctrl && ctrl.action;
+@@ -21,17 +34,19 @@
+     }
+     async refresh() {
+         const id = this.currentActionId();
+-        if (id === this.state.actionId) {
++        const mode = MODES.includes(this.lm.mode) ? this.lm.mode : "enable";
++        const key = id === null ? null : id + "|" + mode;
++        if (key === this.state.key) {
+             return;
+         }
+-        this.state.actionId = id;
++        this.state.key = key;
+         this.state.html = "";
+         if (id === null) {
+             return;
+         }
+         try {
+-            const res = await rpc("/synapsys/menu/enable", { action_id: id });
+-            if (this.state.actionId === id && res && res.result === "OK" && typeof res.html === "string") {
++            const res = await rpc("/synapsys/menu/enable", { action_id: id, depth: mode });
++            if (this.state.key === key && res && res.result === "OK" && typeof res.html === "string") {
+                 this.state.html = markup(res.html);
+             }
+         } catch (e) {
+diff -ruN pa/synapsys/static/src/enable_panel.xml pb/synapsys/static/src/enable_panel.xml
+--- pa/synapsys/static/src/enable_panel.xml	2026-11-27 08:25:15.000000000 +0000
++++ pb/synapsys/static/src/enable_panel.xml	2026-11-27 09:34:41.269049501 +0000
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <templates xml:space="preserve">
+     <t t-name="synapsys.EnablePanel">
+-        <div t-if="this.state.html" class="syn-enable-panel border-top bg-view px-3 py-2"><t t-out="this.state.html"/></div>
++        <div t-if="this.state.html" class="syn-enable-panel border-bottom bg-view" t-on-click="this.onClick"><t t-out="this.state.html"/></div>
+     </t>
+ </templates>
