@@ -1,0 +1,933 @@
+{
+ "act_window": {
+  "185": [
+   "synapsys.mesh.registry",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "186": [
+   "synapsys.mesh.entry",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "187": [
+   "synapsys.mesh.cluster",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "188": [
+   "synapsys.mesh.admit",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "189": [
+   "synapsys.mesh.measure",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "190": [
+   "synapsys.mesh.entry",
+   "[('code', '=like', 'N.CAPABILITY%')]",
+   "list,form",
+   "{}"
+  ],
+  "191": [
+   "synapsys.mesh.entry",
+   "[('code', '=like', 'N.PRODUCT%')]",
+   "list,form",
+   "{}"
+  ],
+  "192": [
+   "synapsys.mesh.entry",
+   "[('code', '=like', 'N.CHANGE%')]",
+   "list,form",
+   "{}"
+  ],
+  "290": [
+   "synapsys.work.object",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "291": [
+   "synapsys.context",
+   "[]",
+   "list,kanban,form",
+   "{}"
+  ],
+  "292": [
+   "synapsys.work.object",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "295": [
+   "synapsys.strategy",
+   "[]",
+   "list,form",
+   "{'search_default_by_group': 1}"
+  ],
+  "296": [
+   "synapsys.context",
+   "[('kind','=','K-6')]",
+   "list,form",
+   "{'default_kind': 'K-6'}"
+  ],
+  "297": [
+   "synapsys.service",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "298": [
+   "synapsys.method",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "299": [
+   "synapsys.canon",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "301": [
+   "synapsys.programme",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "302": [
+   "project.project",
+   "[('synapsys_context_id','!=',False)]",
+   "list,form",
+   "{}"
+  ],
+  "304": [
+   "synapsys.outcome",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "305": [
+   "synapsys.ptw.event",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "306": [
+   "synapsys.portfolio",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "307": [
+   "synapsys.benefit",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "308": [
+   "synapsys.asset",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "309": [
+   "synapsys.domain",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "313": [
+   "synapsys.verb",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "314": [
+   "synapsys.mode",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "315": [
+   "synapsys.value.chain",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "316": [
+   "synapsys.purpose",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "318": [
+   "synapsys.fractal",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "319": [
+   "synapsys.oba.link",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "321": [
+   "synapsys.pattern",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "322": [
+   "synapsys.industry.offering",
+   "[]",
+   "list,form",
+   "{}"
+  ],
+  "325": [
+   "synapsys.strategy",
+   "[('group', '!=', False)]",
+   "kanban,list,form",
+   "{}"
+  ],
+  "326": [
+   "res.partner",
+   "[('is_company', '=', True)]",
+   "list,form",
+   "{}"
+  ],
+  "327": [
+   "synapsys.gate.decision",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "328": [
+   "synapsys.signal",
+   "[('state', '=', 'new')]",
+   "list,form",
+   "{}"
+  ],
+  "329": [
+   "synapsys.fractal",
+   "[('admission', '=', 'steward_gate')]",
+   "list,form",
+   "{}"
+  ],
+  "330": [
+   "synapsys.signal",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "335": [
+   "synapsys.architecture",
+   null,
+   "list,form",
+   "{}"
+  ],
+  "336": [
+   "synapsys.lexicon",
+   null,
+   "list",
+   "{}"
+  ],
+  "340": [
+   "synapsys.verb",
+   "[('action', '=', 'Orient')]",
+   "list",
+   "{}"
+  ],
+  "341": [
+   "synapsys.verb",
+   "[('action', '=', 'Canonicalise')]",
+   "list",
+   "{}"
+  ],
+  "342": [
+   "synapsys.verb",
+   "[('action', '=', 'Structure')]",
+   "list",
+   "{}"
+  ],
+  "343": [
+   "synapsys.verb",
+   "[('action', '=', 'Assure')]",
+   "list",
+   "{}"
+  ],
+  "344": [
+   "synapsys.verb",
+   "[('action', '=', 'Navigate')]",
+   "list",
+   "{}"
+  ],
+  "345": [
+   "synapsys.verb",
+   "[('action', '=', 'Compose')]",
+   "list",
+   "{}"
+  ],
+  "346": [
+   "synapsys.verb",
+   "[('action', '=', 'Activate')]",
+   "list",
+   "{}"
+  ],
+  "347": [
+   "synapsys.verb",
+   "[('action', '=', 'Transform')]",
+   "list",
+   "{}"
+  ],
+  "348": [
+   "synapsys.verb",
+   "[('action', '=', 'Project')]",
+   "list",
+   "{}"
+  ]
+ },
+ "actor": "jq003.readonly@synapsys.local (res.users 5)",
+ "actor_note": "read-only connector; counts are ACTOR-VISIBLE, not an administrator census",
+ "backend": "synapsys_v20 @ odoo20.srv1536619.hstgr.cloud",
+ "client": {
+  "331": [
+   "client",
+   "synapsys_home"
+  ],
+  "332": [
+   "client",
+   "synapsys_architecture_map"
+  ],
+  "358": [
+   "client",
+   "synapsys_lenses"
+  ]
+ },
+ "counts": {
+  "context:K-6": 0,
+  "entry:N.CAPABILITY%": 1,
+  "entry:N.CHANGE%": 2,
+  "entry:N.PRODUCT%": 1,
+  "fractal:steward_gate": 0,
+  "project.project:ctx": 0,
+  "res.partner:is_company": 0,
+  "signal:new": 0,
+  "strategy:group_set": 0,
+  "synapsys.asset": 0,
+  "synapsys.benefit": 0,
+  "synapsys.canon": 12,
+  "synapsys.context": 0,
+  "synapsys.domain": 12,
+  "synapsys.fractal": 0,
+  "synapsys.gate.decision": 0,
+  "synapsys.industry.offering": 0,
+  "synapsys.mesh.admit": 0,
+  "synapsys.mesh.cluster": 196,
+  "synapsys.mesh.entry": 361,
+  "synapsys.mesh.measure": 0,
+  "synapsys.mesh.registry": 1,
+  "synapsys.method": 0,
+  "synapsys.mode": 6,
+  "synapsys.oba.link": 0,
+  "synapsys.outcome": 0,
+  "synapsys.pattern": 0,
+  "synapsys.portfolio": 0,
+  "synapsys.programme": 0,
+  "synapsys.ptw.event": 0,
+  "synapsys.purpose": 0,
+  "synapsys.service": 49,
+  "synapsys.signal": 0,
+  "synapsys.strategy": 0,
+  "synapsys.value.chain": 0,
+  "synapsys.verb": 27,
+  "synapsys.work.object": 0
+ },
+ "menus": {
+  "177": [
+   "SynapSys",
+   null,
+   "ir.actions.client,331"
+  ],
+  "178": [
+   "SynapSys/Navigator",
+   177,
+   false
+  ],
+  "179": [
+   "SynapSys/Navigator/Progress",
+   178,
+   "ir.actions.act_window,290"
+  ],
+  "180": [
+   "SynapSys/Navigator/Inbox",
+   178,
+   "ir.actions.act_window,328"
+  ],
+  "181": [
+   "SynapSys/Navigator/Learning",
+   178,
+   "ir.actions.act_window,329"
+  ],
+  "182": [
+   "SynapSys/Strategies",
+   177,
+   "ir.actions.act_window,325"
+  ],
+  "183": [
+   "SynapSys/Architecture",
+   177,
+   false
+  ],
+  "184": [
+   "SynapSys/Architecture/Form",
+   183,
+   false
+  ],
+  "185": [
+   "SynapSys/Architecture/Form/Purpose",
+   184,
+   "ir.actions.act_window,316"
+  ],
+  "186": [
+   "SynapSys/Architecture/Form/Strategy",
+   184,
+   "ir.actions.act_window,295"
+  ],
+  "187": [
+   "SynapSys/Architecture/Form/Portfolio",
+   184,
+   "ir.actions.act_window,306"
+  ],
+  "188": [
+   "SynapSys/Architecture/Form/Context",
+   184,
+   "ir.actions.act_window,291"
+  ],
+  "189": [
+   "SynapSys/Architecture/Form/Offering",
+   184,
+   "ir.actions.act_window,296"
+  ],
+  "190": [
+   "SynapSys/Architecture/Form/Capability",
+   184,
+   "ir.actions.act_window,190"
+  ],
+  "191": [
+   "SynapSys/Architecture/Form/Chain",
+   184,
+   "ir.actions.act_window,315"
+  ],
+  "192": [
+   "SynapSys/Architecture/Form/Shape",
+   184,
+   "ir.actions.act_window,314"
+  ],
+  "193": [
+   "SynapSys/Architecture/Form/Domain",
+   184,
+   "ir.actions.act_window,309"
+  ],
+  "194": [
+   "SynapSys/Architecture/Form/Canonical",
+   184,
+   "ir.actions.act_window,299"
+  ],
+  "195": [
+   "SynapSys/Architecture/Form/Industry",
+   184,
+   "ir.actions.act_window,322"
+  ],
+  "196": [
+   "SynapSys/Architecture/Form/Partner",
+   184,
+   "ir.actions.act_window,326"
+  ],
+  "197": [
+   "SynapSys/Architecture/Flow",
+   183,
+   false
+  ],
+  "198": [
+   "SynapSys/Architecture/Flow/Programme",
+   197,
+   "ir.actions.act_window,301"
+  ],
+  "199": [
+   "SynapSys/Architecture/Flow/Project",
+   197,
+   "ir.actions.act_window,302"
+  ],
+  "200": [
+   "SynapSys/Architecture/Flow/Service",
+   197,
+   "ir.actions.act_window,297"
+  ],
+  "201": [
+   "SynapSys/Architecture/Flow/Workflow",
+   197,
+   "ir.actions.act_window,327"
+  ],
+  "202": [
+   "SynapSys/Architecture/Flow/Method",
+   197,
+   "ir.actions.act_window,298"
+  ],
+  "203": [
+   "SynapSys/Architecture/Flow/Product",
+   197,
+   "ir.actions.act_window,191"
+  ],
+  "204": [
+   "SynapSys/Architecture/Flow/Work",
+   197,
+   "ir.actions.act_window,292"
+  ],
+  "205": [
+   "SynapSys/Architecture/Flow/Outcome",
+   197,
+   "ir.actions.act_window,304"
+  ],
+  "206": [
+   "SynapSys/Architecture/Flow/Benefit",
+   197,
+   "ir.actions.act_window,307"
+  ],
+  "207": [
+   "SynapSys/Architecture/Evolve",
+   183,
+   false
+  ],
+  "208": [
+   "SynapSys/Architecture/Evolve/Asset",
+   207,
+   "ir.actions.act_window,308"
+  ],
+  "209": [
+   "SynapSys/Architecture/Evolve/Pattern",
+   207,
+   "ir.actions.act_window,321"
+  ],
+  "210": [
+   "SynapSys/Architecture/Evolve/Fractal",
+   207,
+   "ir.actions.act_window,318"
+  ],
+  "211": [
+   "SynapSys/Architecture/Evolve/Signal",
+   207,
+   "ir.actions.act_window,330"
+  ],
+  "212": [
+   "SynapSys/Architecture/Evolve/Change",
+   207,
+   "ir.actions.act_window,192"
+  ],
+  "213": [
+   "SynapSys/Architecture/Evolve/Market",
+   207,
+   "ir.actions.act_window,305"
+  ],
+  "214": [
+   "SynapSys/Architecture/Mesh",
+   183,
+   false
+  ],
+  "215": [
+   "SynapSys/Architecture/Mesh/Map",
+   214,
+   "ir.actions.client,332"
+  ],
+  "216": [
+   "SynapSys/Architecture/Mesh/Registry",
+   214,
+   "ir.actions.act_window,185"
+  ],
+  "217": [
+   "SynapSys/Architecture/Mesh/Elements",
+   214,
+   "ir.actions.act_window,186"
+  ],
+  "218": [
+   "SynapSys/Architecture/Mesh/Clusters",
+   214,
+   "ir.actions.act_window,187"
+  ],
+  "219": [
+   "SynapSys/Architecture/Mesh/Verbs",
+   214,
+   "ir.actions.act_window,313"
+  ],
+  "220": [
+   "SynapSys/Architecture/Mesh/Benefit–Asset links",
+   214,
+   "ir.actions.act_window,319"
+  ],
+  "221": [
+   "SynapSys/Architecture/Mesh/Door receipts",
+   214,
+   "ir.actions.act_window,188"
+  ],
+  "222": [
+   "SynapSys/Architecture/Mesh/Measures",
+   214,
+   "ir.actions.act_window,189"
+  ],
+  "223": [
+   "SynapSys/Form",
+   177,
+   false
+  ],
+  "224": [
+   "SynapSys/Form/Orient",
+   223,
+   "ir.actions.act_window,340"
+  ],
+  "225": [
+   "SynapSys/Form/Canonicalise",
+   223,
+   "ir.actions.act_window,341"
+  ],
+  "226": [
+   "SynapSys/Form/Structure",
+   223,
+   "ir.actions.act_window,342"
+  ],
+  "227": [
+   "SynapSys/Flow",
+   177,
+   false
+  ],
+  "228": [
+   "SynapSys/Flow/Assure",
+   227,
+   "ir.actions.act_window,343"
+  ],
+  "229": [
+   "SynapSys/Flow/Navigate",
+   227,
+   "ir.actions.act_window,344"
+  ],
+  "230": [
+   "SynapSys/Flow/Compose",
+   227,
+   "ir.actions.act_window,345"
+  ],
+  "231": [
+   "SynapSys/Evolve",
+   177,
+   false
+  ],
+  "232": [
+   "SynapSys/Evolve/Activate",
+   231,
+   "ir.actions.act_window,346"
+  ],
+  "233": [
+   "SynapSys/Evolve/Transform",
+   231,
+   "ir.actions.act_window,347"
+  ],
+  "234": [
+   "SynapSys/Evolve/Project",
+   231,
+   "ir.actions.act_window,348"
+  ],
+  "235": [
+   "SynapSys/Architecture/Form/Architecture register",
+   184,
+   "ir.actions.act_window,335"
+  ],
+  "236": [
+   "SynapSys/Architecture/Form/Lexicon",
+   184,
+   "ir.actions.act_window,336"
+  ],
+  "237": [
+   "SynapSys/Architecture/Lenses",
+   183,
+   "ir.actions.client,358"
+  ]
+ },
+ "modes": {
+  "K-1": [
+   1
+  ],
+  "K-12": [
+   1,
+   3,
+   4,
+   6,
+   7,
+   9,
+   12,
+   15,
+   20,
+   21,
+   25,
+   26
+  ],
+  "K-3": [
+   6,
+   7,
+   15
+  ],
+  "K-4": [
+   6,
+   7,
+   15,
+   25
+  ],
+  "K-6": [
+   1,
+   4,
+   6,
+   7,
+   9,
+   15
+  ],
+  "K-8": [
+   1,
+   4,
+   6,
+   7,
+   9,
+   15,
+   25,
+   26
+  ]
+ },
+ "restricted_models": {
+  "synapsys.architecture": "HTTP 403: allowed group SynapSys / Steward",
+  "synapsys.lexicon": "HTTP 403: allowed group SynapSys / Steward"
+ },
+ "schema": "synapsys.architecture.live-snapshot.v1",
+ "taken": "2026-11-27T20:45Z (28 Nov 2026 06:45 Brisbane)",
+ "verbs": [
+  {
+   "action": "Orient",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 1,
+   "name": "sense",
+   "plane": "Govern"
+  },
+  {
+   "action": "Orient",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 2,
+   "name": "map",
+   "plane": "Govern"
+  },
+  {
+   "action": "Canonicalise",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 3,
+   "name": "capture",
+   "plane": "Govern"
+  },
+  {
+   "action": "Orient",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 4,
+   "name": "derive",
+   "plane": "Govern"
+  },
+  {
+   "action": "Structure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 5,
+   "name": "instantiates",
+   "plane": "Govern"
+  },
+  {
+   "action": "Transform",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 6,
+   "name": "compound",
+   "plane": "Realise"
+  },
+  {
+   "action": "Structure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 7,
+   "name": "composes",
+   "plane": "Govern"
+  },
+  {
+   "action": "Compose",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 8,
+   "name": "consumes",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Navigate",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 9,
+   "name": "route",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Activate",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 10,
+   "name": "engage",
+   "plane": "Realise"
+  },
+  {
+   "action": "Navigate",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 11,
+   "name": "balance",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Assure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 12,
+   "name": "evidences",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Project",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 13,
+   "name": "join",
+   "plane": "Realise"
+  },
+  {
+   "action": "Activate",
+   "grammar_status": "candidate",
+   "human_only": true,
+   "id": 14,
+   "name": "commit",
+   "plane": "Realise"
+  },
+  {
+   "action": "Compose",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 15,
+   "name": "execute",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Structure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 16,
+   "name": "parent",
+   "plane": "Govern"
+  },
+  {
+   "action": "Transform",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 17,
+   "name": "succeed",
+   "plane": "Realise"
+  },
+  {
+   "action": "Project",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 18,
+   "name": "package",
+   "plane": "Realise"
+  },
+  {
+   "action": "Activate",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 19,
+   "name": "seize",
+   "plane": "Realise"
+  },
+  {
+   "action": "Transform",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 20,
+   "name": "transform",
+   "plane": "Realise"
+  },
+  {
+   "action": "Canonicalise",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 21,
+   "name": "supersedes",
+   "plane": "Govern"
+  },
+  {
+   "action": "Navigate",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 22,
+   "name": "filter",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Compose",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 23,
+   "name": "requires",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Project",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 24,
+   "name": "implements_candidate",
+   "plane": "Realise"
+  },
+  {
+   "action": "Canonicalise",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 25,
+   "name": "validates",
+   "plane": "Govern"
+  },
+  {
+   "action": "Assure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 26,
+   "name": "challenge",
+   "plane": "Deliver"
+  },
+  {
+   "action": "Assure",
+   "grammar_status": "candidate",
+   "human_only": false,
+   "id": 27,
+   "name": "verify",
+   "plane": "Deliver"
+  }
+ ]
+}
