@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Enable review extension: one Mesh, six heading peers; Architecture/35 existing leaves remain untouched. -->
+  <!-- Verb catalogue views disable writes in UI only; backend ACL is unchanged. -->
+  <record id="view_peer_verb_list_enable" model="ir.ui.view">
+    <field name="name">synapsys.verb.peer.enable.list</field>
+    <field name="model">synapsys.verb</field>
+    <field name="arch" type="xml"><list create="0" edit="0" delete="0" import="0"><field name="name"/><field name="plane"/><field name="action"/><field name="direction"/><field name="authority_requirement"/><field name="human_only"/><field name="grammar_status"/></list></field>
+  </record>
+  <menuitem id="menu_peer_form_enable" name="Form" parent="menu_root" sequence="4"/>
+  <record id="action_peer_orient_enable" model="ir.actions.act_window">
+    <field name="name">Orient</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Orient')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_form_orient_enable" name="Orient" parent="menu_peer_form_enable" sequence="1" action="action_peer_orient_enable"/>
+  <record id="action_peer_canonicalise_enable" model="ir.actions.act_window">
+    <field name="name">Canonicalise</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Canonicalise')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_form_canonicalise_enable" name="Canonicalise" parent="menu_peer_form_enable" sequence="2" action="action_peer_canonicalise_enable"/>
+  <record id="action_peer_structure_enable" model="ir.actions.act_window">
+    <field name="name">Structure</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Structure')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_form_structure_enable" name="Structure" parent="menu_peer_form_enable" sequence="3" action="action_peer_structure_enable"/>
+  <menuitem id="menu_peer_flow_enable" name="Flow" parent="menu_root" sequence="5"/>
+  <record id="action_peer_assure_enable" model="ir.actions.act_window">
+    <field name="name">Assure</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Assure')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_flow_assure_enable" name="Assure" parent="menu_peer_flow_enable" sequence="1" action="action_peer_assure_enable"/>
+  <record id="action_peer_navigate_enable" model="ir.actions.act_window">
+    <field name="name">Navigate</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Navigate')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_flow_navigate_enable" name="Navigate" parent="menu_peer_flow_enable" sequence="2" action="action_peer_navigate_enable"/>
+  <record id="action_peer_compose_enable" model="ir.actions.act_window">
+    <field name="name">Compose</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Compose')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_flow_compose_enable" name="Compose" parent="menu_peer_flow_enable" sequence="3" action="action_peer_compose_enable"/>
+  <menuitem id="menu_peer_evolve_enable" name="Evolve" parent="menu_root" sequence="6"/>
+  <record id="action_peer_activate_enable" model="ir.actions.act_window">
+    <field name="name">Activate</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Activate')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_evolve_activate_enable" name="Activate" parent="menu_peer_evolve_enable" sequence="1" action="action_peer_activate_enable"/>
+  <record id="action_peer_transform_enable" model="ir.actions.act_window">
+    <field name="name">Transform</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Transform')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_evolve_transform_enable" name="Transform" parent="menu_peer_evolve_enable" sequence="2" action="action_peer_transform_enable"/>
+  <record id="action_peer_project_enable" model="ir.actions.act_window">
+    <field name="name">Project</field><field name="res_model">synapsys.verb</field>
+    <field name="view_mode">list</field><field name="domain">[('action', '=', 'Project')]</field>
+    <field name="context">{}</field>
+    <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_peer_verb_list_enable')})]"/>
+  </record>
+  <menuitem id="menu_peer_evolve_project_enable" name="Project" parent="menu_peer_evolve_enable" sequence="3" action="action_peer_project_enable"/>
+</odoo>

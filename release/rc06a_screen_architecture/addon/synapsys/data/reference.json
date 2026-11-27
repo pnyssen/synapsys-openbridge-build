@@ -1,0 +1,594 @@
+{
+"domains": [
+[
+"D000",
+"Stewards"
+],
+[
+"D001",
+"Enterprise Governance Model"
+],
+[
+"D002",
+"Methodology Stack"
+],
+[
+"D003",
+"Market Engagement"
+],
+[
+"D004",
+"Value Chains"
+],
+[
+"D005",
+"Partnerships"
+],
+[
+"D006",
+"Client Portfolios"
+],
+[
+"D007",
+"Scaling Platforms"
+],
+[
+"D008",
+"Synaptic Interface"
+],
+[
+"D009",
+"Assurance Systems"
+],
+[
+"D010",
+"H'AION"
+],
+[
+"D011",
+"Regulatory and Methodologies"
+]
+],
+"verbs": [
+{
+"name": "sense",
+"strategy": "Capture Valuable Markets",
+"sequence": 0,
+"movement": "M10",
+"group": "Effects",
+"motion": "translation −"
+},
+{
+"name": "map",
+"strategy": "Capture Valuable Markets",
+"sequence": 1,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "capture",
+"strategy": "Capture Valuable Markets",
+"sequence": 2,
+"movement": "M12",
+"group": "Effects",
+"motion": "rotation −"
+},
+{
+"name": "derive",
+"strategy": "Compound Innovation",
+"sequence": 10,
+"movement": "M2",
+"group": "Structure",
+"motion": "translation −"
+},
+{
+"name": "instantiates",
+"strategy": "Compound Innovation",
+"sequence": 11,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "compound",
+"strategy": "Compound Innovation",
+"sequence": 12,
+"movement": "M9",
+"group": "Effects",
+"motion": "translation +"
+},
+{
+"name": "composes",
+"strategy": "Integrate Value Networks",
+"sequence": 20,
+"movement": "M1",
+"group": "Structure",
+"motion": "translation +"
+},
+{
+"name": "consumes",
+"strategy": "Integrate Value Networks",
+"sequence": 21,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "route",
+"strategy": "Integrate Value Networks",
+"sequence": 22,
+"movement": "M6",
+"group": "Movement",
+"motion": "translation −"
+},
+{
+"name": "engage",
+"strategy": "Balanced Lives",
+"sequence": 30,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "balance",
+"strategy": "Balanced Lives",
+"sequence": 31,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "evidences",
+"strategy": "Balanced Lives",
+"sequence": 32,
+"movement": "M11",
+"group": "Effects",
+"motion": "rotation +"
+},
+{
+"name": "join",
+"strategy": "Synergistic Collaboration",
+"sequence": 40,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "commit",
+"strategy": "Synergistic Collaboration",
+"sequence": 41,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "execute",
+"strategy": "Synergistic Collaboration",
+"sequence": 42,
+"movement": "M5",
+"group": "Movement",
+"motion": "translation +"
+},
+{
+"name": "parent",
+"strategy": "Enduring Wealth",
+"sequence": 50,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "succeed",
+"strategy": "Enduring Wealth",
+"sequence": 51,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "package",
+"strategy": "Enduring Wealth",
+"sequence": 52,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "seize",
+"strategy": "Renewal",
+"sequence": 60,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "transform",
+"strategy": "Renewal",
+"sequence": 61,
+"movement": "M7",
+"group": "Movement",
+"motion": "rotation +"
+},
+{
+"name": "supersedes",
+"strategy": "Renewal",
+"sequence": 62,
+"movement": "M8",
+"group": "Movement",
+"motion": "rotation −"
+},
+{
+"name": "filter",
+"strategy": "Prioritisation",
+"sequence": 70,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "requires",
+"strategy": "Prioritisation",
+"sequence": 71,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "implements_candidate",
+"strategy": "Prioritisation",
+"sequence": 72,
+"movement": false,
+"group": false,
+"motion": false
+},
+{
+"name": "validates",
+"strategy": "Stewardship",
+"sequence": 80,
+"movement": "M3",
+"group": "Structure",
+"motion": "rotation +"
+},
+{
+"name": "challenge",
+"strategy": "Stewardship",
+"sequence": 81,
+"movement": "M4",
+"group": "Structure",
+"motion": "rotation −"
+},
+{
+"name": "verify",
+"strategy": "Stewardship",
+"sequence": 82,
+"movement": false,
+"group": false,
+"motion": false
+}
+],
+"modes": [
+[
+"K-1",
+"Purpose",
+[
+"sense"
+]
+],
+[
+"K-3",
+"Strategy",
+[
+"composes",
+"execute",
+"compound"
+]
+],
+[
+"K-4",
+"Asset",
+[
+"composes",
+"validates",
+"execute",
+"compound"
+]
+],
+[
+"K-6",
+"Offering",
+[
+"composes",
+"derive",
+"execute",
+"route",
+"compound",
+"sense"
+]
+],
+[
+"K-8",
+"Collaboration",
+[
+"composes",
+"derive",
+"execute",
+"route",
+"compound",
+"sense",
+"validates",
+"challenge"
+]
+],
+[
+"K-12",
+"Platform",
+[
+"composes",
+"derive",
+"validates",
+"challenge",
+"execute",
+"route",
+"transform",
+"supersedes",
+"compound",
+"sense",
+"evidences",
+"capture"
+]
+]
+],
+"grammar_source": {
+"path": "05_AI_RETURNS_HASHED/FABLE-05-UNIVERSAL-RECURSIVE-MINIMUM-DISTORTION-MODEL-v1.0/FABLE05_MMM3CCC_9_ACTION_27_VERB_GRAMMAR_v0.1.csv",
+"sha256": "c302c5db8ce4c992256383f269e09bab3d0c40e5dad3d17eba2ea796249c779f",
+"status": "candidate",
+"names": "RELATIONSHIP_TYPE_27VERB_FINALIZED_v0.2 sha256 648b9760607ca4488f1c1a6bb5ff2ef31f10686bf9ba49d4be289aa804c47e75",
+"decision": "DEC-D001-2026-021; VERB_DECISION_27_DERIVATIVES_KINEMATIC_MAP_20261117_v1 sha256 646a02923ad0ff4269d3a100a17a6f61162007bc5082e2924558e8aed94e8165"
+},
+"grammar": {
+"sense": {
+"plane": "Govern",
+"action": "Orient",
+"direction": "world-to-signal",
+"aliases": "",
+"inverse": "sensed_by",
+"bidirectionality": "DERIVED_PROJECTION",
+"authority": "none (observation only)"
+},
+"map": {
+"plane": "Govern",
+"action": "Orient",
+"direction": "signal-to-structure",
+"aliases": "",
+"inverse": "mapped_from",
+"bidirectionality": "DERIVED_PROJECTION",
+"authority": "none"
+},
+"derive": {
+"plane": "Govern",
+"action": "Orient",
+"direction": "derived-to-source",
+"aliases": "derives_from",
+"inverse": "source_of",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "none to record; D001 to dispute"
+},
+"capture": {
+"plane": "Govern",
+"action": "Canonicalise",
+"direction": "content-to-register",
+"aliases": "",
+"inverse": "captured_from",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "lane may capture as candidate only"
+},
+"validates": {
+"plane": "Govern",
+"action": "Canonicalise",
+"direction": "validator-to-subject",
+"aliases": "validate",
+"inverse": "validated_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "validation is never approval"
+},
+"supersedes": {
+"plane": "Govern",
+"action": "Canonicalise",
+"direction": "new-to-old",
+"aliases": "",
+"inverse": "superseded_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "Steward-D001 for canon; lane for candidate"
+},
+"composes": {
+"plane": "Govern",
+"action": "Structure",
+"direction": "whole-to-parts",
+"aliases": "architect",
+"inverse": "composed_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "D002/D007 for governed compositions"
+},
+"instantiates": {
+"plane": "Govern",
+"action": "Structure",
+"direction": "definition-to-instance",
+"aliases": "instantiate",
+"inverse": "instance_of",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "activation-envelope authority per pattern role"
+},
+"parent": {
+"plane": "Govern",
+"action": "Structure",
+"direction": "parent-to-child",
+"aliases": "parent_of",
+"inverse": "child_of",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "register steward"
+},
+"verify": {
+"plane": "Deliver",
+"action": "Assure",
+"direction": "verifier-to-claim",
+"aliases": "",
+"inverse": "verified_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "verification is never approval"
+},
+"evidences": {
+"plane": "Deliver",
+"action": "Assure",
+"direction": "evidence-to-claim",
+"aliases": "",
+"inverse": "evidenced_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "none"
+},
+"challenge": {
+"plane": "Deliver",
+"action": "Assure",
+"direction": "challenger-to-subject",
+"aliases": "challenges",
+"inverse": "challenged_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "challenge is signal not veto"
+},
+"filter": {
+"plane": "Deliver",
+"action": "Navigate",
+"direction": "criteria-to-subset",
+"aliases": "",
+"inverse": "filtered_from",
+"bidirectionality": "DERIVED_PROJECTION",
+"authority": "none"
+},
+"route": {
+"plane": "Deliver",
+"action": "Navigate",
+"direction": "item-to-destination-lane",
+"aliases": "",
+"inverse": "routed_from",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "routing is never approval"
+},
+"balance": {
+"plane": "Deliver",
+"action": "Navigate",
+"direction": "allocation act",
+"aliases": "",
+"inverse": "",
+"bidirectionality": "UNIDIRECTIONAL",
+"authority": "Steward for commitments"
+},
+"requires": {
+"plane": "Deliver",
+"action": "Compose",
+"direction": "dependent-to-prerequisite",
+"aliases": "",
+"inverse": "required_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "none to declare; gate to enforce"
+},
+"consumes": {
+"plane": "Deliver",
+"action": "Compose",
+"direction": "consumer-to-consumed",
+"aliases": "",
+"inverse": "consumed_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "commercial approval where cost attaches"
+},
+"execute": {
+"plane": "Deliver",
+"action": "Compose",
+"direction": "executor-to-work",
+"aliases": "",
+"inverse": "executed_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "AUTHORISE-class: quoted approval required for system mutation"
+},
+"engage": {
+"plane": "Realise",
+"action": "Activate",
+"direction": "initiator-to-counterpart",
+"aliases": "",
+"inverse": "engaged_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "external contact requires approval"
+},
+"commit": {
+"plane": "Realise",
+"action": "Activate",
+"direction": "committer-to-obligation",
+"aliases": "",
+"inverse": "",
+"bidirectionality": "PROHIBITED_REVERSE",
+"authority": "human authority node ONLY"
+},
+"seize": {
+"plane": "Realise",
+"action": "Activate",
+"direction": "actor-to-window",
+"aliases": "",
+"inverse": "",
+"bidirectionality": "UNIDIRECTIONAL",
+"authority": "Steward for irreversible seizure"
+},
+"transform": {
+"plane": "Realise",
+"action": "Transform",
+"direction": "prior-to-new state",
+"aliases": "",
+"inverse": "transformed_from",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "owner steward"
+},
+"compound": {
+"plane": "Realise",
+"action": "Transform",
+"direction": "increment-to-base",
+"aliases": "",
+"inverse": "compounded_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "D004/D006"
+},
+"succeed": {
+"plane": "Realise",
+"action": "Transform",
+"direction": "successor-to-predecessor",
+"aliases": "successor_of",
+"inverse": "predecessor_of",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "register steward"
+},
+"package": {
+"plane": "Realise",
+"action": "Project",
+"direction": "contents-to-container",
+"aliases": "",
+"inverse": "contains",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "packaging is not publication"
+},
+"join": {
+"plane": "Realise",
+"action": "Project",
+"direction": "member-to-collection",
+"aliases": "member_of",
+"inverse": "has_member",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "collection steward"
+},
+"implements_candidate": {
+"plane": "Realise",
+"action": "Project",
+"direction": "implementation-to-spec",
+"aliases": "",
+"inverse": "implemented_by",
+"bidirectionality": "RECIPROCAL_WITH_DIFFERENT_VERB",
+"authority": "D007 for platform implementation"
+}
+}
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Navigator: OBA value, UIQ prioritisation, KDA approvals (Steward 20 Nov 07:33). UIQ orders; it never permits. -->
+<record id="view_navigator_list" model="ir.ui.view"><field name="name">synapsys.work.object.navigator</field><field name="model">synapsys.work.object</field><field name="priority">5</field><field name="arch" type="xml">
+<list string="Navigator" create="0" decoration-muted="kda_state == 'not_eligible' or ppv_step == '9_none'" decoration-warning="kda_state in ('awaiting', 'held')">
+ <field name="eligible" column_invisible="1"/>
+ <field name="ppv_step"/>
+ <field name="controlling_verb_id" string="Verb"/>
+ <field name="name"/>
+ <field name="context_id" string="Context"/>
+ <field name="progress_benefit_id" optional="show"/><field name="progress_asset_id" optional="show"/><field name="progress_outcome_id" optional="hide"/><field name="ppv_from" optional="show"/>
+ <field name="strategy_group" string="Group"/>
+ <field name="oba_outcomes"/><field name="oba_benefits"/><field name="oba_assets"/><field name="oba_qualified" optional="hide"/>
+ <field name="urgency" string="U"/><field name="importance" string="I"/><field name="quality" string="Q"/>
+ <field name="kda_state"/><field name="kda_missing" optional="show"/>
+ <field name="service_id" optional="show"/><field name="owner_id" optional="hide"/>
+</list></field></record>
+<record id="view_navigator_search" model="ir.ui.view"><field name="name">synapsys.work.object.navigator.search</field><field name="model">synapsys.work.object</field><field name="arch" type="xml">
+<search string="Navigator">
+ <field name="name"/><field name="context_id"/><field name="strategy_id"/><field name="service_id"/>
+ <filter name="lens_oba" string="Value (OBA)" domain="['|', ('context_id.benefit_ids', '!=', False), ('context_id.asset_ids', '!=', False)]"/>
+ <filter name="lens_uiq" string="Prioritisation (UIQ)" domain="[('eligible', '=', True)]"/>
+ <filter name="lens_kda" string="Approvals (KDA)" domain="[('status', '=', 'at_gate')]"/>
+ <separator/>
+ <filter name="my_work" string="My Work" domain="[('owner_id', '=', uid)]"/>
+ <filter name="no_value" string="No value link" domain="[('ppv_step', '=', '9_none')]"/>
+ <filter name="by_step" string="PPV step" context="{'group_by': 'ppv_step'}"/>
+ <separator/>
+ <filter name="live" string="Live" domain="[('strategy_group', '=', 'live')]"/><filter name="build" string="Build" domain="[('strategy_group', '=', 'build')]"/><filter name="adapt" string="Adapt" domain="[('strategy_group', '=', 'adapt')]"/>
+ <group><filter name="by_context" string="Context" context="{'group_by': 'context_id'}"/><filter name="by_group" string="Strategy group" context="{'group_by': 'strategy_group'}"/></group>
+</search></field></record>
+<record id="action_navigator_view_list" model="ir.actions.act_window.view"><field name="sequence" eval="1"/><field name="view_mode">list</field><field name="view_id" ref="view_navigator_list"/><field name="act_window_id" ref="action_navigator"/></record>
+<record id="action_navigator" model="ir.actions.act_window"><field name="search_view_id" ref="view_navigator_search"/></record>
+
+<!-- Strategies: the 3 x 3 x 3 lens (Live / Build / Adapt x 3 strategies x 3 verbs), into Navigator and Architecture. -->
+<record id="view_strategy_lens_kanban" model="ir.ui.view"><field name="name">synapsys.strategy.lens</field><field name="model">synapsys.strategy</field><field name="arch" type="xml">
+<kanban default_group_by="group" create="0" group_create="0" group_delete="0" group_edit="0" records_draggable="0" default_order="sequence_no">
+ <field name="group"/><field name="sequence_no"/><field name="lens_only"/>
+ <templates><t t-name="card">
+  <div class="d-flex justify-content-between"><field name="display_title" class="fw-bold"/><span class="badge text-bg-light" invisible="not lens_only">lens only</span></div>
+  <div class="small text-muted"><field name="name"/></div>
+  <div class="mt-1"><field name="verb_ids" widget="many2many_tags"/></div>
+  <div class="small mt-1">Work Objects <field name="work_object_count"/> · KPI: <span t-if="!record.success_metric.raw_value" class="text-warning">GAP</span><field name="success_metric"/></div>
+ </t></templates>
+</kanban></field></record>
+<record id="action_strategy_lens" model="ir.actions.act_window"><field name="name">Strategies</field><field name="res_model">synapsys.strategy</field><field name="view_mode">kanban,list,form</field><field name="domain">[('group', '!=', False)]</field></record>
+<record id="action_strategy_lens_view_kanban" model="ir.actions.act_window.view"><field name="sequence" eval="1"/><field name="view_mode">kanban</field><field name="view_id" ref="view_strategy_lens_kanban"/><field name="act_window_id" ref="action_strategy_lens"/></record>
+
+<record id="action_partners" model="ir.actions.act_window"><field name="name">Partner</field><field name="res_model">res.partner</field><field name="view_mode">list,form</field><field name="domain">[('is_company', '=', True)]</field></record>
+<record id="action_workflow_gates" model="ir.actions.act_window"><field name="name">Workflow: Gate decisions</field><field name="res_model">synapsys.gate.decision</field><field name="view_mode">list,form</field><field name="help" type="html"><p>A Gate is a part of a Workflow. Workflow itself has no record model yet (GAP); its Gate decisions are shown here.</p></field></record>
+<!-- Intelligent Inbox (10:05): AI proposes value and approval; a person routes. -->
+<record id="view_inbox_list" model="ir.ui.view"><field name="name">synapsys.signal.inbox</field><field name="model">synapsys.signal</field><field name="priority">5</field><field name="arch" type="xml">
+<list string="Inbox"><field name="name"/><field name="context_id"/><field name="proposed_strategy_id"/><field name="proposed_benefit_id"/><field name="proposed_asset_id" optional="show"/><field name="approval_need"/><field name="proposed_by" optional="show"/><field name="state"/></list></field></record>
+<record id="view_inbox_form" model="ir.ui.view"><field name="name">synapsys.signal.inbox.form</field><field name="model">synapsys.signal</field><field name="priority">5</field><field name="arch" type="xml">
+<form string="Signal"><header><button name="action_route" type="object" string="Route to Navigator" class="btn-primary" invisible="state != 'new'"/><field name="state" widget="statusbar"/></header>
+<sheet><group><field name="name"/><field name="source"/><field name="context_id"/></group>
+<group string="Value (proposal)"><field name="proposed_strategy_id"/><field name="proposed_outcome_id"/><field name="proposed_benefit_id"/><field name="proposed_asset_id"/></group>
+<group string="Approval (proposal)"><field name="approval_need"/><field name="proposal_note"/><field name="proposed_by"/></group>
+<group string="Routing"><field name="routed_work_object_id"/><field name="routed_by"/></group></sheet></form></field></record>
+<record id="action_nav_inbox" model="ir.actions.act_window"><field name="name">Inbox</field><field name="res_model">synapsys.signal</field><field name="view_mode">list,form</field><field name="domain">[('state', '=', 'new')]</field>
+<field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_inbox_list')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_inbox_form')})]"/></record>
+<record id="action_nav_learning" model="ir.actions.act_window"><field name="name">Learning</field><field name="res_model">synapsys.fractal</field><field name="view_mode">list,form</field><field name="domain">[('admission', '=', 'steward_gate')]</field>
+<field name="help" type="html"><p>One record per approval decision: the PPV step, why, the evidence and what was missing.</p></field></record>
+<record id="action_signals_all" model="ir.actions.act_window"><field name="name">Signal</field><field name="res_model">synapsys.signal</field><field name="view_mode">list,form</field></record>
+</odoo>

@@ -1,0 +1,137 @@
+{
+ "source": "Working Memory MESH_QUEUE/KIT/LANES, bytes read back 20 Nov 2026",
+ "instructions": [
+  {
+   "file": "CORE_D000_D001_D002_PROFILE_v1.md",
+   "domain": null,
+   "shared": true,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Filed 15 Nov 2026 (MESH_QUEUE/KIT/LANES); in use as lane profile",
+   "replaces": null,
+   "sha256": "edb383d21526419735b55979961bc51f06b8bf470039b0910c47cb036b3bf07a",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/CORE_D000_D001_D002_PROFILE_v1.md"
+  },
+  {
+   "file": "D001_LANE_PROFILE_v1.md",
+   "domain": "D001",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Filed 15 Nov 2026 (MESH_QUEUE/KIT/LANES); in use as lane profile",
+   "replaces": null,
+   "sha256": "13bf255bb0c5839fd67ca263abc477caf964155fb2a191a029eb0698576b3478",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D001_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D003_LANE_PROFILE_v1.md",
+   "domain": "D003",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "7caa36e7b8b08fb2969b8a7f2aedc6af83146e70e3c7476fc874934f3803af7d",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D003_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D004_LANE_PROFILE_v1.md",
+   "domain": "D004",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "447386a0be4cee21aa1a9103fc47277048d13156d5bc828007f21e60bf7084a8",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D004_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D005_LANE_PROFILE_v1.md",
+   "domain": "D005",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "eca7ce84d8ccc8ff07494347aa4b1da483ff42f15b92e1111d76adf1638a2b44",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D005_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D006_LANE_PROFILE_v1.md",
+   "domain": "D006",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "7d5d1172f1141de374def1fd393af495f87258b12cfe9e60f33886a72c6bdc69",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D006_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D007_LANE_PROFILE_v1.md",
+   "domain": "D007",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "0337d2e132d196de41826322a7212958ff0630150e57eb7690c7e154b6e6accb",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D007_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D008_LANE_PROFILE_v1.md",
+   "domain": "D008",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Filed 15 Nov 2026 (MESH_QUEUE/KIT/LANES); in use as lane profile",
+   "replaces": null,
+   "sha256": "02c2b54fb31ad1593e64087d0d9bd5d3600a313202b211c808e90d8714a2c987",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D008_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D009_LANE_PROFILE_v1.md",
+   "domain": "D009",
+   "shared": false,
+   "version": "v1",
+   "state": "superseded",
+   "adopted_note": "Filed 15 Nov 2026 (MESH_QUEUE/KIT/LANES); in use as lane profile; superseded by v2 (Steward 20 Nov 11:03 ruling)",
+   "replaces": null,
+   "sha256": "0342da264ca800c7b7aa2f2daba182e4b6a6c756af14fe4beaf009a51f476118",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D009_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D009_LANE_PROFILE_v2.md",
+   "domain": "D009",
+   "shared": false,
+   "version": "v2",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": "D009_LANE_PROFILE_v1.md",
+   "sha256": "873a8817b56970c0f1111f3c492eaf2360e0c158e5c302391002a4ee08bbb29e",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D009_LANE_PROFILE_v2.md"
+  },
+  {
+   "file": "D010_LANE_PROFILE_v1.md",
+   "domain": "D010",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Steward 'Proceed', 20 Nov 2026 11:11 AEST; filed MESH_QUEUE/KIT/LANES",
+   "replaces": null,
+   "sha256": "604c2fcdde727309374163515c72ceb30ea04f6a47f10b7a92ca515bfeeb63b5",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D010_LANE_PROFILE_v1.md"
+  },
+  {
+   "file": "D011_LANE_PROFILE_v1.md",
+   "domain": "D011",
+   "shared": false,
+   "version": "v1",
+   "state": "adopted",
+   "adopted_note": "Filed 15 Nov 2026 (MESH_QUEUE/KIT/LANES); in use as lane profile (D011 charter itself is candidate)",
+   "replaces": null,
+   "sha256": "1897dce6e43ec6ddb4552c69c60d98d4f8a63d1e0ad13e39d7e4d28a066ddc79",
+   "mirror_path": "MESH_QUEUE/KIT/LANES/D011_LANE_PROFILE_v1.md"
+  }
+ ]
+}

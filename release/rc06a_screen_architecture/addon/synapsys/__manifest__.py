@@ -1,0 +1,21 @@
+{
+    'name': 'SynapSys',
+    'version': '20.0.2.4.9',
+    'summary': 'SynapSys kinematic Mesh: Contexts, value thread, Services, FFE lens, fractal evidence',
+    'category': 'Services/SynapSys',
+    'author': 'SynapSys Pty Ltd',
+    'license': 'LGPL-3',
+    'depends': ['base', 'mail', 'project', 'synapsys_mesh'],
+    'data': [
+        'security/synapsys_security.xml',
+        'security/ir.access.csv',
+        'views/synapsys_views.xml',
+        'views/synapsys_screens.xml',
+        'views/synapsys_menus.xml',
+        'views/synapsys_enable_peers.xml',
+    ],
+    'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml', 'synapsys/static/src/navbar_dropdown.js', 'synapsys/static/src/lens_mode.js']},
+    'post_init_hook': 'post_init_hook',
+    'application': True,
+    'installable': True,
+}

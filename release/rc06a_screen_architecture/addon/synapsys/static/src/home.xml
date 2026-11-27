@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="synapsys.Home">
+        <div class="o_action h-100 overflow-auto bg-view"><t t-out="this.state.html"/></div>
+    </t>
+    <t t-name="synapsys.ArchMap">
+        <div class="o_action h-100 overflow-auto bg-view" t-on-click="this.onClick"><div class="syn-modebar" role="group" aria-label="Presentation depth" style="display:flex;gap:6px;padding:8px 28px;border-bottom:1px solid #e4e7eb;position:sticky;top:0;background:#fff;z-index:2">
+                <span style="font-size:13px;color:#52606d;align-self:center">Depth</span>
+                <t t-foreach="['enable','enhance','enrich']" t-as="m" t-key="m">
+                    <button type="button" class="btn btn-sm" t-att-class="this.lm.mode === m ? 'btn-primary' : 'btn-outline-secondary'" t-att-data-mode="m" t-att-aria-pressed="this.lm.mode === m ? 'true' : 'false'" t-on-click="() => this.setMode(m)"><t t-out="m"/></button>
+                </t>
+            </div><t t-out="this.state.html"/></div>
+    </t>
+    <t t-name="synapsys.Lenses">
+        <div class="o_action h-100 overflow-auto bg-view" t-on-click="this.onClick"><div class="syn-modebar" role="group" aria-label="Presentation depth" style="display:flex;gap:6px;padding:8px 28px;border-bottom:1px solid #e4e7eb;position:sticky;top:0;background:#fff;z-index:2">
+                <span style="font-size:13px;color:#52606d;align-self:center">Depth</span>
+                <t t-foreach="['enable','enhance','enrich']" t-as="m" t-key="m">
+                    <button type="button" class="btn btn-sm" t-att-class="this.lm.mode === m ? 'btn-primary' : 'btn-outline-secondary'" t-att-data-mode="m" t-att-aria-pressed="this.lm.mode === m ? 'true' : 'false'" t-on-click="() => this.setMode(m)"><t t-out="m"/></button>
+                </t>
+            </div><t t-out="this.state.html"/></div>
+    </t>
+</templates>

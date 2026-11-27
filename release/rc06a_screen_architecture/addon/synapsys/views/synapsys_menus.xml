@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- One tree, no duplicates (Steward 20 Nov 07:35). Design D: Form 12, Flow 9, Evolve 6, Mesh. -->
+<record id="action_home" model="ir.actions.client"><field name="name">Home</field><field name="tag">synapsys_home</field></record>
+<menuitem id="menu_root" name="SynapSys" web_icon="synapsys,static/description/icon.png" sequence="5" groups="group_synapsys_user" action="action_home"/>
+<menuitem id="menu_navigator" name="Navigator" parent="menu_root" sequence="1"/>
+<menuitem id="menu_nav_progress" name="Progress" parent="menu_navigator" sequence="1" action="action_navigator"/>
+<menuitem id="menu_nav_inbox" name="Inbox" parent="menu_navigator" sequence="2" action="action_nav_inbox"/>
+<menuitem id="menu_nav_learning" name="Learning" parent="menu_navigator" sequence="3" action="action_nav_learning"/>
+<menuitem id="menu_strategies" name="Strategies" parent="menu_root" sequence="2" action="action_strategy_lens"/>
+<menuitem id="menu_config" name="Architecture" parent="menu_root" sequence="3"/>
+
+<menuitem id="menu_arch_form" name="Form" parent="menu_config" sequence="10"/>
+<menuitem id="menu_n_purpose" name="Purpose" parent="menu_arch_form" sequence="1" action="action_purposes"/>
+<menuitem id="menu_n_strategy" name="Strategy" parent="menu_arch_form" sequence="2" action="action_strategies"/>
+<menuitem id="menu_n_portfolio" name="Portfolio" parent="menu_arch_form" sequence="3" action="action_portfolios"/>
+<menuitem id="menu_n_context" name="Context" parent="menu_arch_form" sequence="4" action="action_contexts"/>
+<menuitem id="menu_n_offering" name="Offering" parent="menu_arch_form" sequence="5" action="action_offerings"/>
+<menuitem id="menu_n_capability" name="Capability" parent="menu_arch_form" sequence="6" action="synapsys_mesh.action_noun_capability"/>
+<menuitem id="menu_n_chain" name="Chain" parent="menu_arch_form" sequence="7" action="action_chains"/>
+<menuitem id="menu_n_shape" name="Shape" parent="menu_arch_form" sequence="8" action="action_modes"/>
+<menuitem id="menu_n_domain" name="Domain" parent="menu_arch_form" sequence="9" action="action_governance"/>
+<menuitem id="menu_n_canonical" name="Canonical" parent="menu_arch_form" sequence="10" action="action_canonical"/>
+<menuitem id="menu_n_industry" name="Industry" parent="menu_arch_form" sequence="11" action="action_industry"/>
+<menuitem id="menu_n_partner" name="Partner" parent="menu_arch_form" sequence="12" action="action_partners"/>
+
+<menuitem id="menu_arch_flow" name="Flow" parent="menu_config" sequence="20"/>
+<menuitem id="menu_n_programme" name="Programme" parent="menu_arch_flow" sequence="1" action="action_programmes"/>
+<menuitem id="menu_n_project" name="Project" parent="menu_arch_flow" sequence="2" action="action_projects"/>
+<menuitem id="menu_n_service" name="Service" parent="menu_arch_flow" sequence="3" action="action_services"/>
+<menuitem id="menu_n_workflow" name="Workflow" parent="menu_arch_flow" sequence="4" action="action_workflow_gates"/>
+<menuitem id="menu_n_method" name="Method" parent="menu_arch_flow" sequence="5" action="action_methods"/>
+<menuitem id="menu_n_product" name="Product" parent="menu_arch_flow" sequence="6" action="synapsys_mesh.action_noun_product"/>
+<menuitem id="menu_n_work" name="Work" parent="menu_arch_flow" sequence="7" action="action_work_objects"/>
+<menuitem id="menu_n_outcome" name="Outcome" parent="menu_arch_flow" sequence="8" action="action_outcomes"/>
+<menuitem id="menu_n_benefit" name="Benefit" parent="menu_arch_flow" sequence="9" action="action_benefits"/>
+
+<menuitem id="menu_arch_evolve" name="Evolve" parent="menu_config" sequence="30"/>
+<menuitem id="menu_n_asset" name="Asset" parent="menu_arch_evolve" sequence="1" action="action_assets"/>
+<menuitem id="menu_n_pattern" name="Pattern" parent="menu_arch_evolve" sequence="2" action="action_patterns"/>
+<menuitem id="menu_n_fractal" name="Fractal" parent="menu_arch_evolve" sequence="3" action="action_fractal"/>
+<menuitem id="menu_n_signal" name="Signal" parent="menu_arch_evolve" sequence="4" action="action_signals_all"/>
+<menuitem id="menu_n_change" name="Change" parent="menu_arch_evolve" sequence="5" action="synapsys_mesh.action_noun_change"/>
+<menuitem id="menu_n_market" name="Market" parent="menu_arch_evolve" sequence="6" action="action_ptw"/>
+
+<menuitem id="menu_arch_mesh" name="Mesh" parent="menu_config" sequence="40"/>
+<record id="action_architecture_map" model="ir.actions.client"><field name="name">Architecture map</field><field name="tag">synapsys_architecture_map</field></record>
+<menuitem id="menu_m_map" name="Map" parent="menu_arch_mesh" sequence="0" action="action_architecture_map"/>
+<menuitem id="menu_m_registry" name="Registry" parent="menu_arch_mesh" sequence="1" action="synapsys_mesh.action_mesh_registry"/>
+<menuitem id="menu_m_elements" name="Elements" parent="menu_arch_mesh" sequence="2" action="synapsys_mesh.action_mesh_entries"/>
+<menuitem id="menu_m_clusters" name="Clusters" parent="menu_arch_mesh" sequence="3" action="synapsys_mesh.action_mesh_clusters"/>
+<menuitem id="menu_m_verbs" name="Verbs" parent="menu_arch_mesh" sequence="4" action="action_verbs"/>
+<menuitem id="menu_m_links" name="Benefit–Asset links" parent="menu_arch_mesh" sequence="5" action="action_links"/>
+<menuitem id="menu_m_admits" name="Door receipts" parent="menu_arch_mesh" sequence="6" action="synapsys_mesh.action_mesh_admits"/>
+<menuitem id="menu_m_measures" name="Measures" parent="menu_arch_mesh" sequence="7" action="synapsys_mesh.action_mesh_measures"/>
+<record id="action_lenses" model="ir.actions.client"><field name="name">Lenses</field><field name="tag">synapsys_lenses</field></record>
+<menuitem id="menu_arch_lenses" name="Lenses" parent="menu_config" sequence="50" action="action_lenses"/>
+</odoo>
