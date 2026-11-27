@@ -93,12 +93,14 @@ def _evidence_for(noun_id, actor, evidence, library_index, context_id):
     for rec in evidence:
         if rec.get("noun_id") != noun_id:
             continue
-        if rec.get("context_id") != context_id:
-            rejected.append({"id": rec.get("id"), "reason": "FOREIGN_CONTEXT"})
-            continue
-        if not is_steward and context_id not in actor.get("context_ids", ()):
-            rejected.append({"id": rec.get("id"), "reason": "ACTOR_NOT_IN_CONTEXT"})
-            continue
+        # scope "catalogue": a global Service Catalogue record, not bound to one Context. Everything else is Context-bound.
+        if rec.get("scope") != "catalogue":
+            if rec.get("context_id") != context_id:
+                rejected.append({"id": rec.get("id"), "reason": "FOREIGN_CONTEXT"})
+                continue
+            if not is_steward and context_id not in actor.get("context_ids", ()):
+                rejected.append({"id": rec.get("id"), "reason": "ACTOR_NOT_IN_CONTEXT"})
+                continue
         src = library_index.get(rec.get("source_ref"))
         if src is None:
             rejected.append({"id": rec.get("id"), "reason": "SOURCE_NOT_FOUND"})
@@ -106,8 +108,9 @@ def _evidence_for(noun_id, actor, evidence, library_index, context_id):
         if src.get("sha256") != rec.get("sha256"):
             rejected.append({"id": rec.get("id"), "reason": "SOURCE_HASH_MISMATCH"})
             continue
-        shown.append({"id": rec["id"], "kind": rec.get("kind"), "source_ref": rec["source_ref"],
-                      "sha256": rec["sha256"], "label": src.get("label")})
+        shown.append({"id": rec["id"], "kind": rec.get("kind"), "scope": rec.get("scope", "context"),
+                      "source_ref": rec["source_ref"], "sha256": rec["sha256"], "label": src.get("label"),
+                      "detail": src.get("detail")})
     return shown, rejected
 
 

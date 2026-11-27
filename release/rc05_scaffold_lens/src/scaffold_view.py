@@ -49,9 +49,14 @@ def _peer(p):
     h += '<p class="sb">%s</p>' % _txt(p.get('definition'))
     src = p.get('operating_source')
     if src == 'SOURCED':
-        h += _kv('Operating source', '<span class="tg req">SOURCED</span>')
+        h += _kv('Operating source', '<span class="tg req">CATALOGUE RECORD FOUND</span>')
     elif src:
         h += _kv('Operating source', '<span class="tg hold">NO OPERATING SOURCE: HOLD</span>')
+    if src == 'SOURCED':
+        for e in p.get('evidence') or []:
+            q = (e.get('detail') or {}).get('qualifiers') or []
+            if q:
+                h += _kv('Qualification', '<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(str(x)) for x in q))
     if 'evidence' in p:
         ev = ''.join('<li>%s</li>' % _e('%s (%s)' % (e.get('label') or e.get('source_ref'), str(e.get('sha256', ''))[:12]))
                      for e in p.get('evidence') or [])

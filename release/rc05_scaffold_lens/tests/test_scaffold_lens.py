@@ -94,6 +94,17 @@ class T(unittest.TestCase):
     def test_S14_depth_is_cumulative(self):
         a, b, c = (B("N.CONTEXT", d, STEW) for d in sl.DEPTHS)
         self.assertTrue(set(a) <= set(b) <= set(c))
+class T3(unittest.TestCase):
+    CAT = {"id": "EC", "noun_id": "N.SERVICE", "scope": "catalogue", "kind": "library", "source_ref": "LIB:SC04:1", "sha256": "a" * 64}
+    def test_S16_catalogue_scope_needs_no_context_but_still_needs_hash_and_group(self):
+        o = B("N.CONTEXT", "enrich", COLL_OUT, ev=[self.CAT]); s = {p["id"]: p for p in o["peers"]}["N.SERVICE"]
+        self.assertEqual(len(s["evidence"]), 1); self.assertEqual(s["evidence"][0]["scope"], "catalogue")
+        o = B("N.CONTEXT", "enrich", COLL, ev=[dict(self.CAT, sha256="b" * 64)]); s = {p["id"]: p for p in o["peers"]}["N.SERVICE"]
+        self.assertEqual(s["rejected_evidence"], [{"reason": "SOURCE_HASH_MISMATCH"}])
+        self.assertEqual(sl._evidence_for("N.SERVICE", CLI, [self.CAT], LIB, CTX), ([], []))
+    def test_S17_context_scope_is_still_context_bound(self):
+        o = B("N.CONTEXT", "enrich", COLL, ev=[dict(GOOD, context_id="CTX-OTHER")]); s = {p["id"]: p for p in o["peers"]}["N.SERVICE"]
+        self.assertEqual(s["rejected_evidence"], [{"reason": "FOREIGN_CONTEXT"}])
 class T2(unittest.TestCase):
     def test_S15_evidence_gate_independent_of_depth_clamp(self):
         shown, rej = sl._evidence_for("N.SERVICE", CLI, [GOOD], LIB, CTX)

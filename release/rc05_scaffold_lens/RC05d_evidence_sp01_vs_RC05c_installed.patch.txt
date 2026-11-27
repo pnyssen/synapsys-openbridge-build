@@ -1,0 +1,162 @@
+diff -ruN a/synapsys/controllers/lenses.py b/synapsys/controllers/lenses.py
+--- a/synapsys/controllers/lenses.py	2026-11-27 00:55:58.761822146 +0000
++++ b/synapsys/controllers/lenses.py	2026-11-27 00:57:07.160180969 +0000
+@@ -18,7 +18,11 @@
+             ovs = lc.parse_overrides(ov)
+             html += '<div class="lv">%s</div>' % ''.join(lc.render_element(lc.from_lens(l), mode, ovs) for l in lr.lenses_for(group, sec))
+         if int(level or 1) == 1 and env.user.has_group('synapsys.group_synapsys_steward'):
+-            html += ('<div class="lv" style="padding-top:0;padding-bottom:16px"><a class="cd" data-scaffold="1">'
+-                     '<h3>Context scaffold (read-only)</h3>'
+-                     '<div class="sb">Context, its roles, and the linked Capability and Service, with their evidence state.</div></a></div>')
++            card = ('<div style="margin-top:14px"><a class="cd" data-scaffold="1">'
++                    '<h3>Context scaffold (read-only)</h3>'
++                    '<div class="sb">Context, its roles, and the linked Capability and Service, with their evidence state.</div></a></div>')
++            if html.endswith('</div>'):
++                html = html[:-len('</div>')] + card + '</div>'
++            else:
++                html += '<div class="lv">' + card + '</div>'
+         return html
+diff -ruN a/synapsys/scaffold_lens.py b/synapsys/scaffold_lens.py
+--- a/synapsys/scaffold_lens.py	2026-11-27 00:55:58.760151845 +0000
++++ b/synapsys/scaffold_lens.py	2026-11-27 00:57:07.158244733 +0000
+@@ -93,12 +93,14 @@
+     for rec in evidence:
+         if rec.get("noun_id") != noun_id:
+             continue
+-        if rec.get("context_id") != context_id:
+-            rejected.append({"id": rec.get("id"), "reason": "FOREIGN_CONTEXT"})
+-            continue
+-        if not is_steward and context_id not in actor.get("context_ids", ()):
+-            rejected.append({"id": rec.get("id"), "reason": "ACTOR_NOT_IN_CONTEXT"})
+-            continue
++        # scope "catalogue": a global Service Catalogue record, not bound to one Context. Everything else is Context-bound.
++        if rec.get("scope") != "catalogue":
++            if rec.get("context_id") != context_id:
++                rejected.append({"id": rec.get("id"), "reason": "FOREIGN_CONTEXT"})
++                continue
++            if not is_steward and context_id not in actor.get("context_ids", ()):
++                rejected.append({"id": rec.get("id"), "reason": "ACTOR_NOT_IN_CONTEXT"})
++                continue
+         src = library_index.get(rec.get("source_ref"))
+         if src is None:
+             rejected.append({"id": rec.get("id"), "reason": "SOURCE_NOT_FOUND"})
+@@ -106,8 +108,9 @@
+         if src.get("sha256") != rec.get("sha256"):
+             rejected.append({"id": rec.get("id"), "reason": "SOURCE_HASH_MISMATCH"})
+             continue
+-        shown.append({"id": rec["id"], "kind": rec.get("kind"), "source_ref": rec["source_ref"],
+-                      "sha256": rec["sha256"], "label": src.get("label")})
++        shown.append({"id": rec["id"], "kind": rec.get("kind"), "scope": rec.get("scope", "context"),
++                      "source_ref": rec["source_ref"], "sha256": rec["sha256"], "label": src.get("label"),
++                      "detail": src.get("detail")})
+     return shown, rejected
+ 
+ 
+diff -ruN a/synapsys/scaffold_view.py b/synapsys/scaffold_view.py
+--- a/synapsys/scaffold_view.py	2026-11-27 00:55:58.760192888 +0000
++++ b/synapsys/scaffold_view.py	2026-11-27 00:57:07.158294798 +0000
+@@ -49,9 +49,14 @@
+     h += '<p class="sb">%s</p>' % _txt(p.get('definition'))
+     src = p.get('operating_source')
+     if src == 'SOURCED':
+-        h += _kv('Operating source', '<span class="tg req">SOURCED</span>')
++        h += _kv('Operating source', '<span class="tg req">CATALOGUE RECORD FOUND</span>')
+     elif src:
+         h += _kv('Operating source', '<span class="tg hold">NO OPERATING SOURCE: HOLD</span>')
++    if src == 'SOURCED':
++        for e in p.get('evidence') or []:
++            q = (e.get('detail') or {}).get('qualifiers') or []
++            if q:
++                h += _kv('Qualification', '<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(str(x)) for x in q))
+     if 'evidence' in p:
+         ev = ''.join('<li>%s</li>' % _e('%s (%s)' % (e.get('label') or e.get('source_ref'), str(e.get('sha256', ''))[:12]))
+                      for e in p.get('evidence') or [])
+diff -ruN a/synapsys/scaffold_wire.py b/synapsys/scaffold_wire.py
+--- a/synapsys/scaffold_wire.py	2026-11-27 00:55:58.760177606 +0000
++++ b/synapsys/scaffold_wire.py	2026-11-27 00:57:07.158276958 +0000
+@@ -2,8 +2,9 @@
+ 
+ RIGHTS: every read uses the CALLER'S OWN environment (request.env). No sudo(), no su, no writes. If the caller lacks the
+ registry read right Odoo raises AccessError and this module returns REFUSED; it never falls back to elevated reads.
+-Evidence and library records: no registered SC-04/GV-NAV-002 source exists in V20 yet, so none is passed. Every peer is
+-therefore shown NO_OPERATING_SOURCE (HOLD), which is the truthful state. Nothing here invents a source.
++Evidence: the V20 Service Catalogue holds only SP-01, SC-10, GV-GOV-003 and GV-GOV-004 (checked 27 Nov 2026); SC-04, GV-NAV-002,
++GV-TEC-001 and SC-05 are not in V20. One catalogue record (SP-01) is bound to N.SERVICE as a PROPOSED relationship and read with
++the caller's own rights; N.CAPABILITY has no record and stays NO_OPERATING_SOURCE (HOLD). Nothing here invents a source.
+ Depth policy (Steward ruling, 26 Nov 2026, in chat): Steward and Collaborator may both reach Enrich. Context-bound evidence stays
+ gated by Context membership in scaffold_lens (fail-closed: no recognised Context means no evidence).
+ """
+@@ -19,6 +20,16 @@
+ DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
+ NOUN = 'N.CONTEXT'
+ 
++# Evidence bindings (PROPOSED by Claude Code from the record's name and domain, 27 Nov 2026; the Steward may change this table).
++# A binding says: this Service Catalogue record is the source-bound library relationship for this peer noun. It is pinned by a
++# hash of the record's meaningful fields, so any edit of the record shows as SOURCE_HASH_MISMATCH until re-pinned by a patch.
++SOURCE_FIELDS = ('x_service_code', 'x_service_name', 'x_service_status', 'x_lifecycle_gate', 'x_validation_status',
++                 'x_source_document', 'x_source_version', 'x_primary_governing_domain', 'x_processability_state')
++EVIDENCE_BINDINGS = {
++    'N.SERVICE': [{'model': 'x_service_catalogue', 'code_field': 'x_service_code', 'code': 'SP-01',
++                   'pinned_sha256': '608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c'}],
++}
++
+ 
+ def actor_from_env(env):
+     groups = set(role for xmlid, role in GROUPS if env.user.has_group(xmlid))
+@@ -49,6 +60,46 @@
+         raise
+ 
+ 
++def canonical_hash(values):
++    c = json.dumps({k: (values.get(k) or None) for k in SOURCE_FIELDS}, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
++    return hashlib.sha256(c.encode('utf-8')).hexdigest()
++
++
++def qualifiers(values):
++    """Plain-language gaps so a catalogue record is never read as proof of operation."""
++    q = ['catalogue record only: existence is not operation']
++    if values.get('x_validation_status') != 'validated':
++        q.append('validation: %s' % (values.get('x_validation_status') or 'none recorded'))
++    if not values.get('x_source_document'):
++        q.append('no source document recorded')
++    q.append('not bound to a Context')
++    return q
++
++
++def collect_evidence(env):
++    """Read each bound catalogue record with the CALLER'S rights. Returns (evidence, library_index, notes)."""
++    evidence, index, notes = [], {}, []
++    for noun, bindings in EVIDENCE_BINDINGS.items():
++        for b in bindings:
++            ref = '%s:%s' % (b['model'], b['code'])
++            try:
++                rec = env[b['model']].search([(b['code_field'], '=', b['code'])], limit=1)
++                if not rec:
++                    notes.append('%s: record not found' % ref)
++                    continue
++                values = {f: rec[f] for f in SOURCE_FIELDS}
++            except Exception as exc:  # noqa: BLE001
++                if _is_access_error(exc):
++                    notes.append('%s: not readable with your rights' % ref)
++                    continue
++                raise
++            index[ref] = {'sha256': canonical_hash(values), 'label': '%s %s' % (values.get('x_service_code'), values.get('x_service_name')),
++                          'detail': {'fields': {k: (values.get(k) or None) for k in SOURCE_FIELDS}, 'qualifiers': qualifiers(values)}}
++            evidence.append({'id': 'EV:%s' % ref, 'noun_id': noun, 'scope': 'catalogue', 'kind': 'library',
++                             'source_ref': ref, 'sha256': b['pinned_sha256']})
++    return evidence, index, notes
++
++
+ def scaffold_context(env, depth='enable', context_id='', version=None):
+     if depth not in sl.DEPTHS:
+         return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+@@ -58,6 +109,8 @@
+     reg, prov, err = load_registry(env, version)
+     if err:
+         return {'result': 'REFUSED', 'reason': err}
+-    out = sl.build_scaffold(reg, NOUN, depth, actor, [], {}, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH)
++    evidence, index, notes = collect_evidence(env)
++    out = sl.build_scaffold(reg, NOUN, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH)
+     out.update(prov)
++    out['evidence_notes'] = notes
+     return out

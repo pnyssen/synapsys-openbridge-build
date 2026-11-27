@@ -20,12 +20,27 @@ class Model:
         if s.ra: raise AccessError("no read")
         return s.rec if s.rec is not None else []
     def sudo(s): raise AssertionError("sudo must never be called")
+SP01 = {"x_service_code": "SP-01", "x_service_name": "Strategic Planning & Context Establishment", "x_service_status": "active",
+        "x_lifecycle_gate": "active", "x_validation_status": False, "x_source_document": False, "x_source_version": False,
+        "x_primary_governing_domain": "D001", "x_processability_state": "structured"}
+class CatRec(dict):
+    def __bool__(s): return True
+    def __getitem__(s, k): return dict.get(s, k, False)
+class CatModel:
+    def __init__(s, vals=None, ra=False, missing=False, log=None): s.vals, s.ra, s.missing, s.log = vals if vals is not None else dict(SP01), ra, missing, log if log is not None else []
+    def search(s, domain, limit=None):
+        s.log.append(("search_cat", tuple(map(tuple, domain)), limit))
+        if s.ra: raise AccessError("no catalogue read")
+        return [] if s.missing else CatRec(s.vals)
+    def sudo(s): raise AssertionError("sudo must never be called")
 class User:
     def __init__(s, groups): s.id = 7; s.g = set(groups)
     def has_group(s, x): return x in s.g
 class Env:
-    def __init__(s, groups, rec=None, ra=False): s.user = User(groups); s.log = []; s.m = Model(rec if rec is not None else Rec(), ra, s.log)
-    def __getitem__(s, k): assert k == "synapsys.mesh.registry", k; return s.m
+    def __init__(s, groups, rec=None, ra=False, cat=None): s.user = User(groups); s.log = []; s.m = Model(rec if rec is not None else Rec(), ra, s.log); s.cat = cat if cat is not None else CatModel(log=s.log)
+    def __getitem__(s, k):
+        assert k in ("synapsys.mesh.registry", "x_service_catalogue"), k
+        return s.m if k == "synapsys.mesh.registry" else s.cat
     def sudo(s): raise AssertionError("env.sudo must never be called")
 STEW, COLL = "synapsys.group_synapsys_steward", "synapsys.group_synapsys_user"
 class T(unittest.TestCase):
@@ -33,12 +48,17 @@ class T(unittest.TestCase):
         o = sw.scaffold_context(Env([STEW, COLL]), "enrich", "CTX-A")
         self.assertEqual(o["result"], "OK"); self.assertEqual(o["depth_effective"], "enrich"); self.assertEqual(len(o["roles"]), 7)
         self.assertEqual(o["registry_sha"], SHA); self.assertEqual(o["registry_version"], "0.3.5")
-        for p in o["peers"]: self.assertEqual(p["operating_source"], "NO_OPERATING_SOURCE"); self.assertTrue(p["hold"])
+        pe = {p["id"]: p for p in o["peers"]}
+        self.assertEqual(pe["N.CAPABILITY"]["operating_source"], "NO_OPERATING_SOURCE"); self.assertTrue(pe["N.CAPABILITY"]["hold"])
+        self.assertEqual(pe["N.SERVICE"]["operating_source"], "SOURCED"); self.assertEqual(len(pe["N.SERVICE"]["evidence"]), 1)
+        q = pe["N.SERVICE"]["evidence"][0]["detail"]["qualifiers"]
+        self.assertIn("catalogue record only: existence is not operation", q); self.assertIn("not bound to a Context", q)
+        self.assertIn("no source document recorded", q); self.assertIn("validation: none recorded", q)
     def test_W2_collaborator_reaches_enrich_but_evidence_is_context_gated(self):
         o = sw.scaffold_context(Env([COLL]), "enrich", "CTX-A")
         self.assertEqual((o["depth_effective"], o["depth_clamped"]), ("enrich", False))
         self.assertIn("definition_source", o)
-        for p in o["peers"]: self.assertEqual(p["evidence"], [])  # none passed; none shown
+        pe = {p["id"]: p for p in o["peers"]}; self.assertEqual(pe["N.CAPABILITY"]["evidence"], []); self.assertEqual(len(pe["N.SERVICE"]["evidence"]), 1)
         # even if a record existed, a Collaborator with no recognised Context must not receive it
         ev = [{"id": "E1", "noun_id": "N.SERVICE", "context_id": "CTX-A", "kind": "library", "source_ref": "L", "sha256": "a" * 64}]
         o2 = sl.build_scaffold(json.loads(RAW), "N.CONTEXT", "enrich", sw.actor_from_env(Env([COLL])), ev,
@@ -57,7 +77,7 @@ class T(unittest.TestCase):
     def test_W7_bad_depth_refused(self):
         self.assertEqual(sw.scaffold_context(Env([STEW]), "deep")["reason"], "UNKNOWN_DEPTH")
     def test_W8_read_only_calls_only(self):
-        e = Env([STEW]); sw.scaffold_context(e, "enhance"); self.assertEqual([x[0] for x in e.log], ["search"])
+        e = Env([STEW]); sw.scaffold_context(e, "enhance"); self.assertEqual(sorted(set(x[0] for x in e.log)), ["search", "search_cat"])
     def test_W9_source_has_no_sudo_write_or_raw_sql(self):
         for f in ("scaffold_wire.py", "scaffold_controller.py", "scaffold_lens.py", "scaffold_view.py"):
             code = re.sub(r'""".*?"""', "", open(os.path.join(SRC, f), encoding="utf-8").read(), flags=re.S)
@@ -69,4 +89,23 @@ class T(unittest.TestCase):
         self.assertIn("auth='user'", c); self.assertIn("request.env", c); self.assertNotIn("auth='public'", c); self.assertNotIn("auth='none'", c)
     def test_W11_stable_across_calls_no_state(self):
         a = sw.scaffold_context(Env([STEW]), "enrich", "C"); b = sw.scaffold_context(Env([STEW]), "enrich", "C"); self.assertEqual(a, b)
+class T3(unittest.TestCase):
+    def peer(self, o): return {p["id"]: p for p in o["peers"]}["N.SERVICE"]
+    def test_W12_edited_record_is_rejected_by_the_pin(self):
+        v = dict(SP01, x_service_status="deprecated"); o = sw.scaffold_context(Env([STEW], cat=CatModel(v)), "enrich")
+        s = self.peer(o); self.assertEqual(s["operating_source"], "NO_OPERATING_SOURCE"); self.assertEqual(s["rejected_evidence"], [{"reason": "SOURCE_HASH_MISMATCH"}])
+    def test_W13_unreadable_catalogue_is_a_hold_with_a_note_not_an_error(self):
+        o = sw.scaffold_context(Env([STEW], cat=CatModel(ra=True)), "enrich"); self.assertEqual(self.peer(o)["operating_source"], "NO_OPERATING_SOURCE")
+        self.assertIn("x_service_catalogue:SP-01: not readable with your rights", o["evidence_notes"])
+    def test_W14_missing_record_is_a_hold_with_a_note(self):
+        o = sw.scaffold_context(Env([STEW], cat=CatModel(missing=True)), "enrich"); self.assertEqual(self.peer(o)["operating_source"], "NO_OPERATING_SOURCE")
+        self.assertIn("x_service_catalogue:SP-01: record not found", o["evidence_notes"])
+    def test_W15_pinned_hash_equals_the_live_record_hash_observed_27_nov_2026(self):
+        self.assertEqual(sw.canonical_hash(SP01), "608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c")
+        self.assertEqual(sw.EVIDENCE_BINDINGS["N.SERVICE"][0]["pinned_sha256"], sw.canonical_hash(SP01))
+    def test_W16_catalogue_read_is_one_search_with_limit_one(self):
+        e = Env([STEW]); sw.scaffold_context(e, "enhance"); cats = [x for x in e.log if x[0] == "search_cat"]
+        self.assertEqual(cats, [("search_cat", (("x_service_code", "=", "SP-01"),), 1)])
+    def test_W17_enable_depth_returns_no_evidence_detail(self):
+        o = sw.scaffold_context(Env([STEW]), "enable"); self.assertNotIn("peers", o)
 if __name__ == "__main__": unittest.main(verbosity=2)
