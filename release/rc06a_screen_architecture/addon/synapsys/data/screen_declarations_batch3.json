@@ -1,0 +1,419 @@
+{
+  "schema": "synapsys.screen.declaration/1",
+  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06d batch 3: seven menu screens sourced from project documents (no registry element exists for them). Not released to the registry (registry 0.3.5 is unchanged).",
+  "slots": {
+    "enable": [
+      "header",
+      "answer",
+      "trust",
+      "movement"
+    ],
+    "enhance": [
+      "made_of",
+      "peers"
+    ],
+    "enrich": [
+      "trust_table",
+      "open_questions",
+      "technical"
+    ]
+  },
+  "sources": "screen_sources_batch3.json",
+  "contract_text": [
+    "Records: none",
+    "The live menu follows the later.",
+    "Nine strategies by group"
+  ],
+  "screens": [
+    {
+      "id": "SCR.STRATEGIES.MENU",
+      "screen_type": "menu",
+      "title": "Strategies",
+      "answer": {
+        "from": "doc",
+        "row": "S9"
+      },
+      "trust_claim": "c.S9",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": "Nine strategies by group",
+        "rows": [
+          "S12"
+        ],
+        "note": "Records: none"
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S9",
+          "type": "doc",
+          "rows": [
+            "S9"
+          ]
+        },
+        {
+          "id": "c.S10",
+          "type": "doc",
+          "rows": [
+            "S10"
+          ]
+        },
+        {
+          "id": "c.S12",
+          "type": "doc",
+          "rows": [
+            "S12"
+          ]
+        },
+        {
+          "id": "c.S11",
+          "type": "doc",
+          "rows": [
+            "S11"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.STRATEGIES.1",
+          "kind": "decision",
+          "claim": "c.S11",
+          "rows": [
+            "S11"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.NAVIGATOR_PROGRESS.MENU",
+      "screen_type": "menu",
+      "title": "Navigator Progress",
+      "answer": {
+        "from": "doc",
+        "row": "S1"
+      },
+      "trust_claim": "c.S1",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S2",
+          "S3"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S1",
+          "type": "doc",
+          "rows": [
+            "S1"
+          ]
+        },
+        {
+          "id": "c.S2",
+          "type": "doc",
+          "rows": [
+            "S2"
+          ]
+        },
+        {
+          "id": "c.S3",
+          "type": "doc",
+          "rows": [
+            "S3"
+          ]
+        },
+        {
+          "id": "c.S13",
+          "type": "doc",
+          "rows": [
+            "S13"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.NAVIGATOR_PROGRESS.1",
+          "kind": "proposal",
+          "claim": "c.S13",
+          "rows": [
+            "S13"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.NAVIGATOR_INBOX.MENU",
+      "screen_type": "menu",
+      "title": "Navigator Inbox",
+      "answer": {
+        "from": "doc",
+        "row": "S4"
+      },
+      "trust_claim": "c.S4",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S5"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S4",
+          "type": "doc",
+          "rows": [
+            "S4"
+          ]
+        },
+        {
+          "id": "c.S5",
+          "type": "doc",
+          "rows": [
+            "S5"
+          ]
+        },
+        {
+          "id": "c.S13",
+          "type": "doc",
+          "rows": [
+            "S13"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.NAVIGATOR_INBOX.1",
+          "kind": "proposal",
+          "claim": "c.S13",
+          "rows": [
+            "S13"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.NAVIGATOR_LEARNING.MENU",
+      "screen_type": "menu",
+      "title": "Navigator Learning",
+      "answer": {
+        "from": "doc",
+        "row": "S6"
+      },
+      "trust_claim": "c.S6",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S4"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S6",
+          "type": "doc",
+          "rows": [
+            "S6"
+          ]
+        },
+        {
+          "id": "c.S4",
+          "type": "doc",
+          "rows": [
+            "S4"
+          ]
+        },
+        {
+          "id": "c.S7",
+          "type": "doc",
+          "rows": [
+            "S7"
+          ]
+        },
+        {
+          "id": "c.S13",
+          "type": "doc",
+          "rows": [
+            "S13"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.NAVIGATOR_LEARNING.1",
+          "kind": "conflict",
+          "claim": "c.S7",
+          "rows": [
+            "S7",
+            "S4",
+            "S6"
+          ],
+          "tail": "The live menu follows the later."
+        },
+        {
+          "id": "o.NAVIGATOR_LEARNING.2",
+          "kind": "proposal",
+          "claim": "c.S13",
+          "rows": [
+            "S13"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.MESH_BENEFIT_ASSET_LINKS.MENU",
+      "screen_type": "menu",
+      "title": "Mesh Benefit-Asset links",
+      "answer": {
+        "from": "doc",
+        "row": "S14"
+      },
+      "trust_claim": "c.S14",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S15"
+        ],
+        "note": "Records: none"
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S14",
+          "type": "doc",
+          "rows": [
+            "S14"
+          ]
+        },
+        {
+          "id": "c.S15",
+          "type": "doc",
+          "rows": [
+            "S15"
+          ]
+        }
+      ],
+      "open": []
+    },
+    {
+      "id": "SCR.MESH_DOOR_RECEIPTS.MENU",
+      "screen_type": "menu",
+      "title": "Mesh Door receipts",
+      "answer": {
+        "from": "doc",
+        "row": "S16"
+      },
+      "trust_claim": "c.S16",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S17",
+          "S18"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S16",
+          "type": "doc",
+          "rows": [
+            "S16"
+          ]
+        },
+        {
+          "id": "c.S17",
+          "type": "doc",
+          "rows": [
+            "S17"
+          ]
+        },
+        {
+          "id": "c.S18",
+          "type": "doc",
+          "rows": [
+            "S18"
+          ]
+        }
+      ],
+      "open": []
+    },
+    {
+      "id": "SCR.MESH_MEASURES.MENU",
+      "screen_type": "menu",
+      "title": "Mesh Measures",
+      "answer": {
+        "from": "doc",
+        "row": "S19"
+      },
+      "trust_claim": "c.S19",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "S17",
+          "S18"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.S19",
+          "type": "doc",
+          "rows": [
+            "S19"
+          ]
+        },
+        {
+          "id": "c.S17",
+          "type": "doc",
+          "rows": [
+            "S17"
+          ]
+        },
+        {
+          "id": "c.S18",
+          "type": "doc",
+          "rows": [
+            "S18"
+          ]
+        }
+      ],
+      "open": []
+    }
+  ]
+}

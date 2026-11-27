@@ -64,7 +64,8 @@ class B2_Set(unittest.TestCase):
         self.assertEqual(META["files"]["screen_declarations_batch1.json"], B1_FILE_SHA)
         for sid in B2:
             self.assertEqual(META["file_of"][sid], META["files"]["screen_declarations_batch2.json"])
-        self.assertEqual(len(DECLS), 3 + 15 + 12)
+        self.assertTrue({d for d in DECLS if d.endswith('.NOUN') or d.endswith('.RECORD')} >= set(B2) | {'SCR.CONTEXT.NOUN', 'SCR.CONTEXT.RECORD', 'SCR.ASSET.RECORD'})
+        self.assertEqual(len([d for d in DECLS.values() if d['screen_type'] != 'menu']), 3 + 15 + 12)
 
     def test_generator_is_reproducible_byte_for_byte(self):
         p = subprocess.run([sys.executable, os.path.join(HERE, "..", "tools", "gen_batch2_declarations.py"), F.FIXTURE], capture_output=True, text=True, timeout=60)

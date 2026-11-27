@@ -65,7 +65,7 @@ class D1_Schema(unittest.TestCase):
 
     def test_check17_each_declaration_states_its_type(self):
         for d in DECLS.values():
-            self.assertIn(d["screen_type"], ("noun", "record"))
+            self.assertIn(d["screen_type"], ("noun", "record", "menu"))
         bad = copy.deepcopy(CTX_NOUN); del bad["screen_type"]
         self.assertTrue(sd.validate_screen(bad))
         bad = copy.deepcopy(CTX_NOUN); bad["screen_type"] = "page"
@@ -224,7 +224,10 @@ class C1_to_C6_Frame(unittest.TestCase):
             ans = re.sub(r"<strong class=\"lead\">.*?</strong> ", "", ans)  # the status lead (non-RULED nouns) is not part of the answer sentence
             # the registry's own leading status marker ("OPEN." in Industry's definition) is not a sentence of the answer either
             ans = re.sub(r"^(OPEN|PROPOSAL)\.\s", "", html.unescape(ans))
-            self.assertEqual(len(re.findall(r"[.!?](?:\s|$)", ans)), 1, ans)
+            n = len(re.findall(r"[.!?](?:\s|$)", ans))
+            if not re.search(r"[.!?]$", ans):
+                n += 1  # a verbatim source quotation may end without a full stop (it is still one sentence); the text is never edited to add one
+            self.assertEqual(n, 1, ans)
             self.assertEqual(sl_count(h), 0)  # no Enhance or Enrich slot at Enable
 
     def test_trust_line_is_status_plus_source_count_at_every_depth(self):
@@ -251,7 +254,7 @@ def sl_count(h):
 
 def ceiling_ok(decl, r):
     """True where the screen can show Enrich (so the trust table exists): noun screens, and record screens whose kind reaches Enrich."""
-    return decl["screen_type"] == "noun" or sd.stage_for_kind(r["kind"] if "field" in decl["record"]["kind"] else decl["record"]["kind"]["fixed"]) == "enrich"
+    return decl["screen_type"] in ("noun", "menu") or sd.stage_for_kind(r["kind"] if "field" in decl["record"]["kind"] else decl["record"]["kind"]["fixed"]) == "enrich"
 
 
 class C7_Verbs(unittest.TestCase):
@@ -430,6 +433,8 @@ class C15_to_C16_Declared(unittest.TestCase):
     def test_every_declared_source_chip_quotes_text_the_registry_really_holds(self):
         els = sl.index_registry(F.REG)
         for d in DECLS.values():
+            if d["screen_type"] == "menu":
+                continue  # menu screens have no registry element; their quotes are tested against the source table (test_batch3)
             for c in d["claims"]:
                 for s in c["sources"]:
                     self.assertIn(s["quote"], els[c["noun"]]["definition_source"], (d["id"], c["id"], s["name"]))

@@ -152,6 +152,27 @@ def scaffold_noun(env, screen_id, depth='enable', context_id=''):
     return _project(env, decl, depth, context_id)
 
 
+def scaffold_menu(env, screen_id, depth='enable'):
+    """Any declared MENU screen (RC06d): built from its document source rows, no registry read, no catalogue read, no write. Not routed."""
+    if depth not in sl.DEPTHS:
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+    try:
+        decls, meta = declarations()
+    except ValueError:
+        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
+    decl = decls.get(screen_id)
+    if not decl or decl['screen_type'] != 'menu':
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_SCREEN'}
+    actor = actor_from_env(env)
+    if not actor['groups']:
+        return {'result': 'REFUSED', 'reason': 'NO_RECOGNISED_ROLE'}
+    out = sd.project_menu(decl, depth, actor, DEFAULT_ROLE_MAX_DEPTH)
+    if out.get('result') == 'OK':
+        out['declaration_sha'] = meta['file_of'][decl['id']]
+        out['sources_sha'] = meta['sources_of'][decl['id']]
+    return out
+
+
 def _field(rec, name):
     v = rec[name]
     return getattr(v, 'id', v)

@@ -25,7 +25,7 @@ except ImportError:  # offline tests load modules by path
 DEPTHS = sl.DEPTHS  # ("enable", "enhance", "enrich")
 NOT_BOUND = "not bound"
 STAGE_BY_KIND = {"K-1": "enable", "K-3": "enable", "K-4": "enable", "K-6": "enhance", "K-8": "enhance", "K-12": "enrich"}
-SCREEN_TYPES = ("noun", "record")
+SCREEN_TYPES = ("noun", "record", "menu")
 KNOWN_SLOTS = {
     "enable": ("header", "answer", "trust", "movement"),
     "enhance": ("made_of", "peers"),
@@ -37,7 +37,10 @@ _DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
 # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
 # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
-DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"))
+DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"),
+                 os.path.join(_DATA, "screen_declarations_batch3.json"))
+OPEN_KINDS = ("decision", "proposal", "conflict")
+_SOURCES = {}
 STEM_MAX = 60
 
 
@@ -78,8 +81,85 @@ def declaration_sha(raw_bytes):
     return hashlib.sha256(raw_bytes).hexdigest()
 
 
-def validate_screen(d):
+def load_sources(path):
+    """Document source rows (RC06d): {row id: row}, plus the file's sha256. Cached by path. Raises ValueError if a row is malformed."""
+    if path not in _SOURCES:
+        with open(path, "rb") as fh:
+            raw = fh.read()
+        doc = json.loads(raw.decode("utf-8"))
+        rows = {}
+        for r in doc.get("rows", []):
+            for k in ("id", "file", "when", "status", "status_word", "quote", "display", "source_name"):
+                if not r.get(k):
+                    raise ValueError("source row %s: missing %s" % (r.get("id"), k))
+            rows[r["id"]] = r
+        _SOURCES[path] = (rows, declaration_sha(raw))
+    return _SOURCES[path]
+
+
+def validate_menu(d, sources):
+    """A menu screen has no registry noun and no stage; every claim is bound to document source rows (kind doc)."""
+    errs, sid = [], d.get("id", "?")
+
+    def bad(msg):
+        errs.append("%s: %s" % (sid, msg))
+
+    for k in ("id", "title", "answer", "trust_claim", "movement", "claims", "made_of", "peers", "open"):
+        if k not in d:
+            bad("missing %s" % k)
+    if errs:
+        return errs
+    for k in ("noun", "record"):
+        if k in d:
+            bad("a menu screen has no %s and no stage" % k)
+    if sources is None:
+        return errs + ["%s: a menu screen needs a source table" % sid]
+    if d["answer"].get("from") != "doc" or d["answer"].get("row") not in sources:
+        bad("answer must be a source row (from doc, row in the source table)")
+    mv = d["movement"]
+    if not isinstance(mv.get("verbs"), list):
+        bad("movement.verbs must be a list")
+    elif mv["verbs"] or not mv.get("hold_reason"):
+        bad("a menu screen binds no verb: verbs empty and hold_reason required")
+    if d["peers"] is not None:
+        bad("a menu screen declares no peers")
+    ids = []
+    for c in d["claims"]:
+        ids.append(c.get("id"))
+        rs = c.get("rows")
+        if c.get("type") != "doc" or not rs or not all(r in sources for r in rs):
+            bad("claim %s: type doc with rows in the source table" % c.get("id"))
+        elif len({sources[r]["status_word"] for r in rs}) != 1:
+            bad("claim %s: its rows must share one status" % c.get("id"))
+    if len(set(ids)) != len(ids):
+        bad("duplicate claim ids")
+    if d["trust_claim"] not in ids:
+        bad("trust_claim %r is not a claim id" % (d["trust_claim"],))
+    elif d["answer"].get("row") != [c for c in d["claims"] if c["id"] == d["trust_claim"]][0].get("rows", [None])[0]:
+        bad("the trust claim must start with the answer row")
+    mo = d["made_of"]
+    if mo is not None:
+        if not (isinstance(mo.get("rows"), list) and all(r in sources for r in mo["rows"])):
+            bad("made_of.rows must be source rows")
+        for k in ("heading", "note"):
+            if mo.get(k) is not None and not isinstance(mo.get(k), str):
+                bad("made_of.%s must be text or null" % k)
+    oids = []
+    for o in d["open"]:
+        oids.append(o.get("id"))
+        if o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
+            bad("open %s: kind, claim and source rows" % o.get("id"))
+        elif o["kind"] == "conflict" and len(o["rows"]) < 2:
+            bad("open %s: a conflict needs at least two statements" % o.get("id"))
+    if len(set(oids)) != len(oids):
+        bad("duplicate open ids")
+    return errs
+
+
+def validate_screen(d, sources=None):
     """Returns a list of error strings; empty means valid."""
+    if d.get("screen_type") == "menu":
+        return validate_menu(d, sources)
     errs = []
     sid = d.get("id", "?")
 
@@ -155,10 +235,12 @@ def validate_screen(d):
 
 def load_declarations(path=None):
     """Returns ({id: screen}, meta). path is one file, a list of files, or None for DEFAULT_PATHS.
-    meta: sha256 = sha of the FIRST file (as in RC06a), files = {name: sha}, file_of = {screen id: sha of its declaring file}.
+    meta: sha256 = sha of the FIRST file (as in RC06a), files = {name: sha}, file_of = {screen id: sha of its declaring file},
+    sources_of = {screen id: sha of its source table} for menu screens. A file may name a source table ("sources", beside it); menu screens
+    are validated against it, and any text a menu screen shows beyond the source rows must be listed in the file's contract_text.
     Raises ValueError listing every error; never returns a half-valid set. A screen id may not be declared twice."""
     paths = [path] if isinstance(path, str) else list(path or DEFAULT_PATHS)
-    errs, out, file_of, files = [], {}, {}, {}
+    errs, out, file_of, files, sources_of = [], {}, {}, {}, {}
     first_sha = None
     for p in paths:
         with open(p, "rb") as fh:
@@ -171,15 +253,26 @@ def load_declarations(path=None):
             errs.append("%s: unknown schema %r" % (os.path.basename(p), doc.get("schema")))
         if doc.get("slots") != {k: list(v) for k, v in KNOWN_SLOTS.items()}:
             errs.append("%s: slots per depth must be exactly %s" % (os.path.basename(p), json.dumps(KNOWN_SLOTS)))
+        sources, src_sha, src_path = None, None, None
+        if doc.get("sources"):
+            src_path = os.path.join(os.path.dirname(os.path.abspath(p)), doc["sources"])
+            sources, src_sha = load_sources(src_path)
+        allowed = set(doc.get("contract_text") or [])
         for s in doc.get("screens", []):
-            errs.extend(validate_screen(s))
+            errs.extend(validate_screen(s, sources))
+            if s.get("screen_type") == "menu":
+                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])]:
+                    if t and t not in allowed:
+                        errs.append("%s: text %r is not listed in contract_text" % (s.get("id"), t))
+                sources_of[s.get("id")] = src_sha
+                s["_sources"] = src_path  # where this screen's source table is (private key; the declaration file itself is unchanged)
             if s.get("id") in out:
                 errs.append("%s: declared twice" % s.get("id"))
             out[s.get("id")] = s
             file_of[s.get("id")] = sha
     if errs:
         raise ValueError("; ".join(errs))
-    return out, {"sha256": first_sha, "files": files, "file_of": file_of, "slots": {k: list(v) for k, v in KNOWN_SLOTS.items()}}
+    return out, {"sha256": first_sha, "files": files, "file_of": file_of, "sources_of": sources_of, "slots": {k: list(v) for k, v in KNOWN_SLOTS.items()}}
 
 
 # --------------------------------------------------------------------------------------------------- projection
@@ -243,6 +336,8 @@ def project(decl, reg, requested_depth, actor, evidence, library_index, context_
 
     Only content the actor is entitled to, at the effective depth, is put in the model (the same model is the JSON route
     output, so there is no hidden page data). Evidence passes the existing fail-closed filters in scaffold_lens."""
+    if decl.get("screen_type") == "menu":  # no registry element: the screen reads its own source table
+        return project_menu(decl, requested_depth, actor, role_max_depth)
     if requested_depth not in DEPTHS:
         return {"result": "REFUSED", "reason": "UNKNOWN_DEPTH"}
     els = sl.index_registry(reg)
@@ -351,6 +446,86 @@ def project(decl, reg, requested_depth, actor, evidence, library_index, context_
                 "screen_id": decl["id"], "kind": kind,
             },
         }
+    return out
+
+
+DEFAULT_SOURCES_PATH = os.path.join(_DATA, "screen_sources_batch3.json")
+
+
+def _menu_sources(decl):
+    """The source table a menu screen reads: the one its declaration file named (set by load_declarations), else the default."""
+    return load_sources(decl.get("_sources") or DEFAULT_SOURCES_PATH)[0]
+
+
+def _chip_of(row):
+    return {"name": row["source_name"], "date": row["when"], "row": row["id"]}
+
+
+def _open_text(entry, sources):
+    """Text of one open question, made only of source-row text: a conflict is its first statement versus the others (each with its date);
+    a decision or proposal is the row's own text. The optional tail is contract text (listed in the declaration file's contract_text)."""
+    rs = [sources[r] for r in entry["rows"]]
+    q = lambda r: "\u201c%s\u201d (%s)" % (r["display"], r["when"])
+    t = (q(rs[0]) + " versus " + " and ".join(q(r) for r in rs[1:])) if entry["kind"] == "conflict" else rs[0]["display"]
+    return t + (" " + entry["tail"] if entry.get("tail") else "")
+
+
+def project_menu(decl, requested_depth, actor, role_max_depth=None, sources=None):
+    """Menu screen (RC06d): same depth-limited model shape as project(), built from document source rows. No registry read, no stage."""
+    if requested_depth not in DEPTHS:
+        return {"result": "REFUSED", "reason": "UNKNOWN_DEPTH"}
+    role_eff = sl._effective_depth(actor or {}, requested_depth, role_max_depth)
+    if role_eff is None:
+        return {"result": "REFUSED", "reason": "NO_RECOGNISED_ROLE"}
+    src = sources if sources is not None else _menu_sources(decl)
+    eff, clamped, clamp_reason = resolve_depth("menu", requested_depth, None, role_eff)
+    claims = {c["id"]: c for c in decl["claims"]}
+    tc = claims[decl["trust_claim"]]
+    status = src[tc["rows"][0]]["status_word"]
+    answer = src[decl["answer"]["row"]]["display"]
+    mv = decl["movement"]
+    out = {
+        "result": "OK", "screen": decl["id"], "screen_type": "menu", "noun": None, "title": decl["title"], "label": decl["title"],
+        "status": status, "definition": answer, "registry_version": None,
+        "stage": None, "stage_reason": None, "stage_computed_not_stored": True,
+        "depth_requested": requested_depth, "depth_effective": eff, "depth_clamped": clamped, "clamp_reason": clamp_reason,
+        "context_id": "", "writes": 0, "slots": _slots_for(eff),
+        "frame": {"header": {"noun": decl["title"], "status": status, "record_name": None, "neighbour_kind": None}, "answer": answer,
+                  "trust": {"status": status, "source_count": len(tc["rows"])},
+                  "movement": {"state": "HOLD", "text": "verbs not yet bound", "reason": mv["hold_reason"], "verbs": []}},
+        "notes": [],
+    }
+    lead = answer_lead(status, answer)
+    if lead:
+        out["frame"]["answer_lead"] = lead
+    if _ix(eff) >= 1:
+        mo = decl["made_of"]
+        out["enhance"] = {"made_of": ({"heading": mo.get("heading"), "relationship": None, "rows": [], "note": mo.get("note"), "items": [
+            {"id": r, "text": src[r]["display"], "status": src[r]["status_word"], "note": src[r]["status_note"], "chip": _chip_of(src[r])} for r in mo["rows"]]}
+            if mo else None), "peers": None}
+    if _ix(eff) >= 2:
+        rows = []
+        for c in decl["claims"]:
+            first = src[c["rows"][0]]
+            row = {"id": c["id"], "label": first["display"], "status": first["status_word"],
+                   "qualifier": {"first": first["status_note"], "full": None} if first["status_note"] else None,
+                   "chips": [_chip_of(src[r]) for r in c["rows"]], "source_count": len(c["rows"]), "evidence": [], "rejected": [],
+                   "citation_label": "Source", "full_citation": " | ".join("%s: %s, %s, %s: %s" % (r, src[r]["file"], src[r]["when"], src[r]["status"], src[r]["display"] if src[r].get("builder_instruction") else src[r]["quote"]) for r in c["rows"]),
+                   "open": []}
+            for o in decl["open"]:
+                if o["claim"] == c["id"]:
+                    text = _open_text(o, src)
+                    st, trunc = stem_of(text)
+                    row["open"].append({"text": text, "stem": st, "truncated": trunc})
+            rows.append(row)
+        used = []
+        for c in decl["claims"]:
+            for r in c["rows"]:
+                if r not in used:
+                    used.append(r)
+        out["enrich"] = {"rows": rows, "open_total": sum(len(r["open"]) for r in rows),
+                         "technical": {"registry_version": None, "relationship": None, "cluster_id": None, "evidence_sources": [], "screen_id": decl["id"], "kind": None,
+                                       "doc_sources": [{"row": r, "file": src[r]["file"], "when": src[r]["when"]} for r in used]}}
     return out
 
 

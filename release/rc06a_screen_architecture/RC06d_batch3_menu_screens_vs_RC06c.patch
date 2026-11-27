@@ -1,0 +1,1045 @@
+diff -ruN a/synapsys/data/screen_declarations_batch3.json b/synapsys/data/screen_declarations_batch3.json
+--- a/synapsys/data/screen_declarations_batch3.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_declarations_batch3.json	2026-11-27 04:39:48.496639911 +0000
+@@ -0,0 +1,419 @@
++{
++  "schema": "synapsys.screen.declaration/1",
++  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06d batch 3: seven menu screens sourced from project documents (no registry element exists for them). Not released to the registry (registry 0.3.5 is unchanged).",
++  "slots": {
++    "enable": [
++      "header",
++      "answer",
++      "trust",
++      "movement"
++    ],
++    "enhance": [
++      "made_of",
++      "peers"
++    ],
++    "enrich": [
++      "trust_table",
++      "open_questions",
++      "technical"
++    ]
++  },
++  "sources": "screen_sources_batch3.json",
++  "contract_text": [
++    "Records: none",
++    "The live menu follows the later.",
++    "Nine strategies by group"
++  ],
++  "screens": [
++    {
++      "id": "SCR.STRATEGIES.MENU",
++      "screen_type": "menu",
++      "title": "Strategies",
++      "answer": {
++        "from": "doc",
++        "row": "S9"
++      },
++      "trust_claim": "c.S9",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": "Nine strategies by group",
++        "rows": [
++          "S12"
++        ],
++        "note": "Records: none"
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S9",
++          "type": "doc",
++          "rows": [
++            "S9"
++          ]
++        },
++        {
++          "id": "c.S10",
++          "type": "doc",
++          "rows": [
++            "S10"
++          ]
++        },
++        {
++          "id": "c.S12",
++          "type": "doc",
++          "rows": [
++            "S12"
++          ]
++        },
++        {
++          "id": "c.S11",
++          "type": "doc",
++          "rows": [
++            "S11"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.STRATEGIES.1",
++          "kind": "decision",
++          "claim": "c.S11",
++          "rows": [
++            "S11"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.NAVIGATOR_PROGRESS.MENU",
++      "screen_type": "menu",
++      "title": "Navigator Progress",
++      "answer": {
++        "from": "doc",
++        "row": "S1"
++      },
++      "trust_claim": "c.S1",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S2",
++          "S3"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S1",
++          "type": "doc",
++          "rows": [
++            "S1"
++          ]
++        },
++        {
++          "id": "c.S2",
++          "type": "doc",
++          "rows": [
++            "S2"
++          ]
++        },
++        {
++          "id": "c.S3",
++          "type": "doc",
++          "rows": [
++            "S3"
++          ]
++        },
++        {
++          "id": "c.S13",
++          "type": "doc",
++          "rows": [
++            "S13"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.NAVIGATOR_PROGRESS.1",
++          "kind": "proposal",
++          "claim": "c.S13",
++          "rows": [
++            "S13"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.NAVIGATOR_INBOX.MENU",
++      "screen_type": "menu",
++      "title": "Navigator Inbox",
++      "answer": {
++        "from": "doc",
++        "row": "S4"
++      },
++      "trust_claim": "c.S4",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S5"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S4",
++          "type": "doc",
++          "rows": [
++            "S4"
++          ]
++        },
++        {
++          "id": "c.S5",
++          "type": "doc",
++          "rows": [
++            "S5"
++          ]
++        },
++        {
++          "id": "c.S13",
++          "type": "doc",
++          "rows": [
++            "S13"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.NAVIGATOR_INBOX.1",
++          "kind": "proposal",
++          "claim": "c.S13",
++          "rows": [
++            "S13"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.NAVIGATOR_LEARNING.MENU",
++      "screen_type": "menu",
++      "title": "Navigator Learning",
++      "answer": {
++        "from": "doc",
++        "row": "S6"
++      },
++      "trust_claim": "c.S6",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S4"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S6",
++          "type": "doc",
++          "rows": [
++            "S6"
++          ]
++        },
++        {
++          "id": "c.S4",
++          "type": "doc",
++          "rows": [
++            "S4"
++          ]
++        },
++        {
++          "id": "c.S7",
++          "type": "doc",
++          "rows": [
++            "S7"
++          ]
++        },
++        {
++          "id": "c.S13",
++          "type": "doc",
++          "rows": [
++            "S13"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.NAVIGATOR_LEARNING.1",
++          "kind": "conflict",
++          "claim": "c.S7",
++          "rows": [
++            "S7",
++            "S4",
++            "S6"
++          ],
++          "tail": "The live menu follows the later."
++        },
++        {
++          "id": "o.NAVIGATOR_LEARNING.2",
++          "kind": "proposal",
++          "claim": "c.S13",
++          "rows": [
++            "S13"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.MESH_BENEFIT_ASSET_LINKS.MENU",
++      "screen_type": "menu",
++      "title": "Mesh Benefit-Asset links",
++      "answer": {
++        "from": "doc",
++        "row": "S14"
++      },
++      "trust_claim": "c.S14",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S15"
++        ],
++        "note": "Records: none"
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S14",
++          "type": "doc",
++          "rows": [
++            "S14"
++          ]
++        },
++        {
++          "id": "c.S15",
++          "type": "doc",
++          "rows": [
++            "S15"
++          ]
++        }
++      ],
++      "open": []
++    },
++    {
++      "id": "SCR.MESH_DOOR_RECEIPTS.MENU",
++      "screen_type": "menu",
++      "title": "Mesh Door receipts",
++      "answer": {
++        "from": "doc",
++        "row": "S16"
++      },
++      "trust_claim": "c.S16",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S17",
++          "S18"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S16",
++          "type": "doc",
++          "rows": [
++            "S16"
++          ]
++        },
++        {
++          "id": "c.S17",
++          "type": "doc",
++          "rows": [
++            "S17"
++          ]
++        },
++        {
++          "id": "c.S18",
++          "type": "doc",
++          "rows": [
++            "S18"
++          ]
++        }
++      ],
++      "open": []
++    },
++    {
++      "id": "SCR.MESH_MEASURES.MENU",
++      "screen_type": "menu",
++      "title": "Mesh Measures",
++      "answer": {
++        "from": "doc",
++        "row": "S19"
++      },
++      "trust_claim": "c.S19",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "S17",
++          "S18"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.S19",
++          "type": "doc",
++          "rows": [
++            "S19"
++          ]
++        },
++        {
++          "id": "c.S17",
++          "type": "doc",
++          "rows": [
++            "S17"
++          ]
++        },
++        {
++          "id": "c.S18",
++          "type": "doc",
++          "rows": [
++            "S18"
++          ]
++        }
++      ],
++      "open": []
++    }
++  ]
++}
+diff -ruN a/synapsys/data/screen_sources_batch3.json b/synapsys/data/screen_sources_batch3.json
+--- a/synapsys/data/screen_sources_batch3.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_sources_batch3.json	2026-11-27 04:36:16.448627306 +0000
+@@ -0,0 +1,255 @@
++{
++  "schema": "synapsys.screen.sources/1",
++  "origin": "Source table of BUILD_CONTRACT_ENABLE_DOC_SOURCED_SCREENS_BATCH3_RC06D_20261127_v1.md (sha256 85d9e13712bafa656e542ac564d0f9b877d57373c3508325e29941cf621b4b9c), copied by the chat lane from the project documents named in each row. The builder could not read those documents; D009 or the Navigator should re-check the quotes against them.",
++  "rows": [
++    {
++      "id": "S1",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 07:29",
++      "status": "RULED",
++      "field": "\"The Navigator has its own screen and three lenses, to be progressively mapped and integrated into the Architecture.\"",
++      "quote": "The Navigator has its own screen and three lenses, to be progressively mapped and integrated into the Architecture.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "The Navigator has its own screen and three lenses, to be progressively mapped and integrated into the Architecture."
++    },
++    {
++      "id": "S2",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 07:33",
++      "status": "RULED",
++      "field": "\"Navigator lenses: OBA is value, UIQ is prioritisation, KDA is approvals.\"",
++      "quote": "Navigator lenses: OBA is value, UIQ is prioritisation, KDA is approvals.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "Navigator lenses: OBA is value, UIQ is prioritisation, KDA is approvals."
++    },
++    {
++      "id": "S3",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 10:05",
++      "status": "RULED",
++      "field": "\"ranked Probable->Verified first, then Potential->Probable, then the rest; work with no value link is shown last, flagged 'no value link' (nothing hidden).\"",
++      "quote": "ranked Probable->Verified first, then Potential->Probable, then the rest; work with no value link is shown last, flagged 'no value link' (nothing hidden).",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "ranked Probable->Verified first, then Potential->Probable, then the rest; work with no value link is shown last, flagged 'no value link' (nothing hidden)."
++    },
++    {
++      "id": "S4",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 10:03",
++      "status": "RULED",
++      "field": "\"An intelligent Inbox and Learning, built around value (OBA) and approval (KDA), both aligned to the Navigator.\"",
++      "quote": "An intelligent Inbox and Learning, built around value (OBA) and approval (KDA), both aligned to the Navigator.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "An intelligent Inbox and Learning, built around value (OBA) and approval (KDA), both aligned to the Navigator."
++    },
++    {
++      "id": "S5",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 10:05",
++      "status": "RULED",
++      "field": "\"AI proposes the value (Strategy KPI, OBA element) and the approval needed for each Signal; a person routes it into a Work Object in the Navigator. AI never routes or grades.\"",
++      "quote": "AI proposes the value (Strategy KPI, OBA element) and the approval needed for each Signal; a person routes it into a Work Object in the Navigator. AI never routes or grades.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "AI proposes the value (Strategy KPI, OBA element) and the approval needed for each Signal; a person routes it into a Work Object in the Navigator. AI never routes or grades."
++    },
++    {
++      "id": "S6",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 10:05",
++      "status": "RULED",
++      "field": "\"Learning captures every approval decision: when KDA approves, holds or rejects a PPV step, record why, what evidence moved it and what was missing.\"",
++      "quote": "Learning captures every approval decision: when KDA approves, holds or rejects a PPV step, record why, what evidence moved it and what was missing.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "Learning captures every approval decision: when KDA approves, holds or rejects a PPV step, record why, what evidence moved it and what was missing."
++    },
++    {
++      "id": "S7",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 07:35",
++      "status": "RULED (menu shape; Learning placement conflicts with S4)",
++      "field": "\"Learning under Pattern.\"",
++      "quote": "Learning under Pattern.",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": "menu shape; Learning placement conflicts with S4",
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "Learning under Pattern."
++    },
++    {
++      "id": "S8",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 10:20",
++      "status": "OPEN (question, not yet a ruling)",
++      "field": "\"align Progress, Inbox and Learning to the Adapt strategies\"",
++      "quote": "align Progress, Inbox and Learning to the Adapt strategies",
++      "is_quotation": true,
++      "status_word": "OPEN",
++      "status_note": "question, not yet a ruling",
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "align Progress, Inbox and Learning to the Adapt strategies"
++    },
++    {
++      "id": "S9",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-2240-architecture-nouns-verbs-separate.md",
++      "when": "20 Nov 07:33",
++      "status": "RULED",
++      "field": "\"Strategy grouping: Live / Build / Adapt (3x3), applied to all nine strategies\"",
++      "quote": "Strategy grouping: Live / Build / Adapt (3x3), applied to all nine strategies",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (nouns, verbs)",
++      "display": "Strategy grouping: Live / Build / Adapt (3x3), applied to all nine strategies"
++    },
++    {
++      "id": "S10",
++      "file": "claude/rulings-ledger-addendum-2026-11-19-1334-strategy-groups-live-build-adapt.md",
++      "when": "19 Nov 13:34",
++      "status": "RULED",
++      "field": "\"Strategy groups are **Live / Build / Adapt**\"  (strip the markdown asterisks in the displayed text; keep the quote match on the plain words \"Strategy groups are\" and \"Live / Build / Adapt\")",
++      "quote": "Strategy groups are **Live / Build / Adapt**",
++      "is_quotation": true,
++      "status_word": "RULED",
++      "status_note": null,
++      "source_name": "Ledger addendum (strategy groups)",
++      "display": "Strategy groups are Live / Build / Adapt"
++    },
++    {
++      "id": "S11",
++      "file": "claude/navigator-screen-and-strategy-lens-v0.1-2026-11-20.md",
++      "when": "20 Nov",
++      "status": "CANDIDATE (open decision D4)",
++      "field": "\"The artifact's grouping and the root nesting are therefore two different 3 × 3 cuts of the same 27.\"",
++      "quote": "The artifact's grouping and the root nesting are therefore two different 3 × 3 cuts of the same 27.",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": "open decision D4",
++      "source_name": "Navigator screen v0.1",
++      "display": "The artifact's grouping and the root nesting are therefore two different 3 × 3 cuts of the same 27."
++    },
++    {
++      "id": "S12",
++      "file": "claude/navigator-screen-and-strategy-lens-v0.1-2026-11-20.md section 3 table",
++      "when": "20 Nov",
++      "status": "CANDIDATE",
++      "field": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks. Show names only; verbs are NOT shown (verbs not yet bound).",
++      "quote": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks. Show names only; verbs are NOT shown (verbs not yet bound).",
++      "is_quotation": false,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Navigator screen v0.1 s3",
++      "display": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks.",
++      "builder_instruction": "Show names only; verbs are NOT shown (verbs not yet bound)."
++    },
++    {
++      "id": "S13",
++      "file": "claude/kinematic-domain-overlays-live-build-adapt-v0.1-2026-11-20.md section 4",
++      "when": "20 Nov",
++      "status": "CANDIDATE (proposal, Steward decision 3 unruled)",
++      "field": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal. Show as OPEN, not as the menu.",
++      "quote": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal. Show as OPEN, not as the menu.",
++      "is_quotation": false,
++      "status_word": "CANDIDATE",
++      "status_note": "proposal, Steward decision 3 unruled",
++      "source_name": "Domain overlays v0.1 s4",
++      "display": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal.",
++      "builder_instruction": "Show as OPEN, not as the menu."
++    },
++    {
++      "id": "S14",
++      "file": "claude/library-sorting-framework-and-critical-questions-v0.1-2026-11-14.md s3",
++      "when": "14 Nov",
++      "status": "CANDIDATE",
++      "field": "\"Asset needs 3 or more qualified Benefits plus rights.\"",
++      "quote": "Asset needs 3 or more qualified Benefits plus rights.",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Library sorting v0.1 s3",
++      "display": "Asset needs 3 or more qualified Benefits plus rights."
++    },
++    {
++      "id": "S15",
++      "file": "claude/library-sorting-framework-and-critical-questions-v0.1-2026-11-14.md s3",
++      "when": "14 Nov",
++      "status": "CANDIDATE",
++      "field": "\"Benefit needs accepted, attributable net change with no double count\"",
++      "quote": "Benefit needs accepted, attributable net change with no double count",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Library sorting v0.1 s3",
++      "display": "Benefit needs accepted, attributable net change with no double count"
++    },
++    {
++      "id": "S16",
++      "file": "claude/mesh-registry-door-87866af-2026-11-20.patch.txt (commit message)",
++      "when": "20 Nov",
++      "status": "CANDIDATE (local only, not pushed)",
++      "field": "\"Door ADMIT/DOOR_PENDING receipts append-only and keyed to the active registry sha\"",
++      "quote": "Door ADMIT/DOOR_PENDING receipts append-only and keyed to the active registry sha",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": "local only, not pushed",
++      "source_name": "Door patch (commit message)",
++      "display": "Door ADMIT/DOOR_PENDING receipts append-only and keyed to the active registry sha"
++    },
++    {
++      "id": "S17",
++      "file": "claude/mesh-architecture-persisted-in-odoo-and-door-bound-v0.1-2026-11-20.md",
++      "when": "20 Nov",
++      "status": "CANDIDATE",
++      "field": "\"The job ships switched off; switching it on is your release decision\"",
++      "quote": "The job ships switched off; switching it on is your release decision",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Mesh architecture v0.1",
++      "display": "The job ships switched off; switching it on is your release decision"
++    },
++    {
++      "id": "S18",
++      "file": "claude/v20-architecture-menu-map-and-integration-routine-v0.1-2026-11-22.md section 3",
++      "when": "22 Nov",
++      "status": "CANDIDATE",
++      "field": "\"Empty: Door receipts and Measures. The Mesh pulse and Door jobs are switched off.\"",
++      "quote": "Empty: Door receipts and Measures. The Mesh pulse and Door jobs are switched off.",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Menu map v0.1 s3",
++      "display": "Empty: Door receipts and Measures. The Mesh pulse and Door jobs are switched off."
++    },
++    {
++      "id": "S19",
++      "file": "claude/mesh-registry-door-87866af-2026-11-20.patch.txt (model description)",
++      "when": "20 Nov",
++      "status": "CANDIDATE",
++      "field": "\"A measure stored by Mesh address\"",
++      "quote": "A measure stored by Mesh address",
++      "is_quotation": true,
++      "status_word": "CANDIDATE",
++      "status_note": null,
++      "source_name": "Door patch (model)",
++      "display": "A measure stored by Mesh address"
++    }
++  ]
++}
+diff -ruN a/synapsys/scaffold_wire.py b/synapsys/scaffold_wire.py
+--- a/synapsys/scaffold_wire.py	2026-11-27 04:24:01.000000000 +0000
++++ b/synapsys/scaffold_wire.py	2026-11-27 04:37:36.106939970 +0000
+@@ -152,6 +152,27 @@
+     return _project(env, decl, depth, context_id)
+ 
+ 
++def scaffold_menu(env, screen_id, depth='enable'):
++    """Any declared MENU screen (RC06d): built from its document source rows, no registry read, no catalogue read, no write. Not routed."""
++    if depth not in sl.DEPTHS:
++        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
++    try:
++        decls, meta = declarations()
++    except ValueError:
++        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
++    decl = decls.get(screen_id)
++    if not decl or decl['screen_type'] != 'menu':
++        return {'result': 'REFUSED', 'reason': 'UNKNOWN_SCREEN'}
++    actor = actor_from_env(env)
++    if not actor['groups']:
++        return {'result': 'REFUSED', 'reason': 'NO_RECOGNISED_ROLE'}
++    out = sd.project_menu(decl, depth, actor, DEFAULT_ROLE_MAX_DEPTH)
++    if out.get('result') == 'OK':
++        out['declaration_sha'] = meta['file_of'][decl['id']]
++        out['sources_sha'] = meta['sources_of'][decl['id']]
++    return out
++
++
+ def _field(rec, name):
+     v = rec[name]
+     return getattr(v, 'id', v)
+diff -ruN a/synapsys/screen_decl.py b/synapsys/screen_decl.py
+--- a/synapsys/screen_decl.py	2026-11-27 04:24:01.000000000 +0000
++++ b/synapsys/screen_decl.py	2026-11-27 04:39:55.598470827 +0000
+@@ -25,7 +25,7 @@
+ DEPTHS = sl.DEPTHS  # ("enable", "enhance", "enrich")
+ NOT_BOUND = "not bound"
+ STAGE_BY_KIND = {"K-1": "enable", "K-3": "enable", "K-4": "enable", "K-6": "enhance", "K-8": "enhance", "K-12": "enrich"}
+-SCREEN_TYPES = ("noun", "record")
++SCREEN_TYPES = ("noun", "record", "menu")
+ KNOWN_SLOTS = {
+     "enable": ("header", "answer", "trust", "movement"),
+     "enhance": ("made_of", "peers"),
+@@ -37,7 +37,10 @@
+ DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
+ # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
+ # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
+-DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"))
++DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"),
++                 os.path.join(_DATA, "screen_declarations_batch3.json"))
++OPEN_KINDS = ("decision", "proposal", "conflict")
++_SOURCES = {}
+ STEM_MAX = 60
+ 
+ 
+@@ -78,8 +81,85 @@
+     return hashlib.sha256(raw_bytes).hexdigest()
+ 
+ 
+-def validate_screen(d):
++def load_sources(path):
++    """Document source rows (RC06d): {row id: row}, plus the file's sha256. Cached by path. Raises ValueError if a row is malformed."""
++    if path not in _SOURCES:
++        with open(path, "rb") as fh:
++            raw = fh.read()
++        doc = json.loads(raw.decode("utf-8"))
++        rows = {}
++        for r in doc.get("rows", []):
++            for k in ("id", "file", "when", "status", "status_word", "quote", "display", "source_name"):
++                if not r.get(k):
++                    raise ValueError("source row %s: missing %s" % (r.get("id"), k))
++            rows[r["id"]] = r
++        _SOURCES[path] = (rows, declaration_sha(raw))
++    return _SOURCES[path]
++
++
++def validate_menu(d, sources):
++    """A menu screen has no registry noun and no stage; every claim is bound to document source rows (kind doc)."""
++    errs, sid = [], d.get("id", "?")
++
++    def bad(msg):
++        errs.append("%s: %s" % (sid, msg))
++
++    for k in ("id", "title", "answer", "trust_claim", "movement", "claims", "made_of", "peers", "open"):
++        if k not in d:
++            bad("missing %s" % k)
++    if errs:
++        return errs
++    for k in ("noun", "record"):
++        if k in d:
++            bad("a menu screen has no %s and no stage" % k)
++    if sources is None:
++        return errs + ["%s: a menu screen needs a source table" % sid]
++    if d["answer"].get("from") != "doc" or d["answer"].get("row") not in sources:
++        bad("answer must be a source row (from doc, row in the source table)")
++    mv = d["movement"]
++    if not isinstance(mv.get("verbs"), list):
++        bad("movement.verbs must be a list")
++    elif mv["verbs"] or not mv.get("hold_reason"):
++        bad("a menu screen binds no verb: verbs empty and hold_reason required")
++    if d["peers"] is not None:
++        bad("a menu screen declares no peers")
++    ids = []
++    for c in d["claims"]:
++        ids.append(c.get("id"))
++        rs = c.get("rows")
++        if c.get("type") != "doc" or not rs or not all(r in sources for r in rs):
++            bad("claim %s: type doc with rows in the source table" % c.get("id"))
++        elif len({sources[r]["status_word"] for r in rs}) != 1:
++            bad("claim %s: its rows must share one status" % c.get("id"))
++    if len(set(ids)) != len(ids):
++        bad("duplicate claim ids")
++    if d["trust_claim"] not in ids:
++        bad("trust_claim %r is not a claim id" % (d["trust_claim"],))
++    elif d["answer"].get("row") != [c for c in d["claims"] if c["id"] == d["trust_claim"]][0].get("rows", [None])[0]:
++        bad("the trust claim must start with the answer row")
++    mo = d["made_of"]
++    if mo is not None:
++        if not (isinstance(mo.get("rows"), list) and all(r in sources for r in mo["rows"])):
++            bad("made_of.rows must be source rows")
++        for k in ("heading", "note"):
++            if mo.get(k) is not None and not isinstance(mo.get(k), str):
++                bad("made_of.%s must be text or null" % k)
++    oids = []
++    for o in d["open"]:
++        oids.append(o.get("id"))
++        if o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
++            bad("open %s: kind, claim and source rows" % o.get("id"))
++        elif o["kind"] == "conflict" and len(o["rows"]) < 2:
++            bad("open %s: a conflict needs at least two statements" % o.get("id"))
++    if len(set(oids)) != len(oids):
++        bad("duplicate open ids")
++    return errs
++
++
++def validate_screen(d, sources=None):
+     """Returns a list of error strings; empty means valid."""
++    if d.get("screen_type") == "menu":
++        return validate_menu(d, sources)
+     errs = []
+     sid = d.get("id", "?")
+ 
+@@ -155,10 +235,12 @@
+ 
+ def load_declarations(path=None):
+     """Returns ({id: screen}, meta). path is one file, a list of files, or None for DEFAULT_PATHS.
+-    meta: sha256 = sha of the FIRST file (as in RC06a), files = {name: sha}, file_of = {screen id: sha of its declaring file}.
++    meta: sha256 = sha of the FIRST file (as in RC06a), files = {name: sha}, file_of = {screen id: sha of its declaring file},
++    sources_of = {screen id: sha of its source table} for menu screens. A file may name a source table ("sources", beside it); menu screens
++    are validated against it, and any text a menu screen shows beyond the source rows must be listed in the file's contract_text.
+     Raises ValueError listing every error; never returns a half-valid set. A screen id may not be declared twice."""
+     paths = [path] if isinstance(path, str) else list(path or DEFAULT_PATHS)
+-    errs, out, file_of, files = [], {}, {}, {}
++    errs, out, file_of, files, sources_of = [], {}, {}, {}, {}
+     first_sha = None
+     for p in paths:
+         with open(p, "rb") as fh:
+@@ -171,15 +253,26 @@
+             errs.append("%s: unknown schema %r" % (os.path.basename(p), doc.get("schema")))
+         if doc.get("slots") != {k: list(v) for k, v in KNOWN_SLOTS.items()}:
+             errs.append("%s: slots per depth must be exactly %s" % (os.path.basename(p), json.dumps(KNOWN_SLOTS)))
++        sources, src_sha, src_path = None, None, None
++        if doc.get("sources"):
++            src_path = os.path.join(os.path.dirname(os.path.abspath(p)), doc["sources"])
++            sources, src_sha = load_sources(src_path)
++        allowed = set(doc.get("contract_text") or [])
+         for s in doc.get("screens", []):
+-            errs.extend(validate_screen(s))
++            errs.extend(validate_screen(s, sources))
++            if s.get("screen_type") == "menu":
++                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])]:
++                    if t and t not in allowed:
++                        errs.append("%s: text %r is not listed in contract_text" % (s.get("id"), t))
++                sources_of[s.get("id")] = src_sha
++                s["_sources"] = src_path  # where this screen's source table is (private key; the declaration file itself is unchanged)
+             if s.get("id") in out:
+                 errs.append("%s: declared twice" % s.get("id"))
+             out[s.get("id")] = s
+             file_of[s.get("id")] = sha
+     if errs:
+         raise ValueError("; ".join(errs))
+-    return out, {"sha256": first_sha, "files": files, "file_of": file_of, "slots": {k: list(v) for k, v in KNOWN_SLOTS.items()}}
++    return out, {"sha256": first_sha, "files": files, "file_of": file_of, "sources_of": sources_of, "slots": {k: list(v) for k, v in KNOWN_SLOTS.items()}}
+ 
+ 
+ # --------------------------------------------------------------------------------------------------- projection
+@@ -243,6 +336,8 @@
+ 
+     Only content the actor is entitled to, at the effective depth, is put in the model (the same model is the JSON route
+     output, so there is no hidden page data). Evidence passes the existing fail-closed filters in scaffold_lens."""
++    if decl.get("screen_type") == "menu":  # no registry element: the screen reads its own source table
++        return project_menu(decl, requested_depth, actor, role_max_depth)
+     if requested_depth not in DEPTHS:
+         return {"result": "REFUSED", "reason": "UNKNOWN_DEPTH"}
+     els = sl.index_registry(reg)
+@@ -354,6 +449,86 @@
+     return out
+ 
+ 
++DEFAULT_SOURCES_PATH = os.path.join(_DATA, "screen_sources_batch3.json")
++
++
++def _menu_sources(decl):
++    """The source table a menu screen reads: the one its declaration file named (set by load_declarations), else the default."""
++    return load_sources(decl.get("_sources") or DEFAULT_SOURCES_PATH)[0]
++
++
++def _chip_of(row):
++    return {"name": row["source_name"], "date": row["when"], "row": row["id"]}
++
++
++def _open_text(entry, sources):
++    """Text of one open question, made only of source-row text: a conflict is its first statement versus the others (each with its date);
++    a decision or proposal is the row's own text. The optional tail is contract text (listed in the declaration file's contract_text)."""
++    rs = [sources[r] for r in entry["rows"]]
++    q = lambda r: "\u201c%s\u201d (%s)" % (r["display"], r["when"])
++    t = (q(rs[0]) + " versus " + " and ".join(q(r) for r in rs[1:])) if entry["kind"] == "conflict" else rs[0]["display"]
++    return t + (" " + entry["tail"] if entry.get("tail") else "")
++
++
++def project_menu(decl, requested_depth, actor, role_max_depth=None, sources=None):
++    """Menu screen (RC06d): same depth-limited model shape as project(), built from document source rows. No registry read, no stage."""
++    if requested_depth not in DEPTHS:
++        return {"result": "REFUSED", "reason": "UNKNOWN_DEPTH"}
++    role_eff = sl._effective_depth(actor or {}, requested_depth, role_max_depth)
++    if role_eff is None:
++        return {"result": "REFUSED", "reason": "NO_RECOGNISED_ROLE"}
++    src = sources if sources is not None else _menu_sources(decl)
++    eff, clamped, clamp_reason = resolve_depth("menu", requested_depth, None, role_eff)
++    claims = {c["id"]: c for c in decl["claims"]}
++    tc = claims[decl["trust_claim"]]
++    status = src[tc["rows"][0]]["status_word"]
++    answer = src[decl["answer"]["row"]]["display"]
++    mv = decl["movement"]
++    out = {
++        "result": "OK", "screen": decl["id"], "screen_type": "menu", "noun": None, "title": decl["title"], "label": decl["title"],
++        "status": status, "definition": answer, "registry_version": None,
++        "stage": None, "stage_reason": None, "stage_computed_not_stored": True,
++        "depth_requested": requested_depth, "depth_effective": eff, "depth_clamped": clamped, "clamp_reason": clamp_reason,
++        "context_id": "", "writes": 0, "slots": _slots_for(eff),
++        "frame": {"header": {"noun": decl["title"], "status": status, "record_name": None, "neighbour_kind": None}, "answer": answer,
++                  "trust": {"status": status, "source_count": len(tc["rows"])},
++                  "movement": {"state": "HOLD", "text": "verbs not yet bound", "reason": mv["hold_reason"], "verbs": []}},
++        "notes": [],
++    }
++    lead = answer_lead(status, answer)
++    if lead:
++        out["frame"]["answer_lead"] = lead
++    if _ix(eff) >= 1:
++        mo = decl["made_of"]
++        out["enhance"] = {"made_of": ({"heading": mo.get("heading"), "relationship": None, "rows": [], "note": mo.get("note"), "items": [
++            {"id": r, "text": src[r]["display"], "status": src[r]["status_word"], "note": src[r]["status_note"], "chip": _chip_of(src[r])} for r in mo["rows"]]}
++            if mo else None), "peers": None}
++    if _ix(eff) >= 2:
++        rows = []
++        for c in decl["claims"]:
++            first = src[c["rows"][0]]
++            row = {"id": c["id"], "label": first["display"], "status": first["status_word"],
++                   "qualifier": {"first": first["status_note"], "full": None} if first["status_note"] else None,
++                   "chips": [_chip_of(src[r]) for r in c["rows"]], "source_count": len(c["rows"]), "evidence": [], "rejected": [],
++                   "citation_label": "Source", "full_citation": " | ".join("%s: %s, %s, %s: %s" % (r, src[r]["file"], src[r]["when"], src[r]["status"], src[r]["display"] if src[r].get("builder_instruction") else src[r]["quote"]) for r in c["rows"]),
++                   "open": []}
++            for o in decl["open"]:
++                if o["claim"] == c["id"]:
++                    text = _open_text(o, src)
++                    st, trunc = stem_of(text)
++                    row["open"].append({"text": text, "stem": st, "truncated": trunc})
++            rows.append(row)
++        used = []
++        for c in decl["claims"]:
++            for r in c["rows"]:
++                if r not in used:
++                    used.append(r)
++        out["enrich"] = {"rows": rows, "open_total": sum(len(r["open"]) for r in rows),
++                         "technical": {"registry_version": None, "relationship": None, "cluster_id": None, "evidence_sources": [], "screen_id": decl["id"], "kind": None,
++                                       "doc_sources": [{"row": r, "file": src[r]["file"], "when": src[r]["when"]} for r in used]}}
++    return out
++
++
+ def _fallback_role(r):
+     t = str(r.get("role_label") or r.get("role_id") or "").replace("_", " ").replace("+", "").strip()
+     return (t[:1].upper() + t[1:]) if t else "Role"
+diff -ruN a/synapsys/screen_render.py b/synapsys/screen_render.py
+--- a/synapsys/screen_render.py	2026-11-27 04:24:01.000000000 +0000
++++ b/synapsys/screen_render.py	2026-11-27 04:37:36.106505592 +0000
+@@ -58,6 +58,8 @@
+     title = h['noun'] if not h.get('record_name') else '%s: %s' % (h['noun'], h['record_name'])
+     if m['screen_type'] == 'noun':
+         stage = 'Stage: none (a noun screen has no stage)'
++    elif m['screen_type'] == 'menu':
++        stage = 'Stage: none (a menu screen has no stage)'
+     elif m['stage'] == 'not bound':
+         stage = 'Stage: not bound'
+     else:
+@@ -91,8 +93,21 @@
+ 
+ 
+ # ---------------------------------------------------------------------------------------------- enhance slots
++def _menu_items(mo):
++    rows = ''
++    for it in mo['items']:
++        note = (' ' + _e(it['note'])) if it.get('note') else ''
++        rows += '<div class="kv"><span>%s%s</span><span>%s %s</span></div>' % (_pill(it['status']), note, _e(it['text']), _pill(_chip_text(it['chip'])))
++    body = '<div class="cd">%s</div>' % rows if rows else ''
++    if mo.get('note'):
++        body += '<p class="sb">%s</p>' % _e(mo['note'])
++    return body
++
++
+ def _slot_made_of(m):
+     mo = m['enhance']['made_of']
++    if mo and mo.get('items') is not None:
++        return '<div data-slot="made_of"><h2>%s</h2>%s</div>' % (_e(mo.get('heading') or 'Made of'), _menu_items(mo))
+     if not mo:
+         return '<div data-slot="made_of"><h2>Made of</h2><p class="sb">%s</p></div>' % _e(NO_ROLES)
+     if not mo['rows']:
+@@ -137,7 +152,7 @@
+     if r.get('evidence') or r.get('full_citation') or r['chips']:
+         items = ''.join('<li>%s</li>' % _e(_chip_text(c)) for c in r['chips'])
+         ev = ''.join('<li>Evidence: %s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in r.get('evidence') or [])
+-        fc = ('<p class="sb">Definition source: %s</p>' % _e(str(r['full_citation']))) if r.get('full_citation') else ''
++        fc = ('<p class="sb">%s: %s</p>' % (_e(r.get('citation_label') or 'Definition source'), _e(str(r['full_citation'])))) if r.get('full_citation') else ''
+         full = '<details><summary>full citation</summary><div><ul>%s%s</ul>%s</div></details>' % (items, ev, fc)
+     return '<div>%s</div>%s' % (line, full)
+ 
+@@ -172,8 +187,11 @@
+ 
+ 
+ def _slot_trust_table(m):
+-    rows = ''.join('<tr data-claim="%s"><td><div>%s</div></td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
+-        _e(r['id']), _e(r['label']), _status_cell(r), _chips_cell(r), _open_cell(r)) for r in m['enrich']['rows'])
++    def claim_cell(r):  # one line; a long claim (a document quotation) keeps its full text behind a disclosure
++        more = '<details><summary>full text</summary><div>%s</div></details>' % _e(r['label']) if len(r['label']) > 60 else ''
++        return '<div>%s</div>%s' % (_e(r['label']), more)
++    rows = ''.join('<tr data-claim="%s"><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
++        _e(r['id']), claim_cell(r), _status_cell(r), _chips_cell(r), _open_cell(r)) for r in m['enrich']['rows'])
+     return ('<div data-slot="trust_table"><h2>Why to trust it</h2><div class="cd"><table class="tt"><thead><tr><th>Claim</th><th>Status</th>'
+             '<th>Source</th><th>Open question</th></tr></thead><tbody>%s</tbody></table></div></div>' % rows)
+ 
+@@ -190,7 +208,13 @@
+ 
+ def _slot_technical(m):
+     t = m['enrich']['technical']
+-    td = _kv('Registry', _e('%s, %s, fingerprint %s' % (m.get('registry_version', ''), m.get('registry_state', ''), str(m.get('registry_sha', ''))[:12])))
++    td = ''
++    if m.get('registry_version'):
++        td += _kv('Registry', _e('%s, %s, fingerprint %s' % (m.get('registry_version', ''), m.get('registry_state', ''), str(m.get('registry_sha', ''))[:12])))
++    for d in t.get('doc_sources') or []:
++        td += _kv('Source row', _e('%s, %s, %s' % (d['row'], d['file'], d['when'])))
++    if m.get('sources_sha'):
++        td += _kv('Source table', _e('fingerprint %s' % str(m['sources_sha'])[:12]))
+     if t.get('relationship') and t.get('cluster_id'):
+         td += _kv('Roles come from', _e('relationship %s, cluster %s' % (t['relationship'], t['cluster_id'])))
+     for e in t.get('evidence_sources') or []:
+@@ -227,6 +251,6 @@
+     note = DEPTH_NOTE.get(eff, '')
+     if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
+         note += ' (Your role limits the depth to %s.)' % LABEL[eff]
+-    h += '<p class="nt">%s Registry %s, %s. Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (
+-        _e(note), _e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))
++    reg = (' Registry %s, %s.' % (_e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))) if m.get('registry_version') else ''
++    h += '<p class="nt">%s%s Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (_e(note), reg)
+     return h

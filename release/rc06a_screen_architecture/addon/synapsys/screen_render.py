@@ -58,6 +58,8 @@ def _slot_header(m):
     title = h['noun'] if not h.get('record_name') else '%s: %s' % (h['noun'], h['record_name'])
     if m['screen_type'] == 'noun':
         stage = 'Stage: none (a noun screen has no stage)'
+    elif m['screen_type'] == 'menu':
+        stage = 'Stage: none (a menu screen has no stage)'
     elif m['stage'] == 'not bound':
         stage = 'Stage: not bound'
     else:
@@ -91,8 +93,21 @@ def _slot_movement(m):
 
 
 # ---------------------------------------------------------------------------------------------- enhance slots
+def _menu_items(mo):
+    rows = ''
+    for it in mo['items']:
+        note = (' ' + _e(it['note'])) if it.get('note') else ''
+        rows += '<div class="kv"><span>%s%s</span><span>%s %s</span></div>' % (_pill(it['status']), note, _e(it['text']), _pill(_chip_text(it['chip'])))
+    body = '<div class="cd">%s</div>' % rows if rows else ''
+    if mo.get('note'):
+        body += '<p class="sb">%s</p>' % _e(mo['note'])
+    return body
+
+
 def _slot_made_of(m):
     mo = m['enhance']['made_of']
+    if mo and mo.get('items') is not None:
+        return '<div data-slot="made_of"><h2>%s</h2>%s</div>' % (_e(mo.get('heading') or 'Made of'), _menu_items(mo))
     if not mo:
         return '<div data-slot="made_of"><h2>Made of</h2><p class="sb">%s</p></div>' % _e(NO_ROLES)
     if not mo['rows']:
@@ -137,7 +152,7 @@ def _chips_cell(r):
     if r.get('evidence') or r.get('full_citation') or r['chips']:
         items = ''.join('<li>%s</li>' % _e(_chip_text(c)) for c in r['chips'])
         ev = ''.join('<li>Evidence: %s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in r.get('evidence') or [])
-        fc = ('<p class="sb">Definition source: %s</p>' % _e(str(r['full_citation']))) if r.get('full_citation') else ''
+        fc = ('<p class="sb">%s: %s</p>' % (_e(r.get('citation_label') or 'Definition source'), _e(str(r['full_citation'])))) if r.get('full_citation') else ''
         full = '<details><summary>full citation</summary><div><ul>%s%s</ul>%s</div></details>' % (items, ev, fc)
     return '<div>%s</div>%s' % (line, full)
 
@@ -172,8 +187,11 @@ def _open_cell(r):
 
 
 def _slot_trust_table(m):
-    rows = ''.join('<tr data-claim="%s"><td><div>%s</div></td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
-        _e(r['id']), _e(r['label']), _status_cell(r), _chips_cell(r), _open_cell(r)) for r in m['enrich']['rows'])
+    def claim_cell(r):  # one line; a long claim (a document quotation) keeps its full text behind a disclosure
+        more = '<details><summary>full text</summary><div>%s</div></details>' % _e(r['label']) if len(r['label']) > 60 else ''
+        return '<div>%s</div>%s' % (_e(r['label']), more)
+    rows = ''.join('<tr data-claim="%s"><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
+        _e(r['id']), claim_cell(r), _status_cell(r), _chips_cell(r), _open_cell(r)) for r in m['enrich']['rows'])
     return ('<div data-slot="trust_table"><h2>Why to trust it</h2><div class="cd"><table class="tt"><thead><tr><th>Claim</th><th>Status</th>'
             '<th>Source</th><th>Open question</th></tr></thead><tbody>%s</tbody></table></div></div>' % rows)
 
@@ -190,7 +208,13 @@ def _slot_open_questions(m):
 
 def _slot_technical(m):
     t = m['enrich']['technical']
-    td = _kv('Registry', _e('%s, %s, fingerprint %s' % (m.get('registry_version', ''), m.get('registry_state', ''), str(m.get('registry_sha', ''))[:12])))
+    td = ''
+    if m.get('registry_version'):
+        td += _kv('Registry', _e('%s, %s, fingerprint %s' % (m.get('registry_version', ''), m.get('registry_state', ''), str(m.get('registry_sha', ''))[:12])))
+    for d in t.get('doc_sources') or []:
+        td += _kv('Source row', _e('%s, %s, %s' % (d['row'], d['file'], d['when'])))
+    if m.get('sources_sha'):
+        td += _kv('Source table', _e('fingerprint %s' % str(m['sources_sha'])[:12]))
     if t.get('relationship') and t.get('cluster_id'):
         td += _kv('Roles come from', _e('relationship %s, cluster %s' % (t['relationship'], t['cluster_id'])))
     for e in t.get('evidence_sources') or []:
@@ -227,6 +251,6 @@ def render_screen(m):
     note = DEPTH_NOTE.get(eff, '')
     if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
         note += ' (Your role limits the depth to %s.)' % LABEL[eff]
-    h += '<p class="nt">%s Registry %s, %s. Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (
-        _e(note), _e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))
+    reg = (' Registry %s, %s.' % (_e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))) if m.get('registry_version') else ''
+    h += '<p class="nt">%s%s Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (_e(note), reg)
     return h
