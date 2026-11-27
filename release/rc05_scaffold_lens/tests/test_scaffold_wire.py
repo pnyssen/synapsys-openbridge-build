@@ -59,7 +59,7 @@ class T(unittest.TestCase):
     def test_W8_read_only_calls_only(self):
         e = Env([STEW]); sw.scaffold_context(e, "enhance"); self.assertEqual([x[0] for x in e.log], ["search"])
     def test_W9_source_has_no_sudo_write_or_raw_sql(self):
-        for f in ("scaffold_wire.py", "scaffold_controller.py", "scaffold_lens.py"):
+        for f in ("scaffold_wire.py", "scaffold_controller.py", "scaffold_lens.py", "scaffold_view.py"):
             code = re.sub(r'""".*?"""', "", open(os.path.join(SRC, f), encoding="utf-8").read(), flags=re.S)
             code = "\n".join(l.split("#")[0] for l in code.splitlines())
             for bad in (r"\bsudo\b", r"with_user", r"\bsu\s*=", r"\.write\(", r"\.create\(", r"\.unlink\(", r"cr\.execute", r"\bexecute\("):
