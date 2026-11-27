@@ -1,0 +1,2 @@
+# Verified false positive: SHA-256 of security/ir.access.csv (public content hash, not a credential) in the offline row-scope parity test. Single exact fingerprint; no rule or path is disabled.
+f505bc4ed24a33f84d70547175ba2277d05a0d6a:release/rc06a_screen_architecture/tests/test_rowscope_parity.py:generic-api-key:13
