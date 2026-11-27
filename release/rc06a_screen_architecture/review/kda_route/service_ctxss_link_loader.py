@@ -260,7 +260,10 @@ def _classify(env, rows):
         return "NOT_COMMITTED"
     n_new = n_old = 0
     for e in rows:
-        cur = _ref(env["synapsys.service"].browse(e["id"]), "context_id")
+        rec = env["synapsys.service"].browse(e["id"])
+        if not rec.exists():
+            return "MIXED"                                           # a journalled row that no longer exists is never COMMITTED or NOT_COMMITTED
+        cur = _ref(rec, "context_id")
         if cur == e["new"]:
             n_new += 1
         elif cur == (e["prior"] or False):
@@ -407,7 +410,12 @@ def reconcile(env, verifier, journal, lock):
             if held and st != "FINALIZED":
                 verifier.release_reservation(rid, run_id)
             return {"state": st, "action": "released_reservation" if held and st != "FINALIZED" else "none"}
-        cls = _classify(env, [e for e in recs if e["t"] == "ROW"]) if st not in ("COMMITTED", "COMMITTED_UNCONSUMED") else "COMMITTED"
+        if st == "ESCALATED_DIVERGED":                # sticky: only D007 reconciliation may move this; never finalise from here
+            raise Hold("COMMITTED_JOURNAL_DB_DIVERGED_D007_RECONCILIATION_REQUIRED")
+        cls = _classify(env, [e for e in recs if e["t"] == "ROW"])     # always read the DB; a journal COMMITTED record is a claim, not proof
+        if cls != "COMMITTED" and st in ("COMMITTED", "COMMITTED_UNCONSUMED"):
+            journal.append("ESCALATED_DIVERGED", observed=cls)           # receipt stays RESERVED by this run; no release, no consume, no row write
+            raise Hold("COMMITTED_JOURNAL_DB_DIVERGED_D007_RECONCILIATION_REQUIRED")
         if cls == "NOT_COMMITTED":
             journal.append("ABORTED", reason="RECONCILED_NOT_COMMITTED"); verifier.release_reservation(rid, run_id)
             return {"state": "ABORTED", "action": "released_reservation"}

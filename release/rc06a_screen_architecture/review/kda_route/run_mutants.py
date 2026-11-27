@@ -3,7 +3,7 @@ Run:  python3 -I run_mutants.py   (from this directory). Exit 1 if any mutant su
 import os, shutil, subprocess, sys, tempfile
 SRC = os.path.dirname(os.path.abspath(__file__))
 F = {"router": "kda_router.py", "loader": "service_ctxss_link_loader.py", "crosswalk": "gvgov004_crosswalk.py"}
-SUITES = ("test_kda_route.py", "test_p0_bindings.py", "test_p0_adversarial.py", "test_p0_loader_recovery.py", "test_p0_loader_regressions.py")
+SUITES = ("test_kda_route.py", "test_p0_bindings.py", "test_p0_adversarial.py", "test_p0_loader_recovery.py", "test_p0_loader_regressions.py", "test_p0_reconcile_divergence.py")
 M = [
  # --- router (the original 27, patterns kept where the text is unchanged) ---
  ("router", 'if not trusted(verifier):\n        return "NO_TRUSTED_VERIFIER", None', 'if False:\n        return "NO_TRUSTED_VERIFIER", None'),
@@ -56,6 +56,10 @@ M = [
  ("loader", 'if cr is None or not callable(getattr(cr, "commit", None)) or not callable(getattr(cr, "rollback", None)):', 'if False:'),
  ("crosswalk", 'out["method"] = {"state": "UNOBSERVED_HOLD"', 'out["method"] = {"state": "RESOLVED"'),
  ("crosswalk", 'len(str(context_ruling.get("ruling_sha256", ""))) == 64', 'True'),
+ ("loader", 'if cls != "COMMITTED" and st in ("COMMITTED", "COMMITTED_UNCONSUMED"):', 'if False:'),
+ ("loader", 'if st == "ESCALATED_DIVERGED":', 'if False:'),
+ ("loader", 'journal.append("ESCALATED_DIVERGED", observed=cls)', 'journal.append("ABORTED", observed=cls); verifier.release_reservation(rid, run_id)'),
+ ("loader", '        if not rec.exists():\n            return "MIXED"', '        if False:\n            return "MIXED"'),
 ]
 # Equivalent mutants, kept as documented defence-in-depth: a second guard on the same path already refuses (these are EXPECTED to survive).
 EQUIV = [("loader", 'if not K.trusted(v):\n        raise Hold("NO_TRUSTED_VERIFIER_AT_WRITE_BOUNDARY")', 'pass', "K.decide() inside _revalidate refuses an unpinned verifier"),

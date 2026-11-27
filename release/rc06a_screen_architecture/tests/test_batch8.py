@@ -159,6 +159,7 @@ class I5_NoNewReadRouteSchemaOrMenu(unittest.TestCase):
                     continue
                 p = os.path.join(root, f)
                 now[os.path.relpath(p, F.ADDON)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+        import slice_overlay; now = slice_overlay.strip(now, F.ADDON)   # declared slice overlay only; see test_arch_slice
         self.assertEqual((set(now) - set(base), set(base) - set(now)), (set(), set()))
         changed = {k for k in base if now[k] != base[k]}
         self.assertEqual(changed, {"screen_render.py", "static/src/enable_panel.js", "static/src/enable_panel.xml"})

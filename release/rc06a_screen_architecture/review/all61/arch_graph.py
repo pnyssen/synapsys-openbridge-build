@@ -121,31 +121,152 @@ def _targets(rec, field):
     return list(v) if isinstance(v, (list, tuple)) else [v]
 
 
-def project(graph, actor, model, rid, perspective):
-    """Form / Flow / Evolve: the SAME element, different typed edges walked from it.
-    A caption-only switch would return identical nodes and edges and must fail the tests."""
-    if perspective not in PERSPECTIVES:
-        raise ValueError(perspective)
-    if not _visible(actor, model, rid) or _rec(graph, model, rid) is None:
-        return {"state": "DENIED_REDACTED", "perspective": perspective, "nodes": [], "edges": []}
-    nodes, edges = {(model, rid)}, []
-    frontier = [(model, rid)]
-    seen = set()
+# Context membership: the typed Form edges whose TARGET is a Context. A Context's members are the records that
+# point at it through these real fields. Never inferred from names, codes or captions.
+MEMBER_EDGES = [e for e in EDGES if e[3] == "synapsys.context" and e[4] == "Form"]
+
+
+def _restricted(actor, model):
+    return model in actor.get("restricted_models", ())
+
+
+def _readable(graph, actor, model, rid):
+    """A record is exposed only if the actor can see it, its model is not restricted, and it exists in the source."""
+    return (not _restricted(actor, model)) and _visible(actor, model, rid) and _rec(graph, model, rid) is not None
+
+
+def _incoming(graph, actor, model, rid, perspective):
+    """One hop of governed INCOMING typed edges: records elsewhere whose real field points at (model, rid)."""
+    out = []
+    for (fm, field, typ, tm, p, ev) in edges_for(perspective):
+        if tm != model or _restricted(actor, fm):
+            continue
+        for sid, rec in graph.get("records", {}).get(fm, {}).items():
+            if rid in _targets(rec, field) and _readable(graph, actor, fm, sid):
+                out.append({"from": [fm, sid], "field": field, "type": typ, "to": [model, rid], "direction": "in"})
+    return out
+
+
+def _members(graph, actor, ctx_id):
+    return [e for e in (_incoming(graph, actor, "synapsys.context", ctx_id, "Form"))]
+
+
+def _walk_out(graph, actor, start, perspective, nodes, edges, seen):
+    frontier = [start]
     while frontier:
         cm, cid = frontier.pop()
         if (cm, cid) in seen:
             continue
         seen.add((cm, cid))
+        rec = _rec(graph, cm, cid)
+        if rec is None:
+            continue
         for (fm, field, typ, tm, p, ev) in edges_for(perspective):
-            rec = _rec(graph, cm, cid)
-            if fm == cm and rec is not None:
-                for t in _targets(rec, field):
-                    if _visible(actor, tm, t) and _rec(graph, tm, t) is not None:
-                        edges.append({"from": [cm, cid], "field": field, "type": typ, "to": [tm, t]})
-                        nodes.add((tm, t))
-                        frontier.append((tm, t))
+            if fm != cm:
+                continue
+            for t in _targets(rec, field):
+                if _readable(graph, actor, tm, t):
+                    edges.append({"from": [cm, cid], "field": field, "type": typ, "to": [tm, t], "direction": "out"})
+                    nodes.add((tm, t))
+                    frontier.append((tm, t))
+
+
+def coverage(graph, actor, model, rid, perspective, projected_edges):
+    """Catalogue-level honesty, never record-level: which typed edge kinds touch this model in this perspective, and
+    whether any was projected. 'NONE_VISIBLE_TO_ACTOR' deliberately does not say whether absent or restricted."""
+    keyed = {(e["from"][0], e["field"], e["to"][0], e["direction"]) for e in projected_edges}
+    rows = []
+    for (fm, field, typ, tm, p, ev) in edges_for(perspective):
+        for d, here, other in (("out", fm, tm), ("in", tm, fm)):
+            if here != model:
+                continue
+            if _restricted(actor, other):
+                st = "SOURCE_MODEL_RESTRICTED"
+            elif (fm, field, tm, d) in keyed:
+                st = "PROJECTED"
+            else:
+                st = "NONE_VISIBLE_TO_ACTOR"
+            rows.append({"edge": "%s.%s" % (fm, field), "direction": d, "state": st})
+    return sorted(rows, key=json.dumps)
+
+
+def project(graph, actor, model, rid, perspective):
+    """Form / Flow / Evolve: the SAME element, different typed edges walked from it, outgoing AND governed incoming.
+    A Context also exposes its members (records pointing at it) and the perspective's edges among them.
+    A caption-only switch would return identical nodes and edges and must fail the tests."""
+    if perspective not in PERSPECTIVES:
+        raise ValueError(perspective)
+    if not _readable(graph, actor, model, rid):
+        return {"state": "DENIED_REDACTED", "perspective": perspective, "nodes": [], "edges": [], "coverage": []}
+    nodes, edges, seen = {(model, rid)}, [], set()
+    _walk_out(graph, actor, (model, rid), perspective, nodes, edges, seen)
+    for e in _incoming(graph, actor, model, rid, perspective):          # one governed hop in; does not recurse
+        edges.append(e); nodes.add(tuple(e["from"]))
+    if model == "synapsys.context":
+        for m in _members(graph, actor, rid):                           # Context -> members, then the perspective among them
+            mn = tuple(m["from"])
+            before = len(edges)
+            _walk_out(graph, actor, mn, perspective, nodes, edges, seen)
+            for e in _incoming(graph, actor, mn[0], mn[1], perspective):
+                edges.append(e); nodes.add(tuple(e["from"]))
+            if len(edges) > before:
+                nodes.add(mn)
+    uniq = {}
+    for e in edges:                                                      # one logical edge = one entry, whichever way it was reached
+        uniq.setdefault((tuple(e["from"]), e["field"], tuple(e["to"])), e)
+    edges = list(uniq.values())
+    for e in edges:                                                      # direction is relative to the element being projected
+        e["direction"] = "out" if e["from"] == [model, rid] else "in" if e["to"] == [model, rid] else "via"
+    edges = sorted(edges, key=json.dumps)
+    for e in edges:                                                      # flag, never drop, a cross-Context association
+        if model == "synapsys.context":
+            for end in (e["from"], e["to"]):
+                c = _rec(graph, end[0], end[1]).get("context_id") if end[0] != "synapsys.context" else end[1]
+                if c is not None and c != rid:
+                    e["cross_context"] = True
     return {"state": "PROJECTED", "perspective": perspective,
-            "nodes": sorted(map(list, nodes)), "edges": sorted(edges, key=json.dumps)}
+            "nodes": sorted(map(list, nodes)), "edges": edges,
+            "coverage": coverage(graph, actor, model, rid, perspective, edges)}
+
+
+def projection_audit(graph, actor, model, rid, projector=None):
+    """Independent check of a projector against the source. Brute force over the raw records, not the projector's own walk.
+    Findings: CAPTION_ONLY, EMPTY_WHERE_SOURCE_BACKED, MISSING_SOURCE_BACKED_EDGE, INVENTED_EDGE, LEAKED_NODE.
+    Zero visible is never reported as a defect when no source-backed readable edge exists."""
+    projector = projector or project
+    findings, out = [], {}
+    for p in PERSPECTIVES:
+        r = projector(graph, actor, model, rid, p)
+        out[p] = r
+        truth = set()
+        anchors = {(model, rid)}
+        if model == "synapsys.context":            # a Context's members are real records that point at it
+            for (fm, field, typ, tm, pp, ev) in MEMBER_EDGES:
+                for sid, rec in graph.get("records", {}).get(fm, {}).items():
+                    if rid in _targets(rec, field) and _readable(graph, actor, fm, sid):
+                        anchors.add((fm, sid))
+        for (fm, field, typ, tm, pp, ev) in edges_for(p):
+            for sid, rec in graph.get("records", {}).get(fm, {}).items():
+                for t in _targets(rec, field):
+                    if (fm, sid) in anchors or (tm, t) in anchors:
+                        if _readable(graph, actor, fm, sid) and _readable(graph, actor, tm, t) and not _restricted(actor, fm) and not _restricted(actor, tm):
+                            truth.add((fm, sid, field, tm, t))
+        got = {(e["from"][0], e["from"][1], e["field"], e["to"][0], e["to"][1]) for e in r.get("edges", [])}
+        for miss in sorted(truth - got):
+            findings.append({"finding": "EMPTY_WHERE_SOURCE_BACKED" if not got else "MISSING_SOURCE_BACKED_EDGE", "perspective": p, "edge": list(miss)})
+        for e in sorted(got):
+            rec = _rec(graph, e[0], e[1])
+            if rec is None or e[4] not in _targets(rec, e[2]):
+                findings.append({"finding": "INVENTED_EDGE", "perspective": p, "edge": list(e)})
+        for n in r.get("nodes", []):
+            if not _readable(graph, actor, n[0], n[1]):
+                findings.append({"finding": "LEAKED_NODE", "perspective": p, "node": n})
+    sig = {p: json.dumps([out[p].get("nodes"), out[p].get("edges", [])], sort_keys=True) for p in PERSPECTIVES}
+    for i, p in enumerate(PERSPECTIVES):
+        for q in PERSPECTIVES[i + 1:]:
+            if sig[p] == sig[q] and out[p].get("edges"):
+                findings.append({"finding": "CAPTION_ONLY", "perspective": "%s=%s" % (p, q)})
+    return {"ok": not findings, "findings": findings}
 
 
 def walk_chain(graph, actor, context_id):

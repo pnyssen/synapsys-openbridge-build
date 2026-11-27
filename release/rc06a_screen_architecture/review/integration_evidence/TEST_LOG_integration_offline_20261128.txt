@@ -1,0 +1,76 @@
+# Offline evidence, corrected commit (see return). Fakes/fixtures only: logic proof, NOT Odoo/Postgres/V20 behaviour.
+## KDA loader suites + mutants
+== test_kda_route
+Ran 29 tests in 0.048s
+
+OK
+== test_p0_bindings
+Ran 53 tests in 0.040s
+
+OK
+== test_p0_adversarial
+Ran 10 tests in 0.001s
+
+OK
+== test_p0_loader_recovery
+Ran 48 tests in 0.242s
+
+OK
+== test_p0_loader_regressions
+Ran 7 tests in 0.032s
+
+OK
+== test_p0_reconcile_divergence
+Ran 10 tests in 0.074s
+
+OK
+== mutants
+M52 KILLED           if not rec.exists():             return "MIXED"
+EQUIV survives as expected (K.decide() inside _revalidate refuses an unpinned verifier): if not K.trusted(v):         raise Hold(
+EQUIV survives as expected (journal.entries() already rejects any record from another run): if j["run_id"] != journal.run_id:       
+mutants=53 survivors=[] not_applicable=[]
+## KDA divergence regressions on e4d9431d (original failure)
+FAIL: test_all_rows_reverted_journal_says_committed (__main__.ReconcileDivergence.test_all_rows_reverted_journal_says_committed)
+FAIL: test_journal_committed_record_present_crash_before_finalise (__main__.ReconcileDivergence.test_journal_committed_record_present_crash_before_finalise)
+FAIL: test_one_committed_row_changed_to_foreign_context (__main__.ReconcileDivergence.test_one_committed_row_changed_to_foreign_context)
+FAIL: test_one_committed_row_reverted_to_prior (__main__.ReconcileDivergence.test_one_committed_row_reverted_to_prior)
+FAIL: test_one_row_deleted (__main__.ReconcileDivergence.test_one_row_deleted)
+FAIL: test_restoring_rows_after_escalation_does_not_auto_finalise (__main__.ReconcileDivergence.test_restoring_rows_after_escalation_does_not_auto_finalise)
+FAIL: test_second_reconcile_stays_refused_and_still_does_not_consume (__main__.ReconcileDivergence.test_second_reconcile_stays_refused_and_still_does_not_consume)
+FAIL: test_single_journalled_row_deleted_is_not_read_as_not_committed (__main__.ReconcileDivergence.test_single_journalled_row_deleted_is_not_read_as_not_committed)
+Ran 10 tests in 0.082s
+FAILED (failures=8)
+## ALL61 + FFE suites
+-- test_all61
+Ran 47 tests in 0.005s
+
+OK
+-- test_ffe_projection
+Ran 24 tests in 0.009s
+
+OK
+-- test_ffe_regressions
+Ran 5 tests in 0.001s
+
+OK
+## FFE regressions on pre-change arch_graph (original failure)
+FAIL: test_F1_context_form_exposes_incoming_members (__main__.OriginalFailures.test_F1_context_form_exposes_incoming_members)
+FAIL: test_F2_context_flow_not_empty_when_source_has_flow (__main__.OriginalFailures.test_F2_context_flow_not_empty_when_source_has_flow)
+FAIL: test_F3_context_evolve_not_empty_when_source_has_evolve (__main__.OriginalFailures.test_F3_context_evolve_not_empty_when_source_has_evolve)
+FAIL: test_F4_service_flow_exposes_incoming_strategy_and_work_object (__main__.OriginalFailures.test_F4_service_flow_exposes_incoming_strategy_and_work_object)
+FAIL: test_F5_service_evolve_exposes_incoming_benefit (__main__.OriginalFailures.test_F5_service_evolve_exposes_incoming_benefit)
+Ran 5 tests in 0.001s
+FAILED (failures=5)
+## Slice tests
+Ran 25 tests in 0.013s
+
+OK
+## Arch+slice mutants
+M20 KILLED   notes["truncated"].append(model)
+M21 KILLED   "role_tests": "NOT_TESTED"
+M22 KILLED   "writes": 0
+mutants=22 survivors=[] not_applicable=[]
+## Full RC06 offline suite
+Ran 289 tests in 4.822s
+
+OK (skipped=1)

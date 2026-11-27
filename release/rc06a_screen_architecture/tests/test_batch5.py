@@ -215,6 +215,7 @@ class G2_NativeUntouched(unittest.TestCase):
                     continue
                 p = os.path.join(root, f)
                 now[os.path.relpath(p, F.ADDON)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+        import slice_overlay; now = slice_overlay.strip(now, F.ADDON)   # declared slice overlay only; see test_arch_slice
         added = set(now) - set(MANIFEST)
         removed = set(MANIFEST) - set(now)
         changed = {k for k in MANIFEST if k in now and now[k] != MANIFEST[k]}

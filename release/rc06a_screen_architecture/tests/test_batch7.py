@@ -255,6 +255,7 @@ class H6_FileLevelDiffAgainstRc06g(unittest.TestCase):
                     continue
                 p = os.path.join(root, f)
                 now[os.path.relpath(p, F.ADDON)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+        import slice_overlay; now = slice_overlay.strip(now, F.ADDON)   # declared slice overlay only; see test_arch_slice
         self.assertEqual((set(now) - set(base), set(base) - set(now)), (set(), set()))  # no file added or removed: still 69
         changed = {k for k in base if now[k] != base[k]}
         self.assertEqual(changed, {"scaffold_wire.py", "screen_render.py", "static/src/enable_panel.js", "static/src/enable_panel.xml"})

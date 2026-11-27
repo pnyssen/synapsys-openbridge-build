@@ -1,0 +1,67 @@
+{
+ "matrix_sha256": "08da5df17ab9e9eaea2780570eb518a123f1cbb5bb595fb57c97a582381ab9e9",
+ "row_count_source": 61,
+ "rows": [
+  {
+   "action_id": 325,
+   "definition_state": "CANDIDATE_OR_PROPOSAL",
+   "disposition": "REUSE",
+   "menu_id": 182,
+   "model": "synapsys.strategy",
+   "path": "SynapSys/Strategies",
+   "perspective": null,
+   "record_state": "UNOBSERVED_ZERO_VISIBLE",
+   "status": "RESTRICTED",
+   "status_reason": "0 visible to read-only actor; cannot distinguish empty from restricted"
+  },
+  {
+   "action_id": 295,
+   "definition_state": "RULED_DEFINITION",
+   "disposition": "REUSE",
+   "menu_id": 186,
+   "model": "synapsys.strategy",
+   "path": "SynapSys/Architecture/Form/Strategy",
+   "perspective": "Form",
+   "record_state": "UNOBSERVED_ZERO_VISIBLE",
+   "status": "RESTRICTED",
+   "status_reason": "0 visible to read-only actor; cannot distinguish empty from restricted"
+  },
+  {
+   "action_id": 291,
+   "definition_state": "RULED_DEFINITION",
+   "disposition": "REUSE",
+   "menu_id": 188,
+   "model": "synapsys.context",
+   "path": "SynapSys/Architecture/Form/Context",
+   "perspective": "Form",
+   "record_state": "UNOBSERVED_ZERO_VISIBLE",
+   "status": "RESTRICTED",
+   "status_reason": "0 visible to read-only actor; cannot distinguish empty from restricted"
+  },
+  {
+   "action_id": 296,
+   "definition_state": "RULED_DEFINITION",
+   "disposition": "REUSE",
+   "menu_id": 189,
+   "model": "synapsys.context",
+   "path": "SynapSys/Architecture/Form/Offering",
+   "perspective": "Form",
+   "record_state": "UNOBSERVED_ZERO_VISIBLE",
+   "status": "RESTRICTED",
+   "status_reason": "0 visible to read-only actor; cannot distinguish empty from restricted"
+  },
+  {
+   "action_id": 297,
+   "definition_state": "RULED_DEFINITION",
+   "disposition": "DATA_MIGRATION_RELEASE_BLOCKED",
+   "menu_id": 200,
+   "model": "synapsys.service",
+   "path": "SynapSys/Architecture/Flow/Service",
+   "perspective": "Flow",
+   "record_state": "REAL_ACTOR_VISIBLE",
+   "status": "RELEASE_BLOCKED",
+   "status_reason": "Service->Context/Method links absent; need exact D007 release"
+  }
+ ],
+ "schema": "synapsys.arch.slice.acceptance.v1"
+}
