@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="synapsys.EnablePanel">
-        <div t-if="this.state.html" class="syn-enable-panel border-top bg-view px-3 py-2"><t t-out="this.state.html"/></div>
+        <div t-if="this.state.html" class="syn-enable-panel border-bottom bg-view">
+            <div class="syn-modebar" role="group" aria-label="Presentation depth" style="display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid #e4e7eb;background:#fff">
+                <span style="font-size:13px;color:#52606d;align-self:center">Depth</span>
+                <t t-foreach="this.modes" t-as="m" t-key="m">
+                    <button type="button" class="btn btn-sm" t-att-class="this.lm.mode === m ? 'btn-primary' : 'btn-outline-secondary'" t-att-data-mode="m" t-att-aria-pressed="this.lm.mode === m ? 'true' : 'false'" t-on-click="() => this.setMode(m)"><t t-out="m"/></button>
+                </t>
+            </div>
+            <t t-out="this.state.html"/>
+        </div>
     </t>
 </templates>

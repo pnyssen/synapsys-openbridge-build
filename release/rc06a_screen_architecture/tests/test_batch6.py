@@ -4,12 +4,13 @@ import ast, copy, hashlib, html, json, os, re, subprocess, sys, unittest
 
 import fakes as F
 import pages_all
+import rc06h_compat
 from fakes import sl, sd, sr, sw, sv
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DECLS, META = sd.load_declarations()
 BASE = json.load(open(os.path.join(HERE, "golden", "rc06e_baseline.json"), encoding="utf-8"))["screens"]
-PAGES = pages_all.all_pages(sd, sw, sv, DECLS)
+PAGES = {_s: {_d: rc06h_compat.undo(_s, _h) for _d, _h in _ds.items()} for _s, _ds in pages_all.all_pages(sd, sw, sv, DECLS).items()}  # RC06h: modulo R5 (one CSS rule) and R6 (SCR.PRODUCT.NOUN answer prefix)
 SRC, SRC_SHA = sd.load_sources(sd.DEFAULT_SOURCES_PATH)
 OLD_SRC = json.load(open(os.path.join(HERE, "golden", "screen_sources_batch3_rc06e.json"), encoding="utf-8"))
 NOTE = "placeholder compiled by the chat lane; replace with sourced text"
@@ -129,7 +130,7 @@ class F2_CompactLists(unittest.TestCase):
     def test_the_trust_table_rule_and_the_other_rules_are_untouched(self):
         old = open(os.path.join(HERE, "golden", "rc06e_context_noun_view_enable.html"), encoding="utf-8").read()
         old_css = STYLE_BLOCK.search(old).group(0)
-        new_css = sr.STYLE
+        new_css = rc06h_compat.undo_r5(sr.STYLE)  # RC06h R5 re-writes the one clipping rule; undone here so the other rules are still pinned
         for needle in (".syn-sc table.tt{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}", ".syn-sc .tt td>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
                        ".syn-sc .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;border-top:1px solid #f0f2f5}", ".syn-sc .an{font-size:15px"):
             self.assertIn(needle, old_css); self.assertIn(needle, new_css)

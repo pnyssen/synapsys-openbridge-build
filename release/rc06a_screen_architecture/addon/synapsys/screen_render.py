@@ -5,6 +5,7 @@ screen_decl.project. There is no per-screen rendering code: every slot is built 
 Pure: every dynamic value is escaped; no scripts, no inline event handlers, no external URLs. Presentation only: it changes no
 data, kind, PPV, approval or right.
 """
+import re
 from html import escape as _e
 
 STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;color:#1f2933;box-sizing:border-box}'
@@ -20,7 +21,7 @@ STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;c
          '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
          '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
          '.syn-sc table.tt{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}.syn-sc .tt th,.syn-sc .tt td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid #f0f2f5;overflow-wrap:anywhere}'
-         '.syn-sc .tt td>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt details>div{white-space:normal}'
+         '.syn-sc .tt td:first-child>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt td:not(:first-child)>div{white-space:normal;overflow-wrap:anywhere}.syn-sc .tt details>div{white-space:normal}'
          '.syn-sc details summary{cursor:pointer;color:#714b67;font-size:12px}'
          '.syn-sc .cp{max-width:44rem}.syn-sc .cp .kv{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}'
          '.syn-sc .cp .kv span:first-child{flex:0 0 12rem;min-width:0}.syn-sc .cp .kv span:last-child{flex:1 1 12rem;text-align:left}'
@@ -77,10 +78,20 @@ def _slot_header(m):
     return s + '</div>'
 
 
-def _slot_answer(m):
-    lead = m['frame'].get('answer_lead')
+def strip_status_prefix(answer, status):
+    """R6 (RC06h): an answer that opens with its own status word and a colon drops that prefix; the chip already carries the status."""
+    a = str(answer or '')
+    if status:
+        m = re.match(r'\s*' + re.escape(str(status)) + r'\s*:\s*', a, re.I)
+        if m and a[m.end():]:
+            return a[m.end():]
+    return answer
+
+
+def _slot_answer(m, lead=True):
+    lead = m['frame'].get('answer_lead') if lead else None
     lead_html = ('<strong class="lead">%s:</strong> ' % _e(str(lead))) if lead else ''
-    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(m['frame']['answer']))
+    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(strip_status_prefix(m['frame']['answer'], m['frame']['header'].get('status'))))
 
 
 def _slot_trust(m):
@@ -271,3 +282,33 @@ def render_enable_panel(m, binding_status=None):
         h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
     return h + '<p class="nt">Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>'
 
+
+
+PAGE_STYLE = ('<style>.syn-pg .syn-records{margin:18px 0 0;padding-top:12px;border-top:1px solid #e4e7eb}'
+              '.o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 1 auto}'
+              '.o_web_client:has(.syn-pg)>.syn-enable-panel,.o_web_client:has(.syn-pg)>:has(>.syn-enable-panel){order:1;flex:0 0 auto}'
+              '.o_web_client:has(.syn-pg) .o_action_manager .o_view_nocontent{position:static;padding:8px 16px;margin:0;min-height:0}'
+              '.syn-enable-panel{max-height:60vh;overflow:auto}</style>')
+
+
+def render_menu_page(m, binding_status=None):
+    """A bound menu's page in the lens template (RC06h): the same frame as the Context specimen (header with status chip, answer, trust line,
+    movement line) and the depth sections the screen's own declaration carries, then a Records heading above the untouched native view.
+    The depth tabs are the client's shared Depth control; this function renders the definition only. Read-only; no script, no back link."""
+    if not isinstance(m, dict) or m.get('result') != 'OK' or 'slots' not in m:
+        return ''
+    eff = m['depth_effective']
+    h = STYLE + PAGE_STYLE + '<div class="syn-sc syn-pg" data-page="menu" data-screen="%s" data-screen-type="%s" data-depth="%s">' % (
+        _e(str(m['screen'])), _e(str(m['screen_type'])), _e(eff))
+    for slot in m['slots']:
+        h += _slot_answer(m, lead=False) if slot == 'answer' else SLOT_BUILDERS[slot](m)  # the chip beside the title carries the status: no lead
+    na = m.get('not_applicable')
+    if na:
+        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
+    note = DEPTH_NOTE.get(eff, '')
+    if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
+        note += ' (Your role limits the depth to %s.)' % LABEL[eff]
+    if binding_status:
+        h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
+    h += '<p class="nt">%s Presentation only: this view changes no data, kind, PPV, approval or right.</p>' % _e(note)
+    return h + '<h2 class="syn-records" data-slot="records">Records</h2></div>'

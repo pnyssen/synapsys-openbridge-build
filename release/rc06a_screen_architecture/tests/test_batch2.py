@@ -2,6 +2,7 @@
 Acceptance checks 1 to 17 already run over EVERY declaration in test_screen_arch.py (ALL includes these 12 nouns); this file adds the
 status-honesty tests (a PROPOSAL or OPEN noun says so, in the same positions and form as a RULED noun, and its answer never reads as
 settled), per-noun provenance, the made-of rule, the wire and the Context consistency evidence (item 3 of the contract)."""
+import rc06h_compat
 import copy, hashlib, html, json, os, re, subprocess, sys, unittest
 
 import fakes as F
@@ -172,8 +173,9 @@ class B2_StatusHonesty(unittest.TestCase):
                 h = page(d, depth)
                 ans = re.search(r'data-slot="answer">(.*?)</p>', h, re.S).group(1)
                 plain = html.unescape(re.sub(r"<[^>]+>", "", ans))
-                self.assertTrue(plain.upper().startswith(st), (sid, depth, plain[:60]))
-                self.assertTrue(plain.endswith(e["definition"]))
+                prefixed = e["definition"].upper().startswith(st + ":")  # RC06h R6: "OPEN: ..." drops its own status prefix (the chip carries it)
+                self.assertTrue(plain.upper().startswith(st) or prefixed, (sid, depth, plain[:60]))
+                self.assertTrue(plain.endswith(e["definition"].split(":", 1)[1].lstrip() if prefixed else e["definition"]))
                 lead = project(d, depth)["frame"].get("answer_lead")
                 already = e["definition"].upper().startswith(st)
                 self.assertEqual(lead, None if already else st, (sid, lead))
@@ -203,7 +205,7 @@ class B2_StatusHonesty(unittest.TestCase):
             self.assertNotIn("answer_lead", project(d, "enable")["frame"], sid)
         for depth in sl.DEPTHS:
             o = sw.scaffold_context(F.Env([F.STEW]), depth, "1")
-            self.assertEqual(sv.render(o, depth), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
+            self.assertEqual(rc06h_compat.undo_r5(sv.render(o, depth)), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % depth), encoding="utf-8").read())
 
 

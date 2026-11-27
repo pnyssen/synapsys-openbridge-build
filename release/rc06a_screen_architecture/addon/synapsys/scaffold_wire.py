@@ -243,11 +243,11 @@ def _can_read(env, model):
 
 
 def menu_enable(env, action_id, menu_id=None, screen_id='', depth='enable'):
-    """Enable panel for a bound menu's native view (RC06g). Read-only; the native action, view and rights are not touched.
+    """Page for a bound menu's native view (RC06g Enable panel; RC06h: all three depths, in the lens template). Read-only; the native action, view and rights are not touched.
 
     Order is fail-closed and leaks nothing before entitlement: recognised role, then the binding for this action, then the actor's real read
     right on the native model, and only then the anchors, the screen id and the content. A refusal is a reason code only."""
-    if depth != 'enable':
+    if depth not in ('enable', 'enhance', 'enrich'):
         return _refused('DEPTH_NOT_SUPPORTED')
     try:
         _rows, by_action, _by_menu = bindings()
@@ -286,15 +286,15 @@ def menu_enable(env, action_id, menu_id=None, screen_id='', depth='enable'):
             return _refused('SCREEN_NOT_BOUND_TO_MENU')
     decl = decls[b['screen_id']]
     if decl['screen_type'] == 'menu':
-        out = sd.project_menu(decl, 'enable', actor_from_env(env), DEFAULT_ROLE_MAX_DEPTH)
+        out = sd.project_menu(decl, depth, actor_from_env(env), DEFAULT_ROLE_MAX_DEPTH)
         if out.get('result') == 'OK':
             out['sources_sha'] = declarations()[1]['sources_of'][decl['id']]
     else:
-        out = _project(env, decl, 'enable', '', need_evidence=bool(decl.get('peers')))
+        out = _project(env, decl, depth, '', need_evidence=depth != 'enable' or bool(decl.get('peers')))
     if out.get('result') != 'OK':
         return _refused(out.get('reason', 'NOT_AVAILABLE'))
     if out.get('screen') != b['screen_id']:
         return _refused('ANCHOR_MISMATCH')
     return {'result': 'OK', 'screen_id': b['screen_id'], 'menu_id': b['menu_id'], 'action_id': b['action_id'], 'status': out.get('status'),
-            'binding_status': b['binding_status'], 'html': sr.render_enable_panel(out, b['binding_status']), 'writes': 0}
+            'binding_status': b['binding_status'], 'depth': out.get('depth_effective'), 'html': sr.render_menu_page(out, b['binding_status']), 'writes': 0}
 

@@ -2,6 +2,7 @@
 Acceptance checks 1 to 17 already run over EVERY declaration in test_screen_arch.py (ALL now includes the 15 nouns); this file adds the
 batch-specific tests: per-noun provenance, status, Context byte-identity, the Mesh shared declaration, the sibling-file loader and the
 generator's reproducibility."""
+import rc06h_compat
 import copy, hashlib, html, json, os, re, subprocess, sys, unittest
 
 import fakes as F
@@ -149,7 +150,7 @@ class Batch_Context_Golden(unittest.TestCase):
     def test_context_output_is_byte_identical_to_rc06a(self):
         for depth in sl.DEPTHS:
             o = sw.scaffold_context(F.Env([F.STEW]), depth, "1")
-            self.assertEqual(sv.render(o, depth), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read(), depth)
+            self.assertEqual(rc06h_compat.undo_r5(sv.render(o, depth)), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read(), depth)
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % depth), encoding="utf-8").read(), depth)
 
     def test_the_two_context_record_declarations_are_untouched_too(self):

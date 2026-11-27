@@ -2,6 +2,7 @@
 Acceptance checks 1 to 17 already run over EVERY declaration in test_screen_arch.py (46 declarations now); this file adds the action-screen tests:
 each screen has exactly its own A row and its plane row, no other action's A row, status follows the row, the two fixed open questions on all nine,
 UNSOURCED on all nine, no verb bound, no wording outside the source rows and the fixed contract text, and the generators."""
+import rc06h_compat
 import ast, copy, hashlib, html, json, os, re, subprocess, sys, unittest
 
 import fakes as F
@@ -69,7 +70,7 @@ class B4_Set(unittest.TestCase):
         self.assertEqual(sd.load_sources(sd.DEFAULT_SOURCES_PATH)[1], B3_SOURCES_SHA)
         for depth in sl.DEPTHS:
             o = sw.scaffold_context(F.Env([F.STEW]), depth, "1")
-            self.assertEqual(sv.render(o, depth), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
+            self.assertEqual(rc06h_compat.undo_r5(sv.render(o, depth)), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % depth), encoding="utf-8").read())
         self.assertEqual(hashlib.sha256(open(F.FIXTURE, "rb").read()).hexdigest(), F.REG_SHA)
 

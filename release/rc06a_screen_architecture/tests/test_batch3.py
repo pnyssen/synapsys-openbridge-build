@@ -2,6 +2,7 @@
 Acceptance checks 1 to 17 already run over EVERY declaration in test_screen_arch.py (ALL includes these seven); this file adds the
 document-source tests: provenance against the shipped source table, source status, conflicts shown and never resolved, no verbs, no wording
 outside the source table, and the wire."""
+import rc06h_compat
 import ast, copy, hashlib, html, json, os, re, subprocess, sys, tempfile, unittest
 
 import fakes as F
@@ -63,7 +64,7 @@ class B3_Set(unittest.TestCase):
             self.assertEqual(META["files"][name], sha, name)
         for depth in sl.DEPTHS:
             o = sw.scaffold_context(F.Env([F.STEW]), depth, "1")
-            self.assertEqual(sv.render(o, depth), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
+            self.assertEqual(rc06h_compat.undo_r5(sv.render(o, depth)), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % depth), encoding="utf-8").read())
         self.assertEqual(len([d for d in DECLS if not d.startswith('SCR.ACTION.')]), 3 + 15 + 12 + 7)  # RC06e adds the nine action screens
 

@@ -1,6 +1,7 @@
 """RC06g offline tests: the 43 menu bindings (Enable panel on the native view) from the Navigator's N1 spec. Offline only; no Odoo, no network, no writes.
 What offline tests CANNOT show: the effective read right on a real database, how the panel is placed and looks in a browser at 390 and 1024 px, whether the
 web client mounts the panel as intended, and Collaborator or Client behaviour. Those need the Steward-gated dev install and live tests."""
+import rc06h_compat
 import copy, hashlib, html, json, os, re, shutil, subprocess, sys, tempfile, unittest
 
 import fakes as F
@@ -242,7 +243,7 @@ class G2_NativeUntouched(unittest.TestCase):
             self.assertEqual(hashlib.sha256(open(os.path.join(F.ADDON, rel), "rb").read()).hexdigest(), MANIFEST[rel], rel)
         for d in sl.DEPTHS:
             o = sw.scaffold_context(F.Env([F.STEW]), d, "1")
-            self.assertEqual(sv.render(o, d), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % d), encoding="utf-8").read())
+            self.assertEqual(rc06h_compat.undo_r5(sv.render(o, d)), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % d), encoding="utf-8").read())
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % d), encoding="utf-8").read())
         golden = {"rc06a_context_noun_view_enable.html": "2517b7891df4b19f9be715d812f37bd98408686f5f7bf137a7d428b39067fc34",
                   "rc06a_context_noun_view_enhance.html": "0e5b1c5f48d9fa6285a541568d0cc297aa080a3fd0169acf70cd8ace7dd05c45",
@@ -258,22 +259,22 @@ class G3_Route(unittest.TestCase):
             e = E5([F0.STEW])
             r = sw.menu_enable(e, b["action_id"], b["menu_id"], b["screen_id"])
             self.assertEqual(r["result"], "OK", b["menu_name"])
-            self.assertEqual(set(r), {"result", "screen_id", "menu_id", "action_id", "status", "binding_status", "html", "writes"})
+            self.assertEqual(set(r), {"result", "screen_id", "menu_id", "action_id", "status", "binding_status", "depth", "html", "writes"})  # RC06h adds depth
             self.assertEqual((r["screen_id"], r["menu_id"], r["action_id"], r["writes"], r["binding_status"]), (b["screen_id"], b["menu_id"], b["action_id"], 0, "CANDIDATE_NOT_ADOPTED"))
-            self.assertIn('data-panel="enable"', r["html"]); self.assertIn('data-screen="%s"' % b["screen_id"], r["html"])
+            self.assertIn('data-page="menu"', r["html"]); self.assertIn('data-screen="%s"' % b["screen_id"], r["html"])  # RC06h: the page, not the RC06g panel
             self.assertNotIn('class="bk"', r["html"])  # no back link: this is a panel on the native view, not a screen
             self.assertNotIn("<script", r["html"])
             # same text as the screen itself at Enable
             d = DECLS[b["screen_id"]]
             direct = sw.scaffold_menu(F.Env([F.STEW]), b["screen_id"], "enable") if d["screen_type"] == "menu" else (sw.scaffold_context(F.Env([F.STEW]), "enable", "") if b["screen_id"] == "SCR.CONTEXT.NOUN" else sw.scaffold_noun(F.Env([F.STEW]), b["screen_id"], "enable", ""))
-            self.assertIn(html.escape(direct["frame"]["answer"], quote=True).replace("&#x27;", "&#x27;"), r["html"])
+            self.assertIn(html.escape(sr.strip_status_prefix(direct["frame"]["answer"], direct["frame"]["header"].get("status")), quote=True), r["html"])
             self.assertEqual(r["status"], direct["status"])
             self.assertEqual(all(x[0] != "write" for x in e.log), True)
 
     def test_the_panel_holds_only_the_four_frame_slots_and_the_binding_line(self):
         for b in BOUND:
             h = ok(b)["html"]
-            self.assertEqual(re.findall(r'data-slot="(\w+)"', h), ["header", "answer", "trust", "movement", "binding"], b["menu_name"])
+            self.assertEqual(re.findall(r'data-slot="(\w+)"', h), ["header", "answer", "trust", "movement", "binding", "records"], b["menu_name"])  # RC06h: plus the Records heading
             self.assertEqual(sorted(set(re.findall(r'data-label="(\w+)"', h))), ["depth", "stage"] if "neighbour" not in h else ["depth", "neighbour", "stage"])
             self.assertNotIn("Depth: Enhance", h); self.assertNotIn("Depth: Enrich", h); self.assertIn("Depth: Enable", h)
             self.assertNotIn("data-slot=\"trust_table\"", h)
@@ -312,7 +313,7 @@ class G3_Route(unittest.TestCase):
             ("ANCHOR_MISMATCH", sw.menu_enable(E5([F0.STEW], ref_ids={}), b["action_id"], b["menu_id"])),
             ("ANCHOR_MISMATCH", sw.menu_enable(E5([F0.STEW], menu_action={b["menu_id"]: 1}), b["action_id"], b["menu_id"])),
             ("MENU_NOT_VISIBLE", sw.menu_enable(E5([F0.STEW], menu_visible=False), b["action_id"], b["menu_id"])),
-            ("DEPTH_NOT_SUPPORTED", sw.menu_enable(E5([F0.STEW]), b["action_id"], b["menu_id"], depth="enrich")),
+            ("DEPTH_NOT_SUPPORTED", sw.menu_enable(E5([F0.STEW]), b["action_id"], b["menu_id"], depth="enrichh")),  # RC06h: enhance and enrich are served, an unknown depth is refused
         ]
         for reason, r in cases:
             self.assertEqual(r, {"result": "REFUSED", "reason": reason}, reason)
@@ -420,17 +421,18 @@ class G5_ClientJs(unittest.TestCase):
     HARNESS = r"""
 const fs = require('fs');
 let src = fs.readFileSync(process.argv[2], 'utf8').replace(/^import .*$/mg, '').replace(/^export /mg, '');
-const added = []; const calls = [];
+const added = []; const calls = []; let lmMode = 'enable'; const lmSubs = [];
 const registry = { category: (c) => ({ add: (k, v) => added.push([c, k, v]) }) };
 let reply = { result: 'OK', html: '<b>x</b>' };
 const rpc = async (u, p) => { calls.push([u, JSON.parse(JSON.stringify(p))]); if (reply instanceof Error) throw reply; return reply; };
 class Component {}
 const proxy = (x) => x, markup = (x) => 'M:' + x;
-let bus = []; const useBus = (b, ev, f) => bus.push([ev, f]);
+let bus = []; const useBus = (b, ev, f) => bus.push([ev, f]); const onWillDestroy = (f) => { r0.destroy = f; }; const r0 = {};
 let ctrl = { action: { type: 'ir.actions.act_window', id: 290 } };
-const useService = () => ({ get currentController() { return ctrl; } });
+const lm = { get mode() { return lmMode; }, setMode(m) { lmMode = m; lmSubs.forEach(f => f()); }, subscribe(f) { lmSubs.push(f); return () => { lmSubs.length = 0; }; } };
+const useService = (n) => n === 'synapsys_lens_mode' ? lm : ({ get currentController() { return ctrl; } });
 const body = src + '\nreturn { SynapsysEnablePanel };';
-const { SynapsysEnablePanel } = new Function('registry','rpc','Component','proxy','markup','useBus','useService', body)(registry, rpc, Component, proxy, markup, useBus, useService);
+const { SynapsysEnablePanel } = new Function('registry','rpc','Component','proxy','markup','onWillDestroy','useBus','useService', body)(registry, rpc, Component, proxy, markup, onWillDestroy, useBus, useService);
 const mk = () => { const c = new SynapsysEnablePanel(); c.env = { bus: {} }; c.setup(); return c; };
 const tick = () => new Promise(r => setTimeout(r, 5));
 (async () => {
@@ -448,6 +450,10 @@ const tick = () => new Promise(r => setTimeout(r, 5));
   await bus[0][1](); await tick(); r.back = { calls: calls.slice(), html: c.state.html };
   calls.length = 0; await bus[0][1](); await tick(); r.same = { calls: calls.slice() };
   calls.length = 0; ctrl = null; await bus[0][1](); await tick(); r.none = { calls: calls.slice(), html: c.state.html };
+  ctrl = { action: { type: 'ir.actions.act_window', id: 290 } }; reply = { result: 'OK', html: '<b>z</b>' }; calls.length = 0; await bus[0][1](); await tick();
+  calls.length = 0; lm.setMode('enrich'); await tick(); r.mode = { calls: calls.slice(), html: c.state.html };
+  calls.length = 0; lmMode = 'bogus'; lm.setMode('enhance'); await tick(); r.mode2 = { calls: calls.slice() };
+  r.destroyed = typeof r0.destroy === 'function'; r0.destroy(); r.unsub = lmSubs.length;
   console.log(JSON.stringify(r));
 })();
 """
@@ -468,10 +474,24 @@ const tick = () => new Promise(r => setTimeout(r, 5));
         self.assertEqual(self.r["first"]["bus"], ["ACTION_MANAGER:UI-UPDATED"])
 
     def test_it_asks_one_read_only_route_by_action_id_only_and_shows_the_servers_html(self):
-        self.assertEqual(self.r["first"]["calls"], [["/synapsys/menu/enable", {"action_id": 290}]])  # no screen id, no menu id, no label derived on the client
+        self.assertEqual(self.r["first"]["calls"], [["/synapsys/menu/enable", {"action_id": 290, "depth": "enable"}]])  # action id and the shared depth only: no screen id, no menu id, no label derived on the client
         self.assertEqual(self.r["first"]["html"], "M:<b>x</b>")
-        self.assertEqual(self.r["back"]["calls"], [["/synapsys/menu/enable", {"action_id": 290}]])
+        self.assertEqual(self.r["back"]["calls"], [["/synapsys/menu/enable", {"action_id": 290, "depth": "enable"}]])
         self.assertEqual(self.r["same"]["calls"], [])  # no repeat call for the same action
+
+    def test_the_shared_depth_tabs_drive_the_page_and_the_subscription_is_released(self):
+        self.assertEqual(self.r["mode"]["calls"], [["/synapsys/menu/enable", {"action_id": 290, "depth": "enrich"}]])
+        self.assertEqual(self.r["mode2"]["calls"], [["/synapsys/menu/enable", {"action_id": 290, "depth": "enhance"}]])
+        self.assertTrue(self.r["destroyed"]); self.assertEqual(self.r["unsub"], 0)
+
+    def test_the_tabs_are_enable_enhance_enrich_with_enable_by_default_and_use_the_shared_mode(self):
+        xml = open(os.path.join(F.ADDON, "static", "src", "enable_panel.xml"), encoding="utf-8").read()
+        js = open(os.path.join(F.ADDON, "static", "src", "enable_panel.js"), encoding="utf-8").read()
+        self.assertIn('const MODES = ["enable", "enhance", "enrich"];', js)
+        self.assertIn('useService("synapsys_lens_mode")', js)
+        self.assertIn('role="group" aria-label="Presentation depth"', xml); self.assertIn('t-foreach="this.modes"', xml); self.assertIn("this.lm.mode === m", xml)
+        lens = open(os.path.join(F.ADDON, "static", "src", "lens_mode.js"), encoding="utf-8").read()
+        self.assertIn('let mode = "enable";', lens)  # Enable is the default of the one shared mode
 
     def test_it_fails_closed_a_refusal_an_error_or_a_non_window_action_leaves_no_panel(self):
         self.assertEqual((self.r["refused"]["html"], len(self.r["refused"]["calls"])), ("", 1))
