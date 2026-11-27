@@ -1,0 +1,24 @@
+diff -ruN a/synapsys/controllers/lenses.py b/synapsys/controllers/lenses.py
+--- a/synapsys/controllers/lenses.py	2026-11-27 00:36:50.672831583 +0000
++++ b/synapsys/controllers/lenses.py	2026-11-27 00:36:50.676388807 +0000
+@@ -18,7 +18,7 @@
+             ovs = lc.parse_overrides(ov)
+             html += '<div class="lv">%s</div>' % ''.join(lc.render_element(lc.from_lens(l), mode, ovs) for l in lr.lenses_for(group, sec))
+         if int(level or 1) == 1 and env.user.has_group('synapsys.group_synapsys_steward'):
+-            html += ('<div class="lv"><a class="cd" data-scaffold="1">'
++            html += ('<div class="lv" style="padding-top:0;padding-bottom:16px"><a class="cd" data-scaffold="1">'
+                      '<h3>Context scaffold (read-only)</h3>'
+                      '<div class="sb">Context, its roles, and the linked Capability and Service, with their evidence state.</div></a></div>')
+         return html
+diff -ruN a/synapsys/scaffold_view.py b/synapsys/scaffold_view.py
+--- a/synapsys/scaffold_view.py	2026-11-27 00:36:50.670842141 +0000
++++ b/synapsys/scaffold_view.py	2026-11-27 00:36:50.674502868 +0000
+@@ -15,7 +15,7 @@
+          '.syn-sc .kv span:first-child{color:#7b8794;min-width:30%}.syn-sc .kv span:last-child{text-align:right;overflow-wrap:anywhere}'
+          '.syn-sc .tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:#f0f4ff;color:#3e4c59;margin-right:4px}'
+          '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
+-         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
++         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
+          '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}}</style>')
+ 
+ BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'

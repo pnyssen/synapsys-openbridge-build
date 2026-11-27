@@ -44,6 +44,8 @@ class V(unittest.TestCase):
         self.assertIn("limits the depth", sv.render(o, "enrich"))
     def test_V9_presentation_only_statement_always_present(self):
         for d in sl.DEPTHS: self.assertIn("changes no data", sv.render(out(d), d))
+    def test_V11_lists_in_value_column_are_left_aligned(self):
+        self.assertIn(".syn-sc .kv ul{margin:0;text-align:left}", sv.render(out("enrich"), "enrich"))
     def test_V10_empty_open_questions_say_none(self):
         def t(reg):
             for e in reg["elements"]:
@@ -128,6 +130,7 @@ class L(unittest.TestCase):
     def call(self, steward, level):
         self.Req.env = self.env(steward); return self.m.SynapsysLenses().lenses_data(level=level)
     def test_L1_steward_sees_scaffold_link_at_level1(self): self.assertIn('data-scaffold="1"', self.call(True, 1))
+    def test_L5_link_card_has_no_extra_page_padding(self): self.assertIn("padding-top:0", self.call(True, 1))
     def test_L2_non_steward_never_sees_it(self): self.assertNotIn("data-scaffold", self.call(False, 1))
     def test_L3_other_levels_unchanged(self):
         for lv in (2, 3): self.assertNotIn("data-scaffold", self.call(True, lv))

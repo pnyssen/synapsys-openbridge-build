@@ -18,7 +18,7 @@ class SynapsysLenses(http.Controller):
             ovs = lc.parse_overrides(ov)
             html += '<div class="lv">%s</div>' % ''.join(lc.render_element(lc.from_lens(l), mode, ovs) for l in lr.lenses_for(group, sec))
         if int(level or 1) == 1 and env.user.has_group('synapsys.group_synapsys_steward'):
-            html += ('<div class="lv"><a class="cd" data-scaffold="1">'
+            html += ('<div class="lv" style="padding-top:0;padding-bottom:16px"><a class="cd" data-scaffold="1">'
                      '<h3>Context scaffold (read-only)</h3>'
                      '<div class="sb">Context, its roles, and the linked Capability and Service, with their evidence state.</div></a></div>')
         return html

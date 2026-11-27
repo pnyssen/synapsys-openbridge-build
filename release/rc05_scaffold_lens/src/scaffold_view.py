@@ -15,7 +15,7 @@ STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;c
          '.syn-sc .kv span:first-child{color:#7b8794;min-width:30%}.syn-sc .kv span:last-child{text-align:right;overflow-wrap:anywhere}'
          '.syn-sc .tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:#f0f4ff;color:#3e4c59;margin-right:4px}'
          '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
-         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
+         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
          '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}}</style>')
 
 BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
