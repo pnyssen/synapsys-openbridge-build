@@ -22,7 +22,10 @@ STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;c
          '.syn-sc table.tt{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}.syn-sc .tt th,.syn-sc .tt td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid #f0f2f5;overflow-wrap:anywhere}'
          '.syn-sc .tt td>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt details>div{white-space:normal}'
          '.syn-sc details summary{cursor:pointer;color:#714b67;font-size:12px}'
-         '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}.syn-sc .tt th:nth-child(3),.syn-sc .tt td:nth-child(3){display:none}}</style>')
+         '.syn-sc .cp{max-width:44rem}.syn-sc .cp .kv{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}'
+         '.syn-sc .cp .kv span:first-child{flex:0 0 12rem;min-width:0}.syn-sc .cp .kv span:last-child{flex:1 1 12rem;text-align:left}'
+         '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}.syn-sc .tt th:nth-child(3),.syn-sc .tt td:nth-child(3){display:none}'
+         '.syn-sc .cp .kv{gap:2px}.syn-sc .cp .kv span:first-child,.syn-sc .cp .kv span:last-child{flex:0 1 auto}}</style>')
 
 BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
 DEPTH_NOTE = {'enable': 'Enable: what this is, and what to do next. Switch Depth to Enhance for what it is made of and connects to, Enrich for trust and what is open.',
@@ -98,7 +101,7 @@ def _menu_items(mo):
     for it in mo['items']:
         note = (' ' + _e(it['note'])) if it.get('note') else ''
         rows += '<div class="kv"><span>%s%s</span><span>%s %s</span></div>' % (_pill(it['status']), note, _e(it['text']), _pill(_chip_text(it['chip'])))
-    body = '<div class="cd">%s</div>' % rows if rows else ''
+    body = '<div class="cd cp">%s</div>' % rows if rows else ''
     if mo.get('note'):
         body += '<p class="sb">%s</p>' % _e(mo['note'])
     return body
@@ -118,7 +121,7 @@ def _slot_made_of(m):
             req = _pill('required', 'req') if r['required'] else _pill('optional')
             many = _pill('one or more') if r['many'] else ''
             rows += _kv(r['name'], '%s%s%s %s' % (req, many, _e(str(r['bound_label'])), _pill(r['bound_status'] or 'UNSOURCED')))
-        body = '<div class="cd">%s</div>' % rows
+        body = '<div class="cd cp">%s</div>' % rows
     return '<div data-slot="made_of"><h2>%s</h2>%s</div>' % (_e(mo['heading']), body)
 
 
@@ -136,7 +139,7 @@ def _slot_peers(m):
     for p in pe['rows']:
         more = '<details><summary>what it is</summary><div>%s</div></details>' % _t(p.get('definition'))
         rows += _kv(p['label'], '%s %s %s' % (_pill(p['status'] or 'UNSOURCED'), _peer_state(p), more))
-    return '<div data-slot="peers"><h2>%s</h2><div class="cd">%s</div></div>' % (_e(pe['heading']), rows)
+    return '<div data-slot="peers"><h2>%s</h2><div class="cd cp">%s</div></div>' % (_e(pe['heading']), rows)
 
 
 # ----------------------------------------------------------------------------------------------- enrich slots

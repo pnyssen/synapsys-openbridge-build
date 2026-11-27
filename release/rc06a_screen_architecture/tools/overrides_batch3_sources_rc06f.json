@@ -1,0 +1,12 @@
+{
+  "authority": "BUILD_CONTRACT_LAYOUT_COMPACT_AND_PLACEHOLDER_NOTES_BATCH6_RC06F_20261127_v1.md, sha256 f874250aa16a9ceef2c2dd9c3f89deef9baa6b10a6430db5da65797105f23ce8, D2",
+  "note": "Only the row note changes; the text and the status word (CANDIDATE) stay. The note is the contract's fixed text.",
+  "rows": {
+    "S12": {
+      "status_note": "placeholder compiled by the chat lane; replace with sourced text"
+    },
+    "S13": {
+      "status_note": "placeholder compiled by the chat lane; replace with sourced text"
+    }
+  }
+}

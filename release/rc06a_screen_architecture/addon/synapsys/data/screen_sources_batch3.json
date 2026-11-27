@@ -149,29 +149,31 @@
       "id": "S12",
       "file": "claude/navigator-screen-and-strategy-lens-v0.1-2026-11-20.md section 3 table",
       "when": "20 Nov",
-      "status": "CANDIDATE",
+      "status": "CANDIDATE (placeholder compiled by the chat lane; replace with sourced text)",
       "field": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks. Show names only; verbs are NOT shown (verbs not yet bound).",
       "quote": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks. Show names only; verbs are NOT shown (verbs not yet bound).",
       "is_quotation": false,
       "status_word": "CANDIDATE",
-      "status_note": null,
+      "status_note": "placeholder compiled by the chat lane; replace with sourced text",
       "source_name": "Navigator screen v0.1 s3",
       "display": "nine strategies by group: Live: Balanced Lives, Synergistic Collaboration, Enduring Wealth. Adapt: Renewal, Prioritisation, Stewardship. Build (Deliver in the artifact): Capture Valuable Markets, Compound Innovation, Integrate Value Networks.",
-      "builder_instruction": "Show names only; verbs are NOT shown (verbs not yet bound)."
+      "builder_instruction": "Show names only; verbs are NOT shown (verbs not yet bound).",
+      "previous_status": "CANDIDATE"
     },
     {
       "id": "S13",
       "file": "claude/kinematic-domain-overlays-live-build-adapt-v0.1-2026-11-20.md section 4",
       "when": "20 Nov",
-      "status": "CANDIDATE (proposal, Steward decision 3 unruled)",
+      "status": "CANDIDATE (placeholder compiled by the chat lane; replace with sourced text)",
       "field": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal. Show as OPEN, not as the menu.",
       "quote": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal. Show as OPEN, not as the menu.",
       "is_quotation": false,
       "status_word": "CANDIDATE",
-      "status_note": "proposal, Steward decision 3 unruled",
+      "status_note": "placeholder compiled by the chat lane; replace with sourced text",
       "source_name": "Domain overlays v0.1 s4",
       "display": "proposed Navigator menu \"Progress · Approvals · Learning\" with the Inbox kept as the entry point, replacing \"Progress · Inbox · Learning\"; Progress = Prioritisation, Approvals = Stewardship, Learning = Renewal.",
-      "builder_instruction": "Show as OPEN, not as the menu."
+      "builder_instruction": "Show as OPEN, not as the menu.",
+      "previous_status": "CANDIDATE (proposal, Steward decision 3 unruled)"
     },
     {
       "id": "S14",

@@ -20,7 +20,7 @@ PINNED = {"screen_declarations.json": "2aa425778fe3a7e2f20d242440c907161484318d3
           "screen_declarations_batch1.json": "2e278bc8c73f1bd20ddcd0c5549a40c037c1749f37f7a680b26047c7593290ff",
           "screen_declarations_batch2.json": "19aef83e13c26a6b5e8062a7df9114eb085bb34a5d305e5332b2b43ee9d117b5",
           "screen_declarations_batch3.json": "200d26ffedde56eace0191438f8cad5449812c87dee749bbe9918955d7954b70"}
-B3_SOURCES_SHA = "9144a0bc8f01a02a9afdb97743e305319f988586d13dfffb3490f1fd082a78ee"
+B3_SOURCES_SHA = "c6af8087d1265e4cac50d44f4c01cdd2522290378d6d8188521d4177985aa210"  # RC06f: S12 and S13 carry the placeholder note (was 9144a0bc... in RC06e)
 ACTOR = {"groups": {"steward"}, "context_ids": set()}
 A_OF = {"SCR.ACTION.%s" % n: "A%d" % (i + 1) for i, n in enumerate(NAMES)}
 P_OF = {"SCR.ACTION.%s" % n: "P%d" % (i // 3 + 1) for i, n in enumerate(NAMES)}

@@ -1,6 +1,8 @@
 """Builds addon/synapsys/data/screen_sources_batch3.json from the source table of BUILD_CONTRACT_ENABLE_DOC_SOURCED_SCREENS_BATCH3_RC06D
 (sha256 85d9e13712bafa656e542ac564d0f9b877d57373c3508325e29941cf621b4b9c). The rows are parsed from the contract text, never retyped.
-usage: python3 gen_batch3_sources.py CONTRACT.md > out.json    (build aid, not part of the addon)"""
+usage: python3 gen_batch3_sources.py CONTRACT.md [OVERRIDES.json] > out.json    (build aid, not part of the addon)
+RC06f: an optional overrides file changes the note of named rows only (the table text is never edited): {"rows": {"S12": {"status_note": "..."}}}.
+The file records the contract that authorises it. The row's earlier status is kept in previous_status so nothing is lost."""
 import hashlib, json, re, sys
 
 raw = open(sys.argv[1], "rb").read()
@@ -57,6 +59,14 @@ for r in rows:
 by_id["S10"]["display"] = by_id["S10"]["quote"].replace("*", "")
 by_id["S12"]["display"], by_id["S12"]["builder_instruction"] = by_id["S12"]["quote"].rsplit(" Show names only", 1)[0], "Show names only" + by_id["S12"]["quote"].rsplit(" Show names only", 1)[1]
 by_id["S13"]["display"], by_id["S13"]["builder_instruction"] = by_id["S13"]["quote"].rsplit(" Show as OPEN", 1)[0], "Show as OPEN" + by_id["S13"]["quote"].rsplit(" Show as OPEN", 1)[1]
+if len(sys.argv) > 2:
+    ov = json.load(open(sys.argv[2], encoding="utf-8"))
+    for rid, ch in ov["rows"].items():
+        assert set(ch) == {"status_note"}, "only the note may be overridden"
+        r = by_id[rid]
+        r["previous_status"] = r["status"]
+        r["status_note"] = ch["status_note"]
+        r["status"] = "%s (%s)" % (r["status_word"], ch["status_note"])
 doc = {"schema": "synapsys.screen.sources/1",
        "origin": "Source table of BUILD_CONTRACT_ENABLE_DOC_SOURCED_SCREENS_BATCH3_RC06D_20261127_v1.md (sha256 85d9e13712bafa656e542ac564d0f9b877d57373c3508325e29941cf621b4b9c), copied by the chat lane from the project documents named in each row. The builder could not read those documents; D009 or the Navigator should re-check the quotes against them.",
        "rows": rows}

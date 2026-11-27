@@ -69,7 +69,7 @@ class B3_Set(unittest.TestCase):
 
     def test_the_contract_copy_is_the_contract_and_the_generators_reproduce_both_files_byte_for_byte(self):
         self.assertEqual(hashlib.sha256(open(CONTRACT, "rb").read()).hexdigest(), CONTRACT_SHA)
-        a = subprocess.run([sys.executable, os.path.join(HERE, "..", "tools", "gen_batch3_sources.py"), CONTRACT], capture_output=True, text=True, timeout=60)
+        a = subprocess.run([sys.executable, os.path.join(HERE, "..", "tools", "gen_batch3_sources.py"), CONTRACT, os.path.join(HERE, "..", "tools", "overrides_batch3_sources_rc06f.json")], capture_output=True, text=True, timeout=60)  # RC06f: the S12 and S13 note override
         self.assertEqual(a.returncode, 0, a.stderr)
         self.assertEqual(a.stdout, open(sd.DEFAULT_SOURCES_PATH, encoding="utf-8").read())
         b = subprocess.run([sys.executable, os.path.join(HERE, "..", "tools", "gen_batch3_declarations.py"), sd.DEFAULT_SOURCES_PATH], capture_output=True, text=True, timeout=60)
