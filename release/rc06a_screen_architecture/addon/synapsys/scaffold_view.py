@@ -1,115 +1,19 @@
 """Read-only HTML view of the scaffold projection (Architecture > Lenses > Context scaffold).
 
-Pure: takes the dict from scaffold_wire.scaffold_context and returns one escaped HTML fragment. Every dynamic value is
-escaped; there are no inline event handlers, no external URLs and no scripts. Missing operating sources are shown as a
-HOLD in words, never hidden or invented. Presentation only: it changes no data, kind, PPV, approval or right.
+RC06a: this module no longer builds any HTML itself. It is a thin adapter over the one screen renderer (screen_render), kept so
+the existing controller call sv.render(out, mode) and the existing imports keep working. Presentation only: it changes no data,
+kind, PPV, approval or right.
 """
-from html import escape as _e
+try:  # inside Odoo
+    from . import screen_render as _r
+except ImportError:  # offline tests load modules by path
+    import screen_render as _r
 
-STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;color:#1f2933;box-sizing:border-box}'
-         '.syn-sc *{box-sizing:border-box}.syn-sc h1{font-size:24px;margin:0 0 4px}.syn-sc h2{font-size:17px;margin:20px 0 8px}'
-         '.syn-sc .sb{color:#52606d;font-size:14px;margin:0 0 12px;overflow-wrap:anywhere}'
-         '.syn-sc a.bk{display:inline-block;min-height:44px;line-height:44px;padding:0 14px;margin:0 0 8px -14px;color:#714b67;cursor:pointer}'
-         '.syn-sc .cd{background:#fff;border:1px solid #e4e7eb;border-radius:10px;padding:14px 16px;margin:0 0 14px}'
-         '.syn-sc .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;border-top:1px solid #f0f2f5}'
-         '.syn-sc .kv span:first-child{color:#7b8794;min-width:30%}.syn-sc .kv span:last-child{text-align:right;overflow-wrap:anywhere}'
-         '.syn-sc .tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:#f0f4ff;color:#3e4c59;margin-right:4px}'
-         '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
-         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
-         '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}}</style>')
-
-ROLE_PLAIN = {'R.CTX_CONTEXT': 'The Context itself', 'R.CTX_PURPOSE': 'Purpose', 'R.CTX_RIGHTS_HOLDER': 'Rights holder',
-              'R.CTX_INTERSECTS': 'Intersecting chains', 'R.CTX_PORTFOLIO': 'Portfolios', 'R.CTX_SHAPE': 'Shape',
-              'R.CTX_STRATEGY': 'Strategies'}
-
-
-def _role_name(r):
-    if r.get('role_id') in ROLE_PLAIN:
-        return ROLE_PLAIN[r['role_id']]
-    t = str(r.get('role_label') or r.get('role_id') or '').replace('_', ' ').replace('+', '').strip()
-    return (t[:1].upper() + t[1:]) if t else 'Role'
-
-
-BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
-DEPTH_NOTE = {'enable': 'Enable: the headline view. Switch Depth to Enhance for roles and peers, Enrich for provenance.',
-              'enhance': 'Enhance: roles and linked peers.',
-              'enrich': 'Enrich: provenance, source and open questions.'}
-
-
-def _kv(k, v):
-    return '<div class="kv"><span>%s</span><span>%s</span></div>' % (_e(str(k)), v)
-
-
-def _txt(v):
-    return _e(str(v)) if v not in (None, '', [], ()) else 'UNSOURCED'
-
-
-def _roles(roles):
-    if not roles:
-        return '<p class="sb">No roles returned.</p>'
-    rows = ''
-    for r in roles:
-        req = '<span class="tg req">required</span>' if r.get('required') else '<span class="tg">optional</span>'
-        many = '<span class="tg">one or more</span>' if r.get('many') else ''
-        rows += _kv(_e(_role_name(r)), '%s%s%s <span class="tg">%s</span>' % (
-            req, many, _e(str(r.get('bound_label', ''))), _e(str(r.get('bound_status') or 'UNSOURCED'))))
-    return '<div class="cd">%s</div>' % rows
-
-
-def _peer(p):
-    h = '<h3>%s <span class="tg">%s</span></h3>' % (_e(str(p.get('label', ''))), _e(str(p.get('status') or 'UNSOURCED')))
-    h += '<p class="sb">%s</p>' % _txt(p.get('definition'))
-    src = p.get('operating_source')
-    if src == 'SOURCED':
-        h += _kv('Operating source', '<span class="tg req">CATALOGUE RECORD FOUND</span>')
-    elif src:
-        h += _kv('Operating source', '<span class="tg hold">NO OPERATING SOURCE: HOLD</span>')
-    if src == 'SOURCED':
-        for e in p.get('evidence') or []:
-            q = (e.get('detail') or {}).get('qualifiers') or []
-            if q:
-                h += _kv('Qualification', '<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(str(x)) for x in q))
-    if 'evidence' in p:
-        ev = ''.join('<li>%s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in p.get('evidence') or [])
-        h += _kv('Evidence', '<ul>%s</ul>' % ev if ev else 'none')
-        rej = p.get('rejected_evidence') or []
-        if rej:
-            h += _kv('Rejected evidence', _e(', '.join(sorted(set(r.get('reason', '') for r in rej)))))
-        oq = ''.join('<li>%s</li>' % _e(str(q)) for q in p.get('open_questions') or [])
-        h += _kv('Open questions', '<ul>%s</ul>' % oq if oq else 'none recorded')
-        h += _kv('Definition source', _txt(p.get('definition_source')))
-    return '<div class="cd">%s</div>' % h
+STYLE = _r.STYLE
+BACK = _r.BACK
 
 
 def render(out, mode='enable'):
     if not isinstance(out, dict) or out.get('result') != 'OK':
-        why = (out or {}).get('reason', 'UNKNOWN') if isinstance(out, dict) else 'UNKNOWN'
-        return STYLE + '<div class="syn-sc">%s<h1>Context scaffold</h1><p class="sb">Not available: %s.</p></div>' % (
-            BACK, _e(str(why)))
-    eff = out.get('depth_effective') or mode
-    h = STYLE + '<div class="syn-sc">' + BACK
-    h += '<h1>%s <span class="tg">%s</span></h1><p class="sb">%s</p>' % (
-        _e(str(out.get('label', ''))), _e(str(out.get('status') or 'UNSOURCED')), _txt(out.get('definition')))
-    if 'roles' in out:
-        h += '<h2>What a Context is made of</h2>' + _roles(out['roles'])
-    if out.get('peers'):
-        h += '<h2>Linked peers</h2>' + ''.join(_peer(p) for p in out['peers'])
-    if 'definition_source' in out:
-        oq = ''.join('<li>%s</li>' % _e(str(q)) for q in out.get('open_questions') or [])
-        h += '<h2>Provenance</h2><div class="cd">%s%s%s</div>' % (
-            _kv('Kind', _txt(out.get('kind'))), _kv('Definition source', _txt(out.get('definition_source'))),
-            _kv('Open questions', '<ul>%s</ul>' % oq if oq else 'none recorded'))
-    if 'definition_source' in out:
-        td = _kv('Registry', _e('%s, %s, fingerprint %s' % (out.get('registry_version', ''), out.get('registry_state', ''), str(out.get('registry_sha', ''))[:12])))
-        if out.get('roles'):
-            td += _kv('Roles come from', _e('relationship H.CTX, cluster %s' % out['roles'][0].get('cluster_id', '')))
-        for p in out.get('peers') or []:
-            for e in p.get('evidence') or []:
-                td += _kv('Evidence source', _e('%s, fingerprint %s' % (e.get('source_ref', ''), str(e.get('sha256', ''))[:12])))
-        h += '<details class="td"><summary>Technical details</summary><div class="cd">%s</div></details>' % td
-    note = DEPTH_NOTE.get(eff, '')
-    if out.get('depth_clamped'):
-        note += ' (Your role limits the depth to %s.)' % eff
-    h += '<p class="nt">%s Registry %s, %s. Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (
-        _e(note), _e(str(out.get('registry_version', ''))), _e(str(out.get('registry_state', ''))))
-    return h
+        return _r.render_unavailable(out, 'Context scaffold')
+    return _r.render_screen(out)

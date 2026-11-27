@@ -1,0 +1,1015 @@
+diff -ruN a/synapsys/data/screen_declarations.json b/synapsys/data/screen_declarations.json
+--- a/synapsys/data/screen_declarations.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_declarations.json	2026-11-27 03:35:21.274863129 +0000
+@@ -0,0 +1,152 @@
++{
++  "schema": "synapsys.screen.declaration/1",
++  "status": "SOURCE CANDIDATE, NON_AUTHORISING. Not released to the registry (registry 0.3.5 is unchanged); a registry release is a separate D007 step.",
++  "slots": {
++    "enable": ["header", "answer", "trust", "movement"],
++    "enhance": ["made_of", "peers"],
++    "enrich": ["trust_table", "open_questions", "technical"]
++  },
++  "stage_note": "Stage is computed from the bound kind at render time by screen_decl.stage_for_kind and is stored nowhere. Noun screens carry no stage.",
++  "screens": [
++    {
++      "id": "SCR.CONTEXT.NOUN",
++      "noun": "N.CONTEXT",
++      "screen_type": "noun",
++      "title": "Context scaffold",
++      "answer": {"from": "element.definition"},
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.CTX",
++        "heading": "What a Context is made of",
++        "role_names": {
++          "R.CTX_CONTEXT": "The Context itself",
++          "R.CTX_PURPOSE": "Purpose",
++          "R.CTX_RIGHTS_HOLDER": "Rights holder",
++          "R.CTX_INTERSECTS": "Intersecting chains",
++          "R.CTX_PORTFOLIO": "Portfolios",
++          "R.CTX_SHAPE": "Shape",
++          "R.CTX_STRATEGY": "Strategies"
++        }
++      },
++      "peers": {"heading": "Linked peers", "nouns": ["N.CAPABILITY", "N.SERVICE"]},
++      "claims": [
++        {
++          "id": "meaning", "type": "element", "noun": "N.CONTEXT", "label": "Context meaning and kind",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
++            {"name": "Registry H.CTX", "date": null, "quote": "registry H.CTX"},
++            {"name": "Ledger", "date": "20 Nov 07:20-07:21", "quote": "ledger 20 Nov 07:20-07:21"}
++          ]
++        },
++        {
++          "id": "peer.capability", "type": "peer", "noun": "N.CAPABILITY", "label": "Capability",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
++            {"name": "design_d.json", "date": null, "quote": "design_d.json"},
++            {"name": "pack.md OV-02", "date": null, "quote": "pack.md OV-02"}
++          ]
++        },
++        {
++          "id": "peer.service", "type": "peer", "noun": "N.SERVICE", "label": "Service",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "Project instructions v2.2.2"},
++            {"name": "design_d", "date": null, "quote": "design_d Service->Benefit"},
++            {"name": "Ledger", "date": "20 Nov 07:06", "quote": "ledger 20 Nov 07:06"},
++            {"name": "Ledger", "date": "20 Nov 10:51", "quote": "10:51 (KDA seats"}
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.CONTEXT.RECORD",
++      "noun": "N.CONTEXT",
++      "screen_type": "record",
++      "title": "Context",
++      "record": {"model": "synapsys.context", "name_field": "name", "kind": {"field": "kind"}, "context_field": "id"},
++      "answer": {"from": "element.definition"},
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.CTX",
++        "heading": "What a Context is made of",
++        "role_names": {
++          "R.CTX_CONTEXT": "The Context itself",
++          "R.CTX_PURPOSE": "Purpose",
++          "R.CTX_RIGHTS_HOLDER": "Rights holder",
++          "R.CTX_INTERSECTS": "Intersecting chains",
++          "R.CTX_PORTFOLIO": "Portfolios",
++          "R.CTX_SHAPE": "Shape",
++          "R.CTX_STRATEGY": "Strategies"
++        }
++      },
++      "peers": {"heading": "Linked peers", "nouns": ["N.CAPABILITY", "N.SERVICE"]},
++      "claims": [
++        {
++          "id": "meaning", "type": "element", "noun": "N.CONTEXT", "label": "Context meaning and kind",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
++            {"name": "Registry H.CTX", "date": null, "quote": "registry H.CTX"},
++            {"name": "Ledger", "date": "20 Nov 07:20-07:21", "quote": "ledger 20 Nov 07:20-07:21"}
++          ]
++        },
++        {
++          "id": "peer.capability", "type": "peer", "noun": "N.CAPABILITY", "label": "Capability",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
++            {"name": "design_d.json", "date": null, "quote": "design_d.json"},
++            {"name": "pack.md OV-02", "date": null, "quote": "pack.md OV-02"}
++          ]
++        },
++        {
++          "id": "peer.service", "type": "peer", "noun": "N.SERVICE", "label": "Service",
++          "sources": [
++            {"name": "Project instr. v2.2.2", "date": null, "quote": "Project instructions v2.2.2"},
++            {"name": "design_d", "date": null, "quote": "design_d Service->Benefit"},
++            {"name": "Ledger", "date": "20 Nov 07:06", "quote": "ledger 20 Nov 07:06"},
++            {"name": "Ledger", "date": "20 Nov 10:51", "quote": "10:51 (KDA seats"}
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.ASSET.RECORD",
++      "noun": "N.ASSET",
++      "screen_type": "record",
++      "title": "Asset",
++      "record": {
++        "model": "synapsys.asset", "name_field": "name",
++        "kind": {"fixed": "K-4", "note": "OPEN, not ruled: default is the record's own noun kind (K-4, always Enable). The Context's kind is shown as a neighbour only."},
++        "neighbour_kind_field": "context_kind",
++        "context_field": "context_id"
++      },
++      "answer": {"from": "element.definition"},
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning", "type": "element", "noun": "N.ASSET", "label": "Asset meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {"name": "Project core definition", "date": null, "quote": "Project core definition"},
++            {"name": "Ledger", "date": "20 Nov 07:13", "quote": "ledger 20 Nov 07:13"},
++            {"name": "design_d", "date": null, "quote": "design_d Benefit->Asset"}
++          ]
++        }
++      ]
++    }
++  ]
++}
+diff -ruN a/synapsys/scaffold_view.py b/synapsys/scaffold_view.py
+--- a/synapsys/scaffold_view.py	2026-11-27 03:32:33.000000000 +0000
++++ b/synapsys/scaffold_view.py	2026-11-27 03:35:21.277931946 +0000
+@@ -1,115 +1,19 @@
+ """Read-only HTML view of the scaffold projection (Architecture > Lenses > Context scaffold).
+ 
+-Pure: takes the dict from scaffold_wire.scaffold_context and returns one escaped HTML fragment. Every dynamic value is
+-escaped; there are no inline event handlers, no external URLs and no scripts. Missing operating sources are shown as a
+-HOLD in words, never hidden or invented. Presentation only: it changes no data, kind, PPV, approval or right.
++RC06a: this module no longer builds any HTML itself. It is a thin adapter over the one screen renderer (screen_render), kept so
++the existing controller call sv.render(out, mode) and the existing imports keep working. Presentation only: it changes no data,
++kind, PPV, approval or right.
+ """
+-from html import escape as _e
++try:  # inside Odoo
++    from . import screen_render as _r
++except ImportError:  # offline tests load modules by path
++    import screen_render as _r
+ 
+-STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;color:#1f2933;box-sizing:border-box}'
+-         '.syn-sc *{box-sizing:border-box}.syn-sc h1{font-size:24px;margin:0 0 4px}.syn-sc h2{font-size:17px;margin:20px 0 8px}'
+-         '.syn-sc .sb{color:#52606d;font-size:14px;margin:0 0 12px;overflow-wrap:anywhere}'
+-         '.syn-sc a.bk{display:inline-block;min-height:44px;line-height:44px;padding:0 14px;margin:0 0 8px -14px;color:#714b67;cursor:pointer}'
+-         '.syn-sc .cd{background:#fff;border:1px solid #e4e7eb;border-radius:10px;padding:14px 16px;margin:0 0 14px}'
+-         '.syn-sc .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;border-top:1px solid #f0f2f5}'
+-         '.syn-sc .kv span:first-child{color:#7b8794;min-width:30%}.syn-sc .kv span:last-child{text-align:right;overflow-wrap:anywhere}'
+-         '.syn-sc .tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:#f0f4ff;color:#3e4c59;margin-right:4px}'
+-         '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
+-         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
+-         '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}}</style>')
+-
+-ROLE_PLAIN = {'R.CTX_CONTEXT': 'The Context itself', 'R.CTX_PURPOSE': 'Purpose', 'R.CTX_RIGHTS_HOLDER': 'Rights holder',
+-              'R.CTX_INTERSECTS': 'Intersecting chains', 'R.CTX_PORTFOLIO': 'Portfolios', 'R.CTX_SHAPE': 'Shape',
+-              'R.CTX_STRATEGY': 'Strategies'}
+-
+-
+-def _role_name(r):
+-    if r.get('role_id') in ROLE_PLAIN:
+-        return ROLE_PLAIN[r['role_id']]
+-    t = str(r.get('role_label') or r.get('role_id') or '').replace('_', ' ').replace('+', '').strip()
+-    return (t[:1].upper() + t[1:]) if t else 'Role'
+-
+-
+-BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
+-DEPTH_NOTE = {'enable': 'Enable: the headline view. Switch Depth to Enhance for roles and peers, Enrich for provenance.',
+-              'enhance': 'Enhance: roles and linked peers.',
+-              'enrich': 'Enrich: provenance, source and open questions.'}
+-
+-
+-def _kv(k, v):
+-    return '<div class="kv"><span>%s</span><span>%s</span></div>' % (_e(str(k)), v)
+-
+-
+-def _txt(v):
+-    return _e(str(v)) if v not in (None, '', [], ()) else 'UNSOURCED'
+-
+-
+-def _roles(roles):
+-    if not roles:
+-        return '<p class="sb">No roles returned.</p>'
+-    rows = ''
+-    for r in roles:
+-        req = '<span class="tg req">required</span>' if r.get('required') else '<span class="tg">optional</span>'
+-        many = '<span class="tg">one or more</span>' if r.get('many') else ''
+-        rows += _kv(_e(_role_name(r)), '%s%s%s <span class="tg">%s</span>' % (
+-            req, many, _e(str(r.get('bound_label', ''))), _e(str(r.get('bound_status') or 'UNSOURCED'))))
+-    return '<div class="cd">%s</div>' % rows
+-
+-
+-def _peer(p):
+-    h = '<h3>%s <span class="tg">%s</span></h3>' % (_e(str(p.get('label', ''))), _e(str(p.get('status') or 'UNSOURCED')))
+-    h += '<p class="sb">%s</p>' % _txt(p.get('definition'))
+-    src = p.get('operating_source')
+-    if src == 'SOURCED':
+-        h += _kv('Operating source', '<span class="tg req">CATALOGUE RECORD FOUND</span>')
+-    elif src:
+-        h += _kv('Operating source', '<span class="tg hold">NO OPERATING SOURCE: HOLD</span>')
+-    if src == 'SOURCED':
+-        for e in p.get('evidence') or []:
+-            q = (e.get('detail') or {}).get('qualifiers') or []
+-            if q:
+-                h += _kv('Qualification', '<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(str(x)) for x in q))
+-    if 'evidence' in p:
+-        ev = ''.join('<li>%s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in p.get('evidence') or [])
+-        h += _kv('Evidence', '<ul>%s</ul>' % ev if ev else 'none')
+-        rej = p.get('rejected_evidence') or []
+-        if rej:
+-            h += _kv('Rejected evidence', _e(', '.join(sorted(set(r.get('reason', '') for r in rej)))))
+-        oq = ''.join('<li>%s</li>' % _e(str(q)) for q in p.get('open_questions') or [])
+-        h += _kv('Open questions', '<ul>%s</ul>' % oq if oq else 'none recorded')
+-        h += _kv('Definition source', _txt(p.get('definition_source')))
+-    return '<div class="cd">%s</div>' % h
++STYLE = _r.STYLE
++BACK = _r.BACK
+ 
+ 
+ def render(out, mode='enable'):
+     if not isinstance(out, dict) or out.get('result') != 'OK':
+-        why = (out or {}).get('reason', 'UNKNOWN') if isinstance(out, dict) else 'UNKNOWN'
+-        return STYLE + '<div class="syn-sc">%s<h1>Context scaffold</h1><p class="sb">Not available: %s.</p></div>' % (
+-            BACK, _e(str(why)))
+-    eff = out.get('depth_effective') or mode
+-    h = STYLE + '<div class="syn-sc">' + BACK
+-    h += '<h1>%s <span class="tg">%s</span></h1><p class="sb">%s</p>' % (
+-        _e(str(out.get('label', ''))), _e(str(out.get('status') or 'UNSOURCED')), _txt(out.get('definition')))
+-    if 'roles' in out:
+-        h += '<h2>What a Context is made of</h2>' + _roles(out['roles'])
+-    if out.get('peers'):
+-        h += '<h2>Linked peers</h2>' + ''.join(_peer(p) for p in out['peers'])
+-    if 'definition_source' in out:
+-        oq = ''.join('<li>%s</li>' % _e(str(q)) for q in out.get('open_questions') or [])
+-        h += '<h2>Provenance</h2><div class="cd">%s%s%s</div>' % (
+-            _kv('Kind', _txt(out.get('kind'))), _kv('Definition source', _txt(out.get('definition_source'))),
+-            _kv('Open questions', '<ul>%s</ul>' % oq if oq else 'none recorded'))
+-    if 'definition_source' in out:
+-        td = _kv('Registry', _e('%s, %s, fingerprint %s' % (out.get('registry_version', ''), out.get('registry_state', ''), str(out.get('registry_sha', ''))[:12])))
+-        if out.get('roles'):
+-            td += _kv('Roles come from', _e('relationship H.CTX, cluster %s' % out['roles'][0].get('cluster_id', '')))
+-        for p in out.get('peers') or []:
+-            for e in p.get('evidence') or []:
+-                td += _kv('Evidence source', _e('%s, fingerprint %s' % (e.get('source_ref', ''), str(e.get('sha256', ''))[:12])))
+-        h += '<details class="td"><summary>Technical details</summary><div class="cd">%s</div></details>' % td
+-    note = DEPTH_NOTE.get(eff, '')
+-    if out.get('depth_clamped'):
+-        note += ' (Your role limits the depth to %s.)' % eff
+-    h += '<p class="nt">%s Registry %s, %s. Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (
+-        _e(note), _e(str(out.get('registry_version', ''))), _e(str(out.get('registry_state', ''))))
+-    return h
++        return _r.render_unavailable(out, 'Context scaffold')
++    return _r.render_screen(out)
+diff -ruN a/synapsys/scaffold_wire.py b/synapsys/scaffold_wire.py
+--- a/synapsys/scaffold_wire.py	2026-11-27 03:32:33.000000000 +0000
++++ b/synapsys/scaffold_wire.py	2026-11-27 03:35:26.846170037 +0000
+@@ -13,12 +13,16 @@
+ 
+ try:  # inside Odoo
+     from . import scaffold_lens as sl
++    from . import screen_decl as sd
+ except ImportError:  # offline tests load the module by path
+     import scaffold_lens as sl
++    import screen_decl as sd
+ 
+ GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
+ DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
+ NOUN = 'N.CONTEXT'
++NOUN_SCREEN = 'SCR.CONTEXT.NOUN'
++_DECLS = {}
+ 
+ # Evidence bindings (PROPOSED by Claude Code from the record's name and domain, 27 Nov 2026; the Steward may change this table).
+ # A binding says: this Service Catalogue record is the source-bound library relationship for this peer noun. It is pinned by a
+@@ -100,9 +104,14 @@
+     return evidence, index, notes
+ 
+ 
+-def scaffold_context(env, depth='enable', context_id='', version=None):
+-    if depth not in sl.DEPTHS:
+-        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
++def declarations():
++    """Screen declarations, loaded once and validated. Raises ValueError if any declaration is invalid."""
++    if not _DECLS:
++        _DECLS['v'] = sd.load_declarations()
++    return _DECLS['v']
++
++
++def _project(env, decl, depth, context_id, record=None, version=None):
+     actor = actor_from_env(env)
+     if not actor['groups']:
+         return {'result': 'REFUSED', 'reason': 'NO_RECOGNISED_ROLE'}
+@@ -110,7 +119,57 @@
+     if err:
+         return {'result': 'REFUSED', 'reason': err}
+     evidence, index, notes = collect_evidence(env)
+-    out = sl.build_scaffold(reg, NOUN, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH)
+-    out.update(prov)
+-    out['evidence_notes'] = notes
++    out = sd.project(decl, reg, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH, record)
++    if out.get('result') == 'OK':
++        out.update(prov)
++        out['declaration_sha'] = declarations()[1]['sha256']
++        out['evidence_notes'] = notes
+     return out
++
++
++def scaffold_context(env, depth='enable', context_id='', version=None):
++    """Noun screen for Context. The route's context_id is carried through to the evidence gate only; it does not select a
++    record (an empty or non-existent id returns the same screen: OPEN item for the Steward, not decided here)."""
++    if depth not in sl.DEPTHS:
++        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
++    try:
++        decl = declarations()[0][NOUN_SCREEN]
++    except ValueError:
++        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
++    return _project(env, decl, depth, context_id, None, version)
++
++
++def _field(rec, name):
++    v = rec[name]
++    return getattr(v, 'id', v)
++
++
++def screen_record(env, screen_id, record_id, depth='enable'):
++    """Record screen for one record, read with the CALLER'S rights (no sudo). Not routed in RC06a: there is no controller
++    route for it and dev holds no operating records; it is exercised by tests with rolled-back fixtures."""
++    if depth not in sl.DEPTHS:
++        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
++    try:
++        decl = declarations()[0].get(screen_id)
++    except ValueError:
++        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
++    if not decl or decl['screen_type'] != 'record':
++        return {'result': 'REFUSED', 'reason': 'UNKNOWN_SCREEN'}
++    rd = decl['record']
++    try:
++        rid = int(record_id)
++    except (TypeError, ValueError):
++        return {'result': 'REFUSED', 'reason': 'RECORD_NOT_FOUND'}
++    try:
++        rec = env[rd['model']].search([('id', '=', rid)], limit=1)
++        if not rec:
++            return {'result': 'REFUSED', 'reason': 'RECORD_NOT_FOUND'}
++        record = {'model': rd['model'], 'id': rid, 'name': rec[rd['name_field']] or None,
++                  'kind': _field(rec, rd['kind']['field']) if 'field' in rd['kind'] else None,
++                  'neighbour_kind': _field(rec, rd['neighbour_kind_field']) if rd.get('neighbour_kind_field') else None}
++        ctx = str(_field(rec, rd['context_field']) or '') if rd.get('context_field') else ''
++    except Exception as exc:  # noqa: BLE001 - classify, never leak details
++        if _is_access_error(exc):
++            return {'result': 'REFUSED', 'reason': 'NO_RECORD_READ_RIGHT'}
++        raise
++    return _project(env, decl, depth, ctx, record)
+diff -ruN a/synapsys/screen_decl.py b/synapsys/screen_decl.py
+--- a/synapsys/screen_decl.py	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/screen_decl.py	2026-11-27 03:34:24.241798105 +0000
+@@ -0,0 +1,331 @@
++"""Screen declarations and the screen projection (RC06a, source-only candidate).
++
++Pure functions: no Odoo, no writes, no sudo, no I/O except loading the declaration file by path.
++
++A screen is DECLARED as data (data/screen_declarations.json) and PROJECTED here into one depth-limited model, which
++screen_render.render_screen turns into HTML. No screen has its own slot code.
++
++Rulings relied on (Steward, 27 Nov 2026, in chat; none is canon):
++  1 stage sets the ceiling, you drill within it; stage is computed from the bound kind at render time and never stored
++  2 two screen types: noun (full ladder, no stage) and record (ceiling from its kind)
++  3 one question per depth   4 fixed frame   5 trust table   6 declared as data   7 frame first, verbs separately
++  8 Stage and Depth are two separate labels.
++Content is never invented: every claim reads from the registry element it is bound to, every source chip must quote text
++the registry element actually holds (a chip whose quote is absent is dropped and noted), and a missing value says so.
++"""
++import hashlib
++import json
++import os
++
++try:  # inside Odoo
++    from . import scaffold_lens as sl
++except ImportError:  # offline tests load modules by path
++    import scaffold_lens as sl
++
++DEPTHS = sl.DEPTHS  # ("enable", "enhance", "enrich")
++NOT_BOUND = "not bound"
++STAGE_BY_KIND = {"K-1": "enable", "K-3": "enable", "K-4": "enable", "K-6": "enhance", "K-8": "enhance", "K-12": "enrich"}
++SCREEN_TYPES = ("noun", "record")
++KNOWN_SLOTS = {
++    "enable": ("header", "answer", "trust", "movement"),
++    "enhance": ("made_of", "peers"),
++    "enrich": ("trust_table", "open_questions", "technical"),
++}
++FRAME = KNOWN_SLOTS["enable"]
++NOT_APPLICABLE = "Not applicable for this kind"
++DEFAULT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "screen_declarations.json")
++STEM_MAX = 60
++
++
++# ---------------------------------------------------------------------------------------------------------- stage
++def stage_for_kind(kind):
++    """Pure. kind -> 'enable' | 'enhance' | 'enrich' | 'not bound'. Unknown or missing kind is NOT bound, never guessed."""
++    k = kind.strip() if isinstance(kind, str) else None
++    return STAGE_BY_KIND.get(k, NOT_BOUND)
++
++
++def ceiling_for_stage(stage):
++    """Deepest depth a record screen may show. An unbound stage is Enable depth only."""
++    return stage if stage in DEPTHS else "enable"
++
++
++def _ix(depth):
++    return DEPTHS.index(depth)
++
++
++def resolve_depth(screen_type, requested, stage=None, role_effective=None):
++    """Returns (effective, clamped, reason). Noun screens never clamp for stage; role clamping still applies.
++
++    role_effective is the depth the actor's role allows (already <= requested). A record screen then also applies the
++    stage ceiling. depth_clamped is True whenever effective != requested, with the reason named."""
++    if requested not in DEPTHS:
++        raise ValueError("unknown depth %r" % (requested,))
++    eff = role_effective if role_effective in DEPTHS else requested
++    reason = "role" if eff != requested else None
++    if screen_type == "record":
++        ceil = ceiling_for_stage(stage)
++        if _ix(ceil) < _ix(eff):
++            eff, reason = ceil, "stage"
++    return eff, eff != requested, reason
++
++
++# ----------------------------------------------------------------------------------------------------- declaration
++def declaration_sha(raw_bytes):
++    return hashlib.sha256(raw_bytes).hexdigest()
++
++
++def validate_screen(d):
++    """Returns a list of error strings; empty means valid."""
++    errs = []
++    sid = d.get("id", "?")
++
++    def bad(msg):
++        errs.append("%s: %s" % (sid, msg))
++
++    for k in ("id", "noun", "screen_type", "title", "answer", "trust_claim", "movement", "claims"):
++        if k not in d:
++            bad("missing %s" % k)
++    if errs:
++        return errs
++    if d["screen_type"] not in SCREEN_TYPES:
++        bad("screen_type must be noun or record")
++    rec = d.get("record")
++    if d["screen_type"] == "record":
++        if not isinstance(rec, dict) or not rec.get("model") or not rec.get("name_field"):
++            bad("a record screen must declare record.model and record.name_field")
++        else:
++            kd = rec.get("kind")
++            if not isinstance(kd, dict) or (("field" in kd) == ("fixed" in kd)):
++                bad("a record screen must declare record.kind as exactly one of field or fixed")
++            elif "fixed" in kd and kd["fixed"] not in STAGE_BY_KIND:
++                bad("record.kind.fixed %r is not a known kind" % (kd["fixed"],))
++    elif rec is not None:
++        bad("a noun screen has no record block and no stage")
++    if d["answer"].get("from") != "element.definition":
++        bad("answer.from must be element.definition (no invented text)")
++    mv = d["movement"]
++    if not isinstance(mv.get("verbs"), list):
++        bad("movement.verbs must be a list (empty allowed)")
++    else:
++        for v in mv["verbs"]:
++            if not (isinstance(v, dict) and v.get("verb") and v.get("source") and v.get("status") == "bound"):
++                bad("a verb appears only where bound: verb, source and status 'bound' are required (no proposed or candidate verbs)")
++    if not mv.get("verbs") and not mv.get("hold_reason"):
++        bad("movement.hold_reason is required where no verb is bound")
++    ids = []
++    for c in d["claims"]:
++        for k in ("id", "type", "noun", "label", "sources"):
++            if k not in c:
++                bad("claim missing %s" % k)
++        ids.append(c.get("id"))
++        if c.get("type") not in ("element", "peer"):
++            bad("claim %s: type must be element or peer" % c.get("id"))
++        for s in c.get("sources", []):
++            if not (s.get("name") and s.get("quote")) or "date" not in s:
++                bad("claim %s: a source needs name, date (null if the registry text holds none) and quote" % c.get("id"))
++    if len(set(ids)) != len(ids):
++        bad("duplicate claim ids")
++    if d["trust_claim"] not in ids:
++        bad("trust_claim %r is not a claim id" % (d["trust_claim"],))
++    mo = d.get("made_of")
++    if mo is not None and not (mo.get("relationship") and mo.get("heading") and isinstance(mo.get("role_names"), dict)):
++        bad("made_of needs relationship, heading and role_names")
++    pe = d.get("peers")
++    if pe is not None:
++        if not (pe.get("heading") and isinstance(pe.get("nouns"), list)) or len(pe["nouns"]) > 3:
++            bad("peers needs heading and at most three nouns")
++        else:
++            peer_claims = {c["noun"] for c in d["claims"] if c.get("type") == "peer"}
++            for n in pe["nouns"]:
++                if n not in peer_claims:
++                    bad("peer %s has no peer claim for the trust table" % n)
++            for n in peer_claims - set(pe["nouns"]):
++                bad("peer claim for %s is not in peers.nouns" % n)
++    elif any(c.get("type") == "peer" for c in d["claims"]):
++        bad("a peer claim needs a peers block")
++    return errs
++
++
++def load_declarations(path=None):
++    """Returns ({id: screen}, meta). Raises ValueError listing every error; never returns a half-valid set."""
++    p = path or DEFAULT_PATH
++    with open(p, "rb") as fh:
++        raw = fh.read()
++    doc = json.loads(raw.decode("utf-8"))
++    errs = []
++    if doc.get("schema") != "synapsys.screen.declaration/1":
++        errs.append("unknown schema %r" % (doc.get("schema"),))
++    slots = doc.get("slots")
++    if slots != {k: list(v) for k, v in KNOWN_SLOTS.items()}:
++        errs.append("slots per depth must be exactly %s" % json.dumps(KNOWN_SLOTS))
++    out = {}
++    for s in doc.get("screens", []):
++        errs.extend(validate_screen(s))
++        out[s.get("id")] = s
++    if errs:
++        raise ValueError("; ".join(errs))
++    return out, {"sha256": declaration_sha(raw), "slots": slots}
++
++
++# --------------------------------------------------------------------------------------------------- projection
++def stem_of(text):
++    """One-line stem of an open question: up to the first ( : or ? and at most STEM_MAX chars. Returns (stem, truncated)."""
++    t = " ".join(str(text).split())
++    cut = len(t)
++    for ch in ("(", ":", "?"):
++        i = t.find(ch)
++        if 0 < i < cut:
++            cut = i
++    s = t[:min(cut, STEM_MAX)].rstrip(" ,;")
++    return s, len(s) < len(t)
++
++
++def _chips(claim, element, notes):
++    """Source chips for a claim. A chip whose quote is absent from the registry text is dropped and noted, never shown."""
++    src = (element or {}).get("definition_source") or ""
++    out = []
++    for s in claim.get("sources", []):
++        if s["quote"] in src:
++            out.append({"name": s["name"], "date": s.get("date")})
++        else:
++            notes.append("%s: source chip %r not found in the registry text" % (claim["id"], s["name"]))
++    return out
++
++
++def _kind_of(decl, record):
++    """Returns (kind_or_None, reason_or_None, neighbour_kind) for a record screen."""
++    kd = decl["record"]["kind"]
++    nb = (record or {}).get("neighbour_kind") or None
++    if "fixed" in kd:
++        return kd["fixed"], None, nb
++    k = (record or {}).get("kind")
++    if not k:
++        return None, "this record has no resolved kind", nb
++    if k not in STAGE_BY_KIND:
++        return None, "kind %s is not one of K-1, K-3, K-4, K-6, K-8, K-12" % k, nb
++    return k, None, nb
++
++
++def _slots_for(depth):
++    out = []
++    for d in DEPTHS[:_ix(depth) + 1]:
++        out.extend(KNOWN_SLOTS[d])
++    return out
++
++
++def project(decl, reg, requested_depth, actor, evidence, library_index, context_id="", role_max_depth=None, record=None):
++    """Declaration + registry + actor -> depth-limited screen model (a dict). No I/O, no writes.
++
++    Only content the actor is entitled to, at the effective depth, is put in the model (the same model is the JSON route
++    output, so there is no hidden page data). Evidence passes the existing fail-closed filters in scaffold_lens."""
++    if requested_depth not in DEPTHS:
++        return {"result": "REFUSED", "reason": "UNKNOWN_DEPTH"}
++    els = sl.index_registry(reg)
++    noun = decl["noun"]
++    if noun not in els:
++        return {"result": "REFUSED", "reason": "UNKNOWN_NOUN"}
++    role_eff = sl._effective_depth(actor or {}, requested_depth, role_max_depth)
++    if role_eff is None:
++        return {"result": "REFUSED", "reason": "NO_RECOGNISED_ROLE"}
++    stype = decl["screen_type"]
++    stage = stage_reason = neighbour = None
++    kind = None
++    if stype == "record":
++        kind, stage_reason, neighbour = _kind_of(decl, record)
++        stage = stage_for_kind(kind)
++        if stage == NOT_BOUND and not stage_reason:
++            stage_reason = "kind not bound"
++    eff, clamped, clamp_reason = resolve_depth(stype, requested_depth, stage, role_eff)
++    el = els[noun]
++    notes = []
++    claims = {c["id"]: c for c in decl["claims"]}
++    chips = {cid: _chips(c, els.get(c["noun"]), notes) for cid, c in claims.items()}
++    tc = claims[decl["trust_claim"]]
++    mv = decl["movement"]
++    out = {
++        "result": "OK", "screen": decl["id"], "screen_type": stype, "noun": noun, "title": decl["title"],
++        "label": el["label"], "status": el.get("status"), "definition": el.get("definition"),
++        "registry_version": reg.get("version"),
++        "stage": stage, "stage_reason": stage_reason, "stage_computed_not_stored": True,
++        "depth_requested": requested_depth, "depth_effective": eff, "depth_clamped": clamped, "clamp_reason": clamp_reason,
++        "context_id": context_id, "writes": 0,
++        "slots": _slots_for(eff),
++        "frame": {
++            "header": {"noun": el["label"], "status": el.get("status"), "record_name": (record or {}).get("name") if stype == "record" else None,
++                       "neighbour_kind": neighbour},
++            "answer": el.get("definition"),
++            "trust": {"status": el.get("status"), "source_count": len(chips[tc["id"]])},
++            "movement": ({"state": "BOUND", "verbs": [v["verb"] for v in mv["verbs"]]} if mv["verbs"]
++                         else {"state": "HOLD", "text": "verbs not yet bound", "reason": mv["hold_reason"], "verbs": []}),
++        },
++        "notes": notes,
++    }
++    if eff != requested_depth and clamp_reason == "stage":
++        out["not_applicable"] = {"requested": requested_depth, "text": NOT_APPLICABLE if stage != NOT_BOUND else "Stage not bound: Enable depth only",
++                                 "reason": stage_reason if stage == NOT_BOUND else "stage %s sets the ceiling" % stage}
++    peers = []
++    if _ix(eff) >= 1:
++        mo = decl.get("made_of")
++        roles = sl.roles_for(reg, els, mo["relationship"]) if mo else []
++        enh = {"made_of": {"heading": mo["heading"], "relationship": mo["relationship"], "rows": [
++            {"role_id": r["role_id"], "name": mo["role_names"].get(r["role_id"]) or _fallback_role(r), "required": r["required"],
++             "many": r["many"], "bound_label": r["bound_label"], "bound_status": r["bound_status"], "cluster_id": r["cluster_id"]}
++            for r in roles]} if mo else None}
++        pd = decl.get("peers")
++        if pd:
++            for pn in pd["nouns"]:
++                peers.append(sl._peer_block(els, pn, eff, actor, evidence, library_index, context_id))
++            enh["peers"] = {"heading": pd["heading"], "rows": [
++                {"id": p["id"], "label": p["label"], "status": p["status"], "operating_source": p.get("operating_source"),
++                 "definition": p.get("definition")} for p in peers]}
++        else:
++            enh["peers"] = None
++        out["enhance"] = enh
++    if _ix(eff) >= 2:
++        rows = []
++        for c in decl["claims"]:
++            e = els.get(c["noun"]) or {}
++            row = {"id": c["id"], "label": c["label"], "chips": chips[c["id"]], "source_count": len(chips[c["id"]]),
++                   "full_citation": e.get("definition_source"), "evidence": [], "rejected": []}
++            oqs = list(e.get("open_questions") or [])
++            if c["type"] == "element":
++                row["status"] = e.get("status")
++                row["qualifier"] = None
++                if c.get("qualifier_from") == "element.kind":
++                    k = e.get("kind")
++                    row["qualifier"] = {"first": ("Kind: " + str(k).split(";")[0]) if k else None, "full": k}
++            else:
++                p = [x for x in peers if x["id"] == c["noun"]][0]
++                row["registry_status"] = p.get("status")
++                sourced = p.get("operating_source") == "SOURCED"
++                row["status"] = "CATALOGUE RECORD FOUND" if sourced else "HOLD"
++                quals = []
++                for ev in p.get("evidence") or []:
++                    quals.extend((ev.get("detail") or {}).get("qualifiers") or [])
++                    row["evidence"].append({"label": ev.get("label"), "source_ref": ev.get("source_ref"), "sha256": ev.get("sha256")})
++                    row["chips"] = [{"name": str(ev.get("label") or ev.get("source_ref")).split(" ")[0], "date": None, "evidence": True}] + row["chips"]
++                    row["source_count"] += 1
++                row["rejected"] = sorted(set(r.get("reason", "") for r in p.get("rejected_evidence") or []))
++                row["qualifier"] = ({"first": quals[0], "full": quals} if quals else
++                                    {"first": "No operating source: HOLD", "full": None} if not sourced else None)
++            row["open"] = []
++            for q in oqs:
++                s, trunc = stem_of(q)
++                row["open"].append({"text": q, "stem": s, "truncated": trunc})
++            rows.append(row)
++        out["enrich"] = {
++            "rows": rows,
++            "open_total": sum(len(r["open"]) for r in rows),
++            "technical": {
++                "registry_version": reg.get("version"), "relationship": (decl.get("made_of") or {}).get("relationship"),
++                "cluster_id": (out["enhance"]["made_of"]["rows"][0]["cluster_id"] if out["enhance"]["made_of"] and out["enhance"]["made_of"]["rows"] else None),
++                "evidence_sources": [{"source_ref": e["source_ref"], "sha256": e["sha256"]} for r in rows for e in r["evidence"]],
++                "screen_id": decl["id"], "kind": kind,
++            },
++        }
++    return out
++
++
++def _fallback_role(r):
++    t = str(r.get("role_label") or r.get("role_id") or "").replace("_", " ").replace("+", "").strip()
++    return (t[:1].upper() + t[1:]) if t else "Role"
+diff -ruN a/synapsys/screen_render.py b/synapsys/screen_render.py
+--- a/synapsys/screen_render.py	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/screen_render.py	2026-11-27 03:38:00.492595113 +0000
+@@ -0,0 +1,230 @@
++"""The one screen renderer (RC06a, source-only candidate).
++
++Builds the fixed frame (header, answer, trust line, movement) and the depth sections from a screen model produced by
++screen_decl.project. There is no per-screen rendering code: every slot is built by one generic function, in declared order.
++Pure: every dynamic value is escaped; no scripts, no inline event handlers, no external URLs. Presentation only: it changes no
++data, kind, PPV, approval or right.
++"""
++from html import escape as _e
++
++STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;color:#1f2933;box-sizing:border-box}'
++         '.syn-sc *{box-sizing:border-box}.syn-sc h1{font-size:24px;margin:0 0 4px}.syn-sc h2{font-size:17px;margin:20px 0 8px}'
++         '.syn-sc .sb{color:#52606d;font-size:14px;margin:0 0 12px;overflow-wrap:anywhere}'
++         '.syn-sc .lb{font-size:13px;color:#52606d;margin:0 0 8px}.syn-sc .lb span{margin-right:12px}'
++         '.syn-sc .an{font-size:15px;margin:0 0 8px;overflow-wrap:anywhere}.syn-sc .tl,.syn-sc .mv{font-size:14px;margin:0 0 8px;overflow-wrap:anywhere}'
++         '.syn-sc a.bk{display:inline-block;min-height:44px;line-height:44px;padding:0 14px;margin:0 0 8px -14px;color:#714b67;cursor:pointer}'
++         '.syn-sc .cd{background:#fff;border:1px solid #e4e7eb;border-radius:10px;padding:14px 16px;margin:0 0 14px}'
++         '.syn-sc .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;border-top:1px solid #f0f2f5}'
++         '.syn-sc .kv span:first-child{color:#7b8794;min-width:30%}.syn-sc .kv span:last-child{text-align:right;overflow-wrap:anywhere}'
++         '.syn-sc .tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:#f0f4ff;color:#3e4c59;margin-right:4px}'
++         '.syn-sc .hold{background:#fff4e5;color:#7a4b00}.syn-sc .req{background:#e6f4ea;color:#14532d}'
++         '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
++         '.syn-sc table.tt{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}.syn-sc .tt th,.syn-sc .tt td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid #f0f2f5;overflow-wrap:anywhere}'
++         '.syn-sc .tt td>div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.syn-sc .tt details>div{white-space:normal}'
++         '.syn-sc details summary{cursor:pointer;color:#714b67;font-size:12px}'
++         '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}.syn-sc .tt th:nth-child(3),.syn-sc .tt td:nth-child(3){display:none}}</style>')
++
++BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
++DEPTH_NOTE = {'enable': 'Enable: what this is, and what to do next. Switch Depth to Enhance for what it is made of and connects to, Enrich for trust and what is open.',
++              'enhance': 'Enhance: what it is made of, and what it connects to.',
++              'enrich': 'Enrich: why to trust it, and what is still open.'}
++LABEL = {'enable': 'Enable', 'enhance': 'Enhance', 'enrich': 'Enrich'}
++NO_ROLES = 'No roles are declared for this screen.'
++
++
++def _t(v):
++    return _e(str(v)) if v not in (None, '', [], ()) else 'UNSOURCED'
++
++
++def _kv(k, v):
++    return '<div class="kv"><span>%s</span><span>%s</span></div>' % (_e(str(k)), v)
++
++
++def _pill(text, cls=''):
++    return '<span class="tg%s">%s</span>' % ((' ' + cls) if cls else '', _e(str(text)))
++
++
++def _plural(n, word):
++    return '%d %s' % (n, word if n == 1 else word + 's')
++
++
++def _chip_text(c):
++    return ('%s %s' % (c['name'], c['date'])) if c.get('date') else c['name']
++
++
++# ------------------------------------------------------------------------------------------------ frame slots
++def _slot_header(m):
++    h = m['frame']['header']
++    title = h['noun'] if not h.get('record_name') else '%s: %s' % (h['noun'], h['record_name'])
++    if m['screen_type'] == 'noun':
++        stage = 'Stage: none (a noun screen has no stage)'
++    elif m['stage'] == 'not bound':
++        stage = 'Stage: not bound'
++    else:
++        stage = 'Stage: %s' % LABEL[m['stage']]
++    s = '<div data-slot="header"><h1>%s %s</h1>' % (_e(title), _pill(h.get('status') or 'UNSOURCED'))
++    s += '<p class="lb"><span data-label="stage">%s</span><span data-label="depth">Depth: %s</span>' % (_e(stage), _e(LABEL[m['depth_effective']]))
++    if h.get('neighbour_kind'):
++        s += '<span data-label="neighbour">Neighbour: its Context is kind %s (shown, never used for stage)</span>' % _e(str(h['neighbour_kind']))
++    s += '</p>'
++    if m['screen_type'] == 'record' and m['stage'] == 'not bound':
++        s += '<p class="sb" data-slot-note="stage">Stage not bound: %s.</p>' % _e(str(m.get('stage_reason') or 'kind not bound'))
++    return s + '</div>'
++
++
++def _slot_answer(m):
++    return '<p class="an" data-slot="answer">%s</p>' % _t(m['frame']['answer'])
++
++
++def _slot_trust(m):
++    t = m['frame']['trust']
++    return '<p class="tl" data-slot="trust">%s %s</p>' % (_pill(t['status'] or 'UNSOURCED'), _e(_plural(t['source_count'], 'source')))
++
++
++def _slot_movement(m):
++    mv = m['frame']['movement']
++    if mv['state'] == 'HOLD':
++        return '<p class="mv" data-slot="movement">%s %s. Reason: %s.</p>' % (_pill('HOLD', 'hold'), _e(mv['text']), _e(mv['reason']))
++    return '<p class="mv" data-slot="movement">%s</p>' % _e('Next: ' + mv['verbs'][0])
++
++
++# ---------------------------------------------------------------------------------------------- enhance slots
++def _slot_made_of(m):
++    mo = m['enhance']['made_of']
++    if not mo:
++        return '<div data-slot="made_of"><h2>Made of</h2><p class="sb">%s</p></div>' % _e(NO_ROLES)
++    if not mo['rows']:
++        body = '<p class="sb">No roles returned.</p>'
++    else:
++        rows = ''
++        for r in mo['rows']:
++            req = _pill('required', 'req') if r['required'] else _pill('optional')
++            many = _pill('one or more') if r['many'] else ''
++            rows += _kv(r['name'], '%s%s%s %s' % (req, many, _e(str(r['bound_label'])), _pill(r['bound_status'] or 'UNSOURCED')))
++        body = '<div class="cd">%s</div>' % rows
++    return '<div data-slot="made_of"><h2>%s</h2>%s</div>' % (_e(mo['heading']), body)
++
++
++def _peer_state(p):
++    if p.get('operating_source') == 'SOURCED':
++        return '%s existence only, not operation' % _pill('CATALOGUE RECORD FOUND', 'req')
++    return _pill('NO OPERATING SOURCE: HOLD', 'hold')
++
++
++def _slot_peers(m):
++    pe = m['enhance'].get('peers')
++    if not pe:
++        return '<div data-slot="peers"><h2>Linked peers</h2><p class="sb">No linked peers are declared for this screen.</p></div>'
++    rows = ''
++    for p in pe['rows']:
++        more = '<details><summary>what it is</summary><div>%s</div></details>' % _t(p.get('definition'))
++        rows += _kv(p['label'], '%s %s %s' % (_pill(p['status'] or 'UNSOURCED'), _peer_state(p), more))
++    return '<div data-slot="peers"><h2>%s</h2><div class="cd">%s</div></div>' % (_e(pe['heading']), rows)
++
++
++# ----------------------------------------------------------------------------------------------- enrich slots
++def _chips_cell(r):
++    shown, rest = r['chips'][:3], r['chips'][3:]
++    if not r['chips']:
++        line = 'None recorded'
++    else:
++        line = ' '.join(_pill(_chip_text(c)) for c in shown)
++        if rest:
++            line += _e(' +%d' % len(rest))
++    full = ''
++    if r.get('evidence') or r.get('full_citation') or r['chips']:
++        items = ''.join('<li>%s</li>' % _e(_chip_text(c)) for c in r['chips'])
++        ev = ''.join('<li>Evidence: %s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in r.get('evidence') or [])
++        fc = ('<p class="sb">Definition source: %s</p>' % _e(str(r['full_citation']))) if r.get('full_citation') else ''
++        full = '<details><summary>full citation</summary><div><ul>%s%s</ul>%s</div></details>' % (items, ev, fc)
++    return '<div>%s</div>%s' % (line, full)
++
++
++def _status_cell(r):
++    """One line: status pill, then the one-line qualifier. Anything longer is behind a disclosure."""
++    cls = 'hold' if r['status'] == 'HOLD' else ('req' if r['status'] == 'CATALOGUE RECORD FOUND' else '')
++    line = _pill(r['status'] or 'UNSOURCED', cls)
++    q = r.get('qualifier')
++    if q and q.get('first'):
++        line += ' ' + _e(str(q['first']))
++    if r.get('rejected'):
++        line += ' ' + _e('Rejected evidence: ' + ', '.join(r['rejected']))
++    s = '<div>%s</div>' % line
++    if q and q.get('first'):
++        full = q.get('full')
++        if isinstance(full, list) and len(full) > 1:
++            s += '<details><summary>%s</summary><div><ul>%s</ul></div></details>' % (
++                _e('+%d more' % (len(full) - 1)), ''.join('<li>%s</li>' % _e(str(x)) for x in full[1:]))
++        elif isinstance(full, str) and full != str(q['first'])[len('Kind: '):]:
++            s += '<details><summary>full kind</summary><div>%s</div></details>' % _e(full)
++    return s
++
++
++def _open_cell(r):
++    n = len(r['open'])
++    if not n:
++        return '<div>none recorded</div>'
++    first = r['open'][0]
++    stem = _e(first['stem'] + '…') + ' ' if first['truncated'] else ''
++    return '<div>%s%s</div>' % (stem, _e('(%d open)' % n))
++
++
++def _slot_trust_table(m):
++    rows = ''.join('<tr data-claim="%s"><td><div>%s</div></td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
++        _e(r['id']), _e(r['label']), _status_cell(r), _chips_cell(r), _open_cell(r)) for r in m['enrich']['rows'])
++    return ('<div data-slot="trust_table"><h2>Why to trust it</h2><div class="cd"><table class="tt"><thead><tr><th>Claim</th><th>Status</th>'
++            '<th>Source</th><th>Open question</th></tr></thead><tbody>%s</tbody></table></div></div>' % rows)
++
++
++def _slot_open_questions(m):
++    items = ''
++    for r in m['enrich']['rows']:
++        if r['open']:
++            items += '<li>%s (%s)<ul>%s</ul></li>' % (_e(r['label']), _e('%d open' % len(r['open'])),
++                                                      ''.join('<li>%s</li>' % _e(q['text']) for q in r['open']))
++    body = '<ul>%s</ul>' % items if items else '<p class="sb">none recorded</p>'
++    return '<div data-slot="open_questions"><h2>What is still open</h2><div class="cd">%s</div></div>' % body
++
++
++def _slot_technical(m):
++    t = m['enrich']['technical']
++    td = _kv('Registry', _e('%s, %s, fingerprint %s' % (m.get('registry_version', ''), m.get('registry_state', ''), str(m.get('registry_sha', ''))[:12])))
++    if t.get('relationship') and t.get('cluster_id'):
++        td += _kv('Roles come from', _e('relationship %s, cluster %s' % (t['relationship'], t['cluster_id'])))
++    for e in t.get('evidence_sources') or []:
++        td += _kv('Evidence source', _e('%s, fingerprint %s' % (e.get('source_ref', ''), str(e.get('sha256', ''))[:12])))
++    td += _kv('Screen declaration', _e('%s, fingerprint %s' % (t.get('screen_id', ''), str(m.get('declaration_sha', ''))[:12])))
++    if t.get('kind'):
++        td += _kv('Bound kind', _e(str(t['kind'])))
++    return '<details class="td" data-slot="technical"><summary>Technical details</summary><div class="cd">%s</div></details>' % td
++
++
++SLOT_BUILDERS = {
++    'header': _slot_header, 'answer': _slot_answer, 'trust': _slot_trust, 'movement': _slot_movement,
++    'made_of': _slot_made_of, 'peers': _slot_peers,
++    'trust_table': _slot_trust_table, 'open_questions': _slot_open_questions, 'technical': _slot_technical,
++}
++
++
++def render_unavailable(out, title='Screen'):
++    why = (out or {}).get('reason', 'UNKNOWN') if isinstance(out, dict) else 'UNKNOWN'
++    return STYLE + '<div class="syn-sc">%s<h1>%s</h1><p class="sb">Not available: %s.</p></div>' % (BACK, _e(title), _e(str(why)))
++
++
++def render_screen(m):
++    """One renderer for every screen. Slots are built in the order the model lists them (frame first, then each depth)."""
++    if not isinstance(m, dict) or m.get('result') != 'OK' or 'slots' not in m:
++        return render_unavailable(m)
++    eff = m['depth_effective']
++    h = STYLE + '<div class="syn-sc" data-screen="%s" data-screen-type="%s" data-depth="%s">' % (_e(m['screen']), _e(m['screen_type']), _e(eff)) + BACK
++    for slot in m['slots']:
++        h += SLOT_BUILDERS[slot](m)
++    na = m.get('not_applicable')
++    if na:
++        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
++    note = DEPTH_NOTE.get(eff, '')
++    if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
++        note += ' (Your role limits the depth to %s.)' % LABEL[eff]
++    h += '<p class="nt">%s Registry %s, %s. Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (
++        _e(note), _e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))
++    return h
+diff -ruN a/synapsys/tests/__init__.py b/synapsys/tests/__init__.py
+--- a/synapsys/tests/__init__.py	2026-11-27 03:32:33.000000000 +0000
++++ b/synapsys/tests/__init__.py	2026-11-27 03:38:33.749911892 +0000
+@@ -6,3 +6,4 @@
+ from . import test_intelligence_access
+ from . import test_home
+ from . import test_lens_contract
++from . import test_screen_record
+diff -ruN a/synapsys/tests/test_screen_record.py b/synapsys/tests/test_screen_record.py
+--- a/synapsys/tests/test_screen_record.py	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/tests/test_screen_record.py	2026-11-27 03:38:33.737911891 +0000
+@@ -0,0 +1,49 @@
++"""RC06a record-screen tests against real Odoo models, in a TransactionCase (every record created here is rolled back).
++
++SOURCE ONLY, NOT RUN: this build had no Odoo. It is written to run in the module's test suite on a disposable database, never on
++dev data: it creates its own Context and Asset records inside the test transaction and nothing persists. Dev holds no operating
++records (synapsys.context and synapsys.asset count 0), so the record-screen path has no live data to read; these tests are what
++exercises it. The offline equivalents (fake env, same code path) are in release/rc06a_screen_architecture/tests/test_screen_arch.py.
++"""
++from odoo.tests import TransactionCase, new_test_user, tagged
++
++from odoo.addons.synapsys import scaffold_wire as sw, screen_render as sr
++
++
++@tagged('post_install', '-at_install', 'synapsys')
++class TestScreenRecord(TransactionCase):
++
++    def setUp(self):
++        super().setUp()
++        self.steward = new_test_user(self.env, 'rc06steward', groups='synapsys.group_synapsys_steward')
++        self.env_s = self.env(user=self.steward)
++        if not self.env['synapsys.mesh.registry'].search([], limit=1):
++            self.skipTest('no Mesh registry installed on this database')
++
++    def _context(self, kind, code):
++        return self.env['synapsys.context'].create({'code': code, 'name': 'Fixture ' + code, 'kind': kind})
++
++    def test_context_record_ceiling_follows_its_own_kind(self):
++        for kind, eff in (('K-1', 'enable'), ('K-6', 'enhance'), ('K-12', 'enrich')):
++            ctx = self._context(kind, 'CTX-RC06-' + kind)
++            out = sw.screen_record(self.env_s, 'SCR.CONTEXT.RECORD', ctx.id, 'enrich')
++            self.assertEqual(out['result'], 'OK')
++            self.assertEqual((out['stage'], out['depth_effective']), (eff, eff), kind)
++            self.assertEqual(out['depth_clamped'], eff != 'enrich')
++            self.assertIn('Fixture CTX-RC06-' + kind, sr.render_screen(out))
++
++    def test_context_record_without_a_kind_is_stage_not_bound(self):
++        ctx = self.env['synapsys.context'].create({'code': 'CTX-RC06-NOKIND', 'name': 'No kind'})
++        out = sw.screen_record(self.env_s, 'SCR.CONTEXT.RECORD', ctx.id, 'enrich')
++        self.assertEqual((out['stage'], out['depth_effective']), ('not bound', 'enable'))
++
++    def test_asset_record_stage_is_its_own_noun_kind_k4_with_its_context_kind_as_neighbour(self):
++        ctx = self._context('K-12', 'CTX-RC06-A')
++        asset = self.env['synapsys.asset'].create({'name': 'Fixture asset', 'context_id': ctx.id})
++        out = sw.screen_record(self.env_s, 'SCR.ASSET.RECORD', asset.id, 'enrich')
++        self.assertEqual((out['stage'], out['depth_effective'], out['depth_clamped']), ('enable', 'enable', True))
++        self.assertIn('Neighbour: its Context is kind K-12', sr.render_screen(out))
++
++    def test_a_missing_record_is_refused_not_an_error(self):
++        out = sw.screen_record(self.env_s, 'SCR.CONTEXT.RECORD', 0, 'enable')
++        self.assertEqual(out['reason'], 'RECORD_NOT_FOUND')

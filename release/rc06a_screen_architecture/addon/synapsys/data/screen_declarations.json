@@ -1,0 +1,152 @@
+{
+  "schema": "synapsys.screen.declaration/1",
+  "status": "SOURCE CANDIDATE, NON_AUTHORISING. Not released to the registry (registry 0.3.5 is unchanged); a registry release is a separate D007 step.",
+  "slots": {
+    "enable": ["header", "answer", "trust", "movement"],
+    "enhance": ["made_of", "peers"],
+    "enrich": ["trust_table", "open_questions", "technical"]
+  },
+  "stage_note": "Stage is computed from the bound kind at render time by screen_decl.stage_for_kind and is stored nowhere. Noun screens carry no stage.",
+  "screens": [
+    {
+      "id": "SCR.CONTEXT.NOUN",
+      "noun": "N.CONTEXT",
+      "screen_type": "noun",
+      "title": "Context scaffold",
+      "answer": {"from": "element.definition"},
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.CTX",
+        "heading": "What a Context is made of",
+        "role_names": {
+          "R.CTX_CONTEXT": "The Context itself",
+          "R.CTX_PURPOSE": "Purpose",
+          "R.CTX_RIGHTS_HOLDER": "Rights holder",
+          "R.CTX_INTERSECTS": "Intersecting chains",
+          "R.CTX_PORTFOLIO": "Portfolios",
+          "R.CTX_SHAPE": "Shape",
+          "R.CTX_STRATEGY": "Strategies"
+        }
+      },
+      "peers": {"heading": "Linked peers", "nouns": ["N.CAPABILITY", "N.SERVICE"]},
+      "claims": [
+        {
+          "id": "meaning", "type": "element", "noun": "N.CONTEXT", "label": "Context meaning and kind",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
+            {"name": "Registry H.CTX", "date": null, "quote": "registry H.CTX"},
+            {"name": "Ledger", "date": "20 Nov 07:20-07:21", "quote": "ledger 20 Nov 07:20-07:21"}
+          ]
+        },
+        {
+          "id": "peer.capability", "type": "peer", "noun": "N.CAPABILITY", "label": "Capability",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
+            {"name": "design_d.json", "date": null, "quote": "design_d.json"},
+            {"name": "pack.md OV-02", "date": null, "quote": "pack.md OV-02"}
+          ]
+        },
+        {
+          "id": "peer.service", "type": "peer", "noun": "N.SERVICE", "label": "Service",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "Project instructions v2.2.2"},
+            {"name": "design_d", "date": null, "quote": "design_d Service->Benefit"},
+            {"name": "Ledger", "date": "20 Nov 07:06", "quote": "ledger 20 Nov 07:06"},
+            {"name": "Ledger", "date": "20 Nov 10:51", "quote": "10:51 (KDA seats"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.CONTEXT.RECORD",
+      "noun": "N.CONTEXT",
+      "screen_type": "record",
+      "title": "Context",
+      "record": {"model": "synapsys.context", "name_field": "name", "kind": {"field": "kind"}, "context_field": "id"},
+      "answer": {"from": "element.definition"},
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.CTX",
+        "heading": "What a Context is made of",
+        "role_names": {
+          "R.CTX_CONTEXT": "The Context itself",
+          "R.CTX_PURPOSE": "Purpose",
+          "R.CTX_RIGHTS_HOLDER": "Rights holder",
+          "R.CTX_INTERSECTS": "Intersecting chains",
+          "R.CTX_PORTFOLIO": "Portfolios",
+          "R.CTX_SHAPE": "Shape",
+          "R.CTX_STRATEGY": "Strategies"
+        }
+      },
+      "peers": {"heading": "Linked peers", "nouns": ["N.CAPABILITY", "N.SERVICE"]},
+      "claims": [
+        {
+          "id": "meaning", "type": "element", "noun": "N.CONTEXT", "label": "Context meaning and kind",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
+            {"name": "Registry H.CTX", "date": null, "quote": "registry H.CTX"},
+            {"name": "Ledger", "date": "20 Nov 07:20-07:21", "quote": "ledger 20 Nov 07:20-07:21"}
+          ]
+        },
+        {
+          "id": "peer.capability", "type": "peer", "noun": "N.CAPABILITY", "label": "Capability",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "project instructions v2.2.2"},
+            {"name": "design_d.json", "date": null, "quote": "design_d.json"},
+            {"name": "pack.md OV-02", "date": null, "quote": "pack.md OV-02"}
+          ]
+        },
+        {
+          "id": "peer.service", "type": "peer", "noun": "N.SERVICE", "label": "Service",
+          "sources": [
+            {"name": "Project instr. v2.2.2", "date": null, "quote": "Project instructions v2.2.2"},
+            {"name": "design_d", "date": null, "quote": "design_d Service->Benefit"},
+            {"name": "Ledger", "date": "20 Nov 07:06", "quote": "ledger 20 Nov 07:06"},
+            {"name": "Ledger", "date": "20 Nov 10:51", "quote": "10:51 (KDA seats"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.ASSET.RECORD",
+      "noun": "N.ASSET",
+      "screen_type": "record",
+      "title": "Asset",
+      "record": {
+        "model": "synapsys.asset", "name_field": "name",
+        "kind": {"fixed": "K-4", "note": "OPEN, not ruled: default is the record's own noun kind (K-4, always Enable). The Context's kind is shown as a neighbour only."},
+        "neighbour_kind_field": "context_kind",
+        "context_field": "context_id"
+      },
+      "answer": {"from": "element.definition"},
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning", "type": "element", "noun": "N.ASSET", "label": "Asset meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {"name": "Project core definition", "date": null, "quote": "Project core definition"},
+            {"name": "Ledger", "date": "20 Nov 07:13", "quote": "ledger 20 Nov 07:13"},
+            {"name": "design_d", "date": null, "quote": "design_d Benefit->Asset"}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -13,12 +13,16 @@ import json
 
 try:  # inside Odoo
     from . import scaffold_lens as sl
+    from . import screen_decl as sd
 except ImportError:  # offline tests load the module by path
     import scaffold_lens as sl
+    import screen_decl as sd
 
 GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
 DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
 NOUN = 'N.CONTEXT'
+NOUN_SCREEN = 'SCR.CONTEXT.NOUN'
+_DECLS = {}
 
 # Evidence bindings (PROPOSED by Claude Code from the record's name and domain, 27 Nov 2026; the Steward may change this table).
 # A binding says: this Service Catalogue record is the source-bound library relationship for this peer noun. It is pinned by a
@@ -100,9 +104,14 @@ def collect_evidence(env):
     return evidence, index, notes
 
 
-def scaffold_context(env, depth='enable', context_id='', version=None):
-    if depth not in sl.DEPTHS:
-        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+def declarations():
+    """Screen declarations, loaded once and validated. Raises ValueError if any declaration is invalid."""
+    if not _DECLS:
+        _DECLS['v'] = sd.load_declarations()
+    return _DECLS['v']
+
+
+def _project(env, decl, depth, context_id, record=None, version=None):
     actor = actor_from_env(env)
     if not actor['groups']:
         return {'result': 'REFUSED', 'reason': 'NO_RECOGNISED_ROLE'}
@@ -110,7 +119,57 @@ def scaffold_context(env, depth='enable', context_id='', version=None):
     if err:
         return {'result': 'REFUSED', 'reason': err}
     evidence, index, notes = collect_evidence(env)
-    out = sl.build_scaffold(reg, NOUN, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH)
-    out.update(prov)
-    out['evidence_notes'] = notes
+    out = sd.project(decl, reg, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH, record)
+    if out.get('result') == 'OK':
+        out.update(prov)
+        out['declaration_sha'] = declarations()[1]['sha256']
+        out['evidence_notes'] = notes
     return out
+
+
+def scaffold_context(env, depth='enable', context_id='', version=None):
+    """Noun screen for Context. The route's context_id is carried through to the evidence gate only; it does not select a
+    record (an empty or non-existent id returns the same screen: OPEN item for the Steward, not decided here)."""
+    if depth not in sl.DEPTHS:
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+    try:
+        decl = declarations()[0][NOUN_SCREEN]
+    except ValueError:
+        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
+    return _project(env, decl, depth, context_id, None, version)
+
+
+def _field(rec, name):
+    v = rec[name]
+    return getattr(v, 'id', v)
+
+
+def screen_record(env, screen_id, record_id, depth='enable'):
+    """Record screen for one record, read with the CALLER'S rights (no sudo). Not routed in RC06a: there is no controller
+    route for it and dev holds no operating records; it is exercised by tests with rolled-back fixtures."""
+    if depth not in sl.DEPTHS:
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+    try:
+        decl = declarations()[0].get(screen_id)
+    except ValueError:
+        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
+    if not decl or decl['screen_type'] != 'record':
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_SCREEN'}
+    rd = decl['record']
+    try:
+        rid = int(record_id)
+    except (TypeError, ValueError):
+        return {'result': 'REFUSED', 'reason': 'RECORD_NOT_FOUND'}
+    try:
+        rec = env[rd['model']].search([('id', '=', rid)], limit=1)
+        if not rec:
+            return {'result': 'REFUSED', 'reason': 'RECORD_NOT_FOUND'}
+        record = {'model': rd['model'], 'id': rid, 'name': rec[rd['name_field']] or None,
+                  'kind': _field(rec, rd['kind']['field']) if 'field' in rd['kind'] else None,
+                  'neighbour_kind': _field(rec, rd['neighbour_kind_field']) if rd.get('neighbour_kind_field') else None}
+        ctx = str(_field(rec, rd['context_field']) or '') if rd.get('context_field') else ''
+    except Exception as exc:  # noqa: BLE001 - classify, never leak details
+        if _is_access_error(exc):
+            return {'result': 'REFUSED', 'reason': 'NO_RECORD_READ_RIGHT'}
+        raise
+    return _project(env, decl, depth, ctx, record)
