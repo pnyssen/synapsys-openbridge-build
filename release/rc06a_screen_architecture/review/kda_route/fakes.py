@@ -1,5 +1,5 @@
 """Offline fixtures: fake ORM + fake DESTINATION verifier. Proves the tool's logic, NOT Odoo behaviour."""
-import hashlib, json, os, sys, tempfile
+import copy, hashlib, json, os, sys, tempfile
 from datetime import datetime, timezone
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import kda_router as K
@@ -24,12 +24,31 @@ class Model:
     def browse(s, i): return Rec(s.db, s.m, i)
     def search(s, dom):
         return [Rec(s.db, s.m, i) for i, r in s.db.t[s.m].items() if all(r.get(f) == v for f, op, v in dom)]
+class Cursor:
+    """Odoo-like explicit transaction: writes live in db.t until commit(); rollback() restores the last committed snapshot."""
+    def __init__(s, db): s.db = db
+    def commit(s):
+        d = s.db
+        if d.fail_on_commit: raise RuntimeError("commit refused (not applied)")
+        if d.commit_partial_ids is not None:
+            d._snap = copy.deepcopy(d.t)
+            for k, row in d._snap["synapsys.service"].items():
+                if k not in d.commit_partial_ids: row["context_id"] = None
+            raise RuntimeError("connection lost mid-commit (partial)")
+        d._snap = copy.deepcopy(d.t); d.commits += 1
+        if d.commit_ambiguous: raise RuntimeError("connection lost after commit (applied)")
+    def rollback(s):
+        s.db.t = copy.deepcopy(s.db._snap); s.db.rollbacks += 1
 class Env:
     def __init__(s, db): s.db = db
+    @property
+    def cr(s): return s.db.cr
     def __getitem__(s, m): return Model(s.db, m)
 class DB:
-    def __init__(s, ctx_rows=1, drift=None, fail_on_write=None):
+    def __init__(s, ctx_rows=1, drift=None, fail_on_write=None, fail_on_commit=False, commit_ambiguous=False, commit_partial_ids=None):
         s.writes, s.fail_on_write = [], fail_on_write
+        s.fail_on_commit, s.commit_ambiguous, s.commits, s.rollbacks = fail_on_commit, commit_ambiguous, 0, 0
+        s.commit_partial_ids = commit_partial_ids   # fault: commit persists only these rows' new values then raises (violated atomicity)
         s.t = {"synapsys.context": {}, "synapsys.service": {}}
         for k in range(ctx_rows): s.t["synapsys.context"][1 + k] = {"code": "CTX-SS", "v19_id": 1}
         s.t["synapsys.context"][90] = {"code": "CTX-BASIN", "v19_id": 9}
@@ -38,6 +57,7 @@ class DB:
         while len(s.t["synapsys.service"]) < 49:
             s.t["synapsys.service"][n] = {"code": "X%d" % n, "v19_id": n, "context_id": None, "method_id": None}; n += 1
         for k, v in (drift or {}).items(): s.t["synapsys.service"][k].update(v)
+        s.cr = Cursor(s); s._snap = copy.deepcopy(s.t)
 
 
 class FakeLock:
@@ -58,6 +78,9 @@ class FV(K.Verifier):
         s.actor = {"actor": "exec1", "can_write": True}
         s.exec, s.d009 = {}, {}
         s.issuer, s.status = "D007", "RELEASED"
+        s.reserved, s.consumed_by = {}, {}
+        s.fail_reserve = s.fail_consume = s.fail_release = False
+        s.exec_calls, s.revoke_exec_at = 0, None
     def identity(s): return s.VID
     def fetch_receipt(s, rid):
         r = s.receipts.get(rid)
@@ -67,9 +90,31 @@ class FV(K.Verifier):
     def is_consumed(s, rid): return rid in s.consumed
     def current_pins(s): return dict(s.pins)
     def actor_permission(s, env, model, fields): return s.actor
-    def executor_state(s, rid): return s.exec.get(rid)
+    def executor_state(s, rid):
+        s.exec_calls += 1; st = s.exec.get(rid)
+        if st is not None and s.revoke_exec_at and s.exec_calls >= s.revoke_exec_at: st = dict(st, admitted=False)
+        return st
+    def receipt_state(s, rid):
+        if rid in s.consumed: return ("CONSUMED", s.consumed_by.get(rid))
+        if rid in s.reserved: return ("RESERVED", s.reserved[rid])
+        return ("AVAILABLE", None)
+    def reserve(s, rid, run):
+        if s.fail_reserve: raise RuntimeError("reserve down")
+        if rid in s.consumed or (rid in s.reserved and s.reserved[rid] != run): return False
+        s.reserved[rid] = run; return True
+    def finalize_consume(s, rid, run):
+        if s.fail_consume: raise RuntimeError("consume down")
+        if rid in s.consumed and s.consumed_by.get(rid) == run: return True        # idempotent for the same run only
+        if s.reserved.get(rid) != run: raise RuntimeError("not the holder")
+        del s.reserved[rid]; s.consumed.add(rid); s.consumed_by[rid] = run; return True
+    def consume(s, rid, run=None):                      # legacy single-step consume (e5160294 loader); honours the same fault flag
+        if s.fail_consume: raise RuntimeError("consume down")
+        s.consumed.add(rid)
+    def release_reservation(s, rid, run):
+        if s.fail_release: raise RuntimeError("release down")
+        if s.reserved.get(rid) == run: del s.reserved[rid]; return True
+        return False
     def d009_challenge(s, rid): return s.d009.get(rid)
-    def consume(s, rid): s.consumed.add(rid)
 
 
 def sha(b): return hashlib.sha256(b).hexdigest()
@@ -100,7 +145,8 @@ def make_release(v, effect, body_over=None, exec_over=None, d009_over="default",
 
 def tmp_journal():
     d = tempfile.mkdtemp(prefix="kdaj_")
-    return L.DurableJournal(os.path.join(d, "journal.jsonl"))
+    if hasattr(L.DurableJournal, "create"): return L.DurableJournal.create(d)       # unique, exclusive, protected
+    return L.DurableJournal(os.path.join(d, "journal.jsonl"))                       # e5160294 shape (for old-commit regression runs)
 
 def loader_release(db, v, **kw):
     env = Env(db); ctx = L.resolve_context(env); scope = L.frozen_scope(env, ctx, "WO")

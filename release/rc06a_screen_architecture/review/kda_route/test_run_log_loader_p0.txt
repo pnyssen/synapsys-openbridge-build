@@ -1,0 +1,22 @@
+== NEW CODE (corrected) ==
+-- test_kda_route
+Ran 29 tests in 0.053s  OK 
+-- test_p0_bindings
+Ran 53 tests in 0.050s  OK 
+-- test_p0_adversarial
+Ran 10 tests in 0.001s  OK 
+-- test_p0_loader_recovery
+Ran 48 tests in 0.253s  OK 
+-- test_p0_loader_regressions
+Ran 7 tests in 0.031s  OK 
+
+== OLD COMMIT e5160294 : test_p0_loader_regressions.py (same file, must FAIL) ==
+FAIL: test_T11_consume_failure_leaves_no_leaked_lock_and_a_recorded_state (__main__.T11ConsumeFailureAfterWrites.test_T11_consume_failure_leaves_no_leaked_lock_and_a_recorded_state)
+FAIL: test_T11_no_untracked_partial_effect (__main__.T11ConsumeFailureAfterWrites.test_T11_no_untracked_partial_effect)
+FAIL: test_T12_reused_journal_path_never_reverts_an_earlier_completed_run (__main__.T12StaleJournalReplay.test_T12_reused_journal_path_never_reverts_an_earlier_completed_run)
+FAIL: test_T13_constructed_admission_without_authoritative_release_cannot_write (__main__.T13ConstructibleToken.test_T13_constructed_admission_without_authoritative_release_cannot_write)
+FAIL: test_T14_foreign_context_on_one_row (__main__.T14ConflictBlocksWholeOperation.test_T14_foreign_context_on_one_row)
+FAIL: test_T14_stale_code_on_one_row (__main__.T14ConflictBlocksWholeOperation.test_T14_stale_code_on_one_row)
+FAIL: test_T14_stale_v19_id_on_one_row (__main__.T14ConflictBlocksWholeOperation.test_T14_stale_v19_id_on_one_row)
+Ran 7 tests in 0.038s
+FAILED (failures=7)

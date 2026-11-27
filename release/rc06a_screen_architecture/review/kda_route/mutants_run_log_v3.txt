@@ -1,0 +1,52 @@
+M00 KILLED   if not trusted(verifier):         return "NO_TRUSTED_VERIFIE
+M01 KILLED   if got.get("issuer") != "D007" or got.get("status") != "RELE
+M02 KILLED   or body.get("scope_digest") != mine:
+M03 KILLED   if body.get("fields") != effect.get("fields") or body.get("t
+M04 KILLED   if state[0] == "RESERVED" and (run_id is None or state[1] !=
+M05 KILLED   state[0] not in ("AVAILABLE", "RESERVED")
+M06 KILLED   if effect.get("pins") != verifier.current_pins():
+M07 KILLED   not (nb <= now <= ex)
+M08 KILLED   ap.get("can_write") is True and bool(ap.get("actor")) and ap
+M09 KILLED   ex.get("backup_restore_verified") is True and 
+M10 KILLED   (not route.get("needs_chg") or bool(body.get("chg")))
+M11 KILLED   elif isinstance(ch, dict) and ch.get("provider") == bp:
+M12 KILLED   ch.get("verdict") == "PASS" and 
+M13 KILLED   gates = GATES
+M14 KILLED   if any(e.get(k) for k in SENSITIVE_READ):             return
+M15 KILLED   raise ClassificationHold("CONTRADICTORY_READ_ONLY_WITH_MUTAT
+M16 KILLED   raise ClassificationHold("MUTATES_NOT_EXPLICIT_BOOL")
+M17 KILLED   not _allowed(connector, effect["model"]):         st["actor_
+M18 KILLED   return isinstance(verifier, Verifier) and verifier.identity(
+M19 KILLED   if not isinstance(admission, Admission):         raise Hold(
+M20 KILLED   adm.journal.append("ROW", id=r["id"], prior=r["prior"] or Fa
+M21 KILLED   if phase == "pre_write" and prestate_digest(env) != adm.pres
+M22 KILLED   if getattr(adm.lock, "held", False) is not True:         rai
+M23 KILLED   adm.verifier.finalize_consume(adm.rid, adm.run_id)
+M24 KILLED   if d["disposition"] != "APPLY_ADMITTED":         raise Hold(
+M25 KILLED   if r.exists() and _ref(r, "context_id") == ctx_id:
+M26 KILLED   if conflicts:                 raise Hold("SCOPE_CONFLICT_ALL
+M27 KILLED   if d["disposition"] != "APPLY_ADMITTED":         raise Hold(
+M28 KILLED   if v.receipt_state(adm.rid) != ("RESERVED", adm.run_id):
+M29 KILLED   _revalidate(env, adm, "pre_commit")
+M30 KILLED   _typed_readback(env, ctx.id, total_before, others_before)
+M31 KILLED   if not isinstance(adm.journal, DurableJournal) or not adm.jo
+M32 KILLED   if not isinstance(journal, DurableJournal) or not journal.re
+M33 KILLED   os.O_CREAT | os.O_EXCL | os.O_WRONLY | os.O_NOFOLLOW
+M34 KILLED   or (st.st_mode & 0o077) or st.st_uid != os.getuid():
+M35 KILLED   (self.run_id and r.get("run_id") != self.run_id):
+M36 KILLED   if r.get("prev") != prev or r.get("seq") != i + 1 or hashlib
+M37 KILLED   if verifier.reserve(rid, journal.run_id) is not True:
+M38 KILLED   adm.verifier.release_reservation(adm.rid, adm.run_id)     ex
+M39 KILLED   finally:         try:             adm.lock.release()
+M40 KILLED   if cls == "NOT_COMMITTED":                 errs = _abort(env
+M41 KILLED   if cls != "COMMITTED":                 try:                 
+M42 KILLED   raise ReconcilePending("COMMITTED_UNCONSUMED", adm.run_id, "
+M43 KILLED   env.cr.rollback()          # classify COMMITTED data only
+M44 KILLED   if cls == "MIXED":             journal.append("ESCALATED_MIX
+M45 KILLED   if cur == e["new"]:             n_new += 1
+M46 KILLED   if cr is None or not callable(getattr(cr, "commit", None)) o
+M47 KILLED   out["method"] = {"state": "UNOBSERVED_HOLD"
+M48 KILLED   len(str(context_ruling.get("ruling_sha256", ""))) == 64
+EQUIV survives as expected (K.decide() inside _revalidate refuses an unpinned verifier): if not K.trusted(v):         raise Hold(
+EQUIV survives as expected (journal.entries() already rejects any record from another run): if j["run_id"] != journal.run_id:       
+mutants=49 survivors=[] not_applicable=[]

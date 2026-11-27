@@ -118,7 +118,7 @@ class Loader(unittest.TestCase):
         db, v, ref, j, lock, a = admit_fresh(); o = L.run(Env(db), "apply", admission=a)
         rb = L.readback(Env(db), o["context_id"]); self.assertEqual((rb["linked_19"], rb["others_unlinked"], rb["method_false"], rb["total"]), (19, 30, 49, 49))
         self.assertTrue(all(set(w[2]) == {"context_id"} for w in db.writes)); self.assertEqual(len(db.writes), 19)
-        self.assertEqual(len(j.entries()), 19); self.assertIn("R1", v.consumed)
+        self.assertEqual(len(j.rows()), 19); self.assertIn("R1", v.consumed); self.assertEqual(j.state(), "FINALIZED")
     def test_R8_second_run_unchanged_no_writes(self):
         db, v, ref, j, lock, a = admit_fresh(); L.run(Env(db), "apply", admission=a); db.writes.clear()
         _, _, _, _, _, a2 = admit_fresh(db=db, rid="R2"); o = L.run(Env(db), "apply", admission=a2)
@@ -130,12 +130,16 @@ class Loader(unittest.TestCase):
     def test_rollback_skips_row_changed_since(self):
         db, v, ref, j, lock, a = admit_fresh(); o = L.run(Env(db), "apply", admission=a); db.t["synapsys.service"][1]["context_id"] = 90
         self.assertEqual(L.rollback(Env(db), j, o["context_id"]), 18); self.assertEqual(db.t["synapsys.service"][1]["context_id"], 90)
+    # DESIGN CHANGE (defect P0-R4): the 2 old tests below asserted "18 written, 1 held, release consumed". Any conflict now stops the whole 19-row effect.
     def test_wrong_context_row_held_not_overwritten(self):
-        db, v, ref, j, lock, a = admit_fresh(db=DB(drift={1: {"context_id": 90}})); o = L.run(Env(db), "apply", admission=a)
-        self.assertEqual(o["counts"]["ROW_HOLD_CONFLICT"], 1); self.assertEqual(db.t["synapsys.service"][1]["context_id"], 90); self.assertEqual(len(db.writes), 18)
+        db, v, ref, j, lock, a = admit_fresh(db=DB(drift={1: {"context_id": 90}}))
+        with self.assertRaises(L.Hold) as c: L.run(Env(db), "apply", admission=a)
+        self.assertIn("SCOPE_CONFLICT_ALL_OR_NOTHING", str(c.exception)); self.assertEqual(db.t["synapsys.service"][1]["context_id"], 90)
+        self.assertEqual(db.writes, []); self.assertNotIn("R1", v.consumed); self.assertEqual(v.receipt_state("R1"), ("AVAILABLE", None)); self.assertFalse(lock.held)
     def test_stale_identity_held(self):
-        db, v, ref, j, lock, a = admit_fresh(db=DB(drift={48: {"code": "SC-99"}})); o = L.run(Env(db), "apply", admission=a)
-        self.assertEqual(o["counts"]["ROW_HOLD_CONFLICT"], 1); self.assertEqual(len(db.writes), 18)
+        db, v, ref, j, lock, a = admit_fresh(db=DB(drift={48: {"code": "SC-99"}}))
+        with self.assertRaises(L.Hold) as c: L.run(Env(db), "apply", admission=a)
+        self.assertIn("SCOPE_CONFLICT_ALL_OR_NOTHING", str(c.exception)); self.assertEqual(db.writes, []); self.assertNotIn("R1", v.consumed)
     def test_duplicate_or_missing_context_stops_before_write(self):
         for n in (0, 2):
             db = DB(ctx_rows=n); v = FV()

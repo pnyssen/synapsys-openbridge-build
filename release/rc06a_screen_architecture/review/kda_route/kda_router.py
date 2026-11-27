@@ -40,7 +40,11 @@ class Verifier:
     def actor_permission(self, env, model, fields): raise NotImplementedError  # -> {"actor": id, "can_write": bool}
     def executor_state(self, receipt_id): raise NotImplementedError  # -> admitted/route/actor/backup/run_lock/dry_run/rollback
     def d009_challenge(self, receipt_id): raise NotImplementedError  # -> {"provider","verdict","bytes","sha256"} or None
-    def consume(self, receipt_id): raise NotImplementedError         # one-time use, called only after a successful effect
+    def receipt_state(self, receipt_id):                              # -> ("AVAILABLE"|"RESERVED"|"CONSUMED", holder_run_id|None)
+        return ("CONSUMED", None) if self.is_consumed(receipt_id) else ("AVAILABLE", None)
+    def reserve(self, receipt_id, run_id): raise NotImplementedError          # revocable hold, before any write
+    def finalize_consume(self, receipt_id, run_id): raise NotImplementedError  # irreversible; ONLY after the DB commit; idempotent for the same run_id
+    def release_reservation(self, receipt_id, run_id): raise NotImplementedError  # revocable; only for the holder
 
 
 def canon(o):
@@ -160,7 +164,7 @@ def trusted(verifier):
     return isinstance(verifier, Verifier) and verifier.identity() in PINNED_VERIFIER_IDS
 
 
-def verify_release(ref, effect, verifier):
+def verify_release(ref, effect, verifier, run_id=None):
     """VERIFIED only via a pinned destination-bound verifier reading the authoritative receipt. Returns (status, receipt_body|None)."""
     if not trusted(verifier):
         return "NO_TRUSTED_VERIFIER", None
@@ -196,8 +200,11 @@ def verify_release(ref, effect, verifier):
     nb, ex = _parse_ts(body.get("not_before", "")), _parse_ts(body.get("expires", ""))
     if now is None or getattr(now, "tzinfo", None) is None or ex is None or nb is None or not (nb <= now <= ex):
         return "EXPIRED_OR_NOT_YET_VALID_OR_MALFORMED", None
-    if verifier.is_consumed(ref["receipt_id"]):
-        return "REPLAYED", None
+    state = verifier.receipt_state(ref["receipt_id"])
+    if not (isinstance(state, tuple) and len(state) == 2) or state[0] not in ("AVAILABLE", "RESERVED"):
+        return "REPLAYED", None            # CONSUMED or anything unrecognised fails closed
+    if state[0] == "RESERVED" and (run_id is None or state[1] != run_id):
+        return "REPLAYED", None            # held by another run (or by none we know)
     if effect.get("pins") != verifier.current_pins():
         return "PINS_DRIFTED", None
     return "VERIFIED", body
@@ -212,8 +219,8 @@ def _allowed(connector, model):
     return any(model == p or (p.endswith("*") and model.startswith(p[:-1])) for p in connector.get("write_scope", ()))
 
 
-def _gate(effect, rel, connector, verifier, route, seats, st):
-    st["seat_release"], body = verify_release(rel, effect, verifier)
+def _gate(effect, rel, connector, verifier, route, seats, st, run_id):
+    st["seat_release"], body = verify_release(rel, effect, verifier, run_id)
     rid = body["receipt_id"] if body else None
     ok_v = trusted(verifier) and body is not None
     if route["route"] == "V20_MCP_GATED_WRITE" and not _allowed(connector, effect["model"]):
@@ -245,7 +252,7 @@ def _gate(effect, rel, connector, verifier, route, seats, st):
 
 
 
-def decide(effect, rel=None, executor=None, connector=None, now_iso=None, d009=None, verifier=None):
+def decide(effect, rel=None, executor=None, connector=None, now_iso=None, d009=None, verifier=None, run_id=None):
     """Six independent statuses. `executor`, `d009`, `now_iso` (legacy params) are NEVER trusted; only the verifier is."""
     try:
         validate_effect(effect)
@@ -264,7 +271,7 @@ def decide(effect, rel=None, executor=None, connector=None, now_iso=None, d009=N
         return {"floor": fl, "gpc": gpc, "seats": seats, "seats_required": len(seats), "statuses": {**st, "seat_release": "REQUIRED_BEFORE_ACCESS"},
                 "route": route, "disposition": "HOLD_SENSITIVE_ACCESS_NEEDS_SEATS", "blockers": ["seat_release"], "needs_steward": False}
     try:
-        _gate(effect, rel, connector, verifier, route, seats, st)
+        _gate(effect, rel, connector, verifier, route, seats, st, run_id)
     except Exception as ex_:   # a verifier that errors is a verifier that did not verify
         for g in GATES:
             if st[g] == "VERIFIED":

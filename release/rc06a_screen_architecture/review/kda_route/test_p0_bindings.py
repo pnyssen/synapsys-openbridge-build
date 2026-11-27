@@ -44,6 +44,11 @@ class T2Bindings(unittest.TestCase):
         e2 = base_effect(work_object="OTHER-WO"); e2["scope"] = dict(e2["scope"], work_object="OTHER-WO")
         v2 = FV(); ref2 = make_release(v2, base_effect())
         self.assertEqual(K.decide(e2, rel=ref2, verifier=v2)["disposition"], "HOLD_APPLY_ONLY")
+    def test_reserved_by_another_run_is_a_replay(self):
+        e = base_effect(); v = FV(); ref = make_release(v, e); v.reserved["R1"] = "other-run"
+        self.assertEqual(K.decide(e, rel=ref, verifier=v)["statuses"]["seat_release"], "REPLAYED")
+        self.assertEqual(K.decide(e, rel=ref, verifier=v, run_id="other-run")["disposition"], "APPLY_ADMITTED")     # the holder itself passes
+        self.assertEqual(K.decide(e, rel=ref, verifier=v, run_id="third-run")["statuses"]["seat_release"], "REPLAYED")
     def test_pins_drift(self):
         e = base_effect(); v = FV(); ref = make_release(v, e); v.pins["commit"] = "moved"
         self.assertEqual(K.decide(e, rel=ref, verifier=v)["disposition"], "HOLD_APPLY_ONLY")
@@ -176,11 +181,11 @@ class T6Loader(unittest.TestCase):
         import fakes
         w = fakes.Rec.write
         def spy(self_, vals):
-            seen.append(len(j.entries())); return w(self_, vals)
+            seen.append(len(j.rows())); return w(self_, vals)
         fakes.Rec.write = spy
         try: L.run(Env(db), "apply", admission=a)
         finally: fakes.Rec.write = w
-        self.assertEqual(seen, list(range(1, 20)))
+        self.assertEqual(seen, list(range(1, 20)))   # ROW records only: each row is journalled before it is written
     def test_receipt_consumed_once_second_use_refused(self):
         db, v, ref, j, lock = self.adm(); a = L.admit(Env(db), v, ref, lock, j, "WO"); L.run(Env(db), "apply", admission=a)
         with self.assertRaises(L.Hold): L.admit(Env(db), v, ref, FakeLock(), tmp_journal(), "WO")
