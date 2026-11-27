@@ -1,0 +1,16 @@
+# Narrow allowlist for gitleaks (loaded automatically from the repo root).
+# Extends the default ruleset; does not disable any rule globally.
+#
+# Why: release/**/tests/golden/*_tree_manifest.json map file names to SHA-256
+# digests. A name containing "access" (e.g. security/ir.access.csv) beside a
+# 64-hex digest trips rule generic-api-key (entropy ~3.8) although the value is
+# a public content hash, not a credential. Scoped by path to those generated manifest
+# files only (gitleaks 8.21.2 supports path allowlists, not rule+path+regex AND).
+title = "SynapSys gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Golden tree manifests: file-name -> SHA-256 content hash maps"
+paths = ['''^release/[^/]+/tests/golden/[^/]*_tree_manifest\.json$''']
