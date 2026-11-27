@@ -18,6 +18,18 @@ STYLE = ('<style>.syn-sc{max-width:1100px;margin:0 auto;padding:16px 16px 48px;c
          '.syn-sc ul{margin:4px 0;padding-left:18px}.syn-sc .kv ul{margin:0;text-align:left}.syn-sc li{overflow-wrap:anywhere}.syn-sc .nt{font-size:12px;color:#7b8794;margin-top:14px}'
          '@media (max-width:600px){.syn-sc .kv{flex-direction:column;gap:2px}.syn-sc .kv span:last-child{text-align:left}}</style>')
 
+ROLE_PLAIN = {'R.CTX_CONTEXT': 'The Context itself', 'R.CTX_PURPOSE': 'Purpose', 'R.CTX_RIGHTS_HOLDER': 'Rights holder',
+              'R.CTX_INTERSECTS': 'Intersecting chains', 'R.CTX_PORTFOLIO': 'Portfolios', 'R.CTX_SHAPE': 'Shape',
+              'R.CTX_STRATEGY': 'Strategies'}
+
+
+def _role_name(r):
+    if r.get('role_id') in ROLE_PLAIN:
+        return ROLE_PLAIN[r['role_id']]
+    t = str(r.get('role_label') or r.get('role_id') or '').replace('_', ' ').replace('+', '').strip()
+    return (t[:1].upper() + t[1:]) if t else 'Role'
+
+
 BACK = '<a class="bk" data-lv="1" data-g="">&larr; Lenses</a>'
 DEPTH_NOTE = {'enable': 'Enable: the headline view. Switch Depth to Enhance for roles and peers, Enrich for provenance.',
               'enhance': 'Enhance: roles and linked peers.',
@@ -38,8 +50,8 @@ def _roles(roles):
     rows = ''
     for r in roles:
         req = '<span class="tg req">required</span>' if r.get('required') else '<span class="tg">optional</span>'
-        many = '<span class="tg">many</span>' if r.get('many') else ''
-        rows += _kv('%s' % r.get('role_label', ''), '%s%s%s <span class="tg">%s</span>' % (
+        many = '<span class="tg">one or more</span>' if r.get('many') else ''
+        rows += _kv(_e(_role_name(r)), '%s%s%s <span class="tg">%s</span>' % (
             req, many, _e(str(r.get('bound_label', ''))), _e(str(r.get('bound_status') or 'UNSOURCED'))))
     return '<div class="cd">%s</div>' % rows
 
@@ -58,8 +70,7 @@ def _peer(p):
             if q:
                 h += _kv('Qualification', '<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(str(x)) for x in q))
     if 'evidence' in p:
-        ev = ''.join('<li>%s</li>' % _e('%s (%s)' % (e.get('label') or e.get('source_ref'), str(e.get('sha256', ''))[:12]))
-                     for e in p.get('evidence') or [])
+        ev = ''.join('<li>%s</li>' % _e(str(e.get('label') or e.get('source_ref'))) for e in p.get('evidence') or [])
         h += _kv('Evidence', '<ul>%s</ul>' % ev if ev else 'none')
         rej = p.get('rejected_evidence') or []
         if rej:
@@ -80,7 +91,7 @@ def render(out, mode='enable'):
     h += '<h1>%s <span class="tg">%s</span></h1><p class="sb">%s</p>' % (
         _e(str(out.get('label', ''))), _e(str(out.get('status') or 'UNSOURCED')), _txt(out.get('definition')))
     if 'roles' in out:
-        h += '<h2>Roles in a Context (H.CTX)</h2>' + _roles(out['roles'])
+        h += '<h2>What a Context is made of</h2>' + _roles(out['roles'])
     if out.get('peers'):
         h += '<h2>Linked peers</h2>' + ''.join(_peer(p) for p in out['peers'])
     if 'definition_source' in out:
@@ -88,6 +99,14 @@ def render(out, mode='enable'):
         h += '<h2>Provenance</h2><div class="cd">%s%s%s</div>' % (
             _kv('Kind', _txt(out.get('kind'))), _kv('Definition source', _txt(out.get('definition_source'))),
             _kv('Open questions', '<ul>%s</ul>' % oq if oq else 'none recorded'))
+    if 'definition_source' in out:
+        td = _kv('Registry', _e('%s, %s, fingerprint %s' % (out.get('registry_version', ''), out.get('registry_state', ''), str(out.get('registry_sha', ''))[:12])))
+        if out.get('roles'):
+            td += _kv('Roles come from', _e('relationship H.CTX, cluster %s' % out['roles'][0].get('cluster_id', '')))
+        for p in out.get('peers') or []:
+            for e in p.get('evidence') or []:
+                td += _kv('Evidence source', _e('%s, fingerprint %s' % (e.get('source_ref', ''), str(e.get('sha256', ''))[:12])))
+        h += '<details class="td"><summary>Technical details</summary><div class="cd">%s</div></details>' % td
     note = DEPTH_NOTE.get(eff, '')
     if out.get('depth_clamped'):
         note += ' (Your role limits the depth to %s.)' % eff
