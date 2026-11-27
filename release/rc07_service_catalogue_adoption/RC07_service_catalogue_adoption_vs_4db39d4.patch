@@ -1,0 +1,1691 @@
+diff --git a/release/rc07_service_catalogue_adoption/.gitignore b/release/rc07_service_catalogue_adoption/.gitignore
+new file mode 100644
+index 0000000..923d43a
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/.gitignore
+@@ -0,0 +1,2 @@
++# The V19 extract is operational business data, filed in Working Memory (sha256 87bdc258...); it is not committed. Place it here to run the tests.
++fixtures/V19_SERVICE_CATALOGUE_EXTRACT_*.json
+diff --git a/release/rc07_service_catalogue_adoption/evidence/dry_run_fake_db_20261127.txt b/release/rc07_service_catalogue_adoption/evidence/dry_run_fake_db_20261127.txt
+new file mode 100644
+index 0000000..688ab6d
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/evidence/dry_run_fake_db_20261127.txt
+@@ -0,0 +1,57 @@
++FAKE DATABASE (every Context, Domain, Method, Canon and Pattern the extract names is seeded); not dev
++DRY-RUN  extract sha256 87bdc258f65dc57175cbed5f6fdeebce6658a3868e495dd2dec7b107aa58f887
++rows: 49   standard: CREATE   (create/update/unchanged/held/conflict) {'CREATE': 47, 'HOLD_NAME': 2}
++  CREATE             v19 1   SC-01      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 2   SC-02      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, v19_id, validation_status_v19
++  HOLD_NAME          v19 3   SC-03      
++  CREATE             v19 4   SC-04      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, v19_id, validation_status_v19
++  CREATE             v19 5   SB-01      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 6   SB-02      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 7   SB-03      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 8   SB-04      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 9   SA-01      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 10  SA-02      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 11  SC-05      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, v19_id, validation_status_v19
++  CREATE             v19 12  SB-05      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 13  SA-03      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  HOLD_NAME          v19 14  SA-04      
++  CREATE             v19 15  SA-05      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, v19_id, validation_status_v19
++  CREATE             v19 16  SA-06      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 18  SC-06      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, execution_input_contract, execution_outcome_schema, lifecycle, name, observation_learning_contract, owner_name, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 19  GV-GOV-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 20  DL-PRG-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 21  GV-ROL-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 22  DL-WOR-001 fields: approval_category, client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 23  GV-EVI-005 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, sla_value, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 24  VL-VAL-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 25  GV-GOV-002 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 26  GV-GOV-003 fields: adaptability_envelope, authority_gate_schema, client_outcome, code, description, domain_id, execution_input_contract, execution_outcome_schema, lifecycle, name, observation_learning_contract, owner_name, return_acceptance_schema, sla_text, sla_unit, source_hash, v19_id, validation_status_v19
++  CREATE             v19 27  GV-STR-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 28  GV-ROL-002 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 29  GV-EVI-001 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 30  DL-PRG-002 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 31  DL-WOR-002 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 32  VL-VAL-002 fields: client_outcome, code, description, domain_id, lifecycle, name, owner_name, sla_text, sla_unit, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 33  GV-EVI-002 fields: approval_category, client_outcome, code, description, lifecycle, name, owner_name, sla_text, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 34  GV-CAN-001 fields: approval_category, client_outcome, code, description, domain_id, lifecycle, name, owner_name, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 35  GV-TEC-001 fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 36  GV-TEC-002 fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, context_id, description, domain_id, escalation, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, sla_unit, sla_value, source_hash, v19_id, validation_status_v19
++  CREATE             v19 37  PPP-DI-001 fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 40  GV-GOV-004 fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, sla_text, sla_unit, sla_value, source_hash, v19_id, validation_status_v19
++  CREATE             v19 43  SM-01      fields: approval_category, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, entry_point, execution_input_contract, execution_outcome_schema, ffe_participation_contract, ffe_state_v19, input_class, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, standard_refs, v19_id, validation_status_v19
++  CREATE             v19 49  SC-07      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, entry_point, execution_input_contract, execution_outcome_schema, ffe_participation_contract, input_class, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 51  SC-08      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, ffe_state_v19, lifecycle, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 53  GV-NAV-002 fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 55  SC-09      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, entry_point, execution_input_contract, execution_outcome_schema, ffe_participation_contract, ffe_state_v19, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 59  SM-02      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, ffe_state_v19, lifecycle, name, observation_learning_contract, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 60  SC-10      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 61  GV-GOV-005 fields: approval_category, authority_gate_schema, code, context_id, description, domain_id, lifecycle, name, observation_learning_contract, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 64  SP-01      fields: adaptability_envelope, authority_gate_schema, canon_ids, client_outcome, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, lifecycle, method_id, name, observation_learning_contract, owner_name, pattern_codes, pattern_ids, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 65  SM-03      fields: adaptability_envelope, approval_category, authority_gate_schema, canon_ids, code, description, domain_id, execution_input_contract, execution_outcome_schema, ffe_participation_contract, input_class, lifecycle, name, observation_learning_contract, owner_name, return_acceptance_schema, source_hash, v19_id, validation_status_v19
++  CREATE             v19 70  SC-12      fields: code, domain_id, lifecycle, name, observation_learning_contract, pattern_codes, pattern_ids, source_hash, v19_id, validation_status_v19
++  CREATE             v19 71  SC-13      fields: code, domain_id, lifecycle, name, observation_learning_contract, source_hash, v19_id, validation_status_v19
++lifecycle (PROPOSED, pending ruling S3): {'active': 29, 'candidate': 1, 'retired': 16, 'draft': 3}
++names held: [(3, 'SC-03'), (14, 'SA-04')]
++relations unresolved: 0
++unmapped fields reported: 40   v19 writes: 0
++DRY-RUN: nothing was written. Use apply=True only after review.
+diff --git a/release/rc07_service_catalogue_adoption/evidence/dry_run_report_fake_db_20261127.json b/release/rc07_service_catalogue_adoption/evidence/dry_run_report_fake_db_20261127.json
+new file mode 100644
+index 0000000..1342bb8
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/evidence/dry_run_report_fake_db_20261127.json
+@@ -0,0 +1,394 @@
++{
++ "coverage": {
++  "absent_from_extract": [],
++  "extract_fields": 85,
++  "mapped": 45,
++  "neither": [],
++  "overlap": [],
++  "unmapped": 40
++ },
++ "extract": {
++  "archived": 15,
++  "fields": 85,
++  "live": 34,
++  "read_at": "2026-11-27T11:20Z",
++  "rows": 49
++ },
++ "extract_sha256": "87bdc258f65dc57175cbed5f6fdeebce6658a3868e495dd2dec7b107aa58f887",
++ "held_mapped": [
++  {
++   "field": "x_lifecycle_gate",
++   "filled": 44,
++   "treatment": "history only, inside validation_status_v19"
++  },
++  {
++   "differs_from_owner": 0,
++   "field": "x_steward_contact_id",
++   "filled": 16,
++   "owner_empty_and_contact_present": 0,
++   "treatment": "not written: target (owner_name or escalation) is ambiguous; equals the owner on every row that has both (checked)"
++  },
++  {
++   "field": "x_itil_csi_log",
++   "filled": 13,
++   "treatment": "HOLD: needs a Service link on learning records (ruling S2)"
++  },
++  {
++   "field": "x_service_class",
++   "filled": 29,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  },
++  {
++   "field": "x_offering_layer",
++   "filled": 49,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  },
++  {
++   "field": "x_service_role",
++   "filled": 24,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  },
++  {
++   "field": "x_method_role",
++   "filled": 9,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  },
++  {
++   "field": "x_platform_role",
++   "filled": 7,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  },
++  {
++   "field": "x_membrane_role",
++   "filled": 25,
++   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
++  }
++ ],
++ "lifecycle_counts": {
++  "counts": {
++   "active": 29,
++   "candidate": 1,
++   "draft": 3,
++   "retired": 16
++  },
++  "proposed": true,
++  "source_status_counts": {
++   "active": 29,
++   "deprecated": 16,
++   "draft": 3,
++   "future_scoped": 1
++  }
++ },
++ "mode": "DRY-RUN on a fake database; counts: {'CREATE': 47, 'HOLD_NAME': 2}",
++ "name_holds": [
++  {
++   "code": "SC-03",
++   "item": "name",
++   "reason": "x_name and x_service_name differ",
++   "v19_id": 3,
++   "x_name": "SC-03 Human-AI Orientation and Navigation",
++   "x_service_name": "Human-AI Orientation and Navigation (HAION)"
++  },
++  {
++   "code": "SA-04",
++   "item": "name",
++   "reason": "x_name and x_service_name differ",
++   "v19_id": 14,
++   "x_name": "SA-04 Partner Orchestration and Ecosystem Governance",
++   "x_service_name": "Relationship, Partner & Collaborative Ecosystem Orchestration"
++  }
++ ],
++ "name_notes": [
++  {
++   "code": "SC-06",
++   "note": "leading code removed from x_service_name",
++   "v19_id": 18
++  },
++  {
++   "code": "GV-CAN-001",
++   "note": "leading code removed from x_service_name",
++   "v19_id": 34
++  },
++  {
++   "code": "GV-TEC-001",
++   "note": "leading code removed from x_service_name",
++   "v19_id": 35
++  }
++ ],
++ "perspective_source_counts": {
++  "x_membrane_role": {
++   "(distinct text)": 25,
++   "(empty)": 24
++  },
++  "x_method_role": {
++   "(empty)": 40,
++   "method": 9
++  },
++  "x_offering_layer": {
++   "A": 6,
++   "B": 8,
++   "C": 35
++  },
++  "x_platform_role": {
++   "(empty)": 42,
++   "platform": 7
++  },
++  "x_service_class": {
++   "(empty)": 20,
++   "internal": 9,
++   "membrane": 4,
++   "offering": 16
++  },
++  "x_service_role": {
++   "(empty)": 25,
++   "service": 24
++  }
++ },
++ "standard": {
++  "min_shared_rows": 10,
++  "paragraphs": 4,
++  "per_field": {
++   "adaptability_envelope": {
++    "distinct": 17,
++    "filled": 46,
++    "index": 1,
++    "linked_rows": 30,
++    "second_count": 1,
++    "shared": true,
++    "top_count": 30
++   },
++   "authority_gate_schema": {
++    "distinct": 28,
++    "filled": 47,
++    "index": 0,
++    "linked_rows": 15,
++    "second_count": 6,
++    "shared": true,
++    "top_count": 15
++   },
++   "observation_learning_contract": {
++    "distinct": 31,
++    "filled": 49,
++    "index": 2,
++    "linked_rows": 15,
++    "second_count": 5,
++    "shared": true,
++    "top_count": 15
++   },
++   "provider_fallback_policy": {
++    "distinct": 19,
++    "filled": 47,
++    "index": 3,
++    "linked_rows": 29,
++    "second_count": 1,
++    "shared": true,
++    "top_count": 29
++   }
++  },
++  "provider_fallback_overrides_held": 18
++ },
++ "unmapped_fields": [
++  {
++   "field": "x_service_ppv_entry",
++   "filled": 40,
++   "group": "Authority/proof states (PPV)"
++  },
++  {
++   "field": "x_service_ppv_ceiling",
++   "filled": 39,
++   "group": "Authority/proof states (PPV)"
++  },
++  {
++   "field": "x_productisation_status",
++   "filled": 46,
++   "group": "Authority/proof states (PPV)"
++  },
++  {
++   "field": "x_processability_state",
++   "filled": 30,
++   "group": "Authority/proof states (PPV)"
++  },
++  {
++   "field": "x_fpv_acceptance",
++   "filled": 0,
++   "group": "Authority/proof states (PPV)"
++  },
++  {
++   "field": "x_itil_service_description",
++   "filled": 3,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_itil_utility",
++   "filled": 21,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_itil_warranty",
++   "filled": 22,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_itil_service_level_target",
++   "filled": 1,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_itil_support_model",
++   "filled": 4,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_itil_service_owner_role",
++   "filled": 29,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_warranty_commitment_type",
++   "filled": 1,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_warranty_commitment_text",
++   "filled": 1,
++   "group": "ITIL description set"
++  },
++  {
++   "field": "x_ai_capability_requirements",
++   "filled": 32,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_human_role_requirements",
++   "filled": 31,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_deterministic_tech_requirements",
++   "filled": 31,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_operator_trace",
++   "filled": 41,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_operations_pattern",
++   "filled": 35,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_default_workflow_phase",
++   "filled": 19,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_named_consumer",
++   "filled": 4,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_gsa_role",
++   "filled": 2,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_cost_risk_transfer",
++   "filled": 1,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_fallback_flag",
++   "filled": 1,
++   "group": "Execution and capability requirements"
++  },
++  {
++   "field": "x_collab_ai_access_mode",
++   "filled": 28,
++   "group": "Collaborator and client access"
++  },
++  {
++   "field": "x_collab_ai_allowed_intents",
++   "filled": 19,
++   "group": "Collaborator and client access"
++  },
++  {
++   "field": "x_collab_ai_scope",
++   "filled": 28,
++   "group": "Collaborator and client access"
++  },
++  {
++   "field": "x_client_contact_visible",
++   "filled": 16,
++   "group": "Collaborator and client access"
++  },
++  {
++   "field": "x_channel_ids",
++   "filled": 0,
++   "group": "Collaborator and client access"
++  },
++  {
++   "field": "x_context_binding_required",
++   "filled": 15,
++   "group": "Context binding and summary"
++  },
++  {
++   "field": "x_context_binding_notes",
++   "filled": 40,
++   "group": "Context binding and summary"
++  },
++  {
++   "field": "x_haion_summary",
++   "filled": 18,
++   "group": "Context binding and summary"
++  },
++  {
++   "field": "x_source_document",
++   "filled": 25,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_source_version",
++   "filled": 24,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_dim_trigger_linkage",
++   "filled": 2,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_producible_lens_ids",
++   "filled": 6,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_prerequisite_edge_ids",
++   "filled": 1,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_requires_edge_ids",
++   "filled": 1,
++   "group": "Provenance and links"
++  },
++  {
++   "field": "x_company_id",
++   "filled": 49,
++   "group": "System"
++  },
++  {
++   "field": "create_date",
++   "filled": 49,
++   "group": "System"
++  },
++  {
++   "field": "write_date",
++   "filled": 49,
++   "group": "System"
++  }
++ ],
++ "unresolved_relations": [],
++ "v19_writes": 0
++}
+\ No newline at end of file
+diff --git a/release/rc07_service_catalogue_adoption/evidence/dry_run_unresolved_scenario_20261127.json b/release/rc07_service_catalogue_adoption/evidence/dry_run_unresolved_scenario_20261127.json
+new file mode 100644
+index 0000000..d74f1cb
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/evidence/dry_run_unresolved_scenario_20261127.json
+@@ -0,0 +1,14 @@
++{
++ "counts": {
++  "CREATE": 47,
++  "HOLD_NAME": 2
++ },
++ "mode": "DRY-RUN on a fake database with NO reference records: every relation unresolved",
++ "unresolved_by_field": {
++  "canon_ids": 102,
++  "context_id": 19,
++  "domain_id": 48,
++  "method_id": 25,
++  "pattern_ids": 323
++ }
++}
+\ No newline at end of file
+diff --git a/release/rc07_service_catalogue_adoption/loader/README.md b/release/rc07_service_catalogue_adoption/loader/README.md
+new file mode 100644
+index 0000000..7c4dde9
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/loader/README.md
+@@ -0,0 +1,10 @@
++# Service Catalogue adoption loader (RC07, source-only candidate)
++
++V19 `x_service_catalogue` (49 rows, extract `V19_SERVICE_CATALOGUE_EXTRACT_20261127.json` (not committed; filed in Working Memory), sha256 87bdc258f65dc57175cbed5f6fdeebce6658a3868e495dd2dec7b107aa58f887) to V20 `synapsys.service` via the 15-slot map.
++Nothing here is installed, run on dev, or run on V19. It lives outside `addon/synapsys`, so the addon tree on dev is unchanged and the loader never runs on module upgrade.
++
++## Proposed dev fast path (a separate Steward word and D007 release; not part of this build)
++1. Backup the dev database (and note the backup id). 2. Copy `loader/service_catalogue_load.py` and the extract to the box. 3. `odoo-bin shell -d <db> --no-http`, then `L.run(env, extract=...)`:
++a DRY-RUN that prints the diff and writes nothing. 4. Review the diff and the report with the Steward (held names, unresolved relations, lifecycle counts). 5. Only then `L.run(env, extract=..., apply=True)`, `env.cr.commit()`.
++6. Read back: the Service screen and the Master view counts. 7. Rollback if needed: `L.rollback(env, apply=True)`, `env.cr.commit()` removes only the rows and the Standard this loader created (marked by external ids in module `__synapsys_v19_load__`); a backup restore is the fallback.
++A second apply changes 0 rows. A Steward ruling on a held name goes in as `name_rulings={"3": "...", "14": "..."}`.
+diff --git a/release/rc07_service_catalogue_adoption/loader/service_catalogue_load.py b/release/rc07_service_catalogue_adoption/loader/service_catalogue_load.py
+new file mode 100644
+index 0000000..09e7be9
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/loader/service_catalogue_load.py
+@@ -0,0 +1,531 @@
++"""Service Catalogue adoption loader: V19 x_service_catalogue extract -> V20 synapsys.service through the 15-slot map (RC07, source-only candidate).
++
++Why a standalone script and not an addon tool: it must never run on module upgrade, must not change the addon tree installed on dev, and must be reviewable and
++removable on its own. It lives outside addon/synapsys and is run, by hand, from `odoo-bin shell` AFTER a backup and a reviewed dry-run:
++
++    # inside `odoo-bin shell -d <db> --no-http`   (nothing below runs on upgrade; the caller commits)
++    import sys; sys.path.insert(0, '<path>/loader'); import service_catalogue_load as L
++    L.run(env, extract='<path>/V19_SERVICE_CATALOGUE_EXTRACT_20261127.json')            # DRY-RUN: prints the diff, writes nothing
++    L.run(env, extract='...', apply=True); env.cr.commit()                              # only after the diff is reviewed
++    L.rollback(env, apply=True); env.cr.commit()                                        # removes only rows and the Standard this loader created
++
++Offline plan without a database (relations are NOT checked): python3 service_catalogue_load.py --extract FILE --no-lookup [--report OUT.json]
++
++Rules (contract BUILD_CONTRACT_SERVICE_CATALOGUE_ADOPTION_V19_TO_V20_20261127_v1): dry-run by default; idempotent on the key v19_id (a second apply changes 0 rows);
++nothing is guessed (an unresolved relation is left empty and reported; an undecided name is HELD); perspective stays empty; PPV, Benefit and Asset state are never
++written; no field is added to any model; V19 is never contacted: this module has no V19 connection and writes only synapsys.service, synapsys.service.standard and the
++external ids that mark what it created.
++"""
++import argparse
++import collections
++import hashlib
++import json
++import re
++import sys
++
++EXTRACT_SHA256 = '87bdc258f65dc57175cbed5f6fdeebce6658a3868e495dd2dec7b107aa58f887'
++EXTRACT_SCHEMA = 'synapsys.source.v19.x_service_catalogue.extract/1'
++XML_MODULE = '__synapsys_v19_load__'  # Odoo's own import convention ('__import__'): a pseudo-module that module upgrade never cleans up
++XML_SERVICE = 'service_v19_%d'
++XML_STANDARD = 'service_standard_v19'
++STANDARD_NAME = 'Service Standard (V19 catalogue load)'
++SHARED_MIN = 10  # the most common text of a standard field becomes a shared paragraph when at least this many rows carry exactly it (contract: 15 / 30 / 15 / 29)
++
++# R4 (PROPOSED, pending the Steward ruling S3 on merging the four status fields)
++LIFECYCLE_MAP = {'active': 'active', 'draft': 'draft', 'future_scoped': 'candidate', 'deprecated': 'retired'}
++LIFECYCLE_PROPOSED = True
++
++# synapsys.service text fields that can carry a shared (Standard) paragraph, in paragraph order; the last one has no field on synapsys.service
++STANDARD_FIELDS = (('x_authority_gate_schema', 'authority_gate_schema'), ('x_adaptability_envelope', 'adaptability_envelope'),
++                   ('x_observation_learning_contract', 'observation_learning_contract'), ('x_provider_fallback_policy', 'provider_fallback_policy'))
++OWN_TEXT = (('x_description', 'description'), ('x_client_outcome', 'client_outcome'), ('x_ffe_participation_contract', 'ffe_participation_contract'),
++            ('x_execution_input_contract', 'execution_input_contract'), ('x_execution_outcome_schema', 'execution_outcome_schema'),
++            ('x_return_acceptance_schema', 'return_acceptance_schema'))
++NO_TARGET_FIELD = {'provider_fallback_policy'}  # shared text is carried by the Standard; a row whose text differs has no field to keep it in (held, in the extract)
++
++# Section 3 (mapped) and Section 4 (unmapped) of the contract; together they must equal the 85 extract fields
++MAPPED = ('id', 'x_service_code', 'x_service_name', 'x_name', 'x_description', 'x_service_status', 'x_lifecycle_gate', 'x_validation_status', 'x_validation_timestamp', 'x_active',
++          'x_ffe_state', 'x_context_id', 'x_service_class', 'x_offering_layer', 'x_service_role', 'x_method_role', 'x_platform_role', 'x_membrane_role', 'x_method_id',
++          'x_canonical_library_ids', 'x_pattern_ids', 'x_primary_governing_domain', 'x_service_owner_id', 'x_delivery_lead_id', 'x_escalation_group_id', 'x_steward_contact_id',
++          'x_entry_point', 'x_input_class', 'x_execution_input_contract', 'x_authority_gate_schema', 'x_authority_reference', 'x_service_activation_requires_decision',
++          'x_execution_outcome_schema', 'x_return_acceptance_schema', 'x_client_outcome', 'x_sla_metric', 'x_sla_metric_text', 'x_sla_metric_unit', 'x_sla_metric_value',
++          'x_sla_measurement_type', 'x_observation_learning_contract', 'x_itil_csi_log', 'x_adaptability_envelope', 'x_provider_fallback_policy', 'x_ffe_participation_contract')
++UNMAPPED_GROUPS = collections.OrderedDict([
++    ('Authority/proof states (PPV)', ('x_service_ppv_entry', 'x_service_ppv_ceiling', 'x_productisation_status', 'x_processability_state', 'x_fpv_acceptance')),
++    ('ITIL description set', ('x_itil_service_description', 'x_itil_utility', 'x_itil_warranty', 'x_itil_service_level_target', 'x_itil_support_model', 'x_itil_service_owner_role',
++                              'x_warranty_commitment_type', 'x_warranty_commitment_text')),
++    ('Execution and capability requirements', ('x_ai_capability_requirements', 'x_human_role_requirements', 'x_deterministic_tech_requirements', 'x_operator_trace',
++                                                'x_operations_pattern', 'x_default_workflow_phase', 'x_named_consumer', 'x_gsa_role', 'x_cost_risk_transfer', 'x_fallback_flag')),
++    ('Collaborator and client access', ('x_collab_ai_access_mode', 'x_collab_ai_allowed_intents', 'x_collab_ai_scope', 'x_client_contact_visible', 'x_channel_ids')),
++    ('Context binding and summary', ('x_context_binding_required', 'x_context_binding_notes', 'x_haion_summary')),
++    ('Provenance and links', ('x_source_document', 'x_source_version', 'x_dim_trigger_linkage', 'x_producible_lens_ids', 'x_prerequisite_edge_ids', 'x_requires_edge_ids')),
++    ('System', ('x_company_id', 'create_date', 'write_date')),
++])
++UNMAPPED = tuple(f for g in UNMAPPED_GROUPS.values() for f in g)
++# fields written to NO live field even though the contract maps them (reported separately from the 40 unmapped)
++PERSPECTIVE_SOURCES = ('x_service_class', 'x_offering_layer', 'x_service_role', 'x_method_role', 'x_platform_role', 'x_membrane_role')  # R5: perspective stays EMPTY
++PROTECTED_NEVER_WRITTEN = ('perspective', 'ppv', 'kind', 'kind_proposed', 'shape', 'verb_id', 'answer', 'answer_accepted', 'rhythm_tier', 'obligations')
++MANAGED = ('v19_id', 'code', 'name', 'description', 'lifecycle', 'validation_status_v19', 'ffe_state_v19', 'context_id', 'domain_id', 'method_id', 'canon_ids', 'pattern_ids',
++           'pattern_codes', 'owner_name', 'delivery_lead', 'escalation', 'entry_point', 'input_class', 'approval_category', 'sla_text', 'sla_value', 'sla_unit', 'client_outcome',
++           'adaptability_envelope', 'ffe_participation_contract', 'authority_gate_schema', 'execution_input_contract', 'execution_outcome_schema', 'return_acceptance_schema',
++           'observation_learning_contract', 'standard_id', 'standard_refs', 'source_hash')
++RELATION_FIELDS = ('context_id', 'domain_id', 'method_id', 'canon_ids', 'pattern_ids')
++M2M = ('canon_ids', 'pattern_ids')
++AMBIGUOUS = 'AMBIGUOUS'
++
++
++# ----------------------------------------------------------------------------------------------------------------------- source
++def sha256_file(path):
++    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
++
++
++def load_extract(path, expected_sha=EXTRACT_SHA256):
++    """Reads the extract after checking its hash; the extract stays the lossless source and is never modified."""
++    got = sha256_file(path)
++    if expected_sha and got != expected_sha:
++        raise ValueError('extract sha256 %s != expected %s' % (got, expected_sha))
++    doc = json.load(open(path, encoding='utf-8'))
++    if doc.get('schema') != EXTRACT_SCHEMA:
++        raise ValueError('unknown extract schema %r' % (doc.get('schema'),))
++    rows = doc['rows']
++    ids = [r['id'] for r in rows]
++    if len(set(ids)) != len(ids):
++        raise ValueError('duplicate v19 id in the extract')
++    codes = [r['x_service_code'] for r in rows]
++    if len(set(codes)) != len(codes):
++        raise ValueError('a V19 service code appears more than once')
++    return doc, got
++
++
++def empty(v):
++    return v is False or v is None or v == '' or v == [] or v == 0.0
++
++
++def txt(v):
++    return None if empty(v) or not isinstance(v, str) else v
++
++
++def rel_id_name(v):
++    return (v[0], v[1]) if isinstance(v, list) and len(v) == 2 else None
++
++
++def digest(text):
++    return hashlib.sha256(text.encode('utf-8')).hexdigest()
++
++
++def _strip_code(name, code):
++    n = (name or '').strip()
++    m = re.match(r'^' + re.escape(code) + r'\s*[-–—:]*\s*', n)
++    return n[m.end():].strip() if m else n
++
++
++def _norm(s):
++    return re.sub(r'\s+', ' ', (s or '').strip()).casefold()
++
++
++def name_check(row):
++    """R8: x_name (the 'CODE name' display composite in V19) versus x_service_name. Equal after removing a leading code and dash from both; otherwise HOLD."""
++    code, a, b = row['x_service_code'], row.get('x_name') or '', row.get('x_service_name') or ''
++    same = _norm(_strip_code(a, code)) == _norm(_strip_code(b, code)) and bool(_strip_code(b, code))
++    return {'equal': same, 'name': _strip_code(b, code), 'code_prefix_stripped': same and _strip_code(b, code) != b.strip(), 'x_name': a, 'x_service_name': b}
++
++
++# ----------------------------------------------------------------------------------------------------------------------- plan
++class NoLookup(object):
++    """Offline planning: relations are not looked up (nothing is claimed resolved)."""
++    offline = True
++
++    def resolve(self, kind, v19_id=None, code=None):
++        return None
++
++
++def shared_texts(rows, min_rows=SHARED_MIN):
++    """Per standard field: the most common exact text, when at least `min_rows` rows carry it. Returns {src_field: text} and counts."""
++    out, counts = collections.OrderedDict(), {}
++    for src, _dst in STANDARD_FIELDS:
++        c = collections.Counter(r[src] for r in rows if txt(r.get(src)))
++        if not c:
++            continue
++        top, n = c.most_common(1)[0]
++        counts[src] = {'filled': sum(c.values()), 'distinct': len(c), 'top_count': n, 'second_count': (c.most_common(2)[1][1] if len(c) > 1 else 0)}
++        if n >= min_rows:
++            out[src] = top
++    return out, counts
++
++
++def lifecycle_of(row):
++    s = row.get('x_service_status')
++    lc = LIFECYCLE_MAP.get(s)
++    if lc is None:
++        return None
++    if row.get('x_active') is False and lc != 'retired':
++        lc = 'retired'  # an archived row is retired whatever its status word (none occur in the 27 Nov extract)
++    return lc
++
++
++def history_label(row):
++    """R4: the original V19 status and validation values kept as one history label (not a live field)."""
++    bits = []
++    for k, v in (('status', row.get('x_service_status')), ('gate', row.get('x_lifecycle_gate')), ('validation', row.get('x_validation_status')), ('validated_at', row.get('x_validation_timestamp'))):
++        if not empty(v):
++            bits.append('%s=%s' % (k, v))
++    if row.get('x_active') is not None:
++        bits.append('active=%s' % ('true' if row['x_active'] else 'false'))
++    return '; '.join(bits) or None
++
++
++def plan_row(row, lookup, standard_texts, name_rulings, std_index):
++    """One row: desired live values, links to the Standard, unresolved relations, held items."""
++    vals, unresolved, holds, notes = {}, [], [], []
++    vals['v19_id'] = row['id']
++    vals['code'] = row['x_service_code']
++    nc = name_check(row)
++    name = None
++    if str(row['id']) in name_rulings:
++        name = name_rulings[str(row['id'])]
++        notes.append('name ruled by the Steward file')
++    elif nc['equal']:
++        name = nc['name']
++        if nc['code_prefix_stripped']:
++            notes.append('leading code removed from x_service_name')
++    else:
++        holds.append({'item': 'name', 'reason': 'x_name and x_service_name differ', 'x_name': nc['x_name'], 'x_service_name': nc['x_service_name']})
++    vals['name'] = name
++    vals['description'] = txt(row.get('x_description'))
++    vals['lifecycle'] = lifecycle_of(row)
++    vals['validation_status_v19'] = history_label(row)
++    vals['ffe_state_v19'] = txt(row.get('x_ffe_state'))
++    # relations: resolve, never guess, never create a stub parent
++    ctx = rel_id_name(row.get('x_context_id'))
++    vals['context_id'] = None
++    if ctx:
++        r = lookup.resolve('context', v19_id=ctx[0], code=ctx[1])
++        if r in (None, AMBIGUOUS):
++            if not getattr(lookup, 'offline', False):
++                unresolved.append({'field': 'context_id', 'v19': ctx[0], 'ref': ctx[1], 'why': 'ambiguous' if r == AMBIGUOUS else 'not found'})
++        else:
++            vals['context_id'] = r
++    dom = txt(row.get('x_primary_governing_domain'))
++    vals['domain_id'] = None
++    if dom:
++        r = lookup.resolve('domain', code=dom)
++        if r in (None, AMBIGUOUS):
++            if not getattr(lookup, 'offline', False):
++                unresolved.append({'field': 'domain_id', 'v19': None, 'ref': dom, 'why': 'ambiguous' if r == AMBIGUOUS else 'not found'})
++        else:
++            vals['domain_id'] = r
++    me = rel_id_name(row.get('x_method_id'))
++    vals['method_id'] = None
++    if me:
++        r = lookup.resolve('method', v19_id=me[0])
++        if r in (None, AMBIGUOUS):
++            if not getattr(lookup, 'offline', False):
++                unresolved.append({'field': 'method_id', 'v19': me[0], 'ref': me[1], 'why': 'ambiguous' if r == AMBIGUOUS else 'not found'})
++        else:
++            vals['method_id'] = r
++    for fld, src, kind in (('canon_ids', 'x_canonical_library_ids', 'canon'), ('pattern_ids', 'x_pattern_ids', 'pattern')):
++        got = []
++        for vid in row.get(src) or []:
++            r = lookup.resolve(kind, v19_id=vid)
++            if r in (None, AMBIGUOUS):
++                if not getattr(lookup, 'offline', False):
++                    unresolved.append({'field': fld, 'v19': vid, 'ref': vid, 'why': 'ambiguous' if r == AMBIGUOUS else 'not found'})
++            else:
++                got.append(r)
++        vals[fld] = sorted(set(got))
++    vals['pattern_codes'] = ','.join(str(x) for x in (row.get('x_pattern_ids') or [])) or None  # the V19 ids as written in the source (field is labelled 'v19 ids')
++    # slot 5 owner: char (users are not migrated)
++    o, e, dl = rel_id_name(row.get('x_service_owner_id')), rel_id_name(row.get('x_escalation_group_id')), rel_id_name(row.get('x_delivery_lead_id'))
++    vals['owner_name'] = o[1] if o else None
++    vals['escalation'] = e[1] if e else None
++    vals['delivery_lead'] = dl[1] if dl else None
++    vals['entry_point'] = txt(row.get('x_entry_point'))
++    vals['input_class'] = txt(row.get('x_input_class'))
++    ref, flag = txt(row.get('x_authority_reference')), row.get('x_service_activation_requires_decision') is True
++    vals['approval_category'] = ((ref or '') + (' | activation_requires_decision' if flag else '')).strip(' |') or None
++    st = txt(row.get('x_sla_metric_text')) or txt(row.get('x_sla_metric'))
++    mt = txt(row.get('x_sla_measurement_type'))
++    vals['sla_text'] = ((st or '') + (' [measurement: %s]' % mt if mt else '')).strip() or None
++    vals['sla_unit'] = txt(row.get('x_sla_metric_unit'))
++    v = row.get('x_sla_metric_value')
++    vals['sla_value'] = float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) and v != 0 else None
++    # contract text: own override, or linked to the shared paragraph with no own copy
++    refs, hashes = {}, {}
++    for src, dst in OWN_TEXT:
++        t = txt(row.get(src))
++        vals[dst] = t
++        if t:
++            hashes[dst] = digest(t)
++    for src, dst in STANDARD_FIELDS:
++        t = txt(row.get(src))
++        if t:
++            hashes[dst] = digest(t)
++        shared = standard_texts.get(src)
++        if t and shared is not None and t == shared:
++            refs[dst] = [std_index[src]]
++            if dst not in NO_TARGET_FIELD:
++                vals[dst] = None
++        elif t:
++            if dst in NO_TARGET_FIELD:
++                holds.append({'item': dst, 'reason': 'text differs from the shared paragraph and synapsys.service has no field for it (kept in the extract)'})
++            else:
++                vals[dst] = t
++        elif dst not in NO_TARGET_FIELD:
++            vals[dst] = None
++    vals['standard_refs'] = json.dumps(refs, sort_keys=True) if refs else None
++    vals['source_hash'] = json.dumps(hashes, sort_keys=True) if hashes else None
++    vals['_has_standard'] = bool(refs)
++    return {'v19_id': row['id'], 'code': row['x_service_code'], 'values': vals, 'unresolved': unresolved, 'holds': holds, 'notes': notes, 'archived': row.get('x_active') is False}
++
++
++def build_plan(doc, lookup, name_rulings=None, min_shared=SHARED_MIN):
++    rows = doc['rows']
++    name_rulings = name_rulings or {}
++    standard_texts, std_counts = shared_texts(rows, min_shared)
++    std_index = {src: i for i, src in enumerate(standard_texts)}
++    paragraphs = [standard_texts[src] for src in standard_texts]
++    planned = [plan_row(r, lookup, standard_texts, name_rulings, std_index) for r in rows]
++    report = build_report(doc, rows, planned, standard_texts, std_counts, std_index)
++    return {'rows': planned, 'standard': {'name': STANDARD_NAME, 'paragraphs': paragraphs, 'fields': list(standard_texts)}, 'report': report}
++
++
++def build_report(doc, rows, planned, standard_texts, std_counts, std_index):
++    mapped, unmapped = set(MAPPED), set(UNMAPPED)
++    allf = set(rows[0].keys())
++    cov = {'extract_fields': len(allf), 'mapped': len(mapped), 'unmapped': len(unmapped), 'overlap': sorted(mapped & unmapped), 'neither': sorted(allf - mapped - unmapped), 'absent_from_extract': sorted((mapped | unmapped) - allf)}
++    filled = lambda f: sum(1 for r in rows if not empty(r.get(f)))
++    lc = collections.Counter(p['values']['lifecycle'] for p in planned)
++    rep = {
++        'extract': {'rows': len(rows), 'live': sum(1 for r in rows if r.get('x_active') is True), 'archived': sum(1 for r in rows if r.get('x_active') is False), 'fields': len(allf), 'read_at': doc.get('read_at')},
++        'coverage': cov,
++        'unmapped_fields': [{'group': g, 'field': f, 'filled': filled(f)} for g, fs in UNMAPPED_GROUPS.items() for f in fs],
++        'held_mapped': [
++            {'field': 'x_lifecycle_gate', 'filled': filled('x_lifecycle_gate'), 'treatment': 'history only, inside validation_status_v19'},
++            {'field': 'x_steward_contact_id', 'filled': filled('x_steward_contact_id'), 'treatment': 'not written: target (owner_name or escalation) is ambiguous; equals the owner on every row that has both (checked)',
++             'owner_empty_and_contact_present': sum(1 for r in rows if empty(r.get('x_service_owner_id')) and not empty(r.get('x_steward_contact_id'))),
++             'differs_from_owner': sum(1 for r in rows if not empty(r.get('x_service_owner_id')) and not empty(r.get('x_steward_contact_id')) and r['x_service_owner_id'] != r['x_steward_contact_id'])},
++            {'field': 'x_itil_csi_log', 'filled': filled('x_itil_csi_log'), 'treatment': 'HOLD: needs a Service link on learning records (ruling S2)'},
++        ] + [{'field': f, 'filled': filled(f), 'treatment': 'HELD (R5): perspective is not ruled and stays empty; source values counted below'} for f in PERSPECTIVE_SOURCES],
++        'perspective_source_counts': {f: dict(collections.Counter(('(distinct text)' if f == 'x_membrane_role' and not empty(r.get(f)) else (r.get(f) if not empty(r.get(f)) else '(empty)')) for r in rows)) for f in PERSPECTIVE_SOURCES},
++        'lifecycle_counts': {'proposed': LIFECYCLE_PROPOSED, 'counts': dict(lc), 'source_status_counts': dict(collections.Counter(r.get('x_service_status') for r in rows))},
++        'standard': {'paragraphs': len(standard_texts), 'min_shared_rows': SHARED_MIN, 'per_field': {STANDARD_FIELDS_DST[s]: dict(std_counts.get(s, {}), shared=s in standard_texts, index=std_index.get(s),
++                     linked_rows=sum(1 for p in planned if STANDARD_FIELDS_DST[s] in json.loads(p['values']['standard_refs'] or '{}'))) for s in STANDARD_FIELDS_DST},
++                     'provider_fallback_overrides_held': sum(1 for p in planned for h in p['holds'] if h['item'] == 'provider_fallback_policy')},
++        'name_holds': [dict(v19_id=p['v19_id'], code=p['code'], **h) for p in planned for h in p['holds'] if h['item'] == 'name'],
++        'name_notes': [{'v19_id': p['v19_id'], 'code': p['code'], 'note': n} for p in planned for n in p['notes']],
++        'unresolved_relations': [dict(v19_id=p['v19_id'], code=p['code'], **u) for p in planned for u in p['unresolved']],
++        'v19_writes': 0,
++    }
++    return rep
++
++
++STANDARD_FIELDS_DST = collections.OrderedDict(STANDARD_FIELDS)
++
++
++# ----------------------------------------------------------------------------------------------------------------------- backend (the only code that touches a database)
++class OdooBackend(object):
++    """Reads and writes through the caller's own environment. Writes ONLY synapsys.service, synapsys.service.standard and ir.model.data rows that mark them."""
++    offline = False
++    KIND_MODEL = {'context': 'synapsys.context', 'method': 'synapsys.method', 'canon': 'synapsys.canon', 'pattern': 'synapsys.pattern', 'domain': 'synapsys.domain'}
++
++    def __init__(self, env):
++        self.env = env
++
++    # -- lookups (read only)
++    def resolve(self, kind, v19_id=None, code=None):
++        M = self.env[self.KIND_MODEL[kind]]
++        hits = set()
++        if v19_id is not None and kind != 'domain':
++            hits |= set(M.search([('v19_id', '=', v19_id)]).ids)
++        if code and kind in ('context', 'domain'):
++            c = set(M.search([('code', '=', code)]).ids)
++            if kind == 'domain' or not hits:
++                hits |= c
++            elif c and c != hits:
++                return AMBIGUOUS  # the v19 id and the code point at different records
++        if len(hits) == 1:
++            return next(iter(hits))
++        return AMBIGUOUS if hits else None
++
++    def _xml(self, name):
++        return self.env['ir.model.data'].search([('module', '=', XML_MODULE), ('name', '=', name)], limit=1)
++
++    def find_service(self, v19_id):
++        x = self._xml(XML_SERVICE % v19_id)
++        if x:
++            rec = self.env['synapsys.service'].browse(x.res_id)
++            return {'id': rec.id, 'marked': True, 'values': self._read(rec)} if rec.exists() else {'id': None, 'marked': True, 'values': {}}
++        other = self.env['synapsys.service'].search([('v19_id', '=', v19_id)])
++        if other:
++            return {'id': other[0].id, 'marked': False, 'values': {}}
++        return None
++
++    def _read(self, rec):
++        out = {}
++        for f in MANAGED:
++            v = rec[f]
++            if f in ('context_id', 'domain_id', 'method_id', 'standard_id'):
++                out[f] = v.id or None
++            elif f in M2M:
++                out[f] = sorted(v.ids)
++            else:
++                out[f] = v
++        return out
++
++    def find_standard(self):
++        x = self._xml(XML_STANDARD)
++        if not x:
++            return None
++        rec = self.env['synapsys.service.standard'].browse(x.res_id)
++        return {'id': rec.id, 'paragraphs': json.loads(rec.paragraphs or '[]'), 'name': rec.name} if rec.exists() else None
++
++    # -- writes (only called with apply=True)
++    def _mark(self, model, rec, name):
++        self.env['ir.model.data'].create({'module': XML_MODULE, 'name': name, 'model': model, 'res_id': rec.id, 'noupdate': True})
++
++    def create_standard(self, name, paragraphs):
++        rec = self.env['synapsys.service.standard'].create({'name': name, 'paragraphs': json.dumps(paragraphs, ensure_ascii=False)})
++        self._mark('synapsys.service.standard', rec, XML_STANDARD)
++        return rec.id
++
++    def write_standard(self, sid, name, paragraphs):
++        self.env['synapsys.service.standard'].browse(sid).write({'name': name, 'paragraphs': json.dumps(paragraphs, ensure_ascii=False)})
++
++    def create_service(self, v19_id, vals):
++        rec = self.env['synapsys.service'].create(self._orm(vals))
++        self._mark('synapsys.service', rec, XML_SERVICE % v19_id)
++        return rec.id
++
++    def write_service(self, rid, vals):
++        self.env['synapsys.service'].browse(rid).write(self._orm(vals))
++
++    @staticmethod
++    def _orm(vals):
++        return {k: ([(6, 0, v)] if k in M2M else (v if v is not None else False)) for k, v in vals.items()}
++
++    def marked(self):
++        """(service ids, standard id or None) created by this loader."""
++        xs = self.env['ir.model.data'].search([('module', '=', XML_MODULE)])
++        svc = [x.res_id for x in xs if x.model == 'synapsys.service']
++        std = [x.res_id for x in xs if x.model == 'synapsys.service.standard']
++        return svc, (std[0] if std else None)
++
++    def delete_marked(self, svc_ids, std_id):
++        if svc_ids:
++            self.env['synapsys.service'].browse(svc_ids).unlink()
++        if std_id and not self.env['synapsys.service'].search([('standard_id', '=', std_id)]):
++            self.env['synapsys.service.standard'].browse(std_id).unlink()
++        self.env['ir.model.data'].search([('module', '=', XML_MODULE)]).unlink()
++
++
++# ----------------------------------------------------------------------------------------------------------------------- diff and apply
++def _norm_val(f, v):
++    if f in M2M:
++        return sorted(v or [])
++    if f == 'sla_value':
++        return float(v) if v else None
++    return v if v not in (False, '') else None
++
++
++def diff_row(planned, found):
++    """create / update / unchanged / conflict / held, with the field-level diff for an update."""
++    want = {k: v for k, v in planned['values'].items() if k in MANAGED}
++    if any(h['item'] == 'name' for h in planned['holds']):
++        return {'action': 'HOLD_NAME', 'fields': {}}
++    if found is None:
++        return {'action': 'CREATE', 'fields': {k: v for k, v in want.items() if _norm_val(k, v) not in (None, [])}}
++    if not found['marked']:
++        return {'action': 'CONFLICT_UNMARKED', 'fields': {}}  # a row with this v19_id exists that this loader did not create: never touched
++    have = found['values']
++    ch = {k: (_norm_val(k, have.get(k)), _norm_val(k, v)) for k, v in want.items() if k != 'standard_id' and _norm_val(k, have.get(k)) != _norm_val(k, v)}
++    return {'action': 'UPDATE' if ch else 'UNCHANGED', 'fields': ch}
++
++
++def run(env=None, extract=None, apply=False, name_rulings=None, backend=None, out=None, expected_sha=EXTRACT_SHA256):
++    """DRY-RUN unless apply=True. Returns the result dict; prints a readable diff. The caller commits (never this function)."""
++    out = out or sys.stdout
++    backend = backend or OdooBackend(env)
++    doc, sha = load_extract(extract, expected_sha)
++    plan = build_plan(doc, backend, name_rulings)
++    std_found = backend.find_standard()
++    std_action = 'CREATE' if not std_found else ('UPDATE' if std_found['paragraphs'] != plan['standard']['paragraphs'] else 'UNCHANGED')
++    diffs = []
++    for p in plan['rows']:
++        found = backend.find_service(p['v19_id'])
++        d = diff_row(p, found)
++        d.update(v19_id=p['v19_id'], code=p['code'], found=found, planned=p)
++        diffs.append(d)
++    counts = collections.Counter(d['action'] for d in diffs)
++    result = {'mode': 'APPLY' if apply else 'DRY-RUN', 'extract_sha256': sha, 'standard': std_action, 'counts': dict(counts), 'report': plan['report'], 'writes': {'created': 0, 'updated': 0, 'standard': 0}}
++    if apply:
++        sid = std_found['id'] if std_found else None
++        if std_action == 'CREATE':
++            sid = backend.create_standard(plan['standard']['name'], plan['standard']['paragraphs']); result['writes']['standard'] = 1
++        elif std_action == 'UPDATE':
++            backend.write_standard(sid, plan['standard']['name'], plan['standard']['paragraphs']); result['writes']['standard'] = 1
++        for d in diffs:
++            vals = dict(d['planned']['values']); vals.pop('_has_standard', None)
++            vals['standard_id'] = sid if d['planned']['values'].get('_has_standard') else None
++            if d['action'] == 'CREATE':
++                backend.create_service(d['v19_id'], {k: v for k, v in vals.items() if _norm_val(k, v) not in (None, [])})
++                result['writes']['created'] += 1
++            elif d['action'] == 'UPDATE':
++                have_std = d['found']['values'].get('standard_id')
++                ch = {k: vals[k] for k in d['fields']}
++                if (have_std or None) != (vals['standard_id'] or None):
++                    ch['standard_id'] = vals['standard_id']
++                backend.write_service(d['found']['id'], ch)
++                result['writes']['updated'] += 1
++            elif d['action'] == 'UNCHANGED' and (d['found']['values'].get('standard_id') or None) != (vals['standard_id'] or None):
++                backend.write_service(d['found']['id'], {'standard_id': vals['standard_id']})
++                result['writes']['updated'] += 1
++    _print(result, diffs, out)
++    result['diffs'] = [{k: v for k, v in d.items() if k not in ('found', 'planned')} for d in diffs]
++    return result
++
++
++def rollback(env=None, apply=False, backend=None, out=None):
++    """Removes only the services and the Standard this loader created (marked by external id). Dry-run unless apply=True."""
++    out = out or sys.stdout
++    backend = backend or OdooBackend(env)
++    svc, std = backend.marked()
++    out.write('%s rollback: %d service row(s) and %s Standard record created by this loader\n' % ('APPLY' if apply else 'DRY-RUN', len(svc), 'the' if std else 'no'))
++    if apply:
++        backend.delete_marked(svc, std)
++    return {'mode': 'APPLY' if apply else 'DRY-RUN', 'services': len(svc), 'standard': bool(std)}
++
++
++def _print(result, diffs, out):
++    r = result['report']
++    w = out.write
++    w('%s  extract sha256 %s\n' % (result['mode'], result['extract_sha256']))
++    w('rows: %s   standard: %s   (create/update/unchanged/held/conflict) %s\n' % (r['extract']['rows'], result['standard'], result['counts']))
++    for d in diffs:
++        if d['action'] in ('CREATE', 'UPDATE', 'HOLD_NAME', 'CONFLICT_UNMARKED'):
++            w('  %-18s v19 %-3s %-10s %s\n' % (d['action'], d['v19_id'], d['code'], ('fields: ' + ', '.join(sorted(d['fields']))) if d['fields'] else ''))
++    w('lifecycle (PROPOSED, pending ruling S3): %s\n' % r['lifecycle_counts']['counts'])
++    w('names held: %s\n' % [(h['v19_id'], h['code']) for h in r['name_holds']])
++    w('relations unresolved: %d\n' % len(r['unresolved_relations']))
++    w('unmapped fields reported: %d   v19 writes: %d\n' % (len(r['unmapped_fields']), r['v19_writes']))
++    if result['mode'] == 'DRY-RUN':
++        w('DRY-RUN: nothing was written. Use apply=True only after review.\n')
++
++
++def main(argv=None):
++    ap = argparse.ArgumentParser(description='Offline plan of the V19 -> V20 Service Catalogue load (no database; relations are not checked).')
++    ap.add_argument('--extract', required=True)
++    ap.add_argument('--no-lookup', action='store_true', required=True, help='plan without a database (the only mode of this command line; apply needs an Odoo shell)')
++    ap.add_argument('--name-ruling', help='JSON {"<v19 id>": "<name>"} recording a Steward ruling for a held name')
++    ap.add_argument('--report', help='write the report JSON here')
++    a = ap.parse_args(argv)
++    doc, sha = load_extract(a.extract)
++    plan = build_plan(doc, NoLookup(), json.load(open(a.name_ruling)) if a.name_ruling else None)
++    rep = dict(plan['report'], extract_sha256=sha, mode='OFFLINE PLAN (nothing written, relations not checked)')
++    if a.report:
++        json.dump(rep, open(a.report, 'w'), indent=1, sort_keys=True)
++    print(json.dumps({k: rep[k] for k in ('mode', 'extract', 'lifecycle_counts', 'name_holds')}, indent=1))
++    return 0
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+diff --git a/release/rc07_service_catalogue_adoption/tests/TEST_LOG_rc07_service_catalogue_offline.txt b/release/rc07_service_catalogue_adoption/tests/TEST_LOG_rc07_service_catalogue_offline.txt
+new file mode 100644
+index 0000000..57d89a6
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/tests/TEST_LOG_rc07_service_catalogue_offline.txt
+@@ -0,0 +1,83 @@
++test_every_extract_field_is_either_mapped_or_in_the_unmapped_list_and_never_both (test_service_catalogue_load.T1_Extract.test_every_extract_field_is_either_mapped_or_in_the_unmapped_list_and_never_both) ... ok
++test_extract_hash_49_rows_34_live_15_archived_and_a_wrong_hash_is_refused (test_service_catalogue_load.T1_Extract.test_extract_hash_49_rows_34_live_15_archived_and_a_wrong_hash_is_refused) ... ok
++test_a_managed_field_changed_by_hand_is_shown_as_an_update_and_restored_but_unmanaged_fields_are_left_alone (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_a_managed_field_changed_by_hand_is_shown_as_an_update_and_restored_but_unmanaged_fields_are_left_alone) ... ok
++test_an_unmarked_row_with_a_matching_v19_id_is_a_conflict_and_is_never_touched (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_an_unmarked_row_with_a_matching_v19_id_is_a_conflict_and_is_never_touched) ... ok
++test_apply_creates_the_rows_and_a_second_apply_changes_nothing (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_apply_creates_the_rows_and_a_second_apply_changes_nothing) ... ok
++test_dry_run_is_the_default_and_writes_nothing (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_dry_run_is_the_default_and_writes_nothing) ... ok
++test_every_v19_code_appears_once_and_the_v19_id_set_equals_the_extract_set (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_every_v19_code_appears_once_and_the_v19_id_set_equals_the_extract_set) ... ok
++test_held_names_are_not_loaded_until_the_steward_rules_and_then_the_load_completes_idempotently (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_held_names_are_not_loaded_until_the_steward_rules_and_then_the_load_completes_idempotently) ... ok
++test_an_ambiguous_match_is_not_guessed (test_service_catalogue_load.T3_Relations.test_an_ambiguous_match_is_not_guessed) ... ok
++test_context_found_by_code_only_and_a_v19_id_that_disagrees_with_the_code_is_ambiguous (test_service_catalogue_load.T3_Relations.test_context_found_by_code_only_and_a_v19_id_that_disagrees_with_the_code_is_ambiguous) ... ok
++test_resolved_relations_are_linked_by_v19_id_or_code (test_service_catalogue_load.T3_Relations.test_resolved_relations_are_linked_by_v19_id_or_code) ... ok
++test_unresolvable_context_method_canon_pattern_domain_become_a_recorded_gap_and_no_record_is_invented (test_service_catalogue_load.T3_Relations.test_unresolvable_context_method_canon_pattern_domain_become_a_recorded_gap_and_no_record_is_invented) ... ok
++test_a_standard_field_below_the_threshold_is_not_made_a_paragraph (test_service_catalogue_load.T4_Standard.test_a_standard_field_below_the_threshold_is_not_made_a_paragraph) ... ok
++test_differing_provider_fallback_text_has_no_field_and_is_reported_held_not_dropped_silently (test_service_catalogue_load.T4_Standard.test_differing_provider_fallback_text_has_no_field_and_is_reported_held_not_dropped_silently) ... ok
++test_one_standard_holding_the_four_shared_paragraphs_and_the_expected_row_counts (test_service_catalogue_load.T4_Standard.test_one_standard_holding_the_four_shared_paragraphs_and_the_expected_row_counts) ... ok
++test_rows_with_the_shared_text_link_to_the_standard_and_store_no_own_copy (test_service_catalogue_load.T4_Standard.test_rows_with_the_shared_text_link_to_the_standard_and_store_no_own_copy) ... ok
++test_source_hashes_record_the_sha256_of_each_v19_text (test_service_catalogue_load.T4_Standard.test_source_hashes_record_the_sha256_of_each_v19_text) ... ok
++test_all_15_archived_rows_are_loaded_as_retired_and_the_original_status_is_kept_as_history (test_service_catalogue_load.T5_LifecycleAndPerspective.test_all_15_archived_rows_are_loaded_as_retired_and_the_original_status_is_kept_as_history) ... ok
++test_lifecycle_counts_active_29_draft_3_candidate_1_retired_16_flagged_proposed (test_service_catalogue_load.T5_LifecycleAndPerspective.test_lifecycle_counts_active_29_draft_3_candidate_1_retired_16_flagged_proposed) ... ok
++test_perspective_is_empty_on_every_row_and_the_source_values_are_counted_not_mapped (test_service_catalogue_load.T5_LifecycleAndPerspective.test_perspective_is_empty_on_every_row_and_the_source_values_are_counted_not_mapped) ... ok
++test_proof_states_and_protected_fields_are_never_written_to_a_live_field (test_service_catalogue_load.T5_LifecycleAndPerspective.test_proof_states_and_protected_fields_are_never_written_to_a_live_field) ... ok
++test_held_mapped_fields_are_reported_separately_and_nothing_is_dropped_silently (test_service_catalogue_load.T6_Unmapped.test_held_mapped_fields_are_reported_separately_and_nothing_is_dropped_silently) ... ok
++test_the_report_lists_exactly_the_40_fields_with_the_contracts_counts (test_service_catalogue_load.T6_Unmapped.test_the_report_lists_exactly_the_40_fields_with_the_contracts_counts) ... ok
++test_after_a_rollback_a_new_apply_reloads_cleanly (test_service_catalogue_load.T7_Rollback.test_after_a_rollback_a_new_apply_reloads_cleanly) ... ok
++test_rollback_removes_only_rows_and_the_standard_the_loader_created (test_service_catalogue_load.T7_Rollback.test_rollback_removes_only_rows_and_the_standard_the_loader_created) ... ok
++test_the_standard_survives_a_rollback_if_a_row_the_loader_did_not_create_still_uses_it (test_service_catalogue_load.T7_Rollback.test_the_standard_survives_a_rollback_if_a_row_the_loader_did_not_create_still_uses_it) ... ok
++test_create_write_unlink_appear_only_inside_the_backend_class_and_the_report_file_write (test_service_catalogue_load.T8_StaticNoV19Write.test_create_write_unlink_appear_only_inside_the_backend_class_and_the_report_file_write) ... ok
++test_the_command_line_has_no_apply_switch_and_needs_no_database (test_service_catalogue_load.T8_StaticNoV19Write.test_the_command_line_has_no_apply_switch_and_needs_no_database) ... {
++ "mode": "OFFLINE PLAN (nothing written, relations not checked)",
++ "extract": {
++  "rows": 49,
++  "live": 34,
++  "archived": 15,
++  "fields": 85,
++  "read_at": "2026-11-27T11:20Z"
++ },
++ "lifecycle_counts": {
++  "proposed": true,
++  "counts": {
++   "active": 29,
++   "candidate": 1,
++   "retired": 16,
++   "draft": 3
++  },
++  "source_status_counts": {
++   "active": 29,
++   "future_scoped": 1,
++   "deprecated": 16,
++   "draft": 3
++  }
++ },
++ "name_holds": [
++  {
++   "v19_id": 3,
++   "code": "SC-03",
++   "item": "name",
++   "reason": "x_name and x_service_name differ",
++   "x_name": "SC-03 Human-AI Orientation and Navigation",
++   "x_service_name": "Human-AI Orientation and Navigation (HAION)"
++  },
++  {
++   "v19_id": 14,
++   "code": "SA-04",
++   "item": "name",
++   "reason": "x_name and x_service_name differ",
++   "x_name": "SA-04 Partner Orchestration and Ecosystem Governance",
++   "x_service_name": "Relationship, Partner & Collaborative Ecosystem Orchestration"
++  }
++ ]
++}
++ok
++test_the_fake_database_cannot_reach_a_v19_model_so_a_v19_write_would_fail_loudly (test_service_catalogue_load.T8_StaticNoV19Write.test_the_fake_database_cannot_reach_a_v19_model_so_a_v19_write_would_fail_loudly) ... ok
++test_the_loader_imports_nothing_that_can_reach_v19_or_the_network (test_service_catalogue_load.T8_StaticNoV19Write.test_the_loader_imports_nothing_that_can_reach_v19_or_the_network) ... ok
++test_the_only_database_models_named_in_code_are_the_synapsys_ones_and_ir_model_data (test_service_catalogue_load.T8_StaticNoV19Write.test_the_only_database_models_named_in_code_are_the_synapsys_ones_and_ir_model_data) ... ok
++test_the_proof_state_and_other_unmapped_field_names_appear_in_code_only_in_the_unmapped_table (test_service_catalogue_load.T8_StaticNoV19Write.test_the_proof_state_and_other_unmapped_field_names_appear_in_code_only_in_the_unmapped_table) ... ok
++test_a_filled_x_ffe_state_is_kept_as_history_and_slots_8_11_12_14_15_are_not_written (test_service_catalogue_load.T9_FieldValues.test_a_filled_x_ffe_state_is_kept_as_history_and_slots_8_11_12_14_15_are_not_written) ... ok
++test_names_codes_descriptions_and_the_equality_rule (test_service_catalogue_load.T9_FieldValues.test_names_codes_descriptions_and_the_equality_rule) ... ok
++test_owner_escalation_sla_door_and_approval_values (test_service_catalogue_load.T9_FieldValues.test_owner_escalation_sla_door_and_approval_values) ... ok
++
++----------------------------------------------------------------------
++Ran 35 tests in 0.420s
++
++OK
+diff --git a/release/rc07_service_catalogue_adoption/tests/fake_orm.py b/release/rc07_service_catalogue_adoption/tests/fake_orm.py
+new file mode 100644
+index 0000000..4917a86
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/tests/fake_orm.py
+@@ -0,0 +1,113 @@
++"""A minimal in-memory ORM, just enough to run the loader's OdooBackend offline: search / browse / create / write / unlink on named models, many2one and many2many
++fields, and a write log. It stands in for Odoo; it is not Odoo (what it cannot show is listed in the return)."""
++import itertools
++
++M2O = {'context_id': 'synapsys.context', 'domain_id': 'synapsys.domain', 'method_id': 'synapsys.method', 'standard_id': 'synapsys.service.standard'}
++M2M_F = ('canon_ids', 'pattern_ids')
++
++
++class RS(object):
++    def __init__(self, env, model, ids):
++        self.env, self._m, self.ids = env, model, list(ids)
++
++    @property
++    def id(self):
++        return self.ids[0] if self.ids else False
++
++    def __bool__(self):
++        return bool(self.ids)
++
++    def __len__(self):
++        return len(self.ids)
++
++    def __iter__(self):
++        return (RS(self.env, self._m, [i]) for i in self.ids)
++
++    def __getitem__(self, k):
++        if isinstance(k, int):
++            return RS(self.env, self._m, [self.ids[k]])
++        row = self.env.data[self._m].get(self.ids[0], {}) if self.ids else {}
++        if k in M2O:
++            v = row.get(k)
++            return RS(self.env, M2O[k], [v] if v else [])
++        if k in M2M_F:
++            return RS(self.env, {'canon_ids': 'synapsys.canon', 'pattern_ids': 'synapsys.pattern'}[k], row.get(k, []))
++        if k == 'id':
++            return self.id
++        v = row.get(k, False)
++        return v
++
++    def __getattr__(self, k):
++        if k in ('res_id', 'name', 'model', 'module', 'code', 'v19_id', 'paragraphs'):
++            return self[k]
++        raise AttributeError(k)
++
++    def exists(self):
++        return RS(self.env, self._m, [i for i in self.ids if i in self.env.data[self._m]])
++
++    def browse(self, ids):
++        return RS(self.env, self._m, [ids] if isinstance(ids, int) else list(ids))
++
++    def search(self, domain, limit=None):
++        out = []
++        for i, row in sorted(self.env.data[self._m].items()):
++            ok = True
++            for f, op, v in domain:
++                have = i if f == 'id' else row.get(f, False)
++                ok = ok and ((have == v) if op == '=' else (have in v))
++            if ok:
++                out.append(i)
++        return RS(self.env, self._m, out[:limit] if limit else out)
++
++    def create(self, vals):
++        if self._m == 'synapsys.service':
++            assert vals.get('code') and vals.get('name'), 'code and name are required on synapsys.service'
++        i = next(self.env.seq)
++        row = {}
++        for k, v in vals.items():
++            row[k] = self.env._norm(k, v)
++        self.env.data[self._m][i] = row
++        self.env.log.append(('create', self._m, i, dict(vals)))
++        return RS(self.env, self._m, [i])
++
++    def write(self, vals):
++        for i in self.ids:
++            for k, v in vals.items():
++                self.env.data[self._m][i][k] = self.env._norm(k, v)
++        self.env.log.append(('write', self._m, tuple(self.ids), dict(vals)))
++        return True
++
++    def unlink(self):
++        for i in self.ids:
++            self.env.data[self._m].pop(i, None)
++        self.env.log.append(('unlink', self._m, tuple(self.ids), {}))
++        return True
++
++
++class FakeEnv(object):
++    MODELS = ('synapsys.service', 'synapsys.service.standard', 'synapsys.context', 'synapsys.domain', 'synapsys.method', 'synapsys.canon', 'synapsys.pattern', 'ir.model.data')
++
++    def __init__(self):
++        self.data = {m: {} for m in self.MODELS}
++        self.seq = itertools.count(1000)
++        self.log = []
++
++    @staticmethod
++    def _norm(k, v):
++        if k in M2M_F:
++            assert isinstance(v, list) and v and v[0][0] == 6, 'many2many writes use (6, 0, ids)'
++            return sorted(v[0][2])
++        return v
++
++    def __getitem__(self, model):
++        if model not in self.data:
++            raise KeyError('model %r is not part of the loader\'s allowed surface' % model)  # x_service_catalogue (V19) or anything else is unreachable
++        return RS(self, model, [])
++
++    def seed(self, model, **vals):
++        i = next(self.seq)
++        self.data[model][i] = dict(vals)
++        return i
++
++    def writes(self, model=None):
++        return [x for x in self.log if x[0] in ('create', 'write', 'unlink') and (model is None or x[1] == model)]
+diff --git a/release/rc07_service_catalogue_adoption/tests/make_evidence.py b/release/rc07_service_catalogue_adoption/tests/make_evidence.py
+new file mode 100644
+index 0000000..45b7d7f
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/tests/make_evidence.py
+@@ -0,0 +1,15 @@
++"""Writes the evidence files: the dry-run diff on a fake database seeded with every reference record (what a dev dry-run would look like if all links resolve),
++and the offline plan report (no database; relations not checked). Fixture data only; nothing here touches Odoo."""
++import io, json, os, sys
++HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
++import test_service_catalogue_load as T
++L = T.L
++out = os.path.join(HERE, "..", "evidence"); os.makedirs(out, exist_ok=True)
++e = T.seeded(); buf = io.StringIO()
++res = L.run(e, extract=T.EXTRACT, out=buf)
++open(os.path.join(out, "dry_run_fake_db_20261127.txt"), "w").write("FAKE DATABASE (every Context, Domain, Method, Canon and Pattern the extract names is seeded); not dev\n" + buf.getvalue())
++rep = dict(res["report"], extract_sha256=res["extract_sha256"], mode="DRY-RUN on a fake database; counts: %s" % res["counts"])
++json.dump(rep, open(os.path.join(out, "dry_run_report_fake_db_20261127.json"), "w"), indent=1, sort_keys=True)
++e2 = T.seeded(skip=("context", "method", "canon", "pattern", "domain")); r2 = L.run(e2, extract=T.EXTRACT, out=io.StringIO())
++json.dump({"mode": "DRY-RUN on a fake database with NO reference records: every relation unresolved", "counts": r2["counts"], "unresolved_by_field": {k: sum(1 for u in r2["report"]["unresolved_relations"] if u["field"] == k) for k in ("context_id", "domain_id", "method_id", "canon_ids", "pattern_ids")}}, open(os.path.join(out, "dry_run_unresolved_scenario_20261127.json"), "w"), indent=1, sort_keys=True)
++print("evidence written", res["counts"])
+diff --git a/release/rc07_service_catalogue_adoption/tests/test_service_catalogue_load.py b/release/rc07_service_catalogue_adoption/tests/test_service_catalogue_load.py
+new file mode 100644
+index 0000000..4386cee
+--- /dev/null
++++ b/release/rc07_service_catalogue_adoption/tests/test_service_catalogue_load.py
+@@ -0,0 +1,410 @@
++"""RC07 offline tests for the Service Catalogue loader (contract section 5, tests 1 to 10, plus the cases that protect them). In-memory fake ORM; no Odoo, no network.
++What this cannot show: the real ORM (required fields, access rules, guards, onchange, mail), the real V20 reference data (Contexts, Methods, Canon, Patterns, Domains), the
++Service screen and counts after a load, and a real backup and restore. Those are the dev fast path (separate, Steward word)."""
++import ast, collections, copy, hashlib, io, json, os, sys, unittest
++
++HERE = os.path.dirname(os.path.abspath(__file__))
++sys.path.insert(0, os.path.join(HERE, "..", "loader")); sys.path.insert(0, HERE)
++import service_catalogue_load as L
++from fake_orm import FakeEnv
++
++# The extract is business data and is NOT committed (it is filed in Working Memory, sha256 87bdc258...). Put it at fixtures/ or point SYN_V19_EXTRACT at it; without it
++# every test here is SKIPPED, never passed.
++EXTRACT = os.environ.get("SYN_V19_EXTRACT") or os.path.abspath(os.path.join(HERE, "..", "fixtures", "V19_SERVICE_CATALOGUE_EXTRACT_20261127.json"))
++LOADER = os.path.abspath(os.path.join(HERE, "..", "loader", "service_catalogue_load.py"))
++if not os.path.exists(EXTRACT):
++    raise unittest.SkipTest("V19 extract not present at %s: the loader tests were NOT run" % EXTRACT)
++DOC, SHA = L.load_extract(EXTRACT)
++ROWS = DOC["rows"]
++HELD_NAMES = {3, 14}
++RULINGS = {"3": "Human-AI Orientation and Navigation (HAION)", "14": "Relationship, Partner & Collaborative Ecosystem Orchestration"}
++
++
++def seeded(skip=()):
++    """A fake database holding every Context, Domain, Method, Canon and Pattern the extract refers to (unless skipped), each found by its v19 id or code."""
++    e = FakeEnv()
++    ids = collections.defaultdict(dict)
++    for r in ROWS:
++        if r["x_context_id"] and "context" not in skip:
++            ids["context"].setdefault(r["x_context_id"][0], r["x_context_id"][1])
++        if r["x_primary_governing_domain"] and "domain" not in skip:
++            ids["domain"].setdefault(r["x_primary_governing_domain"], None)
++        if r["x_method_id"] and "method" not in skip:
++            ids["method"].setdefault(r["x_method_id"][0], None)
++        if "canon" not in skip:
++            for c in r["x_canonical_library_ids"]:
++                ids["canon"].setdefault(c, None)
++        if "pattern" not in skip:
++            for c in r["x_pattern_ids"]:
++                ids["pattern"].setdefault(c, None)
++    for v, code in ids["context"].items():
++        e.seed("synapsys.context", code=code, v19_id=v)
++    for code in ids["domain"]:
++        e.seed("synapsys.domain", code=code)
++    for v in ids["method"]:
++        e.seed("synapsys.method", v19_id=v, code="M%d" % v)
++    for v in ids["canon"]:
++        e.seed("synapsys.canon", v19_id=v)
++    for v in ids["pattern"]:
++        e.seed("synapsys.pattern", v19_id=v, code="P%d" % v)
++    return e
++
++
++def run(env, apply=False, rulings=None):
++    buf = io.StringIO()
++    return L.run(env, extract=EXTRACT, apply=apply, name_rulings=rulings, out=buf), buf.getvalue()
++
++
++def services(env):
++    return env.data["synapsys.service"]
++
++
++class T1_Extract(unittest.TestCase):
++    def test_extract_hash_49_rows_34_live_15_archived_and_a_wrong_hash_is_refused(self):
++        self.assertEqual(hashlib.sha256(open(EXTRACT, "rb").read()).hexdigest(), L.EXTRACT_SHA256)
++        self.assertEqual(len(ROWS), 49); self.assertEqual(sum(1 for r in ROWS if r["x_active"] is True), 34); self.assertEqual(sum(1 for r in ROWS if r["x_active"] is False), 15)
++        self.assertEqual(len(ROWS[0]), 85)
++        with self.assertRaises(ValueError):
++            L.load_extract(EXTRACT, "0" * 64)
++
++    def test_every_extract_field_is_either_mapped_or_in_the_unmapped_list_and_never_both(self):
++        allf = set(ROWS[0])
++        self.assertEqual((len(L.MAPPED), len(L.UNMAPPED)), (45, 40))
++        self.assertEqual(set(L.MAPPED) | set(L.UNMAPPED), allf)
++        self.assertEqual(set(L.MAPPED) & set(L.UNMAPPED), set())
++        plan = L.build_plan(DOC, L.NoLookup())
++        self.assertEqual((plan["report"]["coverage"]["neither"], plan["report"]["coverage"]["overlap"], plan["report"]["coverage"]["absent_from_extract"]), ([], [], []))
++
++
++class T2_DryRunApplyIdempotent(unittest.TestCase):
++    def test_dry_run_is_the_default_and_writes_nothing(self):
++        import inspect
++        self.assertFalse(inspect.signature(L.run).parameters["apply"].default)
++        e = seeded(); res, out = run(e)
++        self.assertEqual(e.writes(), []); self.assertEqual(res["mode"], "DRY-RUN"); self.assertIn("DRY-RUN: nothing was written", out)
++        self.assertEqual(res["counts"], {"CREATE": 47, "HOLD_NAME": 2})
++        self.assertEqual(len(services(e)), 0); self.assertEqual(len(e.data["synapsys.service.standard"]), 0)
++
++    def test_apply_creates_the_rows_and_a_second_apply_changes_nothing(self):
++        e = seeded(); res, _ = run(e, apply=True)
++        self.assertEqual(res["writes"], {"created": 47, "updated": 0, "standard": 1}); self.assertEqual(len(services(e)), 47)
++        n = len(e.log); res2, out2 = run(e, apply=True)
++        self.assertEqual(res2["writes"], {"created": 0, "updated": 0, "standard": 0}); self.assertEqual(len(e.log), n)  # not one write call
++        self.assertEqual(res2["counts"], {"UNCHANGED": 47, "HOLD_NAME": 2}); self.assertEqual(res2["standard"], "UNCHANGED")
++
++    def test_held_names_are_not_loaded_until_the_steward_rules_and_then_the_load_completes_idempotently(self):
++        e = seeded(); run(e, apply=True)
++        have = {r["v19_id"] for r in services(e).values()}
++        self.assertEqual({r["id"] for r in ROWS} - have, HELD_NAMES)
++        res, _ = run(e, apply=True, rulings=RULINGS)
++        self.assertEqual(res["writes"], {"created": 2, "updated": 0, "standard": 0}); self.assertEqual(len(services(e)), 49)
++        n = len(e.log); run(e, apply=True, rulings=RULINGS); self.assertEqual(len(e.log), n)
++        self.assertEqual({r["code"]: r["name"] for r in services(e).values()}["SC-03"], RULINGS["3"])
++
++    def test_every_v19_code_appears_once_and_the_v19_id_set_equals_the_extract_set(self):
++        e = seeded(); run(e, apply=True, rulings=RULINGS)
++        rows = list(services(e).values())
++        self.assertEqual(sorted(r["v19_id"] for r in rows), sorted(r["id"] for r in ROWS))
++        self.assertEqual(sorted(r["code"] for r in rows), sorted(r["x_service_code"] for r in ROWS))
++        self.assertEqual(len({r["code"] for r in rows}), 49)
++        plan = L.build_plan(DOC, L.NoLookup())  # and at plan level, before any ruling
++        self.assertEqual(sorted(p["v19_id"] for p in plan["rows"]), sorted(r["id"] for r in ROWS))
++
++    def test_a_managed_field_changed_by_hand_is_shown_as_an_update_and_restored_but_unmanaged_fields_are_left_alone(self):
++        e = seeded(); run(e, apply=True)
++        rid = [i for i, r in services(e).items() if r["code"] == "SC-01"][0]
++        services(e)[rid]["description"] = "edited"; services(e)[rid]["perspective"] = "internal"; services(e)[rid]["kind_proposed"] = "K-6"
++        res, out = run(e)
++        self.assertEqual(res["counts"].get("UPDATE"), 1); self.assertIn("description", out)
++        run(e, apply=True)
++        self.assertNotEqual(services(e)[rid]["description"], "edited")
++        self.assertEqual((services(e)[rid]["perspective"], services(e)[rid]["kind_proposed"]), ("internal", "K-6"))  # never touched
++
++    def test_an_unmarked_row_with_a_matching_v19_id_is_a_conflict_and_is_never_touched(self):
++        e = seeded(); i = e.seed("synapsys.service", code="X", name="hand made", v19_id=1)
++        res, _ = run(e, apply=True)
++        self.assertEqual(res["counts"].get("CONFLICT_UNMARKED"), 1); self.assertEqual(services(e)[i], {"code": "X", "name": "hand made", "v19_id": 1})
++        self.assertEqual(len(services(e)), 1 + 46)
++
++
++class T3_Relations(unittest.TestCase):
++    def test_unresolvable_context_method_canon_pattern_domain_become_a_recorded_gap_and_no_record_is_invented(self):
++        e = seeded(skip=("context", "method", "canon", "pattern", "domain"))
++        before = {m: len(e.data[m]) for m in ("synapsys.context", "synapsys.method", "synapsys.canon", "synapsys.pattern", "synapsys.domain")}
++        res, _ = run(e, apply=True)
++        self.assertEqual({m: len(e.data[m]) for m in before}, before)  # no stub parent created
++        for r in services(e).values():
++            for f in ("context_id", "method_id", "domain_id"):
++                self.assertFalse(r.get(f)); 
++            self.assertFalse(r.get("canon_ids")); self.assertFalse(r.get("pattern_ids"))
++        un = res["report"]["unresolved_relations"]
++        kinds = collections.Counter(u["field"] for u in un)
++        self.assertEqual(kinds["context_id"], 19 - 0)  # every row that has a context
++        self.assertTrue(all(k in kinds for k in ("method_id", "canon_ids", "pattern_ids", "domain_id")))
++        self.assertTrue(all(u["why"] == "not found" for u in un))
++        self.assertTrue(any(r.get("pattern_codes") for r in services(e).values()))  # the raw v19 pattern ids survive in the field built for them
++
++    def test_resolved_relations_are_linked_by_v19_id_or_code(self):
++        e = seeded(); run(e, apply=True)
++        ctx = {r["v19_id"]: i for i, r in e.data["synapsys.context"].items()}
++        r1 = [r for r in services(e).values() if r["v19_id"] == 1][0]
++        self.assertEqual(r1["context_id"], ctx[1])
++        self.assertEqual(sorted(r1["canon_ids"]), sorted(i for i, r in e.data["synapsys.canon"].items() if r["v19_id"] in ROWS[0]["x_canonical_library_ids"]))
++        dom = {r["code"]: i for i, r in e.data["synapsys.domain"].items()}
++        self.assertEqual(r1["domain_id"], dom[ROWS[0]["x_primary_governing_domain"]])
++
++    def test_an_ambiguous_match_is_not_guessed(self):
++        e = seeded(); e.seed("synapsys.method", v19_id=1, code="DUP")  # two methods carry v19 id 1
++        res, _ = run(e, apply=True)
++        self.assertTrue(any(u["field"] == "method_id" and u["why"] == "ambiguous" for u in res["report"]["unresolved_relations"]))
++        self.assertTrue(all(not r.get("method_id") for r in services(e).values() if r["v19_id"] == 1))
++
++    def test_context_found_by_code_only_and_a_v19_id_that_disagrees_with_the_code_is_ambiguous(self):
++        e = seeded(); e.seed("synapsys.context", code="CTX-SS", v19_id=999)  # same code, another v19 id
++        res, _ = run(e)
++        self.assertTrue(any(u["field"] == "context_id" and u["why"] == "ambiguous" for u in res["report"]["unresolved_relations"]))
++
++
++class T4_Standard(unittest.TestCase):
++    def setUp(self):
++        self.e = seeded(); self.res, _ = run(self.e, apply=True, rulings=RULINGS)
++        self.std = list(self.e.data["synapsys.service.standard"].values())
++        self.rows = {r["v19_id"]: r for r in services(self.e).values()}
++
++    def test_one_standard_holding_the_four_shared_paragraphs_and_the_expected_row_counts(self):
++        self.assertEqual(len(self.std), 1)
++        paras = json.loads(self.std[0]["paragraphs"]); self.assertEqual(len(paras), 4)
++        pf = self.res["report"]["standard"]["per_field"]
++        self.assertEqual({k: v["top_count"] for k, v in pf.items()}, {"authority_gate_schema": 15, "adaptability_envelope": 30, "observation_learning_contract": 15, "provider_fallback_policy": 29})
++        self.assertEqual({k: v["linked_rows"] for k, v in pf.items()}, {"authority_gate_schema": 15, "adaptability_envelope": 30, "observation_learning_contract": 15, "provider_fallback_policy": 29})
++
++    def test_rows_with_the_shared_text_link_to_the_standard_and_store_no_own_copy(self):
++        paras = json.loads(self.std[0]["paragraphs"])
++        src = {"authority_gate_schema": "x_authority_gate_schema", "adaptability_envelope": "x_adaptability_envelope", "observation_learning_contract": "x_observation_learning_contract"}
++        for r in ROWS:
++            live = self.rows[r["id"]]
++            refs = json.loads(live.get("standard_refs") or "{}")
++            for dst, s in src.items():
++                if r[s] and r[s] in paras:
++                    self.assertEqual(paras[refs[dst][0]], r[s], (r["id"], dst))
++                    self.assertFalse(live.get(dst), (r["id"], dst))  # no own copy
++                    self.assertTrue(live.get("standard_id"))
++                elif r[s]:
++                    self.assertEqual(live.get(dst), r[s], (r["id"], dst))  # differing text stays as the row's own override
++                    self.assertNotIn(dst, refs)
++
++    def test_differing_provider_fallback_text_has_no_field_and_is_reported_held_not_dropped_silently(self):
++        held = self.res["report"]["standard"]["provider_fallback_overrides_held"]
++        self.assertEqual(held, 47 - 29)
++        for r in services(self.e).values():
++            self.assertNotIn("provider_fallback_policy", r)  # no such field is invented on synapsys.service
++
++    def test_source_hashes_record_the_sha256_of_each_v19_text(self):
++        r = self.rows[1]; h = json.loads(r["source_hash"])
++        self.assertEqual(h["description"], hashlib.sha256(ROWS[0]["x_description"].encode()).hexdigest())
++        self.assertEqual(h["authority_gate_schema"], hashlib.sha256(ROWS[0]["x_authority_gate_schema"].encode()).hexdigest())
++
++    def test_a_standard_field_below_the_threshold_is_not_made_a_paragraph(self):
++        plan = L.build_plan(DOC, L.NoLookup(), min_shared=31)
++        self.assertEqual(len(plan["standard"]["paragraphs"]), 0)
++        self.assertTrue(all(not p["values"]["standard_refs"] for p in plan["rows"]))
++
++
++class T5_LifecycleAndPerspective(unittest.TestCase):
++    def test_lifecycle_counts_active_29_draft_3_candidate_1_retired_16_flagged_proposed(self):
++        plan = L.build_plan(DOC, L.NoLookup())
++        lc = plan["report"]["lifecycle_counts"]
++        self.assertEqual(lc["counts"], {"active": 29, "draft": 3, "candidate": 1, "retired": 16}); self.assertTrue(lc["proposed"])
++        e = seeded(); run(e, apply=True, rulings=RULINGS)
++        self.assertEqual(dict(collections.Counter(r["lifecycle"] for r in services(e).values())), {"active": 29, "draft": 3, "candidate": 1, "retired": 16})
++
++    def test_all_15_archived_rows_are_loaded_as_retired_and_the_original_status_is_kept_as_history(self):
++        e = seeded(); run(e, apply=True, rulings=RULINGS)
++        rows = {r["v19_id"]: r for r in services(e).values()}
++        arch = [r for r in ROWS if r["x_active"] is False]
++        self.assertEqual(len(arch), 15)
++        for r in arch:
++            self.assertEqual(rows[r["id"]]["lifecycle"], "retired")
++            self.assertIn("status=%s" % r["x_service_status"], rows[r["id"]]["validation_status_v19"]); self.assertIn("active=false", rows[r["id"]]["validation_status_v19"])
++        self.assertIn("validation=validated", rows[1]["validation_status_v19"])
++        self.assertTrue(all(r["lifecycle"] != "plug_in_ready" for r in rows.values()))
++
++    def test_perspective_is_empty_on_every_row_and_the_source_values_are_counted_not_mapped(self):
++        e = seeded(); run(e, apply=True, rulings=RULINGS)
++        for r in services(e).values():
++            self.assertNotIn("perspective", r)
++        plan = L.build_plan(DOC, L.NoLookup()); pc = plan["report"]["perspective_source_counts"]
++        self.assertEqual(pc["x_service_class"], {"(empty)": 20, "offering": 16, "internal": 9, "membrane": 4})
++        self.assertEqual(pc["x_offering_layer"], {"C": 35, "B": 8, "A": 6}); self.assertEqual(pc["x_service_role"], {"(empty)": 25, "service": 24})
++
++    def test_proof_states_and_protected_fields_are_never_written_to_a_live_field(self):
++        e = seeded(); run(e, apply=True, rulings=RULINGS)
++        written = set()
++        for _op, model, _ids, vals in e.writes("synapsys.service"):
++            written |= set(vals)
++        self.assertEqual(written & set(L.PROTECTED_NEVER_WRITTEN), set())
++        self.assertEqual(written - set(L.MANAGED), set())  # only the managed list is ever written
++        for f in ("ppv", "kind", "observed", "answer_accepted", "benefit_ids", "asset_ids", "slots_filled", "plug_in_ready"):
++            self.assertNotIn(f, written)
++        # sentinel test: put a unique marker into every proof-state field and every other unmapped field of a copy of the extract; none may reach a written value
++        doc = copy.deepcopy(DOC)
++        for r in doc["rows"]:
++            for f in L.UNMAPPED:
++                if f not in ("x_company_id", "create_date", "write_date") and not L.empty(r[f]):
++                    r[f] = "SENTINEL_%s_%d" % (f, r["id"])
++        e2 = seeded(); plan = L.build_plan(doc, L.OdooBackend(e2), RULINGS)
++        for p in plan["rows"]:
++            self.assertNotIn("SENTINEL_", json.dumps(p["values"], default=str), p["code"])
++        for f in ("x_service_ppv_entry", "x_service_ppv_ceiling", "x_productisation_status", "x_processability_state", "x_fpv_acceptance"):
++            self.assertEqual(sum(1 for r in doc["rows"] if "SENTINEL_" in str(r[f])), sum(1 for r in ROWS if not L.empty(r[f])))  # the sentinels really were in the input
++
++
++class T6_Unmapped(unittest.TestCase):
++    CONTRACT_COUNTS = {"x_service_ppv_entry": 40, "x_service_ppv_ceiling": 39, "x_productisation_status": 46, "x_processability_state": 30, "x_fpv_acceptance": 0,
++                       "x_itil_service_description": 3, "x_itil_utility": 21, "x_itil_warranty": 22, "x_itil_service_level_target": 1, "x_itil_support_model": 4, "x_itil_service_owner_role": 29,
++                       "x_warranty_commitment_type": 1, "x_warranty_commitment_text": 1, "x_ai_capability_requirements": 32, "x_human_role_requirements": 31,
++                       "x_deterministic_tech_requirements": 31, "x_operator_trace": 41, "x_operations_pattern": 35, "x_default_workflow_phase": 19, "x_named_consumer": 4, "x_gsa_role": 2,
++                       "x_cost_risk_transfer": 1, "x_fallback_flag": 1, "x_collab_ai_access_mode": 28, "x_collab_ai_allowed_intents": 19, "x_collab_ai_scope": 28, "x_client_contact_visible": 16,
++                       "x_channel_ids": 0, "x_context_binding_required": 15, "x_context_binding_notes": 40, "x_haion_summary": 18, "x_source_document": 25, "x_source_version": 24,
++                       "x_dim_trigger_linkage": 2, "x_producible_lens_ids": 6, "x_prerequisite_edge_ids": 1, "x_requires_edge_ids": 1, "x_company_id": 49, "create_date": 49, "write_date": 49}
++
++    def test_the_report_lists_exactly_the_40_fields_with_the_contracts_counts(self):
++        rep = L.build_plan(DOC, L.NoLookup())["report"]["unmapped_fields"]
++        self.assertEqual(len(rep), 40)
++        self.assertEqual({x["field"]: x["filled"] for x in rep}, self.CONTRACT_COUNTS)
++        self.assertEqual(sum(1 for x in rep if x["group"] == "Authority/proof states (PPV)"), 5)
++
++    def test_held_mapped_fields_are_reported_separately_and_nothing_is_dropped_silently(self):
++        rep = L.build_plan(DOC, L.NoLookup())["report"]
++        held = {x["field"]: x for x in rep["held_mapped"]}
++        self.assertEqual(held["x_itil_csi_log"]["filled"], 13)
++        self.assertEqual((held["x_steward_contact_id"]["owner_empty_and_contact_present"], held["x_steward_contact_id"]["differs_from_owner"]), (0, 0))
++        for f in L.PERSPECTIVE_SOURCES:
++            self.assertIn(f, held)
++        self.assertEqual({x["field"] for x in rep["unmapped_fields"]} & set(held), set())
++
++
++class T7_Rollback(unittest.TestCase):
++    def test_rollback_removes_only_rows_and_the_standard_the_loader_created(self):
++        e = seeded()
++        pre = e.seed("synapsys.service", code="PRE-1", name="pre-existing", v19_id=777)
++        std_pre = e.seed("synapsys.service.standard", name="someone else's standard", paragraphs="[]")
++        run(e, apply=True, rulings=RULINGS)
++        self.assertEqual(len(services(e)), 1 + 49)
++        res = L.rollback(env=e, out=io.StringIO())  # dry-run by default
++        self.assertEqual((res["mode"], res["services"], res["standard"]), ("DRY-RUN", 49, True)); self.assertEqual(len(services(e)), 50)
++        L.rollback(env=e, apply=True, out=io.StringIO())
++        self.assertEqual(list(services(e)), [pre]); self.assertIn(std_pre, e.data["synapsys.service.standard"]); self.assertEqual(len(e.data["synapsys.service.standard"]), 1)
++        self.assertEqual(len([i for i in e.data["ir.model.data"].values() if i["module"] == L.XML_MODULE]), 0)
++        for m in ("synapsys.context", "synapsys.domain", "synapsys.method", "synapsys.canon", "synapsys.pattern"):
++            self.assertTrue(e.data[m])  # reference data untouched
++
++    def test_after_a_rollback_a_new_apply_reloads_cleanly(self):
++        e = seeded(); run(e, apply=True); L.rollback(env=e, apply=True, out=io.StringIO())
++        res, _ = run(e, apply=True)
++        self.assertEqual(res["writes"]["created"], 47)
++
++    def test_the_standard_survives_a_rollback_if_a_row_the_loader_did_not_create_still_uses_it(self):
++        e = seeded(); run(e, apply=True)
++        sid = [i for i in e.data["synapsys.service.standard"]][0]
++        other = e.seed("synapsys.service", code="OTHER", name="other", standard_id=sid)
++        L.rollback(env=e, apply=True, out=io.StringIO())
++        self.assertIn(sid, e.data["synapsys.service.standard"]); self.assertIn(other, services(e))
++
++
++class T8_StaticNoV19Write(unittest.TestCase):
++    SRC = open(LOADER, encoding="utf-8").read()
++    TREE = ast.parse(SRC)
++
++    def test_the_loader_imports_nothing_that_can_reach_v19_or_the_network(self):
++        mods = {a.name.split(".")[0] for n in ast.walk(self.TREE) if isinstance(n, ast.Import) for a in n.names} | {n.module.split(".")[0] for n in ast.walk(self.TREE) if isinstance(n, ast.ImportFrom) and n.module}
++        self.assertEqual(mods, {"argparse", "collections", "hashlib", "json", "re", "sys"})
++        for bad in ("xmlrpc", "odoorpc", "requests", "urllib", "socket", "http", "subprocess", "os", "shutil"):
++            self.assertNotIn(bad, mods)
++
++    def test_the_proof_state_and_other_unmapped_field_names_appear_in_code_only_in_the_unmapped_table(self):
++        tbl = [n for n in ast.walk(self.TREE) if isinstance(n, ast.Assign) and any(getattr(t, "id", "") == "UNMAPPED_GROUPS" for t in n.targets)][0]
++        inside = {id(x) for x in ast.walk(tbl)}
++        names = set(L.UNMAPPED)
++        for n in ast.walk(self.TREE):
++            if isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value in names:
++                self.assertIn(id(n), inside, "%s is referenced outside the unmapped table, line %d" % (n.value, n.lineno))
++
++    def test_the_only_database_models_named_in_code_are_the_synapsys_ones_and_ir_model_data(self):
++        doc = {id(n.body[0].value) for n in ast.walk(self.TREE) if isinstance(n, (ast.Module, ast.FunctionDef, ast.ClassDef)) and n.body and isinstance(n.body[0], ast.Expr) and isinstance(getattr(n.body[0], "value", None), ast.Constant)}
++        models = set()
++        for n in ast.walk(self.TREE):
++            if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in doc and ("." in n.value) and " " not in n.value and n.value != L.EXTRACT_SCHEMA and n.value.split(".")[0] in ("synapsys", "ir", "res", "x_service_catalogue"):
++                models.add(n.value)
++        self.assertEqual(models, {"synapsys.service", "synapsys.service.standard", "synapsys.context", "synapsys.method", "synapsys.canon", "synapsys.pattern", "synapsys.domain", "ir.model.data"})
++        self.assertNotIn("x_service_catalogue", {c.value for n in ast.walk(self.TREE) if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in doc for c in [n]})
++
++    def test_create_write_unlink_appear_only_inside_the_backend_class_and_the_report_file_write(self):
++        cls = [n for n in ast.walk(self.TREE) if isinstance(n, ast.ClassDef) and n.name == "OdooBackend"][0]
++        inside = {id(x) for x in ast.walk(cls)}
++        for n in ast.walk(self.TREE):
++            if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr in ("create", "write", "unlink"):
++                if isinstance(n.func.value, ast.Name) and n.func.value.id in ("out", "w"):
++                    continue  # writing text to the output stream, not to a database
++                self.assertIn(id(n), inside, "%s() outside OdooBackend at line %d" % (n.func.attr, n.lineno))
++        opens = [n for n in ast.walk(self.TREE) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "open"]
++        modes = [ast.literal_eval(n.args[1]) if len(n.args) > 1 else "r" for n in opens]
++        self.assertEqual(sorted(modes), ["r", "r", "rb", "w"])  # reads the extract and a ruling file; the one write is the optional offline report
++
++    def test_the_fake_database_cannot_reach_a_v19_model_so_a_v19_write_would_fail_loudly(self):
++        with self.assertRaises(KeyError):
++            seeded()["x_service_catalogue"]
++        e = seeded(); run(e, apply=True)
++        self.assertEqual({m for _o, m, _i, _v in e.log}, {"synapsys.service", "synapsys.service.standard", "ir.model.data"})
++
++    def test_the_command_line_has_no_apply_switch_and_needs_no_database(self):
++        self.assertNotIn("--apply", self.SRC.split("def main")[1].split("a = ap.parse_args")[0])
++        self.assertEqual(L.main(["--extract", EXTRACT, "--no-lookup"]), 0)
++
++
++class T9_FieldValues(unittest.TestCase):
++    def setUp(self):
++        self.e = seeded(); run(self.e, apply=True, rulings=RULINGS); self.rows = {r["v19_id"]: r for r in services(self.e).values()}
++
++    def test_names_codes_descriptions_and_the_equality_rule(self):
++        by = {r["id"]: r for r in ROWS}
++        for vid, live in self.rows.items():
++            self.assertEqual(live["code"], by[vid]["x_service_code"])
++            self.assertEqual(live.get("description"), by[vid]["x_description"] or None) if by[vid]["x_description"] else self.assertFalse(live.get("description"))
++        self.assertEqual(self.rows[1]["name"], "Governance and Operating Model Enablement")
++        self.assertEqual(self.rows[43]["name"], "Benefits Realisation as a Service")  # V19 x_name had a dash
++        for vid in (18, 34, 35):
++            self.assertFalse(self.rows[vid]["name"].startswith(self.rows[vid]["code"]))  # the duplicated code prefix is removed once
++        notes = {(n["v19_id"]) for n in L.build_plan(DOC, L.NoLookup())["report"]["name_notes"] if "leading code" in n["note"]}
++        self.assertEqual(notes, {18, 34, 35})
++        holds = L.build_plan(DOC, L.NoLookup())["report"]["name_holds"]
++        self.assertEqual({h["v19_id"] for h in holds}, HELD_NAMES)
++
++    def test_owner_escalation_sla_door_and_approval_values(self):
++        by = {r["id"]: r for r in ROWS}
++        n = 0
++        for vid, live in self.rows.items():
++            r = by[vid]
++            self.assertEqual(live.get("owner_name"), r["x_service_owner_id"][1] if r["x_service_owner_id"] else None)
++            self.assertEqual(live.get("escalation"), r["x_escalation_group_id"][1] if r["x_escalation_group_id"] else None)
++            self.assertFalse(live.get("delivery_lead"))
++            self.assertEqual(live.get("entry_point"), r["x_entry_point"] or None)
++            if r["x_sla_metric_text"]:
++                self.assertTrue(live["sla_text"].startswith(r["x_sla_metric_text"])); n += 1
++            if r["x_sla_metric_value"]:
++                self.assertEqual(live["sla_value"], r["x_sla_metric_value"])
++            if r["x_authority_reference"]:
++                self.assertTrue(live["approval_category"].startswith(r["x_authority_reference"]))
++            if r["x_service_activation_requires_decision"] is True:
++                self.assertIn("activation_requires_decision", live["approval_category"])
++        self.assertEqual(n, 33)
++
++    def test_a_filled_x_ffe_state_is_kept_as_history_and_slots_8_11_12_14_15_are_not_written(self):
++        self.assertEqual(sum(1 for r in self.rows.values() if r.get("ffe_state_v19")), 4)
++        for r in self.rows.values():
++            for f in ("programme_ids", "benefit_ids", "asset_ids", "obligations", "slots_filled", "plug_in_ready", "rhythm_tier", "kind_proposed"):
++                self.assertNotIn(f, r)
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
