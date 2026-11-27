@@ -37,7 +37,7 @@ _DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
 # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
 # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
-DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"))
+DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"))
 STEM_MAX = 60
 
 
@@ -221,6 +221,16 @@ def _kind_of(decl, record):
     return k, None, nb
 
 
+def answer_lead(status, definition):
+    """Status honesty (RC06c): an answer for a noun the registry does not hold as RULED leads with the registry's own status word, so
+    it cannot read as settled. RULED nouns get none. Nothing is added if the definition text already opens with that word."""
+    if status == "RULED":
+        return None
+    word = status or "UNSOURCED"
+    d = (definition or "").lstrip().upper()
+    return None if d.startswith(word.upper()) else word
+
+
 def _slots_for(depth):
     out = []
     for d in DEPTHS[:_ix(depth) + 1]:
@@ -275,6 +285,9 @@ def project(decl, reg, requested_depth, actor, evidence, library_index, context_
         },
         "notes": notes,
     }
+    lead = answer_lead(el.get("status"), el.get("definition"))
+    if lead:  # only for a status other than RULED; a RULED screen's model is byte-identical to RC06b
+        out["frame"]["answer_lead"] = lead
     if eff != requested_depth and clamp_reason == "stage":
         out["not_applicable"] = {"requested": requested_depth, "text": NOT_APPLICABLE if stage != NOT_BOUND else "Stage not bound: Enable depth only",
                                  "reason": stage_reason if stage == NOT_BOUND else "stage %s sets the ceiling" % stage}

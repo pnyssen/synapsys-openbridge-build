@@ -1,0 +1,649 @@
+diff -ruN a/synapsys/data/screen_declarations_batch2.json b/synapsys/data/screen_declarations_batch2.json
+--- a/synapsys/data/screen_declarations_batch2.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_declarations_batch2.json	2026-11-27 04:20:30.519710255 +0000
+@@ -0,0 +1,592 @@
++{
++  "schema": "synapsys.screen.declaration/1",
++  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06c batch 2: noun screens for the 10 PROPOSAL and 2 OPEN nouns. Not released to the registry (registry 0.3.5 is unchanged).",
++  "slots": {
++    "enable": [
++      "header",
++      "answer",
++      "trust",
++      "movement"
++    ],
++    "enhance": [
++      "made_of",
++      "peers"
++    ],
++    "enrich": [
++      "trust_table",
++      "open_questions",
++      "technical"
++    ]
++  },
++  "screens": [
++    {
++      "id": "SCR.PURPOSE.NOUN",
++      "noun": "N.PURPOSE",
++      "screen_type": "noun",
++      "title": "Purpose",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.CTX",
++        "heading": "What the Purpose is made of",
++        "role_names": {}
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.PURPOSE",
++          "label": "Purpose meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "design_d.json Context->Purpose",
++              "date": null,
++              "quote": "design_d.json Context->Purpose"
++            },
++            {
++              "name": "design_d.json Purpose->Strategy",
++              "date": "16 Nov 23:32",
++              "quote": "Purpose->Strategy (alignment, src L 16 Nov 23:32"
++            },
++            {
++              "name": "Ledger",
++              "date": "20 Nov 06:27",
++              "quote": "ledger 20 Nov 06:27"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.CAPABILITY.NOUN",
++      "noun": "N.CAPABILITY",
++      "screen_type": "noun",
++      "title": "Capability",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.SVC",
++        "heading": "What the Capability is made of",
++        "role_names": {}
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.CAPABILITY",
++          "label": "Capability meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Project instr. v2.2.2",
++              "date": null,
++              "quote": "project instructions v2.2.2"
++            },
++            {
++              "name": "design_d.json",
++              "date": null,
++              "quote": "design_d.json Programme->Capability"
++            },
++            {
++              "name": "pack.md OV-02",
++              "date": null,
++              "quote": "pack.md OV-02"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.CHAIN.NOUN",
++      "noun": "N.CHAIN",
++      "screen_type": "noun",
++      "title": "Chain",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.CHAIN",
++          "label": "Chain meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Project instr. v2.2.2",
++              "date": null,
++              "quote": "project instructions v2.2.2"
++            },
++            {
++              "name": "design_d.json",
++              "date": null,
++              "quote": "design_d.json Benefit->Chain"
++            },
++            {
++              "name": "Registry PART Chain/Stage",
++              "date": null,
++              "quote": "registry PART N.CHAIN/STAGE"
++            },
++            {
++              "name": "lens.json Value-chain lens",
++              "date": "20 Nov 05:5x",
++              "quote": "lens.json Value-chain lens (ruled 20 Nov 05:5x)"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.PARTNER.NOUN",
++      "noun": "N.PARTNER",
++      "screen_type": "noun",
++      "title": "Partner",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.PARTNER",
++          "label": "Partner meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "design_d.json",
++              "date": null,
++              "quote": "design_d.json Partner->Context"
++            },
++            {
++              "name": "Registry PART Partner/Agreement",
++              "date": null,
++              "quote": "registry PART N.PARTNER/AGREEMENT"
++            },
++            {
++              "name": "Ledger line 10",
++              "date": "19 Nov",
++              "quote": "ledger 19 Nov line 10"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.METHOD.NOUN",
++      "noun": "N.METHOD",
++      "screen_type": "noun",
++      "title": "Method",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.METHOD",
++          "label": "Method meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Project instr. v2.2.2 s5",
++              "date": null,
++              "quote": "Project instructions v2.2.2 s5"
++            },
++            {
++              "name": "spec/content_spec.md",
++              "date": null,
++              "quote": "spec/content_spec.md 'Registered way of working (P)'"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Service->Method"
++            },
++            {
++              "name": "lens.json Learning lens",
++              "date": null,
++              "quote": "lens.json Learning lens includes Method"
++            },
++            {
++              "name": "Steward ruling",
++              "date": "21 Nov 08:54",
++              "quote": "Steward ruling 21 Nov 08:54"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.WORK.NOUN",
++      "noun": "N.WORK",
++      "screen_type": "noun",
++      "title": "Work",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.WRK",
++        "heading": "What the Work is made of",
++        "role_names": {}
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.WORK",
++          "label": "Work meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Project instr. v2.2.2 s0",
++              "date": null,
++              "quote": "Project instructions v2.2.2 s0"
++            },
++            {
++              "name": "Ledger",
++              "date": "20 Nov 10:05",
++              "quote": "ledger 20 Nov 10:05"
++            },
++            {
++              "name": "Ledger",
++              "date": "07:35",
++              "quote": "ledger 07:35 (My Work"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Work->Programme"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.PATTERN.NOUN",
++      "noun": "N.PATTERN",
++      "screen_type": "noun",
++      "title": "Pattern",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.LRN",
++        "heading": "What the Pattern is made of",
++        "role_names": {}
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.PATTERN",
++          "label": "Pattern meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Builder spec row",
++              "date": null,
++              "quote": "Builder spec row (spec_rows.json"
++            },
++            {
++              "name": "Ledger",
++              "date": "19 Nov 23:15",
++              "quote": "ledger 19 Nov 23:15"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Asset->Pattern"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.SIGNAL.NOUN",
++      "noun": "N.SIGNAL",
++      "screen_type": "noun",
++      "title": "Signal",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "relationship": "H.SIG",
++        "heading": "What the Signal is made of",
++        "role_names": {}
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.SIGNAL",
++          "label": "Signal meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Builder spec row",
++              "date": null,
++              "quote": "Builder spec row ('What enters and is sensed'"
++            },
++            {
++              "name": "Ledger",
++              "date": "20 Nov 07:16",
++              "quote": "ledger 20 Nov 07:16"
++            },
++            {
++              "name": "Ledger",
++              "date": "10:05",
++              "quote": "10:05 (Inbox"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Signal->Fractal"
++            },
++            {
++              "name": "Ruling on Signal types",
++              "date": "21 Nov 08:24",
++              "quote": "ruled 21 Nov 08:24"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.CHANGE.NOUN",
++      "noun": "N.CHANGE",
++      "screen_type": "noun",
++      "title": "Change",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.CHANGE",
++          "label": "Change meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Builder spec row",
++              "date": null,
++              "quote": "Builder spec row ('Change request and release'"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Change->Canonical"
++            },
++            {
++              "name": "Project instr. s8",
++              "date": null,
++              "quote": "project instructions s8"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.MARKET.NOUN",
++      "noun": "N.MARKET",
++      "screen_type": "noun",
++      "title": "Market",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.MARKET",
++          "label": "Market meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Builder spec row",
++              "date": null,
++              "quote": "Builder spec row ('Markets sensed and captured"
++            },
++            {
++              "name": "design_d",
++              "date": null,
++              "quote": "design_d Offering->Market"
++            },
++            {
++              "name": "Ledger",
++              "date": "07:35",
++              "quote": "ledger 07:35 (Playing to Win"
++            },
++            {
++              "name": "Ledger",
++              "date": "10:33",
++              "quote": "10:33 (Markets is a KDB face"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.INDUSTRY.NOUN",
++      "noun": "N.INDUSTRY",
++      "screen_type": "noun",
++      "title": "Industry",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.INDUSTRY",
++          "label": "Industry meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "pack.md OV-05",
++              "date": null,
++              "quote": "pack.md OV-05 (builder proposal)"
++            },
++            {
++              "name": "design_d.json",
++              "date": null,
++              "quote": "design_d.json Chain->Industry"
++            },
++            {
++              "name": "Registry PART Industry/Dataset",
++              "date": null,
++              "quote": "registry PART N.INDUSTRY/DATASET"
++            },
++            {
++              "name": "Ledger",
++              "date": "20 Nov 10:36",
++              "quote": "ledger 20 Nov 10:36"
++            }
++          ]
++        }
++      ]
++    },
++    {
++      "id": "SCR.PRODUCT.NOUN",
++      "noun": "N.PRODUCT",
++      "screen_type": "noun",
++      "title": "Product",
++      "answer": {
++        "from": "element.definition"
++      },
++      "trust_claim": "meaning",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": null,
++      "peers": null,
++      "claims": [
++        {
++          "id": "meaning",
++          "type": "element",
++          "noun": "N.PRODUCT",
++          "label": "Product meaning",
++          "qualifier_from": "element.kind",
++          "sources": [
++            {
++              "name": "Ledger",
++              "date": "19 Nov 23:05",
++              "quote": "Ledger 19 Nov 23:05"
++            },
++            {
++              "name": "Ledger Open list",
++              "date": null,
++              "quote": "ledger Open list"
++            },
++            {
++              "name": "spec/content_spec.md",
++              "date": null,
++              "quote": "spec/content_spec.md DEFINE"
++            },
++            {
++              "name": "pack.md OV-02",
++              "date": null,
++              "quote": "pack.md OV-02"
++            }
++          ]
++        }
++      ]
++    }
++  ]
++}
+diff -ruN a/synapsys/screen_decl.py b/synapsys/screen_decl.py
+--- a/synapsys/screen_decl.py	2026-11-27 04:11:05.000000000 +0000
++++ b/synapsys/screen_decl.py	2026-11-27 04:20:39.193482218 +0000
+@@ -37,7 +37,7 @@
+ DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
+ # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
+ # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
+-DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"))
++DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"))
+ STEM_MAX = 60
+ 
+ 
+@@ -221,6 +221,16 @@
+     return k, None, nb
+ 
+ 
++def answer_lead(status, definition):
++    """Status honesty (RC06c): an answer for a noun the registry does not hold as RULED leads with the registry's own status word, so
++    it cannot read as settled. RULED nouns get none. Nothing is added if the definition text already opens with that word."""
++    if status == "RULED":
++        return None
++    word = status or "UNSOURCED"
++    d = (definition or "").lstrip().upper()
++    return None if d.startswith(word.upper()) else word
++
++
+ def _slots_for(depth):
+     out = []
+     for d in DEPTHS[:_ix(depth) + 1]:
+@@ -275,6 +285,9 @@
+         },
+         "notes": notes,
+     }
++    lead = answer_lead(el.get("status"), el.get("definition"))
++    if lead:  # only for a status other than RULED; a RULED screen's model is byte-identical to RC06b
++        out["frame"]["answer_lead"] = lead
+     if eff != requested_depth and clamp_reason == "stage":
+         out["not_applicable"] = {"requested": requested_depth, "text": NOT_APPLICABLE if stage != NOT_BOUND else "Stage not bound: Enable depth only",
+                                  "reason": stage_reason if stage == NOT_BOUND else "stage %s sets the ceiling" % stage}
+diff -ruN a/synapsys/screen_render.py b/synapsys/screen_render.py
+--- a/synapsys/screen_render.py	2026-11-27 04:11:05.000000000 +0000
++++ b/synapsys/screen_render.py	2026-11-27 04:20:39.194117676 +0000
+@@ -73,7 +73,9 @@
+ 
+ 
+ def _slot_answer(m):
+-    return '<p class="an" data-slot="answer">%s</p>' % _t(m['frame']['answer'])
++    lead = m['frame'].get('answer_lead')
++    lead_html = ('<strong class="lead">%s:</strong> ' % _e(str(lead))) if lead else ''
++    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(m['frame']['answer']))
+ 
+ 
+ def _slot_trust(m):

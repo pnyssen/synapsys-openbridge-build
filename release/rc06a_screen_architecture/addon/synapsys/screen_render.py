@@ -73,7 +73,9 @@ def _slot_header(m):
 
 
 def _slot_answer(m):
-    return '<p class="an" data-slot="answer">%s</p>' % _t(m['frame']['answer'])
+    lead = m['frame'].get('answer_lead')
+    lead_html = ('<strong class="lead">%s:</strong> ' % _e(str(lead))) if lead else ''
+    return '<p class="an" data-slot="answer">%s%s</p>' % (lead_html, _t(m['frame']['answer']))
 
 
 def _slot_trust(m):

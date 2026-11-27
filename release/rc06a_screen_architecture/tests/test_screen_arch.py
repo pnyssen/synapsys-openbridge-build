@@ -221,7 +221,10 @@ class C1_to_C6_Frame(unittest.TestCase):
             for s in ("answer", "trust", "movement"):
                 self.assertEqual(h.count('data-slot="%s"' % s), 1)
             ans = re.search(r'data-slot="answer">(.*?)</p>', h, re.S).group(1)
-            self.assertEqual(len(re.findall(r"[.!?](?:\s|$)", html.unescape(ans))), 1, ans)
+            ans = re.sub(r"<strong class=\"lead\">.*?</strong> ", "", ans)  # the status lead (non-RULED nouns) is not part of the answer sentence
+            # the registry's own leading status marker ("OPEN." in Industry's definition) is not a sentence of the answer either
+            ans = re.sub(r"^(OPEN|PROPOSAL)\.\s", "", html.unescape(ans))
+            self.assertEqual(len(re.findall(r"[.!?](?:\s|$)", ans)), 1, ans)
             self.assertEqual(sl_count(h), 0)  # no Enhance or Enrich slot at Enable
 
     def test_trust_line_is_status_plus_source_count_at_every_depth(self):

@@ -42,8 +42,9 @@ class Batch_Set(unittest.TestCase):
 
     def test_the_rc06a_file_is_byte_identical_and_batch1_is_a_sibling_file(self):
         self.assertEqual(META["sha256"], RC06A_PRIMARY_SHA)
-        self.assertEqual(sorted(META["files"]), ["screen_declarations.json", "screen_declarations_batch1.json"])
+        self.assertTrue({"screen_declarations.json", "screen_declarations_batch1.json"} <= set(META["files"]))
         self.assertEqual(META["files"]["screen_declarations.json"], RC06A_PRIMARY_SHA)
+        self.assertEqual(META["files"]["screen_declarations_batch1.json"], "2e278bc8c73f1bd20ddcd0c5549a40c037c1749f37f7a680b26047c7593290ff")  # RC06b file untouched by RC06c
         for sid in BATCH:
             self.assertEqual(META["file_of"][sid], META["files"]["screen_declarations_batch1.json"])
         for sid in ("SCR.CONTEXT.NOUN", "SCR.CONTEXT.RECORD", "SCR.ASSET.RECORD"):
