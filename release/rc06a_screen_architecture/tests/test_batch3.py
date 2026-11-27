@@ -65,7 +65,7 @@ class B3_Set(unittest.TestCase):
             o = sw.scaffold_context(F.Env([F.STEW]), depth, "1")
             self.assertEqual(sv.render(o, depth), open(os.path.join(HERE, "golden", "rc06a_context_noun_view_%s.html" % depth), encoding="utf-8").read())
             self.assertEqual(json.dumps(o, sort_keys=True, indent=1), open(os.path.join(HERE, "golden", "rc06a_context_noun_route_%s.json" % depth), encoding="utf-8").read())
-        self.assertEqual(len(DECLS), 3 + 15 + 12 + 7)
+        self.assertEqual(len([d for d in DECLS if not d.startswith('SCR.ACTION.')]), 3 + 15 + 12 + 7)  # RC06e adds the nine action screens
 
     def test_the_contract_copy_is_the_contract_and_the_generators_reproduce_both_files_byte_for_byte(self):
         self.assertEqual(hashlib.sha256(open(CONTRACT, "rb").read()).hexdigest(), CONTRACT_SHA)

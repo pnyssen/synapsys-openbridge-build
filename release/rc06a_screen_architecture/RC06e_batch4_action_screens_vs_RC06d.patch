@@ -1,0 +1,967 @@
+diff -ruN a/synapsys/data/screen_declarations_batch4.json b/synapsys/data/screen_declarations_batch4.json
+--- a/synapsys/data/screen_declarations_batch4.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_declarations_batch4.json	2026-11-27 04:49:26.096674245 +0000
+@@ -0,0 +1,729 @@
++{
++  "schema": "synapsys.screen.declaration/1",
++  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06e batch 4: nine action screens (menu type) sourced from document rows. Where each will sit in a menu is NOT decided. Not released to the registry (registry 0.3.5 is unchanged).",
++  "slots": {
++    "enable": [
++      "header",
++      "answer",
++      "trust",
++      "movement"
++    ],
++    "enhance": [
++      "made_of",
++      "peers"
++    ],
++    "enrich": [
++      "trust_table",
++      "open_questions",
++      "technical"
++    ]
++  },
++  "sources": "screen_sources_batch4.json",
++  "contract_text": [
++    "Definition: UNSOURCED. No project document states what this action means."
++  ],
++  "screens": [
++    {
++      "id": "SCR.ACTION.ORIENT",
++      "screen_type": "menu",
++      "title": "Orient",
++      "answer": {
++        "from": "doc",
++        "row": "A1"
++      },
++      "trust_claim": "c.A1",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P1"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A1",
++          "type": "doc",
++          "rows": [
++            "A1"
++          ]
++        },
++        {
++          "id": "c.P1",
++          "type": "doc",
++          "rows": [
++            "P1"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.ORIENT.1",
++          "kind": "unsourced",
++          "claim": "c.A1",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.ORIENT.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.CANONICALISE",
++      "screen_type": "menu",
++      "title": "Canonicalise",
++      "answer": {
++        "from": "doc",
++        "row": "A2"
++      },
++      "trust_claim": "c.A2",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P1"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A2",
++          "type": "doc",
++          "rows": [
++            "A2"
++          ]
++        },
++        {
++          "id": "c.P1",
++          "type": "doc",
++          "rows": [
++            "P1"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.CANONICALISE.1",
++          "kind": "unsourced",
++          "claim": "c.A2",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.CANONICALISE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.STRUCTURE",
++      "screen_type": "menu",
++      "title": "Structure",
++      "answer": {
++        "from": "doc",
++        "row": "A3"
++      },
++      "trust_claim": "c.A3",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P1"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A3",
++          "type": "doc",
++          "rows": [
++            "A3"
++          ]
++        },
++        {
++          "id": "c.P1",
++          "type": "doc",
++          "rows": [
++            "P1"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.STRUCTURE.1",
++          "kind": "unsourced",
++          "claim": "c.A3",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.STRUCTURE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.ASSURE",
++      "screen_type": "menu",
++      "title": "Assure",
++      "answer": {
++        "from": "doc",
++        "row": "A4"
++      },
++      "trust_claim": "c.A4",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P2"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A4",
++          "type": "doc",
++          "rows": [
++            "A4"
++          ]
++        },
++        {
++          "id": "c.P2",
++          "type": "doc",
++          "rows": [
++            "P2"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.ASSURE.1",
++          "kind": "unsourced",
++          "claim": "c.A4",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.ASSURE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.NAVIGATE",
++      "screen_type": "menu",
++      "title": "Navigate",
++      "answer": {
++        "from": "doc",
++        "row": "A5"
++      },
++      "trust_claim": "c.A5",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P2"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A5",
++          "type": "doc",
++          "rows": [
++            "A5"
++          ]
++        },
++        {
++          "id": "c.P2",
++          "type": "doc",
++          "rows": [
++            "P2"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.NAVIGATE.1",
++          "kind": "unsourced",
++          "claim": "c.A5",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.NAVIGATE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.COMPOSE",
++      "screen_type": "menu",
++      "title": "Compose",
++      "answer": {
++        "from": "doc",
++        "row": "A6"
++      },
++      "trust_claim": "c.A6",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P2"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A6",
++          "type": "doc",
++          "rows": [
++            "A6"
++          ]
++        },
++        {
++          "id": "c.P2",
++          "type": "doc",
++          "rows": [
++            "P2"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.COMPOSE.1",
++          "kind": "unsourced",
++          "claim": "c.A6",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.COMPOSE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.ACTIVATE",
++      "screen_type": "menu",
++      "title": "Activate",
++      "answer": {
++        "from": "doc",
++        "row": "A7"
++      },
++      "trust_claim": "c.A7",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P3"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A7",
++          "type": "doc",
++          "rows": [
++            "A7"
++          ]
++        },
++        {
++          "id": "c.P3",
++          "type": "doc",
++          "rows": [
++            "P3"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.ACTIVATE.1",
++          "kind": "unsourced",
++          "claim": "c.A7",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.ACTIVATE.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.TRANSFORM",
++      "screen_type": "menu",
++      "title": "Transform",
++      "answer": {
++        "from": "doc",
++        "row": "A8"
++      },
++      "trust_claim": "c.A8",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P3"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A8",
++          "type": "doc",
++          "rows": [
++            "A8"
++          ]
++        },
++        {
++          "id": "c.P3",
++          "type": "doc",
++          "rows": [
++            "P3"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.TRANSFORM.1",
++          "kind": "unsourced",
++          "claim": "c.A8",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.TRANSFORM.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    },
++    {
++      "id": "SCR.ACTION.PROJECT",
++      "screen_type": "menu",
++      "title": "Project",
++      "answer": {
++        "from": "doc",
++        "row": "A9"
++      },
++      "trust_claim": "c.A9",
++      "movement": {
++        "verbs": [],
++        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
++      },
++      "made_of": {
++        "heading": null,
++        "rows": [
++          "P3"
++        ],
++        "note": null
++      },
++      "peers": null,
++      "claims": [
++        {
++          "id": "c.A9",
++          "type": "doc",
++          "rows": [
++            "A9"
++          ]
++        },
++        {
++          "id": "c.P3",
++          "type": "doc",
++          "rows": [
++            "P3"
++          ]
++        },
++        {
++          "id": "c.C1",
++          "type": "doc",
++          "rows": [
++            "C1"
++          ]
++        },
++        {
++          "id": "c.C2",
++          "type": "doc",
++          "rows": [
++            "C2"
++          ]
++        },
++        {
++          "id": "c.C3",
++          "type": "doc",
++          "rows": [
++            "C3"
++          ]
++        }
++      ],
++      "open": [
++        {
++          "id": "o.PROJECT.1",
++          "kind": "unsourced",
++          "claim": "c.A9",
++          "rows": [],
++          "text": "Definition: UNSOURCED. No project document states what this action means.",
++          "tail": null
++        },
++        {
++          "id": "o.PROJECT.2",
++          "kind": "decision",
++          "claim": "c.C2",
++          "rows": [
++            "C2"
++          ],
++          "tail": null
++        }
++      ]
++    }
++  ]
++}
+diff -ruN a/synapsys/data/screen_sources_batch4.json b/synapsys/data/screen_sources_batch4.json
+--- a/synapsys/data/screen_sources_batch4.json	1970-01-01 00:00:00.000000000 +0000
++++ b/synapsys/data/screen_sources_batch4.json	2026-11-27 04:49:12.948673464 +0000
+@@ -0,0 +1,186 @@
++{
++  "schema": "synapsys.screen.sources/1",
++  "origin": "Source table of BUILD_CONTRACT_ENABLE_ACTION_SCREENS_BATCH4_RC06E_20261127_v1.md (sha256 743e92bb0eb588a3a28b4fddf6f0d52211e7485e6dcbbc10e7c4c5a7e481b9d6), read from the project documents by the chat lane on 27 Nov. The builder could not read those documents; D009 or the Navigator should re-check the quotes against them.",
++  "rows": [
++    {
++      "id": "A1",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Orient (sense, map, derive)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Orient (sense, map, derive)",
++      "is_quotation": true
++    },
++    {
++      "id": "A2",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Canonicalise (capture, supersedes, validates)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Canonicalise (capture, supersedes, validates)",
++      "is_quotation": true
++    },
++    {
++      "id": "A3",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Structure (instantiates, composes, parent)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Structure (instantiates, composes, parent)",
++      "is_quotation": true
++    },
++    {
++      "id": "A4",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Assure (evidences, challenge, verify)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Assure (evidences, challenge, verify)",
++      "is_quotation": true
++    },
++    {
++      "id": "A5",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Navigate (route, balance, filter)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Navigate (route, balance, filter)",
++      "is_quotation": true
++    },
++    {
++      "id": "A6",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Compose (consumes, execute, requires)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Compose (consumes, execute, requires)",
++      "is_quotation": true
++    },
++    {
++      "id": "A7",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Activate (engage, commit, seize)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Activate (engage, commit, seize)",
++      "is_quotation": true
++    },
++    {
++      "id": "A8",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Transform (compound, succeed, transform)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Transform (compound, succeed, transform)",
++      "is_quotation": true
++    },
++    {
++      "id": "A9",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Project (join, package, implements_candidate)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (read from live V20 synapsys.verb on 25 Nov)",
++      "status_note": "read from live V20 synapsys.verb on 25 Nov",
++      "display": "Project (join, package, implements_candidate)",
++      "is_quotation": true
++    },
++    {
++      "id": "P1",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Govern plane (Form)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (plane of A1 to A3)",
++      "status_note": "plane of A1 to A3",
++      "display": "Govern plane (Form)",
++      "is_quotation": true
++    },
++    {
++      "id": "P2",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Deliver plane (Flow)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (plane of A4 to A6)",
++      "status_note": "plane of A4 to A6",
++      "display": "Deliver plane (Flow)",
++      "is_quotation": true
++    },
++    {
++      "id": "P3",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Realise plane (Evolve)",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (plane of A7 to A9)",
++      "status_note": "plane of A7 to A9",
++      "display": "Realise plane (Evolve)",
++      "is_quotation": true
++    },
++    {
++      "id": "C1",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Form, Flow and Evolve are the three stages (planes) that group the verbs, and the Movement values of the Control Cube; they are not verbs.",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (not verbs)",
++      "status_note": "not verbs",
++      "display": "Form, Flow and Evolve are the three stages (planes) that group the verbs, and the Movement values of the Control Cube; they are not verbs.",
++      "is_quotation": true
++    },
++    {
++      "id": "C2",
++      "file": "claude/synapsys-toolkit-verbs-rules-intelligence-and-adaptability-by-level-v0.1-2026-11-13.md s1",
++      "when": "13 Nov",
++      "status_word": "OPEN",
++      "quote": "Its relation to the 27 is unruled, and \"transform\" is in both sets.",
++      "source_name": "Toolkit verbs rules v0.1 s1",
++      "status": "OPEN (relation to the 27 unruled)",
++      "status_note": "relation to the 27 unruled",
++      "display": "Its relation to the 27 is unruled, and \"transform\" is in both sets.",
++      "is_quotation": true
++    },
++    {
++      "id": "C3",
++      "file": "claude/mesh-fit-to-shapes-test-v0.3-verbs-verified-and-product-in-disciplines-2026-11-25.md s1",
++      "when": "25 Nov",
++      "status_word": "CANDIDATE",
++      "quote": "Live V20 `synapsys.verb` read 25 Nov: 27 rows, none named Form, Flow or Evolve.",
++      "source_name": "Mesh fit-to-shapes test v0.3 s1",
++      "status": "CANDIDATE (live read)",
++      "status_note": "live read",
++      "display": "Live V20 `synapsys.verb` read 25 Nov: 27 rows, none named Form, Flow or Evolve.",
++      "is_quotation": true
++    }
++  ]
++}
+diff -ruN a/synapsys/screen_decl.py b/synapsys/screen_decl.py
+--- a/synapsys/screen_decl.py	2026-11-27 04:42:05.000000000 +0000
++++ b/synapsys/screen_decl.py	2026-11-27 04:49:26.115571441 +0000
+@@ -38,8 +38,8 @@
+ # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
+ # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
+ DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"),
+-                 os.path.join(_DATA, "screen_declarations_batch3.json"))
+-OPEN_KINDS = ("decision", "proposal", "conflict")
++                 os.path.join(_DATA, "screen_declarations_batch3.json"), os.path.join(_DATA, "screen_declarations_batch4.json"))
++OPEN_KINDS = ("decision", "proposal", "conflict", "unsourced")
+ _SOURCES = {}
+ STEM_MAX = 60
+ 
+@@ -147,7 +147,10 @@
+     oids = []
+     for o in d["open"]:
+         oids.append(o.get("id"))
+-        if o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
++        if o.get("kind") == "unsourced":  # fixed contract text instead of a source row (RC06e): the text must be listed in contract_text
++            if o.get("claim") not in ids or not o.get("text") or o.get("rows"):
++                bad("open %s: an unsourced item has a claim and fixed text, and no source rows" % o.get("id"))
++        elif o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
+             bad("open %s: kind, claim and source rows" % o.get("id"))
+         elif o["kind"] == "conflict" and len(o["rows"]) < 2:
+             bad("open %s: a conflict needs at least two statements" % o.get("id"))
+@@ -261,7 +264,7 @@
+         for s in doc.get("screens", []):
+             errs.extend(validate_screen(s, sources))
+             if s.get("screen_type") == "menu":
+-                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])]:
++                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])] + [o.get("text") for o in s.get("open", [])]:
+                     if t and t not in allowed:
+                         errs.append("%s: text %r is not listed in contract_text" % (s.get("id"), t))
+                 sources_of[s.get("id")] = src_sha
+@@ -464,6 +467,8 @@
+ def _open_text(entry, sources):
+     """Text of one open question, made only of source-row text: a conflict is its first statement versus the others (each with its date);
+     a decision or proposal is the row's own text. The optional tail is contract text (listed in the declaration file's contract_text)."""
++    if entry.get("kind") == "unsourced":
++        return entry["text"]
+     rs = [sources[r] for r in entry["rows"]]
+     q = lambda r: "\u201c%s\u201d (%s)" % (r["display"], r["when"])
+     t = (q(rs[0]) + " versus " + " and ".join(q(r) for r in rs[1:])) if entry["kind"] == "conflict" else rs[0]["display"]

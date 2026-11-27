@@ -38,8 +38,8 @@ DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
 # Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
 # every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
 DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"), os.path.join(_DATA, "screen_declarations_batch2.json"),
-                 os.path.join(_DATA, "screen_declarations_batch3.json"))
-OPEN_KINDS = ("decision", "proposal", "conflict")
+                 os.path.join(_DATA, "screen_declarations_batch3.json"), os.path.join(_DATA, "screen_declarations_batch4.json"))
+OPEN_KINDS = ("decision", "proposal", "conflict", "unsourced")
 _SOURCES = {}
 STEM_MAX = 60
 
@@ -147,7 +147,10 @@ def validate_menu(d, sources):
     oids = []
     for o in d["open"]:
         oids.append(o.get("id"))
-        if o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
+        if o.get("kind") == "unsourced":  # fixed contract text instead of a source row (RC06e): the text must be listed in contract_text
+            if o.get("claim") not in ids or not o.get("text") or o.get("rows"):
+                bad("open %s: an unsourced item has a claim and fixed text, and no source rows" % o.get("id"))
+        elif o.get("kind") not in OPEN_KINDS or o.get("claim") not in ids or not o.get("rows") or not all(r in sources for r in o["rows"]):
             bad("open %s: kind, claim and source rows" % o.get("id"))
         elif o["kind"] == "conflict" and len(o["rows"]) < 2:
             bad("open %s: a conflict needs at least two statements" % o.get("id"))
@@ -261,7 +264,7 @@ def load_declarations(path=None):
         for s in doc.get("screens", []):
             errs.extend(validate_screen(s, sources))
             if s.get("screen_type") == "menu":
-                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])]:
+                for t in [(s.get("made_of") or {}).get("note"), (s.get("made_of") or {}).get("heading")] + [o.get("tail") for o in s.get("open", [])] + [o.get("text") for o in s.get("open", [])]:
                     if t and t not in allowed:
                         errs.append("%s: text %r is not listed in contract_text" % (s.get("id"), t))
                 sources_of[s.get("id")] = src_sha
@@ -464,6 +467,8 @@ def _chip_of(row):
 def _open_text(entry, sources):
     """Text of one open question, made only of source-row text: a conflict is its first statement versus the others (each with its date);
     a decision or proposal is the row's own text. The optional tail is contract text (listed in the declaration file's contract_text)."""
+    if entry.get("kind") == "unsourced":
+        return entry["text"]
     rs = [sources[r] for r in entry["rows"]]
     q = lambda r: "\u201c%s\u201d (%s)" % (r["display"], r["when"])
     t = (q(rs[0]) + " versus " + " and ".join(q(r) for r in rs[1:])) if entry["kind"] == "conflict" else rs[0]["display"]

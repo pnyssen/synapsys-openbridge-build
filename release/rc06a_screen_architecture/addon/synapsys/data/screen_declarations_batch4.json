@@ -1,0 +1,729 @@
+{
+  "schema": "synapsys.screen.declaration/1",
+  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06e batch 4: nine action screens (menu type) sourced from document rows. Where each will sit in a menu is NOT decided. Not released to the registry (registry 0.3.5 is unchanged).",
+  "slots": {
+    "enable": [
+      "header",
+      "answer",
+      "trust",
+      "movement"
+    ],
+    "enhance": [
+      "made_of",
+      "peers"
+    ],
+    "enrich": [
+      "trust_table",
+      "open_questions",
+      "technical"
+    ]
+  },
+  "sources": "screen_sources_batch4.json",
+  "contract_text": [
+    "Definition: UNSOURCED. No project document states what this action means."
+  ],
+  "screens": [
+    {
+      "id": "SCR.ACTION.ORIENT",
+      "screen_type": "menu",
+      "title": "Orient",
+      "answer": {
+        "from": "doc",
+        "row": "A1"
+      },
+      "trust_claim": "c.A1",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P1"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A1",
+          "type": "doc",
+          "rows": [
+            "A1"
+          ]
+        },
+        {
+          "id": "c.P1",
+          "type": "doc",
+          "rows": [
+            "P1"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.ORIENT.1",
+          "kind": "unsourced",
+          "claim": "c.A1",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.ORIENT.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.CANONICALISE",
+      "screen_type": "menu",
+      "title": "Canonicalise",
+      "answer": {
+        "from": "doc",
+        "row": "A2"
+      },
+      "trust_claim": "c.A2",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P1"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A2",
+          "type": "doc",
+          "rows": [
+            "A2"
+          ]
+        },
+        {
+          "id": "c.P1",
+          "type": "doc",
+          "rows": [
+            "P1"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.CANONICALISE.1",
+          "kind": "unsourced",
+          "claim": "c.A2",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.CANONICALISE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.STRUCTURE",
+      "screen_type": "menu",
+      "title": "Structure",
+      "answer": {
+        "from": "doc",
+        "row": "A3"
+      },
+      "trust_claim": "c.A3",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P1"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A3",
+          "type": "doc",
+          "rows": [
+            "A3"
+          ]
+        },
+        {
+          "id": "c.P1",
+          "type": "doc",
+          "rows": [
+            "P1"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.STRUCTURE.1",
+          "kind": "unsourced",
+          "claim": "c.A3",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.STRUCTURE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.ASSURE",
+      "screen_type": "menu",
+      "title": "Assure",
+      "answer": {
+        "from": "doc",
+        "row": "A4"
+      },
+      "trust_claim": "c.A4",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P2"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A4",
+          "type": "doc",
+          "rows": [
+            "A4"
+          ]
+        },
+        {
+          "id": "c.P2",
+          "type": "doc",
+          "rows": [
+            "P2"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.ASSURE.1",
+          "kind": "unsourced",
+          "claim": "c.A4",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.ASSURE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.NAVIGATE",
+      "screen_type": "menu",
+      "title": "Navigate",
+      "answer": {
+        "from": "doc",
+        "row": "A5"
+      },
+      "trust_claim": "c.A5",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P2"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A5",
+          "type": "doc",
+          "rows": [
+            "A5"
+          ]
+        },
+        {
+          "id": "c.P2",
+          "type": "doc",
+          "rows": [
+            "P2"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.NAVIGATE.1",
+          "kind": "unsourced",
+          "claim": "c.A5",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.NAVIGATE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.COMPOSE",
+      "screen_type": "menu",
+      "title": "Compose",
+      "answer": {
+        "from": "doc",
+        "row": "A6"
+      },
+      "trust_claim": "c.A6",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P2"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A6",
+          "type": "doc",
+          "rows": [
+            "A6"
+          ]
+        },
+        {
+          "id": "c.P2",
+          "type": "doc",
+          "rows": [
+            "P2"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.COMPOSE.1",
+          "kind": "unsourced",
+          "claim": "c.A6",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.COMPOSE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.ACTIVATE",
+      "screen_type": "menu",
+      "title": "Activate",
+      "answer": {
+        "from": "doc",
+        "row": "A7"
+      },
+      "trust_claim": "c.A7",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P3"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A7",
+          "type": "doc",
+          "rows": [
+            "A7"
+          ]
+        },
+        {
+          "id": "c.P3",
+          "type": "doc",
+          "rows": [
+            "P3"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.ACTIVATE.1",
+          "kind": "unsourced",
+          "claim": "c.A7",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.ACTIVATE.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.TRANSFORM",
+      "screen_type": "menu",
+      "title": "Transform",
+      "answer": {
+        "from": "doc",
+        "row": "A8"
+      },
+      "trust_claim": "c.A8",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P3"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A8",
+          "type": "doc",
+          "rows": [
+            "A8"
+          ]
+        },
+        {
+          "id": "c.P3",
+          "type": "doc",
+          "rows": [
+            "P3"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.TRANSFORM.1",
+          "kind": "unsourced",
+          "claim": "c.A8",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.TRANSFORM.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    },
+    {
+      "id": "SCR.ACTION.PROJECT",
+      "screen_type": "menu",
+      "title": "Project",
+      "answer": {
+        "from": "doc",
+        "row": "A9"
+      },
+      "trust_claim": "c.A9",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "heading": null,
+        "rows": [
+          "P3"
+        ],
+        "note": null
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "c.A9",
+          "type": "doc",
+          "rows": [
+            "A9"
+          ]
+        },
+        {
+          "id": "c.P3",
+          "type": "doc",
+          "rows": [
+            "P3"
+          ]
+        },
+        {
+          "id": "c.C1",
+          "type": "doc",
+          "rows": [
+            "C1"
+          ]
+        },
+        {
+          "id": "c.C2",
+          "type": "doc",
+          "rows": [
+            "C2"
+          ]
+        },
+        {
+          "id": "c.C3",
+          "type": "doc",
+          "rows": [
+            "C3"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "id": "o.PROJECT.1",
+          "kind": "unsourced",
+          "claim": "c.A9",
+          "rows": [],
+          "text": "Definition: UNSOURCED. No project document states what this action means.",
+          "tail": null
+        },
+        {
+          "id": "o.PROJECT.2",
+          "kind": "decision",
+          "claim": "c.C2",
+          "rows": [
+            "C2"
+          ],
+          "tail": null
+        }
+      ]
+    }
+  ]
+}
