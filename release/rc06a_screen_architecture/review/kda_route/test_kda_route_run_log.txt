@@ -1,0 +1,35 @@
+test_19link_case_floor4_seated6 (__main__.Floors.test_19link_case_floor4_seated6) ... ok
+test_F4_seats_all_twelve_not_a_fixed_seven (__main__.Floors.test_F4_seats_all_twelve_not_a_fixed_seven) ... ok
+test_R5_f0_no_bureaucracy (__main__.Floors.test_R5_f0_no_bureaucracy) ... ok
+test_floor_ladder (__main__.Floors.test_floor_ladder) ... ok
+test_highest_floor_wins_and_f5_never_lowers (__main__.Floors.test_highest_floor_wins_and_f5_never_lowers) ... ok
+test_seats_cumulative_and_reps_separate (__main__.Floors.test_seats_cumulative_and_reps_separate) ... ok
+test_R8_apply_readback_19_and_30_unchanged_method_false (__main__.Loader.test_R8_apply_readback_19_and_30_unchanged_method_false) ... ok
+test_R8_rollback_restores_prior_only_never_deletes (__main__.Loader.test_R8_rollback_restores_prior_only_never_deletes) ... ok
+test_R8_second_run_unchanged_no_writes (__main__.Loader.test_R8_second_run_unchanged_no_writes) ... ok
+test_apply_needs_release_id (__main__.Loader.test_apply_needs_release_id) ... ok
+test_dry_run_writes_nothing_and_plans_19 (__main__.Loader.test_dry_run_writes_nothing_and_plans_19) ... ok
+test_duplicate_or_missing_context_stops_before_write (__main__.Loader.test_duplicate_or_missing_context_stops_before_write) ... ok
+test_mapping_is_19_unique (__main__.Loader.test_mapping_is_19_unique) ... ok
+test_never_writes_method_or_other_30 (__main__.Loader.test_never_writes_method_or_other_30) ... ok
+test_rollback_skips_row_changed_since (__main__.Loader.test_rollback_skips_row_changed_since) ... ok
+test_stale_identity_held (__main__.Loader.test_stale_identity_held) ... ok
+test_wrong_context_row_held_not_overwritten (__main__.Loader.test_wrong_context_row_held_not_overwritten) ... ok
+test_R1_R3_restricted_mcp_does_not_narrow_scope_or_block_route (__main__.OriginalFailure.test_R1_R3_restricted_mcp_does_not_narrow_scope_or_block_route) ... ok
+test_R1_distinct_change_types_use_one_router (__main__.OriginalFailure.test_R1_distinct_change_types_use_one_router) ... ok
+test_R2_hold_only_this_effect (__main__.OriginalFailure.test_R2_hold_only_this_effect) ... ok
+test_R3_xss_uses_mcp_synapsys_does_not (__main__.OriginalFailure.test_R3_xss_uses_mcp_synapsys_does_not) ... ok
+test_R4_previous_backup_or_release_cannot_be_replayed (__main__.OriginalFailure.test_R4_previous_backup_or_release_cannot_be_replayed) ... ok
+test_R4_unverified_route_returns_exact_blocker_no_proceed (__main__.OriginalFailure.test_R4_unverified_route_returns_exact_blocker_no_proceed) ... ok
+test_R6_fabricated_chat_words_are_not_a_seat_return (__main__.OriginalFailure.test_R6_fabricated_chat_words_are_not_a_seat_return) ... ok
+test_R6_fail_closed (__main__.OriginalFailure.test_R6_fail_closed) ... ok
+test_R6_one_genuine_effect_proceeds (__main__.OriginalFailure.test_R6_one_genuine_effect_proceeds) ... ok
+test_R6_same_provider_self_d009_rejected (__main__.OriginalFailure.test_R6_same_provider_self_d009_rejected) ... ok
+test_five_statuses_always_present (__main__.OriginalFailure.test_five_statuses_always_present) ... ok
+test_never_repoint_v19_or_second_env (__main__.OriginalFailure.test_never_repoint_v19_or_second_env) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.002s
+
+OK
+--- mutants: 15/15 detected (K1-K9 router, L1-L6 loader); see return
