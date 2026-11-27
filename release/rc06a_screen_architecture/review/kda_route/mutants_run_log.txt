@@ -1,0 +1,28 @@
+M00 KILLED   if not trusted(verifier):         return "NO_TRUSTED_VERIFIE
+M01 KILLED   if got.get("issuer") != "D007" or got.get("status") != "RELE
+M02 KILLED   or body.get("scope_digest") != mine:
+M03 KILLED   if body.get("fields") != effect.get("fields") or body.get("t
+M04 KILLED   if verifier.is_consumed(ref["receipt_id"]):
+M05 KILLED   if effect.get("pins") != verifier.current_pins():
+M06 KILLED   not (nb <= now <= ex)
+M07 KILLED   ap.get("can_write") is True and bool(ap.get("actor")) and ap
+M08 KILLED   ex.get("backup_restore_verified") is True and 
+M09 KILLED   (not route.get("needs_chg") or bool(body.get("chg")))
+M10 KILLED   elif isinstance(ch, dict) and ch.get("provider") == bp:
+M11 KILLED   ch.get("verdict") == "PASS" and 
+M12 KILLED   gates = GATES
+M13 KILLED   if any(e.get(k) for k in SENSITIVE_READ):             return
+M14 KILLED   raise ClassificationHold("CONTRADICTORY_READ_ONLY_WITH_MUTAT
+M15 KILLED   raise ClassificationHold("MUTATES_NOT_EXPLICIT_BOOL")
+M16 KILLED   not _allowed(connector, effect["model"]):         st["actor_
+M17 KILLED   return isinstance(verifier, Verifier) and verifier.identity(
+M18 KILLED   if not isinstance(admission, Admission):             raise H
+M19 KILLED   j.append({"id": r["id"], "prior": r["prior"], "ctx": ctx.id}
+M20 KILLED   if mode == "apply" and (ctx.id != admission.ctx_id or presta
+M21 KILLED   if getattr(admission.lock, "held", False) is not True:
+M22 KILLED   admission.verifier.consume(admission.release_ref["receipt_id
+M23 KILLED   if d["disposition"] != "APPLY_ADMITTED":
+M24 KILLED   if r.exists() and _ref(r, "context_id") == ctx_id:
+M25 KILLED   out["method"] = {"state": "UNOBSERVED_HOLD"
+M26 KILLED   len(str(context_ruling.get("ruling_sha256", ""))) == 64
+survivors: []

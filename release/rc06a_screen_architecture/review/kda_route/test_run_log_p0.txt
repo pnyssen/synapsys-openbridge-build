@@ -1,0 +1,29 @@
+== NEW CODE ==
+-- test_kda_route
+----------------------------------------------------------------------
+Ran 29 tests in 0.055s
+
+OK
+-- test_p0_bindings
+----------------------------------------------------------------------
+Ran 52 tests in 0.036s
+
+OK
+-- test_p0_adversarial
+----------------------------------------------------------------------
+Ran 10 tests in 0.001s
+
+OK
+
+== OLD COMMIT 5b45d09 (regression file only; must FAIL) ==
+FAIL: test_T6_arbitrary_release_id_cannot_write (__main__.P0Loader.test_T6_arbitrary_release_id_cannot_write)
+FAIL: test_T6_release_id_plus_list_journal_cannot_write (__main__.P0Loader.test_T6_release_id_plus_list_journal_cannot_write)
+FAIL: test_T1_fabricated_hash_and_seat_metadata_never_admits (__main__.P0Router.test_T1_fabricated_hash_and_seat_metadata_never_admits)
+FAIL: test_T3_connector_cannot_write_must_not_apply (__main__.P0Router.test_T3_connector_cannot_write_must_not_apply)
+FAIL: test_T3_same_provider_d009_must_hold (__main__.P0Router.test_T3_same_provider_d009_must_hold)
+FAIL: test_T4_xss_route_cannot_be_admitted_by_default_flag (__main__.P0Router.test_T4_xss_route_cannot_be_admitted_by_default_flag)
+FAIL: test_T5_no_constant_clock_default (__main__.P0Router.test_T5_no_constant_clock_default)
+FAIL: test_T5_sensitive_read_is_not_f0 (__main__.P0Router.test_T5_sensitive_read_is_not_f0)
+FAIL: test_T5_unclassified_protected_request_holds_not_crashes (__main__.P0Router.test_T5_unclassified_protected_request_holds_not_crashes)
+Ran 10 tests in 0.004s
+FAILED (failures=9)
