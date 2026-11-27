@@ -1,0 +1,2760 @@
+{
+  "schema": "synapsys.navigator.rc06.batch5.n1.binding-spec/1",
+  "date": "2026-11-27 Australia/Melbourne",
+  "work_object": "WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001",
+  "context": "CTX-SS",
+  "authority": "NAVIGATOR_READ_ONLY_PREPROCESSING__NO_CODE_BUILD__NO_RELEASE",
+  "state": {
+    "revision": 56,
+    "sha256": "d2de2edbaece0f780ea603a5acf6dc21b54c56cb5bb589c1f01118dc9c09b269",
+    "canonical_expected_return_unchanged": "ODOO_CHANGE_REQUEST_DECISION_CHG-2026-767"
+  },
+  "goal_anchor_sha256": "33d90319b89ea2b6f1430a3a1a7a6c0cadac3926236a94ada64b4beebae0262b",
+  "goal": "Allow existing one Code builder to implement an exact source-only Enable overlay for supported menu actions without new menu discovery, duplicate models, unentitled source disclosure or unsafe binding to mismatched declarations.",
+  "basis": [
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/HANDOFF_NAVIGATOR_STATUS_AND_PREPROCESSING_CHALLENGE_20261127_v2.md",
+      "sha256": "1c956599e036dd9840715dffc43daa8a2770ae3beddaec74a16f058e6c34eb47"
+    },
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/NAV_ENABLE_ALL51_LIVE_V20_ACTION_BINDINGS_20261126_v2.json",
+      "sha256": "dd903025da9b66cc24525089d03f83ed985108e8b2b75ebbea3fe25cea6f55b3"
+    },
+    {
+      "path": "GitHub pnyssen/synapsys-openbridge-build@02c1727/release/rc06a_screen_architecture/addon/synapsys/data/screen_declarations.json",
+      "git_blob_sha1": "3246e3341a723eda59bcc7eca53ac69e87da3921"
+    },
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/screen_declarations_batch1.json",
+      "sha256": "2e278bc8c73f1bd20ddcd0c5549a40c037c1749f37f7a680b26047c7593290ff"
+    },
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/screen_declarations_batch2.json",
+      "sha256": "19aef83e13c26a6b5e8062a7df9114eb085bb34a5d305e5332b2b43ee9d117b5"
+    },
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/screen_declarations_batch3.json",
+      "sha256": "200d26ffedde56eace0191438f8cad5449812c87dee749bbe9918955d7954b70"
+    },
+    {
+      "path": "05_AI_RETURNS_HASHED/WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001/CANDIDATES/screen_declarations_batch4.json",
+      "sha256": "ab487f8647114cd3eeb434793112a50d28f835d95b1d5f7bda858e63c07fd387"
+    }
+  ],
+  "live_evidence": {
+    "host": "odoo20.srv1536619.hstgr.cloud",
+    "database": "synapsys_v20",
+    "actor": "jq003.readonly",
+    "source": "ir.ui.menu/ir.actions.act_window/ir.actions.client; no browser checks here",
+    "root_menu": 177,
+    "observed_root_group": 34,
+    "installed_dev_report": "RC06f source tree baad1cc64c151d0ce099a48cbfd1473355713df87733665d4143259a1fcfae16 reported by installer; not a verified current server file read",
+    "current_renderer": "Native action view or client tag, NOT batch5-bound scaffold"
+  },
+  "qa": {
+    "rows": 51,
+    "window": 49,
+    "clients": 2,
+    "unique_menus": 51,
+    "declarations": 46,
+    "assigned": 43,
+    "unique_assigned": 43,
+    "none": 8,
+    "none_screens": [
+      17,
+      18,
+      34,
+      35,
+      36,
+      37,
+      38,
+      42
+    ],
+    "unused_declarations": [
+      "SCR.CONTEXT.RECORD",
+      "SCR.ASSET.RECORD",
+      "SCR.MESH.NOUN"
+    ],
+    "all_none_explained": true,
+    "all_assignments_valid": true,
+    "kept_learning": true,
+    "kept_inbox": true,
+    "steward_only": true,
+    "all_current_actions_present": true
+  },
+  "unbound_policy": "Leave 8 native menu surfaces in place. Do not route Mesh release, Elements, Clusters, Verbs, Map, Lenses, Architecture register or Lexicon through a generic N.MESH screen or a restricted source.",
+  "implementation_contract": [
+    "Use action_xmlid plus menu_id as exact anchors; preserve each native action model, view modes, domain, current record operations, and direct navigation.",
+    "Bind 43 already declared landing screens by their exact immutable screen_id; never derive ID from changing UI labels.",
+    "Do not invent declarations for 8 unmatched native/special surfaces; return them as SOURCE_OR_SPECIAL_SURFACE_GAPS for Support/Integration, with their existing UI retained.",
+    "The two record declarations SCR.CONTEXT.RECORD and SCR.ASSET.RECORD are conditional on actual permitted record instances; not general menu defaults. SCR.MESH.NOUN is a general concept, not a substitute for specialised Mesh catalogues.",
+    "Keep existing groups: root 34, leaf 35 for the two Steward-only references. Group membership, source permission and model record rules must be enforced server-side, never assumed from visible menu metadata.",
+    "Do not show source content or even a hidden response payload for a Context unentitled actor. Missing source is marked UNSOURCED/HOLD; not silently filled from registry or historical V19 data.",
+    "Retain nine action groups under existing top-level Form/Flow/Evolve, separate from Architecture; never equate nine action groups and nine Strategy overlays.",
+    "No protected install or source adoption under this N1 spec; separate D007 release, D009 and Steward user tests for browser behaviour, client/Collaborator and 390/1024px."
+  ],
+  "one_next": "Code (one existing builder) consumes this N1 JSON and builds a source-only batch5 overlay for 43 mapped menus, leaving 8 existing native views; return one patch/tree hash, 43 binding asserts, 8 untouched asserts and fail-closed role/source negatives. No Odoo deployment from this packet.",
+  "rows": [
+    {
+      "screen_no": 1,
+      "menu_id": 179,
+      "menu_name": "Progress",
+      "parent_id": 178,
+      "parent_display": "SynapSys/Navigator",
+      "current_menu_path": "Navigator > Progress",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 290,
+      "action_xmlid": "synapsys.action_navigator",
+      "action_name": "Navigator",
+      "model": "synapsys.work.object",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1547,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.work.object (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.NAVIGATOR_PROGRESS.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Navigator > Progress exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 2,
+      "menu_id": 180,
+      "menu_name": "Inbox",
+      "parent_id": 178,
+      "parent_display": "SynapSys/Navigator",
+      "current_menu_path": "Navigator > Inbox",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 328,
+      "action_xmlid": "synapsys.action_nav_inbox",
+      "action_name": "Inbox",
+      "model": "synapsys.signal",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1550,
+          "list"
+        ],
+        [
+          1551,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('state', '=', 'new')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.signal (domain: [('state', '=', 'new')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.NAVIGATOR_INBOX.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Navigator > Inbox (Signals intake), do not relabel as Approvals",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 3,
+      "menu_id": 181,
+      "menu_name": "Learning",
+      "parent_id": 178,
+      "parent_display": "SynapSys/Navigator",
+      "current_menu_path": "Navigator > Learning",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 329,
+      "action_xmlid": "synapsys.action_nav_learning",
+      "action_name": "Learning",
+      "model": "synapsys.fractal",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('admission', '=', 'steward_gate')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.fractal (domain: [('admission', '=', 'steward_gate')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.NAVIGATOR_LEARNING.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Navigator > Learning (later recorded placement), Pattern under Architecture > Evolve remains separate",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 4,
+      "menu_id": 182,
+      "menu_name": "Strategies",
+      "parent_id": 177,
+      "parent_display": "SynapSys",
+      "current_menu_path": "Strategies",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 325,
+      "action_xmlid": "synapsys.action_strategy_lens",
+      "action_name": "Strategies",
+      "model": "synapsys.strategy",
+      "view_type": "kanban,list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1549,
+          "kanban"
+        ],
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('group', '!=', False)]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo kanban,list,form on synapsys.strategy (domain: [('group', '!=', False)])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.STRATEGIES.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Strategies exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 5,
+      "menu_id": 185,
+      "menu_name": "Purpose",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Purpose",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 316,
+      "action_xmlid": "synapsys.action_purposes",
+      "action_name": "Purposes",
+      "model": "synapsys.purpose",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.purpose (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PURPOSE.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PURPOSE",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Purpose exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 6,
+      "menu_id": 186,
+      "menu_name": "Strategy",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Strategy",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 295,
+      "action_xmlid": "synapsys.action_strategies",
+      "action_name": "Strategies",
+      "model": "synapsys.strategy",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{'search_default_by_group': 1}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.strategy (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.STRATEGY.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.STRATEGY",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Strategy exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 7,
+      "menu_id": 187,
+      "menu_name": "Portfolio",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Portfolio",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 306,
+      "action_xmlid": "synapsys.action_portfolios",
+      "action_name": "Portfolios",
+      "model": "synapsys.portfolio",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.portfolio (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PORTFOLIO.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PORTFOLIO",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Portfolio exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 8,
+      "menu_id": 188,
+      "menu_name": "Context",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Context",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 291,
+      "action_xmlid": "synapsys.action_contexts",
+      "action_name": "Contexts",
+      "model": "synapsys.context",
+      "view_type": "list,kanban,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "kanban"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,kanban,form on synapsys.context (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.CONTEXT.NOUN",
+      "declaration_source_file": "data/screen_declarations.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.CONTEXT",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": "SCR.CONTEXT.RECORD__CONDITIONAL_ONLY",
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Context exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 9,
+      "menu_id": 189,
+      "menu_name": "Offering",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Offering",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 296,
+      "action_xmlid": "synapsys.action_offerings",
+      "action_name": "Offerings",
+      "model": "synapsys.context",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{'default_kind': 'K-6'}",
+      "action_domain": "[('kind','=','K-6')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.context (domain: [('kind','=','K-6')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.OFFERING.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.OFFERING",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Offering exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 10,
+      "menu_id": 190,
+      "menu_name": "Capability",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Capability",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 190,
+      "action_xmlid": "synapsys_mesh.action_noun_capability",
+      "action_name": "Capability",
+      "model": "synapsys.mesh.entry",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('code', '=like', 'N.CAPABILITY%')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.entry (domain: [('code', '=like', 'N.CAPABILITY%')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.CAPABILITY.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.CAPABILITY",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Capability exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 11,
+      "menu_id": 191,
+      "menu_name": "Chain",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Chain",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 315,
+      "action_xmlid": "synapsys.action_chains",
+      "action_name": "Value Chains",
+      "model": "synapsys.value.chain",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.value.chain (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.CHAIN.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.CHAIN",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Chain exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 12,
+      "menu_id": 192,
+      "menu_name": "Shape",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Shape",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 314,
+      "action_xmlid": "synapsys.action_modes",
+      "action_name": "Modes",
+      "model": "synapsys.mode",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mode (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.SHAPE.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.SHAPE",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Shape exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 13,
+      "menu_id": 193,
+      "menu_name": "Domain",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Domain",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 309,
+      "action_xmlid": "synapsys.action_governance",
+      "action_name": "Governance",
+      "model": "synapsys.domain",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.domain (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.DOMAIN.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.DOMAIN",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Domain exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 14,
+      "menu_id": 194,
+      "menu_name": "Canonical",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Canonical",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 299,
+      "action_xmlid": "synapsys.action_canonical",
+      "action_name": "Canonical",
+      "model": "synapsys.canon",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.canon (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.CANONICAL.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.CANONICAL",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Canonical exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 15,
+      "menu_id": 195,
+      "menu_name": "Industry",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Industry",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 322,
+      "action_xmlid": "synapsys.action_industry",
+      "action_name": "Industry offerings",
+      "model": "synapsys.industry.offering",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.industry.offering (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.INDUSTRY.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.INDUSTRY",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Industry exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 16,
+      "menu_id": 196,
+      "menu_name": "Partner",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Partner",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 326,
+      "action_xmlid": "synapsys.action_partners",
+      "action_name": "Partner",
+      "model": "res.partner",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('is_company', '=', True)]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on res.partner (domain: [('is_company', '=', True)])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PARTNER.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PARTNER",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Partner exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 17,
+      "menu_id": 235,
+      "menu_name": "Architecture register",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Architecture register",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 335,
+      "action_xmlid": "synapsys_v19_reference.action_synapsys_architecture",
+      "action_name": "Architecture (V19 register)",
+      "model": "synapsys.architecture",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.architecture (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "STEWARD_ONLY_ARCHITECTURE_REGISTER_REFERENCE__DECLARATION_NOT_PRESENT",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [
+          35
+        ],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [
+          "Steward"
+        ],
+        "menu_group_gate_proposal": "RETAIN_STEWARD_35_AND_EXISTING_ROOT_34",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Architecture register with Steward group 35 only",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 18,
+      "menu_id": 236,
+      "menu_name": "Lexicon",
+      "parent_id": 184,
+      "parent_display": "SynapSys/Architecture/Form",
+      "current_menu_path": "Architecture > Form > Lexicon",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 336,
+      "action_xmlid": "synapsys_v19_reference.action_synapsys_lexicon",
+      "action_name": "Lexicon (V19)",
+      "model": "synapsys.lexicon",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.lexicon (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "STEWARD_ONLY_LEXICON_REFERENCE__DECLARATION_NOT_PRESENT",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [
+          35
+        ],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [
+          "Steward"
+        ],
+        "menu_group_gate_proposal": "RETAIN_STEWARD_35_AND_EXISTING_ROOT_34",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Form > Lexicon with Steward group 35 only",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 19,
+      "menu_id": 198,
+      "menu_name": "Programme",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Programme",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 301,
+      "action_xmlid": "synapsys.action_programmes",
+      "action_name": "Programmes",
+      "model": "synapsys.programme",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.programme (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PROGRAMME.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PROGRAMME",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Programme exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 20,
+      "menu_id": 199,
+      "menu_name": "Project",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Project",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 302,
+      "action_xmlid": "synapsys.action_projects",
+      "action_name": "Projects",
+      "model": "project.project",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('synapsys_context_id','!=',False)]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on project.project (domain: [('synapsys_context_id','!=',False)])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PROJECT.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PROJECT",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Project exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 21,
+      "menu_id": 200,
+      "menu_name": "Service",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Service",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 297,
+      "action_xmlid": "synapsys.action_services",
+      "action_name": "Services",
+      "model": "synapsys.service",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.service (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.SERVICE.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.SERVICE",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Service exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 22,
+      "menu_id": 201,
+      "menu_name": "Workflow",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Workflow",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 327,
+      "action_xmlid": "synapsys.action_workflow_gates",
+      "action_name": "Workflow: Gate decisions",
+      "model": "synapsys.gate.decision",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.gate.decision (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.WORKFLOW.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.WORKFLOW",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Workflow exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 23,
+      "menu_id": 202,
+      "menu_name": "Method",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Method",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 298,
+      "action_xmlid": "synapsys.action_methods",
+      "action_name": "Methods",
+      "model": "synapsys.method",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.method (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.METHOD.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.METHOD",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Method exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 24,
+      "menu_id": 203,
+      "menu_name": "Product",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Product",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 191,
+      "action_xmlid": "synapsys_mesh.action_noun_product",
+      "action_name": "Product",
+      "model": "synapsys.mesh.entry",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('code', '=like', 'N.PRODUCT%')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.entry (domain: [('code', '=like', 'N.PRODUCT%')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PRODUCT.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PRODUCT",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Product exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 25,
+      "menu_id": 204,
+      "menu_name": "Work",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Work",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 292,
+      "action_xmlid": "synapsys.action_work_objects",
+      "action_name": "Work Objects",
+      "model": "synapsys.work.object",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.work.object (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.WORK.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.WORK",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Work exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 26,
+      "menu_id": 205,
+      "menu_name": "Outcome",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Outcome",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 304,
+      "action_xmlid": "synapsys.action_outcomes",
+      "action_name": "Outcomes",
+      "model": "synapsys.outcome",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.outcome (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.OUTCOME.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.OUTCOME",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Outcome exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 27,
+      "menu_id": 206,
+      "menu_name": "Benefit",
+      "parent_id": 197,
+      "parent_display": "SynapSys/Architecture/Flow",
+      "current_menu_path": "Architecture > Flow > Benefit",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 307,
+      "action_xmlid": "synapsys.action_benefits",
+      "action_name": "Benefits",
+      "model": "synapsys.benefit",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.benefit (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.BENEFIT.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.BENEFIT",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Flow > Benefit exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 28,
+      "menu_id": 208,
+      "menu_name": "Asset",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Asset",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 308,
+      "action_xmlid": "synapsys.action_assets",
+      "action_name": "Assets",
+      "model": "synapsys.asset",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.asset (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ASSET.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.ASSET",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": "SCR.ASSET.RECORD__CONDITIONAL_ONLY",
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Asset exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 29,
+      "menu_id": 209,
+      "menu_name": "Pattern",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Pattern",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 321,
+      "action_xmlid": "synapsys.action_patterns",
+      "action_name": "Patterns",
+      "model": "synapsys.pattern",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.pattern (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.PATTERN.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.PATTERN",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Pattern exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 30,
+      "menu_id": 210,
+      "menu_name": "Fractal",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Fractal",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 318,
+      "action_xmlid": "synapsys.action_fractal",
+      "action_name": "All Fractal Records",
+      "model": "synapsys.fractal",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.fractal (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.FRACTAL.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch1.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.FRACTAL",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Fractal exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 31,
+      "menu_id": 211,
+      "menu_name": "Signal",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Signal",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 330,
+      "action_xmlid": "synapsys.action_signals_all",
+      "action_name": "Signal",
+      "model": "synapsys.signal",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.signal (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.SIGNAL.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.SIGNAL",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Signal exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 32,
+      "menu_id": 212,
+      "menu_name": "Change",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Change",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 192,
+      "action_xmlid": "synapsys_mesh.action_noun_change",
+      "action_name": "Change",
+      "model": "synapsys.mesh.entry",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('code', '=like', 'N.CHANGE%')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.entry (domain: [('code', '=like', 'N.CHANGE%')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.CHANGE.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.CHANGE",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Change exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 33,
+      "menu_id": 213,
+      "menu_name": "Market",
+      "parent_id": 207,
+      "parent_display": "SynapSys/Architecture/Evolve",
+      "current_menu_path": "Architecture > Evolve > Market",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 305,
+      "action_xmlid": "synapsys.action_ptw",
+      "action_name": "Playing to Win Events",
+      "model": "synapsys.ptw.event",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.ptw.event (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.MARKET.NOUN",
+      "declaration_source_file": "data/screen_declarations_batch2.json",
+      "declaration_type": "noun",
+      "declaration_noun": "N.MARKET",
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Evolve > Market exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 34,
+      "menu_id": 215,
+      "menu_name": "Map",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Map",
+      "active": true,
+      "action_type": "ir.actions.client",
+      "action_id": 332,
+      "action_xmlid": null,
+      "action_name": "Architecture map",
+      "model": null,
+      "view_type": "client",
+      "mobile_view_type": null,
+      "action_view_refs": null,
+      "action_context": null,
+      "action_domain": null,
+      "client_tag": "synapsys_architecture_map",
+      "current_render_today_from_metadata": "client:synapsys_architecture_map",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "ARCHITECTURE_MAP_CUSTOM_CLIENT__NOT_COVERED_BY_MENU_OR_NOUN_DECLARATION",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Map exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 35,
+      "menu_id": 216,
+      "menu_name": "Registry",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Registry",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 185,
+      "action_xmlid": "synapsys_mesh.action_mesh_registry",
+      "action_name": "Registry releases",
+      "model": "synapsys.mesh.registry",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.registry (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "MESH_REGISTRY_RELEASE_CATALOGUE__N_MESH_NOUN_IS_NOT_A_REGISTRY_RELEASE",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Registry exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 36,
+      "menu_id": 217,
+      "menu_name": "Elements",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Elements",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 186,
+      "action_xmlid": "synapsys_mesh.action_mesh_entries",
+      "action_name": "Elements",
+      "model": "synapsys.mesh.entry",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.entry (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "MESH_ELEMENTS_CATALOGUE__N_MESH_NOUN_IS_NOT_AN_ENTRY_LIST",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Elements exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 37,
+      "menu_id": 218,
+      "menu_name": "Clusters",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Clusters",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 187,
+      "action_xmlid": "synapsys_mesh.action_mesh_clusters",
+      "action_name": "Clusters",
+      "model": "synapsys.mesh.cluster",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.cluster (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "MESH_CLUSTERS_CATALOGUE__N_MESH_NOUN_IS_NOT_A_CLUSTER_LIST",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Clusters exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 38,
+      "menu_id": 219,
+      "menu_name": "Verbs",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Verbs",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 313,
+      "action_xmlid": "synapsys.action_verbs",
+      "action_name": "Verbs",
+      "model": "synapsys.verb",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.verb (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "MASTER_27_VERB_LIST__NINE_ACTION_MENUS_DO_NOT_COVER_MASTER_CATALOGUE",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Verbs exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 39,
+      "menu_id": 220,
+      "menu_name": "Benefit–Asset links",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Benefit–Asset links",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 319,
+      "action_xmlid": "synapsys.action_links",
+      "action_name": "Benefit–Asset links",
+      "model": "synapsys.oba.link",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.oba.link (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.MESH_BENEFIT_ASSET_LINKS.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Benefit–Asset links exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 40,
+      "menu_id": 221,
+      "menu_name": "Door receipts",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Door receipts",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 188,
+      "action_xmlid": "synapsys_mesh.action_mesh_admits",
+      "action_name": "Door receipts",
+      "model": "synapsys.mesh.admit",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.admit (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.MESH_DOOR_RECEIPTS.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Door receipts exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 41,
+      "menu_id": 222,
+      "menu_name": "Measures",
+      "parent_id": 214,
+      "parent_display": "SynapSys/Architecture/Mesh",
+      "current_menu_path": "Architecture > Mesh > Measures",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 189,
+      "action_xmlid": "synapsys_mesh.action_mesh_measures",
+      "action_name": "Measures",
+      "model": "synapsys.mesh.measure",
+      "view_type": "list,form",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          false,
+          "list"
+        ],
+        [
+          false,
+          "form"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": false,
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list,form on synapsys.mesh.measure (domain: [])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.MESH_MEASURES.MENU",
+      "declaration_source_file": "data/screen_declarations_batch3.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Mesh > Measures exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 42,
+      "menu_id": 237,
+      "menu_name": "Lenses",
+      "parent_id": 183,
+      "parent_display": "SynapSys/Architecture",
+      "current_menu_path": "Architecture > Lenses",
+      "active": true,
+      "action_type": "ir.actions.client",
+      "action_id": 358,
+      "action_xmlid": null,
+      "action_name": "Lenses",
+      "model": null,
+      "view_type": "client",
+      "mobile_view_type": null,
+      "action_view_refs": null,
+      "action_context": null,
+      "action_domain": null,
+      "client_tag": "synapsys_lenses",
+      "current_render_today_from_metadata": "client:synapsys_lenses",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": null,
+      "declaration_source_file": null,
+      "declaration_type": null,
+      "declaration_noun": null,
+      "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+      "none_reason": "LENSES_CUSTOM_CLIENT__RC05_CONTEXT_SERVICE_LENS_NOT_EQUIVALENT_TO_GENERIC_MENU_DECLARATION",
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Architecture > Lenses exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 43,
+      "menu_id": 224,
+      "menu_name": "Orient",
+      "parent_id": 223,
+      "parent_display": "SynapSys/Form",
+      "current_menu_path": "Form > Orient",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 340,
+      "action_xmlid": "synapsys.action_peer_orient_enable",
+      "action_name": "Orient",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Orient')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Orient')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.ORIENT",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Form > Orient exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 44,
+      "menu_id": 225,
+      "menu_name": "Canonicalise",
+      "parent_id": 223,
+      "parent_display": "SynapSys/Form",
+      "current_menu_path": "Form > Canonicalise",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 341,
+      "action_xmlid": "synapsys.action_peer_canonicalise_enable",
+      "action_name": "Canonicalise",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Canonicalise')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Canonicalise')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.CANONICALISE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Form > Canonicalise exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 45,
+      "menu_id": 226,
+      "menu_name": "Structure",
+      "parent_id": 223,
+      "parent_display": "SynapSys/Form",
+      "current_menu_path": "Form > Structure",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 342,
+      "action_xmlid": "synapsys.action_peer_structure_enable",
+      "action_name": "Structure",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Structure')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Structure')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.STRUCTURE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Form > Structure exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 46,
+      "menu_id": 228,
+      "menu_name": "Assure",
+      "parent_id": 227,
+      "parent_display": "SynapSys/Flow",
+      "current_menu_path": "Flow > Assure",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 343,
+      "action_xmlid": "synapsys.action_peer_assure_enable",
+      "action_name": "Assure",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Assure')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Assure')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.ASSURE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Flow > Assure exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 47,
+      "menu_id": 229,
+      "menu_name": "Navigate",
+      "parent_id": 227,
+      "parent_display": "SynapSys/Flow",
+      "current_menu_path": "Flow > Navigate",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 344,
+      "action_xmlid": "synapsys.action_peer_navigate_enable",
+      "action_name": "Navigate",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Navigate')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Navigate')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.NAVIGATE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Flow > Navigate exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 48,
+      "menu_id": 230,
+      "menu_name": "Compose",
+      "parent_id": 227,
+      "parent_display": "SynapSys/Flow",
+      "current_menu_path": "Flow > Compose",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 345,
+      "action_xmlid": "synapsys.action_peer_compose_enable",
+      "action_name": "Compose",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Compose')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Compose')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.COMPOSE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Flow > Compose exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 49,
+      "menu_id": 232,
+      "menu_name": "Activate",
+      "parent_id": 231,
+      "parent_display": "SynapSys/Evolve",
+      "current_menu_path": "Evolve > Activate",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 346,
+      "action_xmlid": "synapsys.action_peer_activate_enable",
+      "action_name": "Activate",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Activate')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Activate')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.ACTIVATE",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Evolve > Activate exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 50,
+      "menu_id": 233,
+      "menu_name": "Transform",
+      "parent_id": 231,
+      "parent_display": "SynapSys/Evolve",
+      "current_menu_path": "Evolve > Transform",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 347,
+      "action_xmlid": "synapsys.action_peer_transform_enable",
+      "action_name": "Transform",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Transform')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Transform')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.TRANSFORM",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Evolve > Transform exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    },
+    {
+      "screen_no": 51,
+      "menu_id": 234,
+      "menu_name": "Project",
+      "parent_id": 231,
+      "parent_display": "SynapSys/Evolve",
+      "current_menu_path": "Evolve > Project",
+      "active": true,
+      "action_type": "ir.actions.act_window",
+      "action_id": 348,
+      "action_xmlid": "synapsys.action_peer_project_enable",
+      "action_name": "Project",
+      "model": "synapsys.verb",
+      "view_type": "list",
+      "mobile_view_type": "kanban",
+      "action_view_refs": [
+        [
+          1569,
+          "list"
+        ]
+      ],
+      "action_context": "{}",
+      "action_domain": "[('action', '=', 'Project')]",
+      "client_tag": null,
+      "current_render_today_from_metadata": "native Odoo list on synapsys.verb (domain: [('action', '=', 'Project')])",
+      "current_render_proof": "CURRENT_LIVE_ACTION_METADATA_ONLY; browser visual contents, record count and access negatives not checked",
+      "rc06f_declared_binding": "NOT_INSTALLED_ACCORDING_TO_RC06F_HANDOFF",
+      "declaration_screen_id": "SCR.ACTION.PROJECT",
+      "declaration_source_file": "data/screen_declarations_batch4.json",
+      "declaration_type": "menu",
+      "declaration_noun": null,
+      "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+      "none_reason": null,
+      "record_form_variant": null,
+      "acl_current": {
+        "root_menu_groups": [
+          34
+        ],
+        "leaf_menu_groups": [],
+        "root_group_name": "Collaborator",
+        "leaf_group_names": [],
+        "menu_group_gate_proposal": "RETAIN_ROOT_34_NO_NEW_LEAF_GROUP",
+        "model_acl_and_context_rules": "REQUIRE_CURRENT_EFFECTIVE_READ_RIGHTS__NOT_VERIFIED_BY_MENU_METADATA",
+        "inheritance_note": "Root menu group 34 is observed, but actual group implication and record access cannot be inferred from menu groups"
+      },
+      "navigator_placement_default": "KEEP Evolve > Project exactly",
+      "source_status": "CANDIDATE_NOT_ADOPTED",
+      "runtime_acceptance": "NOT_TESTED"
+    }
+  ]
+}

@@ -14,15 +14,20 @@ import json
 try:  # inside Odoo
     from . import scaffold_lens as sl
     from . import screen_decl as sd
+    from . import screen_binding as sb
+    from . import screen_render as sr
 except ImportError:  # offline tests load the module by path
     import scaffold_lens as sl
     import screen_decl as sd
+    import screen_binding as sb
+    import screen_render as sr
 
 GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
 DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
 NOUN = 'N.CONTEXT'
 NOUN_SCREEN = 'SCR.CONTEXT.NOUN'
 _DECLS = {}
+_BINDINGS = {}
 
 # Evidence bindings (PROPOSED by Claude Code from the record's name and domain, 27 Nov 2026; the Steward may change this table).
 # A binding says: this Service Catalogue record is the source-bound library relationship for this peer noun. It is pinned by a
@@ -111,14 +116,14 @@ def declarations():
     return _DECLS['v']
 
 
-def _project(env, decl, depth, context_id, record=None, version=None):
+def _project(env, decl, depth, context_id, record=None, version=None, need_evidence=True):
     actor = actor_from_env(env)
     if not actor['groups']:
         return {'result': 'REFUSED', 'reason': 'NO_RECOGNISED_ROLE'}
     reg, prov, err = load_registry(env, version)
     if err:
         return {'result': 'REFUSED', 'reason': err}
-    evidence, index, notes = collect_evidence(env)
+    evidence, index, notes = collect_evidence(env) if need_evidence else ([], {}, [])
     out = sd.project(decl, reg, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH, record)
     if out.get('result') == 'OK':
         out.update(prov)
@@ -207,3 +212,89 @@ def screen_record(env, screen_id, record_id, depth='enable'):
             return {'result': 'REFUSED', 'reason': 'NO_RECORD_READ_RIGHT'}
         raise
     return _project(env, decl, depth, ctx, record)
+
+
+def bindings():
+    """The menu bindings, loaded once and validated against the declarations: (rows, by action id, by menu id)."""
+    if not _BINDINGS:
+        _BINDINGS['v'] = sb.load(None, declarations()[0])
+    return _BINDINGS['v']
+
+
+def _refused(reason):
+    return {'result': 'REFUSED', 'reason': reason}  # a reason code and nothing else: no declaration, source or binding content
+
+
+def _can_read(env, model):
+    """The actor's REAL read right on the native model, enforced server-side (never inferred from menu groups). Fail closed."""
+    try:
+        m = env[model]
+    except Exception:  # noqa: BLE001 - an unknown model is a refusal, not a leak
+        return False
+    try:
+        if hasattr(m, 'check_access'):
+            m.check_access('read')
+            return True
+        return bool(m.check_access_rights('read', raise_exception=False))
+    except Exception as exc:  # noqa: BLE001
+        if _is_access_error(exc):
+            return False
+        raise
+
+
+def menu_enable(env, action_id, menu_id=None, screen_id='', depth='enable'):
+    """Enable panel for a bound menu's native view (RC06g). Read-only; the native action, view and rights are not touched.
+
+    Order is fail-closed and leaks nothing before entitlement: recognised role, then the binding for this action, then the actor's real read
+    right on the native model, and only then the anchors, the screen id and the content. A refusal is a reason code only."""
+    if depth != 'enable':
+        return _refused('DEPTH_NOT_SUPPORTED')
+    try:
+        _rows, by_action, _by_menu = bindings()
+    except ValueError:
+        return _refused('BINDING_INVALID')
+    if not actor_from_env(env)['groups']:
+        return _refused('NO_RECOGNISED_ROLE')
+    try:
+        aid = int(action_id)
+    except (TypeError, ValueError):
+        return _refused('MENU_NOT_BOUND')
+    b = by_action.get(aid)
+    if not b:
+        return _refused('MENU_NOT_BOUND')  # includes the 8 unbound menus and any action that is not a bound one
+    if not _can_read(env, b['native']['model']):
+        return _refused('NO_READ_RIGHT')
+    if menu_id not in (None, '', b['menu_id']):
+        return _refused('ANCHOR_MISMATCH')
+    try:
+        act = env.ref(b['action_xmlid'], raise_if_not_found=False)
+        menu = env['ir.ui.menu'].search([('id', '=', b['menu_id'])], limit=1)
+    except Exception as exc:  # noqa: BLE001
+        if _is_access_error(exc):
+            return _refused('NO_READ_RIGHT')
+        raise
+    if not menu:
+        return _refused('MENU_NOT_VISIBLE')
+    macts = menu['action']
+    if not act or act.id != b['action_id'] or not macts or macts.id != b['action_id']:
+        return _refused('ANCHOR_MISMATCH')
+    decls = declarations()[0]
+    if screen_id:
+        if screen_id not in decls:
+            return _refused('UNKNOWN_SCREEN')
+        if screen_id != b['screen_id']:
+            return _refused('SCREEN_NOT_BOUND_TO_MENU')
+    decl = decls[b['screen_id']]
+    if decl['screen_type'] == 'menu':
+        out = sd.project_menu(decl, 'enable', actor_from_env(env), DEFAULT_ROLE_MAX_DEPTH)
+        if out.get('result') == 'OK':
+            out['sources_sha'] = declarations()[1]['sources_of'][decl['id']]
+    else:
+        out = _project(env, decl, 'enable', '', need_evidence=bool(decl.get('peers')))
+    if out.get('result') != 'OK':
+        return _refused(out.get('reason', 'NOT_AVAILABLE'))
+    if out.get('screen') != b['screen_id']:
+        return _refused('ANCHOR_MISMATCH')
+    return {'result': 'OK', 'screen_id': b['screen_id'], 'menu_id': b['menu_id'], 'action_id': b['action_id'], 'status': out.get('status'),
+            'binding_status': b['binding_status'], 'html': sr.render_enable_panel(out, b['binding_status']), 'writes': 0}
+

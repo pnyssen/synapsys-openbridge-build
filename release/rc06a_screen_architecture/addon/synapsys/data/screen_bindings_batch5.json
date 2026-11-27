@@ -1,0 +1,2052 @@
+{
+ "schema": "synapsys.screen.bindings/1",
+ "origin": "Generated from NAV_N1_RC06_BATCH5_LIVE_MENU_DECLARATION_BINDING_20261127_v1.json (sha256 9e316030d709896390c99cf845848d17c2d87e678a08344d0c6da54b43d695ee), the Navigator's read-only spec, with menu_id and action_xmlid as anchors (N1 implementation_contract). The ids are those read from dev V20 on 27 Nov; on a database where they differ the binding refuses (fail closed).",
+ "status": "SOURCE CANDIDATE, NON_AUTHORISING. Binding status as N1 states it: CANDIDATE_NOT_ADOPTED. Not installed.",
+ "rows": [
+  {
+   "screen_no": 1,
+   "menu_id": 179,
+   "menu_name": "Progress",
+   "parent_id": 178,
+   "current_menu_path": "Navigator > Progress",
+   "action_type": "ir.actions.act_window",
+   "action_id": 290,
+   "action_xmlid": "synapsys.action_navigator",
+   "action_name": "Navigator",
+   "native": {
+    "model": "synapsys.work.object",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      1547,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.NAVIGATOR_PROGRESS.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Navigator > Progress exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 2,
+   "menu_id": 180,
+   "menu_name": "Inbox",
+   "parent_id": 178,
+   "current_menu_path": "Navigator > Inbox",
+   "action_type": "ir.actions.act_window",
+   "action_id": 328,
+   "action_xmlid": "synapsys.action_nav_inbox",
+   "action_name": "Inbox",
+   "native": {
+    "model": "synapsys.signal",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      1550,
+      "list"
+     ],
+     [
+      1551,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('state', '=', 'new')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.NAVIGATOR_INBOX.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Navigator > Inbox (Signals intake), do not relabel as Approvals",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 3,
+   "menu_id": 181,
+   "menu_name": "Learning",
+   "parent_id": 178,
+   "current_menu_path": "Navigator > Learning",
+   "action_type": "ir.actions.act_window",
+   "action_id": 329,
+   "action_xmlid": "synapsys.action_nav_learning",
+   "action_name": "Learning",
+   "native": {
+    "model": "synapsys.fractal",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('admission', '=', 'steward_gate')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.NAVIGATOR_LEARNING.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Navigator > Learning (later recorded placement), Pattern under Architecture > Evolve remains separate",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 4,
+   "menu_id": 182,
+   "menu_name": "Strategies",
+   "parent_id": 177,
+   "current_menu_path": "Strategies",
+   "action_type": "ir.actions.act_window",
+   "action_id": 325,
+   "action_xmlid": "synapsys.action_strategy_lens",
+   "action_name": "Strategies",
+   "native": {
+    "model": "synapsys.strategy",
+    "view_type": "kanban,list,form",
+    "action_view_refs": [
+     [
+      1549,
+      "kanban"
+     ],
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('group', '!=', False)]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.STRATEGIES.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Strategies exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 5,
+   "menu_id": 185,
+   "menu_name": "Purpose",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Purpose",
+   "action_type": "ir.actions.act_window",
+   "action_id": 316,
+   "action_xmlid": "synapsys.action_purposes",
+   "action_name": "Purposes",
+   "native": {
+    "model": "synapsys.purpose",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PURPOSE.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Purpose exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 6,
+   "menu_id": 186,
+   "menu_name": "Strategy",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Strategy",
+   "action_type": "ir.actions.act_window",
+   "action_id": 295,
+   "action_xmlid": "synapsys.action_strategies",
+   "action_name": "Strategies",
+   "native": {
+    "model": "synapsys.strategy",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{'search_default_by_group': 1}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.STRATEGY.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Strategy exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 7,
+   "menu_id": 187,
+   "menu_name": "Portfolio",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Portfolio",
+   "action_type": "ir.actions.act_window",
+   "action_id": 306,
+   "action_xmlid": "synapsys.action_portfolios",
+   "action_name": "Portfolios",
+   "native": {
+    "model": "synapsys.portfolio",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PORTFOLIO.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Portfolio exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 8,
+   "menu_id": 188,
+   "menu_name": "Context",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Context",
+   "action_type": "ir.actions.act_window",
+   "action_id": 291,
+   "action_xmlid": "synapsys.action_contexts",
+   "action_name": "Contexts",
+   "native": {
+    "model": "synapsys.context",
+    "view_type": "list,kanban,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "kanban"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.CONTEXT.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": "SCR.CONTEXT.RECORD__CONDITIONAL_ONLY",
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Context exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 9,
+   "menu_id": 189,
+   "menu_name": "Offering",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Offering",
+   "action_type": "ir.actions.act_window",
+   "action_id": 296,
+   "action_xmlid": "synapsys.action_offerings",
+   "action_name": "Offerings",
+   "native": {
+    "model": "synapsys.context",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{'default_kind': 'K-6'}",
+    "action_domain": "[('kind','=','K-6')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.OFFERING.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Offering exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 10,
+   "menu_id": 190,
+   "menu_name": "Capability",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Capability",
+   "action_type": "ir.actions.act_window",
+   "action_id": 190,
+   "action_xmlid": "synapsys_mesh.action_noun_capability",
+   "action_name": "Capability",
+   "native": {
+    "model": "synapsys.mesh.entry",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('code', '=like', 'N.CAPABILITY%')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.CAPABILITY.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Capability exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 11,
+   "menu_id": 191,
+   "menu_name": "Chain",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Chain",
+   "action_type": "ir.actions.act_window",
+   "action_id": 315,
+   "action_xmlid": "synapsys.action_chains",
+   "action_name": "Value Chains",
+   "native": {
+    "model": "synapsys.value.chain",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.CHAIN.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Chain exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 12,
+   "menu_id": 192,
+   "menu_name": "Shape",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Shape",
+   "action_type": "ir.actions.act_window",
+   "action_id": 314,
+   "action_xmlid": "synapsys.action_modes",
+   "action_name": "Modes",
+   "native": {
+    "model": "synapsys.mode",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.SHAPE.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Shape exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 13,
+   "menu_id": 193,
+   "menu_name": "Domain",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Domain",
+   "action_type": "ir.actions.act_window",
+   "action_id": 309,
+   "action_xmlid": "synapsys.action_governance",
+   "action_name": "Governance",
+   "native": {
+    "model": "synapsys.domain",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.DOMAIN.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Domain exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 14,
+   "menu_id": 194,
+   "menu_name": "Canonical",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Canonical",
+   "action_type": "ir.actions.act_window",
+   "action_id": 299,
+   "action_xmlid": "synapsys.action_canonical",
+   "action_name": "Canonical",
+   "native": {
+    "model": "synapsys.canon",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.CANONICAL.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Canonical exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 15,
+   "menu_id": 195,
+   "menu_name": "Industry",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Industry",
+   "action_type": "ir.actions.act_window",
+   "action_id": 322,
+   "action_xmlid": "synapsys.action_industry",
+   "action_name": "Industry offerings",
+   "native": {
+    "model": "synapsys.industry.offering",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.INDUSTRY.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Industry exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 16,
+   "menu_id": 196,
+   "menu_name": "Partner",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Partner",
+   "action_type": "ir.actions.act_window",
+   "action_id": 326,
+   "action_xmlid": "synapsys.action_partners",
+   "action_name": "Partner",
+   "native": {
+    "model": "res.partner",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('is_company', '=', True)]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PARTNER.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Partner exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 17,
+   "menu_id": 235,
+   "menu_name": "Architecture register",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Architecture register",
+   "action_type": "ir.actions.act_window",
+   "action_id": 335,
+   "action_xmlid": "synapsys_v19_reference.action_synapsys_architecture",
+   "action_name": "Architecture (V19 register)",
+   "native": {
+    "model": "synapsys.architecture",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "STEWARD_ONLY_ARCHITECTURE_REGISTER_REFERENCE__DECLARATION_NOT_PRESENT",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": [
+     35
+    ]
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Architecture register with Steward group 35 only",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 18,
+   "menu_id": 236,
+   "menu_name": "Lexicon",
+   "parent_id": 184,
+   "current_menu_path": "Architecture > Form > Lexicon",
+   "action_type": "ir.actions.act_window",
+   "action_id": 336,
+   "action_xmlid": "synapsys_v19_reference.action_synapsys_lexicon",
+   "action_name": "Lexicon (V19)",
+   "native": {
+    "model": "synapsys.lexicon",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "STEWARD_ONLY_LEXICON_REFERENCE__DECLARATION_NOT_PRESENT",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": [
+     35
+    ]
+   },
+   "navigator_placement_default": "KEEP Architecture > Form > Lexicon with Steward group 35 only",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 19,
+   "menu_id": 198,
+   "menu_name": "Programme",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Programme",
+   "action_type": "ir.actions.act_window",
+   "action_id": 301,
+   "action_xmlid": "synapsys.action_programmes",
+   "action_name": "Programmes",
+   "native": {
+    "model": "synapsys.programme",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PROGRAMME.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Programme exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 20,
+   "menu_id": 199,
+   "menu_name": "Project",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Project",
+   "action_type": "ir.actions.act_window",
+   "action_id": 302,
+   "action_xmlid": "synapsys.action_projects",
+   "action_name": "Projects",
+   "native": {
+    "model": "project.project",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('synapsys_context_id','!=',False)]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PROJECT.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Project exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 21,
+   "menu_id": 200,
+   "menu_name": "Service",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Service",
+   "action_type": "ir.actions.act_window",
+   "action_id": 297,
+   "action_xmlid": "synapsys.action_services",
+   "action_name": "Services",
+   "native": {
+    "model": "synapsys.service",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.SERVICE.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Service exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 22,
+   "menu_id": 201,
+   "menu_name": "Workflow",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Workflow",
+   "action_type": "ir.actions.act_window",
+   "action_id": 327,
+   "action_xmlid": "synapsys.action_workflow_gates",
+   "action_name": "Workflow: Gate decisions",
+   "native": {
+    "model": "synapsys.gate.decision",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.WORKFLOW.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Workflow exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 23,
+   "menu_id": 202,
+   "menu_name": "Method",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Method",
+   "action_type": "ir.actions.act_window",
+   "action_id": 298,
+   "action_xmlid": "synapsys.action_methods",
+   "action_name": "Methods",
+   "native": {
+    "model": "synapsys.method",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.METHOD.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Method exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 24,
+   "menu_id": 203,
+   "menu_name": "Product",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Product",
+   "action_type": "ir.actions.act_window",
+   "action_id": 191,
+   "action_xmlid": "synapsys_mesh.action_noun_product",
+   "action_name": "Product",
+   "native": {
+    "model": "synapsys.mesh.entry",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('code', '=like', 'N.PRODUCT%')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PRODUCT.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Product exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 25,
+   "menu_id": 204,
+   "menu_name": "Work",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Work",
+   "action_type": "ir.actions.act_window",
+   "action_id": 292,
+   "action_xmlid": "synapsys.action_work_objects",
+   "action_name": "Work Objects",
+   "native": {
+    "model": "synapsys.work.object",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.WORK.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Work exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 26,
+   "menu_id": 205,
+   "menu_name": "Outcome",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Outcome",
+   "action_type": "ir.actions.act_window",
+   "action_id": 304,
+   "action_xmlid": "synapsys.action_outcomes",
+   "action_name": "Outcomes",
+   "native": {
+    "model": "synapsys.outcome",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.OUTCOME.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Outcome exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 27,
+   "menu_id": 206,
+   "menu_name": "Benefit",
+   "parent_id": 197,
+   "current_menu_path": "Architecture > Flow > Benefit",
+   "action_type": "ir.actions.act_window",
+   "action_id": 307,
+   "action_xmlid": "synapsys.action_benefits",
+   "action_name": "Benefits",
+   "native": {
+    "model": "synapsys.benefit",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.BENEFIT.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Flow > Benefit exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 28,
+   "menu_id": 208,
+   "menu_name": "Asset",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Asset",
+   "action_type": "ir.actions.act_window",
+   "action_id": 308,
+   "action_xmlid": "synapsys.action_assets",
+   "action_name": "Assets",
+   "native": {
+    "model": "synapsys.asset",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ASSET.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": "SCR.ASSET.RECORD__CONDITIONAL_ONLY",
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Asset exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 29,
+   "menu_id": 209,
+   "menu_name": "Pattern",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Pattern",
+   "action_type": "ir.actions.act_window",
+   "action_id": 321,
+   "action_xmlid": "synapsys.action_patterns",
+   "action_name": "Patterns",
+   "native": {
+    "model": "synapsys.pattern",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.PATTERN.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Pattern exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 30,
+   "menu_id": 210,
+   "menu_name": "Fractal",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Fractal",
+   "action_type": "ir.actions.act_window",
+   "action_id": 318,
+   "action_xmlid": "synapsys.action_fractal",
+   "action_name": "All Fractal Records",
+   "native": {
+    "model": "synapsys.fractal",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.FRACTAL.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Fractal exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 31,
+   "menu_id": 211,
+   "menu_name": "Signal",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Signal",
+   "action_type": "ir.actions.act_window",
+   "action_id": 330,
+   "action_xmlid": "synapsys.action_signals_all",
+   "action_name": "Signal",
+   "native": {
+    "model": "synapsys.signal",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.SIGNAL.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Signal exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 32,
+   "menu_id": 212,
+   "menu_name": "Change",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Change",
+   "action_type": "ir.actions.act_window",
+   "action_id": 192,
+   "action_xmlid": "synapsys_mesh.action_noun_change",
+   "action_name": "Change",
+   "native": {
+    "model": "synapsys.mesh.entry",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('code', '=like', 'N.CHANGE%')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.CHANGE.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Change exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 33,
+   "menu_id": 213,
+   "menu_name": "Market",
+   "parent_id": 207,
+   "current_menu_path": "Architecture > Evolve > Market",
+   "action_type": "ir.actions.act_window",
+   "action_id": 305,
+   "action_xmlid": "synapsys.action_ptw",
+   "action_name": "Playing to Win Events",
+   "native": {
+    "model": "synapsys.ptw.event",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.MARKET.NOUN",
+   "declaration_type": "noun",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Evolve > Market exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 34,
+   "menu_id": 215,
+   "menu_name": "Map",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Map",
+   "action_type": "ir.actions.client",
+   "action_id": 332,
+   "action_xmlid": null,
+   "action_name": "Architecture map",
+   "native": {
+    "model": null,
+    "view_type": "client",
+    "action_view_refs": null,
+    "action_context": null,
+    "action_domain": null,
+    "client_tag": "synapsys_architecture_map"
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "ARCHITECTURE_MAP_CUSTOM_CLIENT__NOT_COVERED_BY_MENU_OR_NOUN_DECLARATION",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Map exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 35,
+   "menu_id": 216,
+   "menu_name": "Registry",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Registry",
+   "action_type": "ir.actions.act_window",
+   "action_id": 185,
+   "action_xmlid": "synapsys_mesh.action_mesh_registry",
+   "action_name": "Registry releases",
+   "native": {
+    "model": "synapsys.mesh.registry",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "MESH_REGISTRY_RELEASE_CATALOGUE__N_MESH_NOUN_IS_NOT_A_REGISTRY_RELEASE",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Registry exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 36,
+   "menu_id": 217,
+   "menu_name": "Elements",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Elements",
+   "action_type": "ir.actions.act_window",
+   "action_id": 186,
+   "action_xmlid": "synapsys_mesh.action_mesh_entries",
+   "action_name": "Elements",
+   "native": {
+    "model": "synapsys.mesh.entry",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "MESH_ELEMENTS_CATALOGUE__N_MESH_NOUN_IS_NOT_AN_ENTRY_LIST",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Elements exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 37,
+   "menu_id": 218,
+   "menu_name": "Clusters",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Clusters",
+   "action_type": "ir.actions.act_window",
+   "action_id": 187,
+   "action_xmlid": "synapsys_mesh.action_mesh_clusters",
+   "action_name": "Clusters",
+   "native": {
+    "model": "synapsys.mesh.cluster",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "MESH_CLUSTERS_CATALOGUE__N_MESH_NOUN_IS_NOT_A_CLUSTER_LIST",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Clusters exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 38,
+   "menu_id": 219,
+   "menu_name": "Verbs",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Verbs",
+   "action_type": "ir.actions.act_window",
+   "action_id": 313,
+   "action_xmlid": "synapsys.action_verbs",
+   "action_name": "Verbs",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "MASTER_27_VERB_LIST__NINE_ACTION_MENUS_DO_NOT_COVER_MASTER_CATALOGUE",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Verbs exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 39,
+   "menu_id": 220,
+   "menu_name": "Benefit–Asset links",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Benefit–Asset links",
+   "action_type": "ir.actions.act_window",
+   "action_id": 319,
+   "action_xmlid": "synapsys.action_links",
+   "action_name": "Benefit–Asset links",
+   "native": {
+    "model": "synapsys.oba.link",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.MESH_BENEFIT_ASSET_LINKS.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Benefit–Asset links exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 40,
+   "menu_id": 221,
+   "menu_name": "Door receipts",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Door receipts",
+   "action_type": "ir.actions.act_window",
+   "action_id": 188,
+   "action_xmlid": "synapsys_mesh.action_mesh_admits",
+   "action_name": "Door receipts",
+   "native": {
+    "model": "synapsys.mesh.admit",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.MESH_DOOR_RECEIPTS.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Door receipts exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 41,
+   "menu_id": 222,
+   "menu_name": "Measures",
+   "parent_id": 214,
+   "current_menu_path": "Architecture > Mesh > Measures",
+   "action_type": "ir.actions.act_window",
+   "action_id": 189,
+   "action_xmlid": "synapsys_mesh.action_mesh_measures",
+   "action_name": "Measures",
+   "native": {
+    "model": "synapsys.mesh.measure",
+    "view_type": "list,form",
+    "action_view_refs": [
+     [
+      false,
+      "list"
+     ],
+     [
+      false,
+      "form"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": false,
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.MESH_MEASURES.MENU",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Mesh > Measures exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 42,
+   "menu_id": 237,
+   "menu_name": "Lenses",
+   "parent_id": 183,
+   "current_menu_path": "Architecture > Lenses",
+   "action_type": "ir.actions.client",
+   "action_id": 358,
+   "action_xmlid": null,
+   "action_name": "Lenses",
+   "native": {
+    "model": null,
+    "view_type": "client",
+    "action_view_refs": null,
+    "action_context": null,
+    "action_domain": null,
+    "client_tag": "synapsys_lenses"
+   },
+   "bind_decision": "NONE_KEEP_EXISTING_NATIVE",
+   "screen_id": null,
+   "declaration_type": null,
+   "none_reason": "LENSES_CUSTOM_CLIENT__RC05_CONTEXT_SERVICE_LENS_NOT_EQUIVALENT_TO_GENERIC_MENU_DECLARATION",
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Architecture > Lenses exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 43,
+   "menu_id": 224,
+   "menu_name": "Orient",
+   "parent_id": 223,
+   "current_menu_path": "Form > Orient",
+   "action_type": "ir.actions.act_window",
+   "action_id": 340,
+   "action_xmlid": "synapsys.action_peer_orient_enable",
+   "action_name": "Orient",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Orient')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.ORIENT",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Form > Orient exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 44,
+   "menu_id": 225,
+   "menu_name": "Canonicalise",
+   "parent_id": 223,
+   "current_menu_path": "Form > Canonicalise",
+   "action_type": "ir.actions.act_window",
+   "action_id": 341,
+   "action_xmlid": "synapsys.action_peer_canonicalise_enable",
+   "action_name": "Canonicalise",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Canonicalise')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.CANONICALISE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Form > Canonicalise exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 45,
+   "menu_id": 226,
+   "menu_name": "Structure",
+   "parent_id": 223,
+   "current_menu_path": "Form > Structure",
+   "action_type": "ir.actions.act_window",
+   "action_id": 342,
+   "action_xmlid": "synapsys.action_peer_structure_enable",
+   "action_name": "Structure",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Structure')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.STRUCTURE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Form > Structure exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 46,
+   "menu_id": 228,
+   "menu_name": "Assure",
+   "parent_id": 227,
+   "current_menu_path": "Flow > Assure",
+   "action_type": "ir.actions.act_window",
+   "action_id": 343,
+   "action_xmlid": "synapsys.action_peer_assure_enable",
+   "action_name": "Assure",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Assure')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.ASSURE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Flow > Assure exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 47,
+   "menu_id": 229,
+   "menu_name": "Navigate",
+   "parent_id": 227,
+   "current_menu_path": "Flow > Navigate",
+   "action_type": "ir.actions.act_window",
+   "action_id": 344,
+   "action_xmlid": "synapsys.action_peer_navigate_enable",
+   "action_name": "Navigate",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Navigate')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.NAVIGATE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Flow > Navigate exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 48,
+   "menu_id": 230,
+   "menu_name": "Compose",
+   "parent_id": 227,
+   "current_menu_path": "Flow > Compose",
+   "action_type": "ir.actions.act_window",
+   "action_id": 345,
+   "action_xmlid": "synapsys.action_peer_compose_enable",
+   "action_name": "Compose",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Compose')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.COMPOSE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Flow > Compose exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 49,
+   "menu_id": 232,
+   "menu_name": "Activate",
+   "parent_id": 231,
+   "current_menu_path": "Evolve > Activate",
+   "action_type": "ir.actions.act_window",
+   "action_id": 346,
+   "action_xmlid": "synapsys.action_peer_activate_enable",
+   "action_name": "Activate",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Activate')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.ACTIVATE",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Evolve > Activate exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 50,
+   "menu_id": 233,
+   "menu_name": "Transform",
+   "parent_id": 231,
+   "current_menu_path": "Evolve > Transform",
+   "action_type": "ir.actions.act_window",
+   "action_id": 347,
+   "action_xmlid": "synapsys.action_peer_transform_enable",
+   "action_name": "Transform",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Transform')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.TRANSFORM",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Evolve > Transform exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  },
+  {
+   "screen_no": 51,
+   "menu_id": 234,
+   "menu_name": "Project",
+   "parent_id": 231,
+   "current_menu_path": "Evolve > Project",
+   "action_type": "ir.actions.act_window",
+   "action_id": 348,
+   "action_xmlid": "synapsys.action_peer_project_enable",
+   "action_name": "Project",
+   "native": {
+    "model": "synapsys.verb",
+    "view_type": "list",
+    "action_view_refs": [
+     [
+      1569,
+      "list"
+     ]
+    ],
+    "action_context": "{}",
+    "action_domain": "[('action', '=', 'Project')]",
+    "client_tag": null
+   },
+   "bind_decision": "BIND_ENABLE_OVERLAY_PRESERVE_NATIVE_ACTION",
+   "screen_id": "SCR.ACTION.PROJECT",
+   "declaration_type": "menu",
+   "none_reason": null,
+   "record_form_variant": null,
+   "menu_groups": {
+    "root": [
+     34
+    ],
+    "leaf": []
+   },
+   "navigator_placement_default": "KEEP Evolve > Project exactly",
+   "binding_status": "CANDIDATE_NOT_ADOPTED"
+  }
+ ]
+}

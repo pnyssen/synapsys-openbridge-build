@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="synapsys.EnablePanel">
+        <div t-if="this.state.html" class="syn-enable-panel border-top bg-view px-3 py-2"><t t-out="this.state.html"/></div>
+    </t>
+</templates>

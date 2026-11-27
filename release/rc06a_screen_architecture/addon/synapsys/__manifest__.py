@@ -14,7 +14,7 @@
         'views/synapsys_menus.xml',
         'views/synapsys_enable_peers.xml',
     ],
-    'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml', 'synapsys/static/src/navbar_dropdown.js', 'synapsys/static/src/lens_mode.js']},
+    'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml', 'synapsys/static/src/navbar_dropdown.js', 'synapsys/static/src/lens_mode.js', 'synapsys/static/src/enable_panel.js', 'synapsys/static/src/enable_panel.xml']},
     'post_init_hook': 'post_init_hook',
     'application': True,
     'installable': True,

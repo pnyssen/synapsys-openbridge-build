@@ -257,3 +257,17 @@ def render_screen(m):
     reg = (' Registry %s, %s.' % (_e(str(m.get('registry_version', ''))), _e(str(m.get('registry_state', ''))))) if m.get('registry_version') else ''
     h += '<p class="nt">%s%s Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>' % (_e(note), reg)
     return h
+
+
+def render_enable_panel(m, binding_status=None):
+    """Read-only Enable panel for a menu's native view (RC06g): the four frame slots of the screen model (header, answer, trust line, movement)
+    and nothing else, with the status of the binding as the Navigator's spec states it. No back link, no depth sections, no script."""
+    if not isinstance(m, dict) or m.get('result') != 'OK' or 'frame' not in m:
+        return ''
+    h = STYLE + '<div class="syn-sc syn-pn" data-panel="enable" data-screen="%s">' % _e(str(m.get('screen', '')))
+    for slot in ('header', 'answer', 'trust', 'movement'):
+        h += SLOT_BUILDERS[slot](m)
+    if binding_status:
+        h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
+    return h + '<p class="nt">Presentation only: this view changes no data, kind, PPV, approval or right.</p></div>'
+
