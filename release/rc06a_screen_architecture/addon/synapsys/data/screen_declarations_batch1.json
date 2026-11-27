@@ -1,0 +1,773 @@
+{
+  "schema": "synapsys.screen.declaration/1",
+  "status": "SOURCE CANDIDATE, NON_AUTHORISING. RC06b batch 1: noun screens for the 15 RULED nouns. Not released to the registry (registry 0.3.5 is unchanged).",
+  "slots": {
+    "enable": [
+      "header",
+      "answer",
+      "trust",
+      "movement"
+    ],
+    "enhance": [
+      "made_of",
+      "peers"
+    ],
+    "enrich": [
+      "trust_table",
+      "open_questions",
+      "technical"
+    ]
+  },
+  "screens": [
+    {
+      "id": "SCR.STRATEGY.NOUN",
+      "noun": "N.STRATEGY",
+      "screen_type": "noun",
+      "title": "Strategy",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.STRATEGY",
+          "label": "Strategy meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "20 Nov 06:27",
+              "quote": "ledger 20 Nov 06:27"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:33",
+              "quote": "20 Nov 07:33 (Live"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:29",
+              "quote": "20 Nov 07:29 (Strategies"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.PORTFOLIO.NOUN",
+      "noun": "N.PORTFOLIO",
+      "screen_type": "noun",
+      "title": "Portfolio",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.PORTFOLIO",
+          "label": "Portfolio meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "project instructions v2.2.2"
+            },
+            {
+              "name": "pack.md OV-04",
+              "date": null,
+              "quote": "pack.md OV-04"
+            },
+            {
+              "name": "design_d.json",
+              "date": null,
+              "quote": "design_d.json Portfolio"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:13",
+              "quote": "ledger 20 Nov 07:13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.OFFERING.NOUN",
+      "noun": "N.OFFERING",
+      "screen_type": "noun",
+      "title": "Offering",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.OFR",
+        "heading": "What the Offering is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.OFFERING",
+          "label": "Offering meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "design_d.json",
+              "date": null,
+              "quote": "design_d.json Offering->Context"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:05",
+              "quote": "ledger 19 Nov 23:05"
+            },
+            {
+              "name": "Registry PART Offering/Platform",
+              "date": null,
+              "quote": "registry PART N.OFFERING/PLATFORM"
+            },
+            {
+              "name": "Registry H.OFR",
+              "date": null,
+              "quote": "registry H.OFR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.SHAPE.NOUN",
+      "noun": "N.SHAPE",
+      "screen_type": "noun",
+      "title": "Shape",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.SHAPE",
+          "label": "Shape meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:05",
+              "quote": "ledger 19 Nov 23:05"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:21",
+              "quote": "20 Nov 07:21 (Shape is"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 06:49",
+              "quote": "20 Nov 06:49 (kinematic"
+            },
+            {
+              "name": "Task brief",
+              "date": null,
+              "quote": "task brief (Shape governs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.DOMAIN.NOUN",
+      "noun": "N.DOMAIN",
+      "screen_type": "noun",
+      "title": "Domain",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.DOMAIN",
+          "label": "Domain meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:15",
+              "quote": "ledger 19 Nov 23:15"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov ~11:00",
+              "quote": "20 Nov ~11:00 (the seats"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 11:14",
+              "quote": "20 Nov 11:14 (domain"
+            },
+            {
+              "name": "Registry class D",
+              "date": null,
+              "quote": "registry class D (12 elements)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.CANONICAL.NOUN",
+      "noun": "N.CANONICAL",
+      "screen_type": "noun",
+      "title": "Canonical",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.CANONICAL",
+          "label": "Canonical meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:15",
+              "quote": "ledger 19 Nov 23:15"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:05",
+              "quote": "19 Nov 23:05 (Rule covered"
+            },
+            {
+              "name": "Registry PART Canonical/Rule",
+              "date": null,
+              "quote": "registry PART N.CANONICAL/RULE"
+            },
+            {
+              "name": "design_d.json",
+              "date": null,
+              "quote": "design_d.json Canonical->*"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.PROGRAMME.NOUN",
+      "noun": "N.PROGRAMME",
+      "screen_type": "noun",
+      "title": "Programme",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.PRG",
+        "heading": "What the Programme is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.PROGRAMME",
+          "label": "Programme meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "Project instructions v2.2.2"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:15",
+              "quote": "ledger 19 Nov 23:15"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Programme->Benefit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.PROJECT.NOUN",
+      "noun": "N.PROJECT",
+      "screen_type": "noun",
+      "title": "Project",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.PROJECT",
+          "label": "Project meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "Project instructions v2.2.2"
+            },
+            {
+              "name": "Task brief",
+              "date": null,
+              "quote": "task brief ruled facts"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Project->Outcome"
+            },
+            {
+              "name": "Steward ruling",
+              "date": "21 Nov 08:54",
+              "quote": "Steward ruling 21 Nov 08:54"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.SERVICE.NOUN",
+      "noun": "N.SERVICE",
+      "screen_type": "noun",
+      "title": "Service",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.SVC",
+        "heading": "What the Service is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.SERVICE",
+          "label": "Service meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "Project instructions v2.2.2"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Service->Benefit"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:06",
+              "quote": "ledger 20 Nov 07:06"
+            },
+            {
+              "name": "Ledger",
+              "date": "10:51",
+              "quote": "10:51 (KDA seats"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.WORKFLOW.NOUN",
+      "noun": "N.WORKFLOW",
+      "screen_type": "noun",
+      "title": "Workflow",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.WORKFLOW",
+          "label": "Workflow meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:15",
+              "quote": "Ledger 19 Nov 23:15"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:35",
+              "quote": "ledger 20 Nov 07:35"
+            },
+            {
+              "name": "Ledger Parts",
+              "date": null,
+              "quote": "ledger Parts (Gate in Workflow)"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Workflow->Service"
+            },
+            {
+              "name": "Steward ruling",
+              "date": "21 Nov 08:54",
+              "quote": "Steward ruling 21 Nov 08:54"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.OUTCOME.NOUN",
+      "noun": "N.OUTCOME",
+      "screen_type": "noun",
+      "title": "Outcome",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.OUT",
+        "heading": "What the Outcome is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.OUTCOME",
+          "label": "Outcome meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "Project instructions v2.2.2"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:25",
+              "quote": "ledger 19 Nov 23:25"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:13",
+              "quote": "20 Nov 07:13 (polarity"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 06:10",
+              "quote": "20 Nov 06:10 (Outcomes"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Project->Outcome"
+            },
+            {
+              "name": "Registry H.OUT",
+              "date": null,
+              "quote": "registry H.OUT"
+            },
+            {
+              "name": "Steward ruling",
+              "date": "21 Nov 08:54",
+              "quote": "Steward ruling 21 Nov 08:54"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.BENEFIT.NOUN",
+      "noun": "N.BENEFIT",
+      "screen_type": "noun",
+      "title": "Benefit",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.BEN",
+        "heading": "What the Benefit is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.BENEFIT",
+          "label": "Benefit meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. v2.2.2",
+              "date": null,
+              "quote": "Project instructions v2.2.2"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:13",
+              "quote": "ledger 20 Nov 07:13"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov 23:25",
+              "quote": "ledger 19 Nov 23:25"
+            },
+            {
+              "name": "Registry H.BEN",
+              "date": null,
+              "quote": "registry H.BEN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.ASSET.NOUN",
+      "noun": "N.ASSET",
+      "screen_type": "noun",
+      "title": "Asset",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.AST",
+        "heading": "What the Asset is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.ASSET",
+          "label": "Asset meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project core definition",
+              "date": null,
+              "quote": "Project core definition"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:13",
+              "quote": "ledger 20 Nov 07:13"
+            },
+            {
+              "name": "Ledger",
+              "date": "19 Nov ~23:25",
+              "quote": "19 Nov ~23:25 (two-sided"
+            },
+            {
+              "name": "design_d",
+              "date": null,
+              "quote": "design_d Benefit->Asset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.FRACTAL.NOUN",
+      "noun": "N.FRACTAL",
+      "screen_type": "noun",
+      "title": "Fractal",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": {
+        "relationship": "H.FRC",
+        "heading": "What the Fractal is made of",
+        "role_names": {}
+      },
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.FRACTAL",
+          "label": "Fractal meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Project instr. s3",
+              "date": null,
+              "quote": "Project instructions s3"
+            },
+            {
+              "name": "Ledger",
+              "date": "20 Nov 07:06",
+              "quote": "ledger 20 Nov 07:06"
+            },
+            {
+              "name": "Ledger",
+              "date": "07:10",
+              "quote": "07:10 (Expressed"
+            },
+            {
+              "name": "Ledger",
+              "date": "07:16",
+              "quote": "07:16 (every element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR.MESH.NOUN",
+      "noun": "N.MESH",
+      "screen_type": "noun",
+      "title": "Mesh",
+      "answer": {
+        "from": "element.definition"
+      },
+      "trust_claim": "meaning",
+      "movement": {
+        "verbs": [],
+        "hold_reason": "noun-to-verb governance waits on the Architecture tab"
+      },
+      "made_of": null,
+      "peers": null,
+      "claims": [
+        {
+          "id": "meaning",
+          "type": "element",
+          "noun": "N.MESH",
+          "label": "Mesh meaning",
+          "qualifier_from": "element.kind",
+          "sources": [
+            {
+              "name": "Ledger",
+              "date": "20 Nov 06:27",
+              "quote": "Ledger 20 Nov 06:27"
+            },
+            {
+              "name": "Design D",
+              "date": null,
+              "quote": "Design D (Mesh covers"
+            },
+            {
+              "name": "Ledger",
+              "date": "06:40",
+              "quote": "06:40 (one Mesh design"
+            },
+            {
+              "name": "Ledger",
+              "date": "06:49",
+              "quote": "06:49 (own Service"
+            }
+          ]
+        }
+      ],
+      "serves": [
+        "Registry",
+        "Elements",
+        "Clusters",
+        "Verbs"
+      ],
+      "serves_note": "One declaration shared by the Registry, Elements, Clusters and Verbs screens. Verbs stay empty: HOLD, not bound. No menu binding or route is made here."
+    }
+  ]
+}

@@ -122,7 +122,7 @@ def _project(env, decl, depth, context_id, record=None, version=None):
     out = sd.project(decl, reg, depth, actor, evidence, index, str(context_id or ''), DEFAULT_ROLE_MAX_DEPTH, record)
     if out.get('result') == 'OK':
         out.update(prov)
-        out['declaration_sha'] = declarations()[1]['sha256']
+        out['declaration_sha'] = declarations()[1]['file_of'][decl['id']]
         out['evidence_notes'] = notes
     return out
 
@@ -137,6 +137,19 @@ def scaffold_context(env, depth='enable', context_id='', version=None):
     except ValueError:
         return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
     return _project(env, decl, depth, context_id, None, version)
+
+
+def scaffold_noun(env, screen_id, depth='enable', context_id=''):
+    """Any declared NOUN screen (RC06b batch 1), read with the caller's own rights. Not routed: no menu, route or install here."""
+    if depth not in sl.DEPTHS:
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_DEPTH'}
+    try:
+        decl = declarations()[0].get(screen_id)
+    except ValueError:
+        return {'result': 'REFUSED', 'reason': 'DECLARATION_INVALID'}
+    if not decl or decl['screen_type'] != 'noun':
+        return {'result': 'REFUSED', 'reason': 'UNKNOWN_SCREEN'}
+    return _project(env, decl, depth, context_id)
 
 
 def _field(rec, name):

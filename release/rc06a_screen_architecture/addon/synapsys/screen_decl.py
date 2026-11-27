@@ -33,7 +33,11 @@ KNOWN_SLOTS = {
 }
 FRAME = KNOWN_SLOTS["enable"]
 NOT_APPLICABLE = "Not applicable for this kind"
-DEFAULT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "screen_declarations.json")
+_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+DEFAULT_PATH = os.path.join(_DATA, "screen_declarations.json")
+# Declarations may be split over sibling files (RC06b batch 1 sits in its own file so RC06a's file, and the fingerprint reported for
+# every RC06a screen, stay byte-identical). Each screen reports the sha256 of the file that declares it.
+DEFAULT_PATHS = (DEFAULT_PATH, os.path.join(_DATA, "screen_declarations_batch1.json"))
 STEM_MAX = 60
 
 
@@ -127,6 +131,9 @@ def validate_screen(d):
         bad("duplicate claim ids")
     if d["trust_claim"] not in ids:
         bad("trust_claim %r is not a claim id" % (d["trust_claim"],))
+    sv_ = d.get("serves")
+    if sv_ is not None and not (isinstance(sv_, list) and sv_ and all(isinstance(x, str) and x for x in sv_)):
+        bad("serves must be a non-empty list of screen names this one declaration is shared by")
     mo = d.get("made_of")
     if mo is not None and not (mo.get("relationship") and mo.get("heading") and isinstance(mo.get("role_names"), dict)):
         bad("made_of needs relationship, heading and role_names")
@@ -147,24 +154,32 @@ def validate_screen(d):
 
 
 def load_declarations(path=None):
-    """Returns ({id: screen}, meta). Raises ValueError listing every error; never returns a half-valid set."""
-    p = path or DEFAULT_PATH
-    with open(p, "rb") as fh:
-        raw = fh.read()
-    doc = json.loads(raw.decode("utf-8"))
-    errs = []
-    if doc.get("schema") != "synapsys.screen.declaration/1":
-        errs.append("unknown schema %r" % (doc.get("schema"),))
-    slots = doc.get("slots")
-    if slots != {k: list(v) for k, v in KNOWN_SLOTS.items()}:
-        errs.append("slots per depth must be exactly %s" % json.dumps(KNOWN_SLOTS))
-    out = {}
-    for s in doc.get("screens", []):
-        errs.extend(validate_screen(s))
-        out[s.get("id")] = s
+    """Returns ({id: screen}, meta). path is one file, a list of files, or None for DEFAULT_PATHS.
+    meta: sha256 = sha of the FIRST file (as in RC06a), files = {name: sha}, file_of = {screen id: sha of its declaring file}.
+    Raises ValueError listing every error; never returns a half-valid set. A screen id may not be declared twice."""
+    paths = [path] if isinstance(path, str) else list(path or DEFAULT_PATHS)
+    errs, out, file_of, files = [], {}, {}, {}
+    first_sha = None
+    for p in paths:
+        with open(p, "rb") as fh:
+            raw = fh.read()
+        sha = declaration_sha(raw)
+        first_sha = first_sha or sha
+        files[os.path.basename(p)] = sha
+        doc = json.loads(raw.decode("utf-8"))
+        if doc.get("schema") != "synapsys.screen.declaration/1":
+            errs.append("%s: unknown schema %r" % (os.path.basename(p), doc.get("schema")))
+        if doc.get("slots") != {k: list(v) for k, v in KNOWN_SLOTS.items()}:
+            errs.append("%s: slots per depth must be exactly %s" % (os.path.basename(p), json.dumps(KNOWN_SLOTS)))
+        for s in doc.get("screens", []):
+            errs.extend(validate_screen(s))
+            if s.get("id") in out:
+                errs.append("%s: declared twice" % s.get("id"))
+            out[s.get("id")] = s
+            file_of[s.get("id")] = sha
     if errs:
         raise ValueError("; ".join(errs))
-    return out, {"sha256": declaration_sha(raw), "slots": slots}
+    return out, {"sha256": first_sha, "files": files, "file_of": file_of, "slots": {k: list(v) for k, v in KNOWN_SLOTS.items()}}
 
 
 # --------------------------------------------------------------------------------------------------- projection

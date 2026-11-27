@@ -51,12 +51,15 @@ def rec(kind, name="Fixture", neighbour=None):
     return {"model": "x", "id": 1, "name": name, "kind": kind, "neighbour_kind": neighbour}
 
 
-ALL = [(CTX_NOUN, None), (CTX_REC, rec("K-12")), (ASSET_REC, rec(None, "A1", "K-12"))]
+RC06A_IDS = {"SCR.CONTEXT.NOUN", "SCR.CONTEXT.RECORD", "SCR.ASSET.RECORD"}
+BATCH1 = [d for i, d in DECLS.items() if i not in RC06A_IDS]
+# every declaration: the three RC06a ones, then every noun screen added since (RC06b batch 1)
+ALL = [(CTX_NOUN, None), (CTX_REC, rec("K-12")), (ASSET_REC, rec(None, "A1", "K-12"))] + [(d, None) for d in BATCH1]
 
 
 class D1_Schema(unittest.TestCase):
     def test_declarations_load_and_validate(self):
-        self.assertEqual(set(DECLS), {"SCR.CONTEXT.NOUN", "SCR.CONTEXT.RECORD", "SCR.ASSET.RECORD"})
+        self.assertTrue(RC06A_IDS <= set(DECLS))
         self.assertEqual(META["slots"], {"enable": ["header", "answer", "trust", "movement"], "enhance": ["made_of", "peers"],
                                          "enrich": ["trust_table", "open_questions", "technical"]})
 

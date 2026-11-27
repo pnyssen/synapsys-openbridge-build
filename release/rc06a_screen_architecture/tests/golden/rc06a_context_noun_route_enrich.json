@@ -1,0 +1,302 @@
+{
+ "clamp_reason": null,
+ "context_id": "1",
+ "declaration_sha": "2aa425778fe3a7e2f20d242440c907161484318d3ea91a51120b5a8e31144fe0",
+ "definition": "A bounded setting that contains everything else, identified by its purpose, its boundary and its rights holder, and having one home kinematic kind.",
+ "depth_clamped": false,
+ "depth_effective": "enrich",
+ "depth_requested": "enrich",
+ "enhance": {
+  "made_of": {
+   "heading": "What a Context is made of",
+   "relationship": "H.CTX",
+   "rows": [
+    {
+     "bound_label": "Context",
+     "bound_status": "RULED",
+     "cluster_id": "MC-390147223f2d",
+     "many": false,
+     "name": "The Context itself",
+     "required": true,
+     "role_id": "R.CTX_CONTEXT"
+    },
+    {
+     "bound_label": "Purpose",
+     "bound_status": "PROPOSAL",
+     "cluster_id": "MC-390147223f2d",
+     "many": false,
+     "name": "Purpose",
+     "required": true,
+     "role_id": "R.CTX_PURPOSE"
+    },
+    {
+     "bound_label": "Partner",
+     "bound_status": "PROPOSAL",
+     "cluster_id": "MC-390147223f2d",
+     "many": false,
+     "name": "Rights holder",
+     "required": true,
+     "role_id": "R.CTX_RIGHTS_HOLDER"
+    },
+    {
+     "bound_label": "Chain",
+     "bound_status": "PROPOSAL",
+     "cluster_id": "MC-390147223f2d",
+     "many": true,
+     "name": "Intersecting chains",
+     "required": false,
+     "role_id": "R.CTX_INTERSECTS"
+    },
+    {
+     "bound_label": "Portfolio",
+     "bound_status": "RULED",
+     "cluster_id": "MC-390147223f2d",
+     "many": true,
+     "name": "Portfolios",
+     "required": false,
+     "role_id": "R.CTX_PORTFOLIO"
+    },
+    {
+     "bound_label": "Shape",
+     "bound_status": "RULED",
+     "cluster_id": "MC-390147223f2d",
+     "many": false,
+     "name": "Shape",
+     "required": false,
+     "role_id": "R.CTX_SHAPE"
+    },
+    {
+     "bound_label": "Strategy",
+     "bound_status": "RULED",
+     "cluster_id": "MC-390147223f2d",
+     "many": true,
+     "name": "Strategies",
+     "required": false,
+     "role_id": "R.CTX_STRATEGY"
+    }
+   ]
+  },
+  "peers": {
+   "heading": "Linked peers",
+   "rows": [
+    {
+     "definition": "What a Context is able to do: new capability is built by Projects within a Programme, then handed over to a Service that operates it.",
+     "id": "N.CAPABILITY",
+     "label": "Capability",
+     "operating_source": "NO_OPERATING_SOURCE",
+     "status": "PROPOSAL"
+    },
+    {
+     "definition": "The ongoing operation of an existing capability that delivers Benefits directly to its users.",
+     "id": "N.SERVICE",
+     "label": "Service",
+     "operating_source": "SOURCED",
+     "status": "RULED"
+    }
+   ]
+  }
+ },
+ "enrich": {
+  "open_total": 6,
+  "rows": [
+   {
+    "chips": [
+     {
+      "date": null,
+      "name": "Project instr. v2.2.2"
+     },
+     {
+      "date": null,
+      "name": "Registry H.CTX"
+     },
+     {
+      "date": "20 Nov 07:20-07:21",
+      "name": "Ledger"
+     }
+    ],
+    "evidence": [],
+    "full_citation": "project instructions v2.2.2 ('Context contains all'; 'Context identity is purpose, boundary and rights holder seen by all three'); registry H.CTX (required roles context, purpose, rights_holder); ledger 20 Nov 07:20-07:21 (a kind is a Context's home resolution)",
+    "id": "meaning",
+    "label": "Context meaning and kind",
+    "open": [
+     {
+      "stem": "Which domain is Context's home",
+      "text": "Which domain is Context's home (D001 governance of boundary and rights, D002 which rules kind, or D006/D008)?",
+      "truncated": true
+     }
+    ],
+    "qualifier": {
+     "first": "Kind: any one of K-1, K-3, K-4, K-6, K-8, K-12 (its ruled home kind)",
+     "full": "any one of K-1, K-3, K-4, K-6, K-8, K-12 (its ruled home kind); may step up to K-12 resolution with Probable evidence"
+    },
+    "rejected": [],
+    "source_count": 3,
+    "status": "RULED"
+   },
+   {
+    "chips": [
+     {
+      "date": null,
+      "name": "Project instr. v2.2.2"
+     },
+     {
+      "date": null,
+      "name": "design_d.json"
+     },
+     {
+      "date": null,
+      "name": "pack.md OV-02"
+     }
+    ],
+    "evidence": [],
+    "full_citation": "project instructions v2.2.2 (Programme exists because NEW capability is needed and builds it via Projects; Service operates existing capability; Projects deliver Outcomes and Capabilities); design_d.json Programme->Capability, Project->Capability, Capability->Service (L Capability, MSP, ITIL); 'what can be done' wording is pack.md OV-02 proposal",
+    "id": "peer.capability",
+    "label": "Capability",
+    "open": [
+     {
+      "stem": "Capability has no V20 model",
+      "text": "Capability has no V20 model (pack.md: code model NONE): should it be a record or held as a role in H.PRG / H.SVC?",
+      "truncated": true
+     },
+     {
+      "stem": "Domains are 'governing capabilities'",
+      "text": "Domains are 'governing capabilities' (19 Nov 23:15): is a Domain a kind of Capability or a different meaning of the word?",
+      "truncated": true
+     },
+     {
+      "stem": "No Navigation lens reads Capability",
+      "text": "No Navigation lens reads Capability: which should?",
+      "truncated": true
+     }
+    ],
+    "qualifier": {
+     "first": "No operating source: HOLD",
+     "full": null
+    },
+    "registry_status": "PROPOSAL",
+    "rejected": [],
+    "source_count": 3,
+    "status": "HOLD"
+   },
+   {
+    "chips": [
+     {
+      "date": null,
+      "evidence": true,
+      "name": "SP-01"
+     },
+     {
+      "date": null,
+      "name": "Project instr. v2.2.2"
+     },
+     {
+      "date": null,
+      "name": "design_d"
+     },
+     {
+      "date": "20 Nov 07:06",
+      "name": "Ledger"
+     },
+     {
+      "date": "20 Nov 10:51",
+      "name": "Ledger"
+     }
+    ],
+    "evidence": [
+     {
+      "label": "SP-01 Strategic Planning & Context Establishment",
+      "sha256": "608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c",
+      "source_ref": "x_service_catalogue:SP-01"
+     }
+    ],
+    "full_citation": "Project instructions v2.2.2 CORE DEFINITIONS (Service = operates existing capability; delivers Benefits directly; Services do NOT deliver Outcomes); design_d Service->Benefit (L Service, ITIL value co-creation); design_d absent Service->Outcome; ledger 20 Nov 07:06 (Service Catalogue is the key interface), 10:51 (KDA seats are Services run by named engines)",
+    "id": "peer.service",
+    "label": "Service",
+    "open": [
+     {
+      "stem": "Is the Service noun's home domain per Service record only",
+      "text": "Is the Service noun's home domain per Service record only (R.SVC_DOMAIN), or does the noun itself have a home domain?",
+      "truncated": true
+     },
+     {
+      "stem": "One Service role per value line",
+      "text": "One Service role per value line (OV-17, Benefit->SC-04 vs Asset->SC-01): rule or record dissent.",
+      "truncated": true
+     }
+    ],
+    "qualifier": {
+     "first": "catalogue record only: existence is not operation",
+     "full": [
+      "catalogue record only: existence is not operation",
+      "validation: none recorded",
+      "no source document recorded",
+      "not bound to a Context"
+     ]
+    },
+    "registry_status": "RULED",
+    "rejected": [],
+    "source_count": 5,
+    "status": "CATALOGUE RECORD FOUND"
+   }
+  ],
+  "technical": {
+   "cluster_id": "MC-390147223f2d",
+   "evidence_sources": [
+    {
+     "sha256": "608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c",
+     "source_ref": "x_service_catalogue:SP-01"
+    }
+   ],
+   "kind": null,
+   "registry_version": "0.3.5",
+   "relationship": "H.CTX",
+   "screen_id": "SCR.CONTEXT.NOUN"
+  }
+ },
+ "evidence_notes": [],
+ "frame": {
+  "answer": "A bounded setting that contains everything else, identified by its purpose, its boundary and its rights holder, and having one home kinematic kind.",
+  "header": {
+   "neighbour_kind": null,
+   "noun": "Context",
+   "record_name": null,
+   "status": "RULED"
+  },
+  "movement": {
+   "reason": "noun-to-verb governance waits on the Architecture tab",
+   "state": "HOLD",
+   "text": "verbs not yet bound",
+   "verbs": []
+  },
+  "trust": {
+   "source_count": 3,
+   "status": "RULED"
+  }
+ },
+ "label": "Context",
+ "notes": [],
+ "noun": "N.CONTEXT",
+ "registry_sha": "7c31aa1de4c97e8e062c5ae9e2f907b4c67ea0949bf143235499c32b1a30f423",
+ "registry_state": "candidate",
+ "registry_version": "0.3.5",
+ "result": "OK",
+ "screen": "SCR.CONTEXT.NOUN",
+ "screen_type": "noun",
+ "slots": [
+  "header",
+  "answer",
+  "trust",
+  "movement",
+  "made_of",
+  "peers",
+  "trust_table",
+  "open_questions",
+  "technical"
+ ],
+ "stage": null,
+ "stage_computed_not_stored": true,
+ "stage_reason": null,
+ "status": "RULED",
+ "title": "Context scaffold",
+ "writes": 0
+}

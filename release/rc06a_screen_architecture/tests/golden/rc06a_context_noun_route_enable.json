@@ -1,0 +1,50 @@
+{
+ "clamp_reason": null,
+ "context_id": "1",
+ "declaration_sha": "2aa425778fe3a7e2f20d242440c907161484318d3ea91a51120b5a8e31144fe0",
+ "definition": "A bounded setting that contains everything else, identified by its purpose, its boundary and its rights holder, and having one home kinematic kind.",
+ "depth_clamped": false,
+ "depth_effective": "enable",
+ "depth_requested": "enable",
+ "evidence_notes": [],
+ "frame": {
+  "answer": "A bounded setting that contains everything else, identified by its purpose, its boundary and its rights holder, and having one home kinematic kind.",
+  "header": {
+   "neighbour_kind": null,
+   "noun": "Context",
+   "record_name": null,
+   "status": "RULED"
+  },
+  "movement": {
+   "reason": "noun-to-verb governance waits on the Architecture tab",
+   "state": "HOLD",
+   "text": "verbs not yet bound",
+   "verbs": []
+  },
+  "trust": {
+   "source_count": 3,
+   "status": "RULED"
+  }
+ },
+ "label": "Context",
+ "notes": [],
+ "noun": "N.CONTEXT",
+ "registry_sha": "7c31aa1de4c97e8e062c5ae9e2f907b4c67ea0949bf143235499c32b1a30f423",
+ "registry_state": "candidate",
+ "registry_version": "0.3.5",
+ "result": "OK",
+ "screen": "SCR.CONTEXT.NOUN",
+ "screen_type": "noun",
+ "slots": [
+  "header",
+  "answer",
+  "trust",
+  "movement"
+ ],
+ "stage": null,
+ "stage_computed_not_stored": true,
+ "stage_reason": null,
+ "status": "RULED",
+ "title": "Context scaffold",
+ "writes": 0
+}
