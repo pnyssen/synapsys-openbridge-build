@@ -1,0 +1,394 @@
+{
+ "coverage": {
+  "absent_from_extract": [],
+  "extract_fields": 85,
+  "mapped": 45,
+  "neither": [],
+  "overlap": [],
+  "unmapped": 40
+ },
+ "extract": {
+  "archived": 15,
+  "fields": 85,
+  "live": 34,
+  "read_at": "2026-11-27T11:20Z",
+  "rows": 49
+ },
+ "extract_sha256": "87bdc258f65dc57175cbed5f6fdeebce6658a3868e495dd2dec7b107aa58f887",
+ "held_mapped": [
+  {
+   "field": "x_lifecycle_gate",
+   "filled": 44,
+   "treatment": "history only, inside validation_status_v19"
+  },
+  {
+   "differs_from_owner": 0,
+   "field": "x_steward_contact_id",
+   "filled": 16,
+   "owner_empty_and_contact_present": 0,
+   "treatment": "not written: target (owner_name or escalation) is ambiguous; equals the owner on every row that has both (checked)"
+  },
+  {
+   "field": "x_itil_csi_log",
+   "filled": 13,
+   "treatment": "HOLD: needs a Service link on learning records (ruling S2)"
+  },
+  {
+   "field": "x_service_class",
+   "filled": 29,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  },
+  {
+   "field": "x_offering_layer",
+   "filled": 49,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  },
+  {
+   "field": "x_service_role",
+   "filled": 24,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  },
+  {
+   "field": "x_method_role",
+   "filled": 9,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  },
+  {
+   "field": "x_platform_role",
+   "filled": 7,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  },
+  {
+   "field": "x_membrane_role",
+   "filled": 25,
+   "treatment": "HELD (R5): perspective is not ruled and stays empty; source values counted below"
+  }
+ ],
+ "lifecycle_counts": {
+  "counts": {
+   "active": 29,
+   "candidate": 1,
+   "draft": 3,
+   "retired": 16
+  },
+  "proposed": true,
+  "source_status_counts": {
+   "active": 29,
+   "deprecated": 16,
+   "draft": 3,
+   "future_scoped": 1
+  }
+ },
+ "mode": "DRY-RUN on a fake database; counts: {'CREATE': 47, 'HOLD_NAME': 2}",
+ "name_holds": [
+  {
+   "code": "SC-03",
+   "item": "name",
+   "reason": "x_name and x_service_name differ",
+   "v19_id": 3,
+   "x_name": "SC-03 Human-AI Orientation and Navigation",
+   "x_service_name": "Human-AI Orientation and Navigation (HAION)"
+  },
+  {
+   "code": "SA-04",
+   "item": "name",
+   "reason": "x_name and x_service_name differ",
+   "v19_id": 14,
+   "x_name": "SA-04 Partner Orchestration and Ecosystem Governance",
+   "x_service_name": "Relationship, Partner & Collaborative Ecosystem Orchestration"
+  }
+ ],
+ "name_notes": [
+  {
+   "code": "SC-06",
+   "note": "leading code removed from x_service_name",
+   "v19_id": 18
+  },
+  {
+   "code": "GV-CAN-001",
+   "note": "leading code removed from x_service_name",
+   "v19_id": 34
+  },
+  {
+   "code": "GV-TEC-001",
+   "note": "leading code removed from x_service_name",
+   "v19_id": 35
+  }
+ ],
+ "perspective_source_counts": {
+  "x_membrane_role": {
+   "(distinct text)": 25,
+   "(empty)": 24
+  },
+  "x_method_role": {
+   "(empty)": 40,
+   "method": 9
+  },
+  "x_offering_layer": {
+   "A": 6,
+   "B": 8,
+   "C": 35
+  },
+  "x_platform_role": {
+   "(empty)": 42,
+   "platform": 7
+  },
+  "x_service_class": {
+   "(empty)": 20,
+   "internal": 9,
+   "membrane": 4,
+   "offering": 16
+  },
+  "x_service_role": {
+   "(empty)": 25,
+   "service": 24
+  }
+ },
+ "standard": {
+  "min_shared_rows": 10,
+  "paragraphs": 4,
+  "per_field": {
+   "adaptability_envelope": {
+    "distinct": 17,
+    "filled": 46,
+    "index": 1,
+    "linked_rows": 30,
+    "second_count": 1,
+    "shared": true,
+    "top_count": 30
+   },
+   "authority_gate_schema": {
+    "distinct": 28,
+    "filled": 47,
+    "index": 0,
+    "linked_rows": 15,
+    "second_count": 6,
+    "shared": true,
+    "top_count": 15
+   },
+   "observation_learning_contract": {
+    "distinct": 31,
+    "filled": 49,
+    "index": 2,
+    "linked_rows": 15,
+    "second_count": 5,
+    "shared": true,
+    "top_count": 15
+   },
+   "provider_fallback_policy": {
+    "distinct": 19,
+    "filled": 47,
+    "index": 3,
+    "linked_rows": 29,
+    "second_count": 1,
+    "shared": true,
+    "top_count": 29
+   }
+  },
+  "provider_fallback_overrides_held": 18
+ },
+ "unmapped_fields": [
+  {
+   "field": "x_service_ppv_entry",
+   "filled": 40,
+   "group": "Authority/proof states (PPV)"
+  },
+  {
+   "field": "x_service_ppv_ceiling",
+   "filled": 39,
+   "group": "Authority/proof states (PPV)"
+  },
+  {
+   "field": "x_productisation_status",
+   "filled": 46,
+   "group": "Authority/proof states (PPV)"
+  },
+  {
+   "field": "x_processability_state",
+   "filled": 30,
+   "group": "Authority/proof states (PPV)"
+  },
+  {
+   "field": "x_fpv_acceptance",
+   "filled": 0,
+   "group": "Authority/proof states (PPV)"
+  },
+  {
+   "field": "x_itil_service_description",
+   "filled": 3,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_itil_utility",
+   "filled": 21,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_itil_warranty",
+   "filled": 22,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_itil_service_level_target",
+   "filled": 1,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_itil_support_model",
+   "filled": 4,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_itil_service_owner_role",
+   "filled": 29,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_warranty_commitment_type",
+   "filled": 1,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_warranty_commitment_text",
+   "filled": 1,
+   "group": "ITIL description set"
+  },
+  {
+   "field": "x_ai_capability_requirements",
+   "filled": 32,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_human_role_requirements",
+   "filled": 31,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_deterministic_tech_requirements",
+   "filled": 31,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_operator_trace",
+   "filled": 41,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_operations_pattern",
+   "filled": 35,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_default_workflow_phase",
+   "filled": 19,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_named_consumer",
+   "filled": 4,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_gsa_role",
+   "filled": 2,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_cost_risk_transfer",
+   "filled": 1,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_fallback_flag",
+   "filled": 1,
+   "group": "Execution and capability requirements"
+  },
+  {
+   "field": "x_collab_ai_access_mode",
+   "filled": 28,
+   "group": "Collaborator and client access"
+  },
+  {
+   "field": "x_collab_ai_allowed_intents",
+   "filled": 19,
+   "group": "Collaborator and client access"
+  },
+  {
+   "field": "x_collab_ai_scope",
+   "filled": 28,
+   "group": "Collaborator and client access"
+  },
+  {
+   "field": "x_client_contact_visible",
+   "filled": 16,
+   "group": "Collaborator and client access"
+  },
+  {
+   "field": "x_channel_ids",
+   "filled": 0,
+   "group": "Collaborator and client access"
+  },
+  {
+   "field": "x_context_binding_required",
+   "filled": 15,
+   "group": "Context binding and summary"
+  },
+  {
+   "field": "x_context_binding_notes",
+   "filled": 40,
+   "group": "Context binding and summary"
+  },
+  {
+   "field": "x_haion_summary",
+   "filled": 18,
+   "group": "Context binding and summary"
+  },
+  {
+   "field": "x_source_document",
+   "filled": 25,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_source_version",
+   "filled": 24,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_dim_trigger_linkage",
+   "filled": 2,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_producible_lens_ids",
+   "filled": 6,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_prerequisite_edge_ids",
+   "filled": 1,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_requires_edge_ids",
+   "filled": 1,
+   "group": "Provenance and links"
+  },
+  {
+   "field": "x_company_id",
+   "filled": 49,
+   "group": "System"
+  },
+  {
+   "field": "create_date",
+   "filled": 49,
+   "group": "System"
+  },
+  {
+   "field": "write_date",
+   "filled": 49,
+   "group": "System"
+  }
+ ],
+ "unresolved_relations": [],
+ "v19_writes": 0
+}

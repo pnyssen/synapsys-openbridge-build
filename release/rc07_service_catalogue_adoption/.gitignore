@@ -1,0 +1,2 @@
+# The V19 extract is operational business data, filed in Working Memory (sha256 87bdc258...); it is not committed. Place it here to run the tests.
+fixtures/V19_SERVICE_CATALOGUE_EXTRACT_*.json

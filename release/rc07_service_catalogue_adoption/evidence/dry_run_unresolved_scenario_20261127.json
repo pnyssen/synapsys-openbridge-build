@@ -1,0 +1,14 @@
+{
+ "counts": {
+  "CREATE": 47,
+  "HOLD_NAME": 2
+ },
+ "mode": "DRY-RUN on a fake database with NO reference records: every relation unresolved",
+ "unresolved_by_field": {
+  "canon_ids": 102,
+  "context_id": 19,
+  "domain_id": 48,
+  "method_id": 25,
+  "pattern_ids": 323
+ }
+}

@@ -1,0 +1,83 @@
+test_every_extract_field_is_either_mapped_or_in_the_unmapped_list_and_never_both (test_service_catalogue_load.T1_Extract.test_every_extract_field_is_either_mapped_or_in_the_unmapped_list_and_never_both) ... ok
+test_extract_hash_49_rows_34_live_15_archived_and_a_wrong_hash_is_refused (test_service_catalogue_load.T1_Extract.test_extract_hash_49_rows_34_live_15_archived_and_a_wrong_hash_is_refused) ... ok
+test_a_managed_field_changed_by_hand_is_shown_as_an_update_and_restored_but_unmanaged_fields_are_left_alone (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_a_managed_field_changed_by_hand_is_shown_as_an_update_and_restored_but_unmanaged_fields_are_left_alone) ... ok
+test_an_unmarked_row_with_a_matching_v19_id_is_a_conflict_and_is_never_touched (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_an_unmarked_row_with_a_matching_v19_id_is_a_conflict_and_is_never_touched) ... ok
+test_apply_creates_the_rows_and_a_second_apply_changes_nothing (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_apply_creates_the_rows_and_a_second_apply_changes_nothing) ... ok
+test_dry_run_is_the_default_and_writes_nothing (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_dry_run_is_the_default_and_writes_nothing) ... ok
+test_every_v19_code_appears_once_and_the_v19_id_set_equals_the_extract_set (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_every_v19_code_appears_once_and_the_v19_id_set_equals_the_extract_set) ... ok
+test_held_names_are_not_loaded_until_the_steward_rules_and_then_the_load_completes_idempotently (test_service_catalogue_load.T2_DryRunApplyIdempotent.test_held_names_are_not_loaded_until_the_steward_rules_and_then_the_load_completes_idempotently) ... ok
+test_an_ambiguous_match_is_not_guessed (test_service_catalogue_load.T3_Relations.test_an_ambiguous_match_is_not_guessed) ... ok
+test_context_found_by_code_only_and_a_v19_id_that_disagrees_with_the_code_is_ambiguous (test_service_catalogue_load.T3_Relations.test_context_found_by_code_only_and_a_v19_id_that_disagrees_with_the_code_is_ambiguous) ... ok
+test_resolved_relations_are_linked_by_v19_id_or_code (test_service_catalogue_load.T3_Relations.test_resolved_relations_are_linked_by_v19_id_or_code) ... ok
+test_unresolvable_context_method_canon_pattern_domain_become_a_recorded_gap_and_no_record_is_invented (test_service_catalogue_load.T3_Relations.test_unresolvable_context_method_canon_pattern_domain_become_a_recorded_gap_and_no_record_is_invented) ... ok
+test_a_standard_field_below_the_threshold_is_not_made_a_paragraph (test_service_catalogue_load.T4_Standard.test_a_standard_field_below_the_threshold_is_not_made_a_paragraph) ... ok
+test_differing_provider_fallback_text_has_no_field_and_is_reported_held_not_dropped_silently (test_service_catalogue_load.T4_Standard.test_differing_provider_fallback_text_has_no_field_and_is_reported_held_not_dropped_silently) ... ok
+test_one_standard_holding_the_four_shared_paragraphs_and_the_expected_row_counts (test_service_catalogue_load.T4_Standard.test_one_standard_holding_the_four_shared_paragraphs_and_the_expected_row_counts) ... ok
+test_rows_with_the_shared_text_link_to_the_standard_and_store_no_own_copy (test_service_catalogue_load.T4_Standard.test_rows_with_the_shared_text_link_to_the_standard_and_store_no_own_copy) ... ok
+test_source_hashes_record_the_sha256_of_each_v19_text (test_service_catalogue_load.T4_Standard.test_source_hashes_record_the_sha256_of_each_v19_text) ... ok
+test_all_15_archived_rows_are_loaded_as_retired_and_the_original_status_is_kept_as_history (test_service_catalogue_load.T5_LifecycleAndPerspective.test_all_15_archived_rows_are_loaded_as_retired_and_the_original_status_is_kept_as_history) ... ok
+test_lifecycle_counts_active_29_draft_3_candidate_1_retired_16_flagged_proposed (test_service_catalogue_load.T5_LifecycleAndPerspective.test_lifecycle_counts_active_29_draft_3_candidate_1_retired_16_flagged_proposed) ... ok
+test_perspective_is_empty_on_every_row_and_the_source_values_are_counted_not_mapped (test_service_catalogue_load.T5_LifecycleAndPerspective.test_perspective_is_empty_on_every_row_and_the_source_values_are_counted_not_mapped) ... ok
+test_proof_states_and_protected_fields_are_never_written_to_a_live_field (test_service_catalogue_load.T5_LifecycleAndPerspective.test_proof_states_and_protected_fields_are_never_written_to_a_live_field) ... ok
+test_held_mapped_fields_are_reported_separately_and_nothing_is_dropped_silently (test_service_catalogue_load.T6_Unmapped.test_held_mapped_fields_are_reported_separately_and_nothing_is_dropped_silently) ... ok
+test_the_report_lists_exactly_the_40_fields_with_the_contracts_counts (test_service_catalogue_load.T6_Unmapped.test_the_report_lists_exactly_the_40_fields_with_the_contracts_counts) ... ok
+test_after_a_rollback_a_new_apply_reloads_cleanly (test_service_catalogue_load.T7_Rollback.test_after_a_rollback_a_new_apply_reloads_cleanly) ... ok
+test_rollback_removes_only_rows_and_the_standard_the_loader_created (test_service_catalogue_load.T7_Rollback.test_rollback_removes_only_rows_and_the_standard_the_loader_created) ... ok
+test_the_standard_survives_a_rollback_if_a_row_the_loader_did_not_create_still_uses_it (test_service_catalogue_load.T7_Rollback.test_the_standard_survives_a_rollback_if_a_row_the_loader_did_not_create_still_uses_it) ... ok
+test_create_write_unlink_appear_only_inside_the_backend_class_and_the_report_file_write (test_service_catalogue_load.T8_StaticNoV19Write.test_create_write_unlink_appear_only_inside_the_backend_class_and_the_report_file_write) ... ok
+test_the_command_line_has_no_apply_switch_and_needs_no_database (test_service_catalogue_load.T8_StaticNoV19Write.test_the_command_line_has_no_apply_switch_and_needs_no_database) ... {
+ "mode": "OFFLINE PLAN (nothing written, relations not checked)",
+ "extract": {
+  "rows": 49,
+  "live": 34,
+  "archived": 15,
+  "fields": 85,
+  "read_at": "2026-11-27T11:20Z"
+ },
+ "lifecycle_counts": {
+  "proposed": true,
+  "counts": {
+   "active": 29,
+   "candidate": 1,
+   "retired": 16,
+   "draft": 3
+  },
+  "source_status_counts": {
+   "active": 29,
+   "future_scoped": 1,
+   "deprecated": 16,
+   "draft": 3
+  }
+ },
+ "name_holds": [
+  {
+   "v19_id": 3,
+   "code": "SC-03",
+   "item": "name",
+   "reason": "x_name and x_service_name differ",
+   "x_name": "SC-03 Human-AI Orientation and Navigation",
+   "x_service_name": "Human-AI Orientation and Navigation (HAION)"
+  },
+  {
+   "v19_id": 14,
+   "code": "SA-04",
+   "item": "name",
+   "reason": "x_name and x_service_name differ",
+   "x_name": "SA-04 Partner Orchestration and Ecosystem Governance",
+   "x_service_name": "Relationship, Partner & Collaborative Ecosystem Orchestration"
+  }
+ ]
+}
+ok
+test_the_fake_database_cannot_reach_a_v19_model_so_a_v19_write_would_fail_loudly (test_service_catalogue_load.T8_StaticNoV19Write.test_the_fake_database_cannot_reach_a_v19_model_so_a_v19_write_would_fail_loudly) ... ok
+test_the_loader_imports_nothing_that_can_reach_v19_or_the_network (test_service_catalogue_load.T8_StaticNoV19Write.test_the_loader_imports_nothing_that_can_reach_v19_or_the_network) ... ok
+test_the_only_database_models_named_in_code_are_the_synapsys_ones_and_ir_model_data (test_service_catalogue_load.T8_StaticNoV19Write.test_the_only_database_models_named_in_code_are_the_synapsys_ones_and_ir_model_data) ... ok
+test_the_proof_state_and_other_unmapped_field_names_appear_in_code_only_in_the_unmapped_table (test_service_catalogue_load.T8_StaticNoV19Write.test_the_proof_state_and_other_unmapped_field_names_appear_in_code_only_in_the_unmapped_table) ... ok
+test_a_filled_x_ffe_state_is_kept_as_history_and_slots_8_11_12_14_15_are_not_written (test_service_catalogue_load.T9_FieldValues.test_a_filled_x_ffe_state_is_kept_as_history_and_slots_8_11_12_14_15_are_not_written) ... ok
+test_names_codes_descriptions_and_the_equality_rule (test_service_catalogue_load.T9_FieldValues.test_names_codes_descriptions_and_the_equality_rule) ... ok
+test_owner_escalation_sla_door_and_approval_values (test_service_catalogue_load.T9_FieldValues.test_owner_escalation_sla_door_and_approval_values) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.420s
+
+OK
