@@ -1,0 +1,56 @@
+===== render.py =====
+import sys, json, os
+sys.path.insert(0, os.getcwd())
+import fakes_core as F0
+from fakes import sw
+from test_batch5 import E5, BOUND
+out={}
+for b in BOUND:
+    if b["screen_id"] in ("SCR.SERVICE.NOUN","SCR.MESH_MEASURES.MENU"):
+        for d in ("enable","enhance","enrich"):
+            r=sw.menu_enable(E5([F0.STEW]), b["action_id"], b["menu_id"], b["screen_id"], d)
+            out["%s|%s"%(b["screen_id"],d)]={"action":b["action_id"],"res":r["result"],"html":r.get("html","")}
+json.dump(out,open("/tmp/cf/pages.json","w"))
+for k,v in out.items(): print(k,v["action"],v["res"],len(v["html"]))
+===== shell.py =====
+import json,re,html as H
+P=json.load(open('/tmp/cf/pages.json'))
+def shell(inner, tabs=True):
+    t=''.join('<button class="btn btn-sm %s" data-mode="%s">%s</button>'%('btn-primary' if m=='enable' else 'btn-outline-secondary',m,m) for m in('enable','enhance','enrich'))
+    return ('<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>'
+    'body{margin:0;font:14px sans-serif}.o_web_client{display:flex;flex-direction:column;height:100vh}.nav{height:46px;background:#714b67;color:#fff;flex:none}'
+    '.btn{font-size:13px;padding:2px 8px;border:1px solid #888;border-radius:4px;background:#fff}.btn-primary{background:#714b67;color:#fff}'
+    '.o_action_manager{flex:1 1 auto;overflow:auto}.o_view_nocontent{position:absolute;top:30%%;left:0;right:0;text-align:center}.lst{height:300px}'
+    '</style><div class="o_web_client"><div class="nav">nav</div>'
+    '<div class="o-main"><div class="syn-enable-panel border-bottom bg-view"><div class="syn-modebar" style="display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid #e4e7eb;background:#fff"><span>Depth</span>%s</div>%s</div></div>'
+    '<div class="o_action_manager"><div class="lst"><div class="o_view_nocontent">No records</div></div></div></div>')%(t,inner)
+for k,v in P.items():
+    open('/tmp/cf/out/'+k.replace('|','_').replace('.','_')+'.html','w').write(shell(v['html']))
+===== shots.js =====
+const {chromium}=require('playwright');const fs=require('fs');
+(async()=>{const b=await chromium.launch();const res=[];
+for(const f of fs.readdirSync('/tmp/cf/out').filter(x=>x.endsWith('.html'))){
+ for(const w of [390,1024]){
+  const pg=await b.newPage({viewport:{width:w,height:800},deviceScaleFactor:1});
+  await pg.goto('file:///tmp/cf/out/'+f);
+  const m=await pg.evaluate(()=>{
+   const r=e=>e?e.getBoundingClientRect():null;
+   const panel=document.querySelector('.syn-enable-panel'),list=document.querySelector('.o_action_manager');
+   const rec=document.querySelector('[data-slot=records]');
+   const clipped=[...document.querySelectorAll('.syn-sc *')].filter(e=>e.scrollWidth>e.clientWidth+1&&getComputedStyle(e).overflow!=='visible'&&e.children.length===0).map(e=>e.textContent.trim().slice(0,40));
+   const hidden=[...document.querySelectorAll('.syn-sc .tt th,.syn-sc .tt td')].filter(e=>getComputedStyle(e).display==='none').length;
+   return {docScrollW:document.documentElement.scrollWidth,vw:innerWidth,panelTop:r(panel).top,panelBottom:r(panel).bottom,listTop:r(list).top,
+    panelAboveList:r(panel).bottom<=r(list).top+1,panelH:r(panel).height,recTop:rec?r(rec).top:null,clipped,hiddenTrustCells:hidden,
+    panelScrolls:panel.scrollHeight>panel.clientHeight+1,btnMin:Math.min(...[...document.querySelectorAll('.btn')].map(e=>r(e).height))};});
+  res.push({f,w,...m});
+  if(f.includes('SERVICE_NOUN_enrich')||f.includes('SERVICE_NOUN_enable')||f.includes('MEASURES_MENU_enable')) await pg.screenshot({path:'/tmp/cf/out/'+f.replace('.html','')+'_'+w+'.png'});
+  await pg.close();}}
+fs.writeFileSync('/tmp/cf/out/metrics.json',JSON.stringify(res,null,1));
+for(const r of res)console.log(r.f.padEnd(34),r.w,'overflowX',r.docScrollW>r.vw,'above',r.panelAboveList,'panelH',Math.round(r.panelH),'scrolls',r.panelScrolls,'clipped',r.clipped.length,'hiddenCells',r.hiddenTrustCells,'btnH',r.btnMin);
+await b.close();})();
+===== spec.js =====
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();
+for(const w of[390,1024]){const pg=await b.newPage({viewport:{width:w,height:900},deviceScaleFactor:1});await pg.goto('file:///tmp/cf/specimen.html');
+const m=await pg.evaluate(()=>({overflowX:document.documentElement.scrollWidth>innerWidth,minBtn:Math.min(...[...document.querySelectorAll('button')].map(e=>e.getBoundingClientRect().height)),recTop:Math.round(document.querySelector('.rec').getBoundingClientRect().top),h:document.documentElement.scrollHeight}));
+console.log(w,JSON.stringify(m));await pg.screenshot({path:'/tmp/cf/out/specimen_'+w+'.png',fullPage:true});}
+await b.close()})();
