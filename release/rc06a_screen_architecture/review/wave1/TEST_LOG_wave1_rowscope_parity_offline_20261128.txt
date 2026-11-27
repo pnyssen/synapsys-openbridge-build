@@ -1,0 +1,39 @@
+# OFFLINE TEST LOG - Wave 1 row-scope source parity (offline; no Odoo, no network, no writes)
+# 2026-11-27T23:16:15Z python Python 3.13.18
+## A. original failure on pre-hotfix source (hotfix files reverted): 5 of 9 FAIL
+        m = re.search(r"class SynapsysPurposeScope\(models\.Model\):\n(.*?)\n\n\nclass ", src, re.S)
+>       self.assertTrue(m)
+E       AssertionError: None is not true
+
+tests/test_rowscope_parity.py:130: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_rowscope_parity.py::RowScopeParity::test_branch_source_equals_installed_hotfix
+FAILED tests/test_rowscope_parity.py::RowScopeParity::test_corrected_source_scopes_every_collaborator_row
+FAILED tests/test_rowscope_parity.py::RowScopeParity::test_formerly_unscoped_access_is_now_denied_for_non_member
+FAILED tests/test_rowscope_parity.py::RowScopeParity::test_only_the_four_collaborator_rows_changed
+FAILED tests/test_rowscope_parity.py::RowScopeParity::test_purpose_context_ids_is_inverse_only_no_new_model_or_method
+5 failed, 4 passed in 0.04s
+
+## B. corrected source: row-scope parity
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python3
+rootdir: /home/claude/synapsys-openbridge-build/release/rc06a_screen_architecture
+plugins: platformdirs-4.13.5, anyio-4.15.1
+collecting ... collected 9 items
+
+tests/test_rowscope_parity.py::RowScopeParity::test_baseline_fixture_is_the_original_branch_file PASSED [ 11%]
+tests/test_rowscope_parity.py::RowScopeParity::test_branch_source_equals_installed_hotfix PASSED [ 22%]
+tests/test_rowscope_parity.py::RowScopeParity::test_corrected_source_scopes_every_collaborator_row PASSED [ 33%]
+tests/test_rowscope_parity.py::RowScopeParity::test_entitled_member_and_steward_of_context_not_over_restricted PASSED [ 44%]
+tests/test_rowscope_parity.py::RowScopeParity::test_formerly_unscoped_access_is_now_denied_for_non_member PASSED [ 55%]
+tests/test_rowscope_parity.py::RowScopeParity::test_only_the_four_collaborator_rows_changed PASSED [ 66%]
+tests/test_rowscope_parity.py::RowScopeParity::test_original_failure_baseline_is_unscoped PASSED [ 77%]
+tests/test_rowscope_parity.py::RowScopeParity::test_purpose_context_ids_is_inverse_only_no_new_model_or_method PASSED [ 88%]
+tests/test_rowscope_parity.py::RowScopeParity::test_steward_group_rows_stay_unscoped_full_access PASSED [100%]
+
+============================== 9 passed in 0.03s ===============================
+
+## C. full offline RC06 suite on corrected source
+........................................................................ [ 71%]
+.......ssssss........................................................... [ 94%]
+................                                                         [100%]
+298 passed, 6 skipped in 5.06s

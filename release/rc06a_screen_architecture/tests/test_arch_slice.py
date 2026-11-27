@@ -124,7 +124,7 @@ class SourceGuards(unittest.TestCase):
             for f in fs:
                 if "__pycache__" in root or f.endswith(".pyc"): continue
                 now[os.path.relpath(os.path.join(root, f), ADDON)] = hashlib.sha256(open(os.path.join(root, f), "rb").read()).hexdigest()
-        self.assertEqual(set(now) - set(base), O.SLICE_ADDED)
+        self.assertEqual(set(now) - set(base), O.SLICE_ADDED | O.ROWSCOPE_ADDED)
         stripped = O.strip(now, ADDON)
         self.assertEqual(stripped[O.CTRL_INIT], base[O.CTRL_INIT])           # the only controllers/__init__.py difference is the one import line
     def test_a_stray_extra_file_is_not_discounted_by_the_overlay(self):

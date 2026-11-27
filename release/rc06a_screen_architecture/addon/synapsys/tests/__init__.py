@@ -7,3 +7,4 @@ from . import test_intelligence_access
 from . import test_home
 from . import test_lens_contract
 from . import test_screen_record
+from . import test_context_row_scope

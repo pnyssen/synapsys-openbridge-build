@@ -5,7 +5,7 @@ access_synapsys_verb_user,verb collaborator,synapsys.verb,synapsys.group_synapsy
 access_synapsys_verb_steward,verb steward,synapsys.verb,synapsys.group_synapsys_steward,crud,
 access_synapsys_mode_user,mode collaborator,synapsys.mode,synapsys.group_synapsys_user,r,
 access_synapsys_mode_steward,mode steward,synapsys.mode,synapsys.group_synapsys_steward,crud,
-access_synapsys_purpose_user,purpose collaborator,synapsys.purpose,synapsys.group_synapsys_user,r,
+access_synapsys_purpose_user,purpose collaborator (own Contexts),synapsys.purpose,synapsys.group_synapsys_user,r,"['|', ('context_ids.steward_user_id', '=', user.id), ('context_ids.member_ids', 'in', user.id)]"
 access_synapsys_purpose_steward,purpose steward,synapsys.purpose,synapsys.group_synapsys_steward,crud,
 access_synapsys_canon_user,canon collaborator,synapsys.canon,synapsys.group_synapsys_user,r,
 access_synapsys_canon_steward,canon steward,synapsys.canon,synapsys.group_synapsys_steward,crud,
@@ -13,7 +13,7 @@ access_synapsys_method_user,method collaborator,synapsys.method,synapsys.group_s
 access_synapsys_method_steward,method steward,synapsys.method,synapsys.group_synapsys_steward,crud,
 access_synapsys_pattern_user,pattern collaborator,synapsys.pattern,synapsys.group_synapsys_user,r,
 access_synapsys_pattern_steward,pattern steward,synapsys.pattern,synapsys.group_synapsys_steward,crud,
-access_synapsys_context_user,context collaborator,synapsys.context,synapsys.group_synapsys_user,r,
+access_synapsys_context_user,context collaborator (own Contexts),synapsys.context,synapsys.group_synapsys_user,r,"['|', ('steward_user_id', '=', user.id), ('member_ids', 'in', user.id)]"
 access_synapsys_context_steward,context steward,synapsys.context,synapsys.group_synapsys_steward,crud,
 access_synapsys_intersection_user,intersection collaborator,synapsys.intersection,synapsys.group_synapsys_user,r,
 access_synapsys_intersection_steward,intersection steward,synapsys.intersection,synapsys.group_synapsys_steward,crud,
@@ -23,7 +23,7 @@ access_synapsys_value_chain_user,value.chain collaborator,synapsys.value.chain,s
 access_synapsys_value_chain_steward,value.chain steward,synapsys.value.chain,synapsys.group_synapsys_steward,crud,
 access_synapsys_value_chain_stage_user,value.chain.stage collaborator,synapsys.value.chain.stage,synapsys.group_synapsys_user,r,
 access_synapsys_value_chain_stage_steward,value.chain.stage steward,synapsys.value.chain.stage,synapsys.group_synapsys_steward,crud,
-access_synapsys_strategy_user,strategy collaborator,synapsys.strategy,synapsys.group_synapsys_user,cru,
+access_synapsys_strategy_user,strategy collaborator (own Contexts),synapsys.strategy,synapsys.group_synapsys_user,cru,"['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]"
 access_synapsys_strategy_steward,strategy steward,synapsys.strategy,synapsys.group_synapsys_steward,crud,
 access_synapsys_portfolio_user,portfolio collaborator,synapsys.portfolio,synapsys.group_synapsys_user,cru,
 access_synapsys_portfolio_steward,portfolio steward,synapsys.portfolio,synapsys.group_synapsys_steward,crud,
@@ -33,7 +33,7 @@ access_synapsys_outcome_user,outcome collaborator,synapsys.outcome,synapsys.grou
 access_synapsys_outcome_steward,outcome steward,synapsys.outcome,synapsys.group_synapsys_steward,crud,
 access_synapsys_benefit_user,benefit collaborator,synapsys.benefit,synapsys.group_synapsys_user,cru,
 access_synapsys_benefit_steward,benefit steward,synapsys.benefit,synapsys.group_synapsys_steward,crud,
-access_synapsys_asset_user,asset collaborator,synapsys.asset,synapsys.group_synapsys_user,cru,
+access_synapsys_asset_user,asset collaborator (own Contexts),synapsys.asset,synapsys.group_synapsys_user,cru,"['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]"
 access_synapsys_asset_steward,asset steward,synapsys.asset,synapsys.group_synapsys_steward,crud,
 access_synapsys_oba_link_user,oba.link collaborator,synapsys.oba.link,synapsys.group_synapsys_user,cru,
 access_synapsys_oba_link_steward,oba.link steward,synapsys.oba.link,synapsys.group_synapsys_steward,crud,

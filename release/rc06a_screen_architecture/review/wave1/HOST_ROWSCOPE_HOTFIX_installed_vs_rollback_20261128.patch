@@ -1,0 +1,108 @@
+--- a/security/ir.access.csv
++++ b/security/ir.access.csv
+@@ -5,7 +5,7 @@
+ access_synapsys_verb_steward,verb steward,synapsys.verb,synapsys.group_synapsys_steward,crud,
+ access_synapsys_mode_user,mode collaborator,synapsys.mode,synapsys.group_synapsys_user,r,
+ access_synapsys_mode_steward,mode steward,synapsys.mode,synapsys.group_synapsys_steward,crud,
+-access_synapsys_purpose_user,purpose collaborator,synapsys.purpose,synapsys.group_synapsys_user,r,
++access_synapsys_purpose_user,purpose collaborator (own Contexts),synapsys.purpose,synapsys.group_synapsys_user,r,"['|', ('context_ids.steward_user_id', '=', user.id), ('context_ids.member_ids', 'in', user.id)]"
+ access_synapsys_purpose_steward,purpose steward,synapsys.purpose,synapsys.group_synapsys_steward,crud,
+ access_synapsys_canon_user,canon collaborator,synapsys.canon,synapsys.group_synapsys_user,r,
+ access_synapsys_canon_steward,canon steward,synapsys.canon,synapsys.group_synapsys_steward,crud,
+@@ -13,7 +13,7 @@
+ access_synapsys_method_steward,method steward,synapsys.method,synapsys.group_synapsys_steward,crud,
+ access_synapsys_pattern_user,pattern collaborator,synapsys.pattern,synapsys.group_synapsys_user,r,
+ access_synapsys_pattern_steward,pattern steward,synapsys.pattern,synapsys.group_synapsys_steward,crud,
+-access_synapsys_context_user,context collaborator,synapsys.context,synapsys.group_synapsys_user,r,
++access_synapsys_context_user,context collaborator (own Contexts),synapsys.context,synapsys.group_synapsys_user,r,"['|', ('steward_user_id', '=', user.id), ('member_ids', 'in', user.id)]"
+ access_synapsys_context_steward,context steward,synapsys.context,synapsys.group_synapsys_steward,crud,
+ access_synapsys_intersection_user,intersection collaborator,synapsys.intersection,synapsys.group_synapsys_user,r,
+ access_synapsys_intersection_steward,intersection steward,synapsys.intersection,synapsys.group_synapsys_steward,crud,
+@@ -23,7 +23,7 @@
+ access_synapsys_value_chain_steward,value.chain steward,synapsys.value.chain,synapsys.group_synapsys_steward,crud,
+ access_synapsys_value_chain_stage_user,value.chain.stage collaborator,synapsys.value.chain.stage,synapsys.group_synapsys_user,r,
+ access_synapsys_value_chain_stage_steward,value.chain.stage steward,synapsys.value.chain.stage,synapsys.group_synapsys_steward,crud,
+-access_synapsys_strategy_user,strategy collaborator,synapsys.strategy,synapsys.group_synapsys_user,cru,
++access_synapsys_strategy_user,strategy collaborator (own Contexts),synapsys.strategy,synapsys.group_synapsys_user,cru,"['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]"
+ access_synapsys_strategy_steward,strategy steward,synapsys.strategy,synapsys.group_synapsys_steward,crud,
+ access_synapsys_portfolio_user,portfolio collaborator,synapsys.portfolio,synapsys.group_synapsys_user,cru,
+ access_synapsys_portfolio_steward,portfolio steward,synapsys.portfolio,synapsys.group_synapsys_steward,crud,
+@@ -33,7 +33,7 @@
+ access_synapsys_outcome_steward,outcome steward,synapsys.outcome,synapsys.group_synapsys_steward,crud,
+ access_synapsys_benefit_user,benefit collaborator,synapsys.benefit,synapsys.group_synapsys_user,cru,
+ access_synapsys_benefit_steward,benefit steward,synapsys.benefit,synapsys.group_synapsys_steward,crud,
+-access_synapsys_asset_user,asset collaborator,synapsys.asset,synapsys.group_synapsys_user,cru,
++access_synapsys_asset_user,asset collaborator (own Contexts),synapsys.asset,synapsys.group_synapsys_user,cru,"['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]"
+ access_synapsys_asset_steward,asset steward,synapsys.asset,synapsys.group_synapsys_steward,crud,
+ access_synapsys_oba_link_user,oba.link collaborator,synapsys.oba.link,synapsys.group_synapsys_user,cru,
+ access_synapsys_oba_link_steward,oba.link steward,synapsys.oba.link,synapsys.group_synapsys_steward,crud,
+--- a/models/work.py
++++ b/models/work.py
+@@ -134,6 +134,13 @@
+     work_object_ids = fields.One2many('synapsys.work.object', 'context_id', string='Work Objects')
+ 
+ 
++class SynapsysPurposeScope(models.Model):
++    _inherit = 'synapsys.purpose'
++
++    context_ids = fields.One2many('synapsys.context', 'purpose_id', string='Contexts',
++                                  help='Inverse of Context.purpose_id. Not stored. Lets the Collaborator row scope show a Purpose only through a Context the user stewards or belongs to.')
++
++
+ class SynapsysWorkObject(models.Model):
+     _name = 'synapsys.work.object'
+     _description = 'Work Object (governed unit of work)'
+--- a/tests/__init__.py
++++ b/tests/__init__.py
+@@ -7,3 +7,4 @@
+ from . import test_home
+ from . import test_lens_contract
+ from . import test_screen_record
++from . import test_context_row_scope
+--- /dev/null
++++ b/tests/test_context_row_scope.py
+@@ -0,0 +1,44 @@
++from odoo.exceptions import AccessError
++from odoo.tests.common import TransactionCase, tagged, new_test_user
++
++
++@tagged('post_install', '-at_install', 'synapsys')
++class TestContextRowScope(TransactionCase):
++    """Negative test: a Collaborator sees a Context, its Strategies, Assets and Purpose only when they steward it or are a member. A Steward sees all."""
++
++    @classmethod
++    def setUpClass(cls):
++        super().setUpClass()
++        env = cls.env
++        cls.collab = new_test_user(env, login='collab_rs', groups='synapsys.group_synapsys_user')
++        cls.steward = new_test_user(env, login='steward_rs', groups='synapsys.group_synapsys_steward')
++        cls.p_own = env['synapsys.purpose'].create({'code': 'RS-P-OWN', 'name': 'own purpose'})
++        cls.p_other = env['synapsys.purpose'].create({'code': 'RS-P-OTHER', 'name': 'other purpose'})
++        cls.c_own = env['synapsys.context'].create({'code': 'RS-OWN', 'purpose_id': cls.p_own.id, 'member_ids': [(4, cls.collab.id)]})
++        cls.c_other = env['synapsys.context'].create({'code': 'RS-OTHER', 'purpose_id': cls.p_other.id})
++        cls.s_own = env['synapsys.strategy'].create({'name': 'RS-S-OWN', 'code': 'RS-S-OWN', 'context_id': cls.c_own.id, 'purpose_id': cls.p_own.id})
++        cls.s_other = env['synapsys.strategy'].create({'name': 'RS-S-OTHER', 'code': 'RS-S-OTHER', 'context_id': cls.c_other.id, 'purpose_id': cls.p_other.id})
++        cls.a_own = env['synapsys.asset'].create({'name': 'RS-A-OWN', 'context_id': cls.c_own.id})
++        cls.a_other = env['synapsys.asset'].create({'name': 'RS-A-OTHER', 'context_id': cls.c_other.id})
++
++    def _seen(self, model, user, key, prefix):
++        return self.env[model].with_user(user).search([(key, 'like', prefix)])
++
++    def test_collaborator_sees_only_own_context_chain(self):
++        self.assertEqual(self._seen('synapsys.context', self.collab, 'code', 'RS-'), self.c_own)
++        self.assertEqual(self._seen('synapsys.strategy', self.collab, 'code', 'RS-S-'), self.s_own)
++        self.assertEqual(self._seen('synapsys.asset', self.collab, 'name', 'RS-A-'), self.a_own)
++        self.assertEqual(self._seen('synapsys.purpose', self.collab, 'code', 'RS-P-'), self.p_own)
++
++    def test_collaborator_cannot_read_other_context_by_id(self):
++        for rec in (self.c_other, self.s_other, self.a_other, self.p_other):
++            with self.assertRaises(AccessError):
++                rec.with_user(self.collab).read(['display_name'])
++
++    def test_stewarding_a_context_grants_sight(self):
++        self.c_other.steward_user_id = self.collab
++        self.assertIn(self.c_other, self._seen('synapsys.context', self.collab, 'code', 'RS-'))
++
++    def test_steward_sees_all(self):
++        self.assertEqual(self._seen('synapsys.context', self.steward, 'code', 'RS-'), self.c_own | self.c_other)
++        self.assertEqual(self._seen('synapsys.asset', self.steward, 'name', 'RS-A-'), self.a_own | self.a_other)

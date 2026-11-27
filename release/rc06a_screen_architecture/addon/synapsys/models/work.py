@@ -134,6 +134,13 @@ class SynapsysContextSteward(models.Model):
     work_object_ids = fields.One2many('synapsys.work.object', 'context_id', string='Work Objects')
 
 
+class SynapsysPurposeScope(models.Model):
+    _inherit = 'synapsys.purpose'
+
+    context_ids = fields.One2many('synapsys.context', 'purpose_id', string='Contexts',
+                                  help='Inverse of Context.purpose_id. Not stored. Lets the Collaborator row scope show a Purpose only through a Context the user stewards or belongs to.')
+
+
 class SynapsysWorkObject(models.Model):
     _name = 'synapsys.work.object'
     _description = 'Work Object (governed unit of work)'
