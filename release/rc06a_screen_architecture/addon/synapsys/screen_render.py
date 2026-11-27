@@ -284,31 +284,154 @@ def render_enable_panel(m, binding_status=None):
 
 
 
-PAGE_STYLE = ('<style>.syn-pg .syn-records{margin:18px 0 0;padding-top:12px;border-top:1px solid #e4e7eb}'
-              '.o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 1 auto}'
-              '.o_web_client:has(.syn-pg)>.syn-enable-panel,.o_web_client:has(.syn-pg)>:has(>.syn-enable-panel){order:1;flex:0 0 auto}'
-              '.o_web_client:has(.syn-pg) .o_action_manager .o_view_nocontent{position:static;padding:8px 16px;margin:0;min-height:0}'
-              '.syn-enable-panel{max-height:60vh;overflow:auto}</style>')
+# --- RC06i: menu pages (all) and the Service 1-3-1 projection -------------------------------------------------------------------------------------
+# Placement (probe on dev, RC06g installed): body.o_web_client is a viewport-height flex column: navbar, .o_action_manager (flexible, overflow hidden), then
+# .o-main-components-container, which holds the panel. While a page is on screen the container is ordered above the action manager and the whole
+# web client grows to its content, so the page scrolls as ONE page (no scroll container inside the panel) and the native view keeps a full-height area
+# below the Records heading instead of being squeezed. All rules exist only while a page is on screen (:has(.syn-pg)); the style block travels with the html.
+PAGE_STYLE = (
+    '<style>'
+    '.o_web_client:has(.syn-pg){height:auto;min-height:100vh;overflow-y:auto}'
+    '.o_web_client:has(.syn-pg)>.o-main-components-container,.o_web_client:has(.syn-pg)>.syn-enable-panel{order:1;flex:0 0 auto}'
+    '.o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 0 auto;height:calc(100vh - 46px);min-height:24rem}'
+    '.syn-sc.syn-pg{padding-bottom:0}.syn-pg .syn-records{margin:10px 0 0;padding-top:8px;padding-bottom:6px;border-top:1px solid #e4e7eb}'
+    # R5: wrap, never clip, on every menu page; at 600 px and below the trust table becomes stacked rows that keep Source
+    '.syn-sc.syn-pg table.tt td>div{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}'
+    '.syn-sc.syn-pg summary{display:flex;align-items:center;min-height:44px}'
+    '@media (max-width:600px){.syn-sc.syn-pg table.tt{table-layout:auto}.syn-sc.syn-pg .tt thead{display:none}'
+    '.syn-sc.syn-pg .tt,.syn-sc.syn-pg .tt tbody,.syn-sc.syn-pg .tt tr,.syn-sc.syn-pg .tt td{display:block;width:100%}'
+    '.syn-sc.syn-pg .tt tr{border-top:1px solid #e4e7eb;padding:6px 0}.syn-sc.syn-pg .tt td,.syn-sc.syn-pg .tt td:nth-child(3){display:block;border-top:0;padding:2px 8px}'
+    '.syn-sc.syn-pg .tt td::before{display:block;color:#7b8794;font-size:10px}'
+    '.syn-sc.syn-pg .tt td:nth-child(1)::before{content:"Claim"}.syn-sc.syn-pg .tt td:nth-child(2)::before{content:"Status"}'
+    '.syn-sc.syn-pg .tt td:nth-child(3)::before{content:"Source"}.syn-sc.syn-pg .tt td:nth-child(4)::before{content:"Open question"}}'
+    # R1: the one Detail control (44 px targets, visible keyboard focus)
+    '.syn-detail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}.syn-detail .syn-detail-l{color:#52606d;margin-right:4px}'
+    '.syn-detail button{min-height:44px;min-width:44px;padding:0 14px;border:1px solid #9aa5b1;border-radius:6px;background:#fff;color:#1f2933;cursor:pointer;font:inherit}'
+    '.syn-detail button[aria-pressed="true"]{background:#714b67;color:#fff;border-color:#714b67}'
+    '.syn-detail button:focus-visible{outline:3px solid #1d4ed8;outline-offset:2px}'
+    '</style>')
+
+SERVICE_STYLE = (
+    '<style>'
+    # R4: the adopted 14 / 12 / 10 px hierarchy, Service projection only (every size set explicitly; nothing else in the page changes)
+    '.syn-sc.syn-sv,.syn-sc.syn-sv h1,.syn-sc.syn-sv h2,.syn-sc.syn-sv .an,.syn-sc.syn-sv .tl,.syn-sc.syn-sv .mv,.syn-sc.syn-sv .sb,.syn-sc.syn-sv p,.syn-sc.syn-sv li{font-size:14px;line-height:1.45}'
+    '.syn-sc.syn-sv h1,.syn-sc.syn-sv h2{font-weight:600;margin:0 0 4px}'
+    '.syn-sc.syn-sv .tg,.syn-sc.syn-sv .lb,.syn-sc.syn-sv .kv,.syn-sc.syn-sv table.tt,.syn-sc.syn-sv .tt td,.syn-sc.syn-sv .tt th,.syn-sc.syn-sv summary,.syn-sc.syn-sv button,.syn-sc.syn-sv .syn-detail-l,.syn-sc.syn-sv .sv-chain li{font-size:12px}'
+    '.syn-sc.syn-sv .tt td>div,.syn-sc.syn-sv .tt td div>*,.syn-sc.syn-sv .kv span,.syn-sc.syn-sv .kv li,.syn-sc.syn-sv .tt li,.syn-sc.syn-sv .cd p,.syn-sc.syn-sv .cd li{font-size:12px}'
+    '.syn-sc.syn-sv .nt,.syn-sc.syn-sv .sv-cap,.syn-sc.syn-sv .tt td::before{font-size:10px}'
+    '.syn-sv .sv-band,.syn-sv .sv-ap{border:1px solid #e4e7eb;border-radius:10px;padding:12px 14px;background:#fff}'
+    '.syn-sv .sv-answer h1{display:inline;margin-right:8px}.syn-sv .sv-ap .cd{border:0;padding:0;margin:0}'
+    '.syn-sv .sv-apertures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}'
+    '.syn-sv .sv-apertures>.sv-ap[data-aperture="evolve"].sv-wide{grid-column:1/-1}'
+    '.syn-sv .sv-ap p{margin:6px 0}.syn-sv .sv-cap{color:#7b8794;margin:0 0 4px}'
+    '.syn-sv .sv-value{background:#f8fafc;border-color:#cbd2d9}.syn-sv .sv-chain{list-style:none;margin:6px 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}'
+    '.syn-sv .sv-chain li{border:1px dashed #9aa5b1;border-radius:8px;padding:6px 8px;overflow-wrap:anywhere}'
+    '@media (max-width:700px){.syn-sv .sv-apertures{grid-template-columns:minmax(0,1fr);gap:6px;margin:6px 0}.syn-sv .sv-band,.syn-sv .sv-ap{padding:8px 10px}'
+    '.syn-sv .sv-chain{display:flex;flex-wrap:wrap;gap:6px}.syn-sv .sv-chain li{padding:4px 8px}.syn-sv .sv-ap p{margin:2px 0}.syn-sv .syn-detail{margin-top:6px}}'
+    '</style>')
+
+DEPTH_ORDER = ('enable', 'enhance', 'enrich')
+SERVICE_SCREEN = 'SCR.SERVICE.NOUN'
+MEASURES_SCREEN = 'SCR.MESH_MEASURES.MENU'
+VALUE_CHAIN = ('Service performance', 'Outcome', 'Verified Benefit contribution', 'Realisation', 'Enduring Asset effect')  # v1.3 section 1
 
 
-def render_menu_page(m, binding_status=None):
-    """A bound menu's page in the lens template (RC06h): the same frame as the Context specimen (header with status chip, answer, trust line,
-    movement line) and the depth sections the screen's own declaration carries, then a Records heading above the untouched native view.
-    The depth tabs are the client's shared Depth control; this function renders the definition only. Read-only; no script, no back link."""
-    if not isinstance(m, dict) or m.get('result') != 'OK' or 'slots' not in m:
-        return ''
+def detail_control(depth):
+    """R1: the ONE depth control of a menu page, rendered here and nowhere else. Pressed state is the depth that was served; a click is handled by the
+    client's single delegated handler and goes to the shared lens-mode service."""
+    b = ''.join('<button type="button" data-mode="%s" aria-pressed="%s">%s</button>' % (d, 'true' if d == depth else 'false', LABEL[d]) for d in DEPTH_ORDER)
+    return '<div class="syn-detail" role="group" aria-label="Detail level" data-control="detail"><span class="syn-detail-l">Detail</span>%s</div>' % b
+
+
+def _page_open(m, extra_cls=''):
+    return '<div class="syn-sc syn-pg%s" data-page="menu" data-screen="%s" data-screen-type="%s" data-depth="%s">' % (
+        extra_cls, _e(str(m['screen'])), _e(str(m['screen_type'])), _e(m['depth_effective']))
+
+
+def _page_foot(m, binding_status, compact=False):
     eff = m['depth_effective']
-    h = STYLE + PAGE_STYLE + '<div class="syn-sc syn-pg" data-page="menu" data-screen="%s" data-screen-type="%s" data-depth="%s">' % (
-        _e(str(m['screen'])), _e(str(m['screen_type'])), _e(eff))
-    for slot in m['slots']:
-        h += _slot_answer(m, lead=False) if slot == 'answer' else SLOT_BUILDERS[slot](m)  # the chip beside the title carries the status: no lead
-    na = m.get('not_applicable')
-    if na:
-        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
-    note = DEPTH_NOTE.get(eff, '')
+    note = '' if compact else DEPTH_NOTE.get(eff, '')  # the Service projection states depth in its own Detail control; the long how-to sentence is dropped there
     if m.get('depth_clamped') and m.get('clamp_reason') == 'role':
         note += ' (Your role limits the depth to %s.)' % LABEL[eff]
+    if compact:
+        b = ('Binding: %s. ' % _e(str(binding_status))) if binding_status else ''
+        return '<p class="nt" data-slot="binding">%s%sPresentation only: this view changes no data, kind, PPV, approval or right.</p><h2 class="syn-records" data-slot="records">Records</h2></div>' % (b, _e(note.strip() + ' ' if note.strip() else ''))
+    h = ''
     if binding_status:
         h += '<p class="nt" data-slot="binding">Binding: %s</p>' % _e(str(binding_status))
     h += '<p class="nt">%s Presentation only: this view changes no data, kind, PPV, approval or right.</p>' % _e(note)
     return h + '<h2 class="syn-records" data-slot="records">Records</h2></div>'
+
+
+def _measures_scope(m):
+    """R7: what this page does and does not know about Measures. No read, no count, no chart; the native list under Records is the only view of stored measures."""
+    return ('<div class="cd" data-slot="measures_scope"><p>Observations: not available on this screen. No stored measure is read here; the native list under Records shows what exists.</p>'
+            '<p>Owner: none declared on this screen.</p></div>')
+
+
+def render_menu_page(m, binding_status=None):
+    """A bound menu's page in the lens template. Service gets its 1-3-1 projection; every other menu page keeps the generic frame. In both, the page
+    definition comes first, the Detail control is inside the answer area, and the Records heading closes the page above the untouched native view."""
+    if not isinstance(m, dict) or m.get('result') != 'OK' or 'slots' not in m:
+        return ''
+    if m.get('screen') == SERVICE_SCREEN:
+        return render_service_page(m, binding_status)
+    eff = m['depth_effective']
+    h = STYLE + PAGE_STYLE + _page_open(m)
+    for slot in m['slots']:
+        if slot == 'answer':
+            h += _slot_answer(m, lead=False)  # the chip beside the title carries the status: no lead
+            h += detail_control(eff)
+        else:
+            h += SLOT_BUILDERS[slot](m)
+        if slot == 'movement' and m.get('screen') == MEASURES_SCREEN:
+            h += _measures_scope(m)
+    na = m.get('not_applicable')
+    if na:
+        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
+    return h + _page_foot(m, binding_status)
+
+
+def _service_header(m):
+    hd = m['frame']['header']
+    return '<div data-slot="header"><h1>%s %s</h1></div>' % (_e(hd['noun']), _pill(hd.get('status') or 'UNSOURCED'))
+
+
+def _form_line(m):
+    ver = m.get('registry_version')
+    if ver:
+        return '<p class="sv-line" data-line="form">Definition source: registry %s, %s.</p>' % (_e(str(ver)), _e(str(m.get('registry_state') or 'state not given')))
+    return '<p class="sv-line" data-line="form">No registry source is declared for this screen.</p>'
+
+
+def _evolve_line(m):
+    t = m['frame']['trust']
+    return '<p class="sv-line" data-line="evolve">Trust: %s %s.</p>' % (_pill(t['status'] or 'UNSOURCED'), _e(_plural(t['source_count'], 'source')))
+
+
+def render_service_page(m, binding_status=None):
+    """RC06i: the Service page in the adopted 1-3-1 layout (Service Catalogue Master Reference v1.3 s1): one full-width Answer band, three operating
+    apertures Form / Flow / Evolve, one always-visible Value band. Built only from the slots the projection already returns; nothing is inferred
+    (Form / Flow / Evolve here group what is shown, they are not x_ffe_state). A slot with no source says so."""
+    eff = m['depth_effective']
+    ix = DEPTH_ORDER.index(eff)
+    h = STYLE + PAGE_STYLE + SERVICE_STYLE + _page_open(m, ' syn-sv').replace('data-page="menu"', 'data-page="menu" data-projection="service-1-3-1"')
+    h += '<section class="sv-band sv-answer" data-band="answer">' + _service_header(m) + _slot_answer(m, lead=False) + SLOT_BUILDERS['trust'](m) + detail_control(eff) + '</section>'
+    wide = ' sv-wide' if ix == 2 else ''
+    form = '<section class="sv-ap" data-aperture="form"><h2>Form</h2><p class="sv-cap">SynapSys: definition and alignment</p>' + _form_line(m)
+    flow = '<section class="sv-ap" data-aperture="flow"><h2>Flow</h2><p class="sv-cap">Disciplines: operation and movement</p>' + SLOT_BUILDERS['movement'](m)
+    evolve = '<section class="sv-ap%s" data-aperture="evolve"><h2>Evolve</h2><p class="sv-cap">Mesh: evidence, learning and value realisation</p>' % wide + _evolve_line(m)
+    if ix >= 1:
+        form += SLOT_BUILDERS['made_of'](m)
+        flow += SLOT_BUILDERS['peers'](m)
+    if ix >= 2:
+        evolve += SLOT_BUILDERS['open_questions'](m) + SLOT_BUILDERS['trust_table'](m) + SLOT_BUILDERS['technical'](m)
+    h += '<div class="sv-apertures" data-band="apertures">' + form + '</section>' + flow + '</section>' + evolve + '</section></div>'
+    h += ('<section class="sv-band sv-value" data-band="value"><h2>Value</h2>'
+          '<p class="sv-cap" data-slot="value_definition">Definition of the value chain, from the Service Catalogue Master Reference v1.3. It is not a record of this Service.</p>'
+          '<ol class="sv-chain">%s</ol>'
+          '<p data-slot="value_records">Benefits and Assets recorded against this Service are not read on this screen.</p></section>') % ''.join('<li>%s</li>' % _e(v) for v in VALUE_CHAIN)
+    na = m.get('not_applicable')
+    if na:
+        h += '<div class="cd" data-slot="not_applicable">%s: %s (%s).</div>' % (_e(LABEL[na['requested']]), _e(na['text']), _e(na['reason']))
+    return h + _page_foot(m, binding_status, compact=True)

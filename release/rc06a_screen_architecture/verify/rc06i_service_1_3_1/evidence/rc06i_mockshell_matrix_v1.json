@@ -1,0 +1,4900 @@
+{
+ "rc06g": {
+  "commit": "88eb331",
+  "not_rendered": [
+   "measures|enhance",
+   "measures|enrich",
+   "noun_ruled|enhance",
+   "noun_ruled|enrich",
+   "service|enhance",
+   "service|enrich"
+  ],
+  "cases": [
+   {
+    "case": "measures_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "enable_head_fits_viewport": false
+    }
+   },
+   {
+    "case": "measures_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "enable_head_fits_viewport": false
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false,
+     "enable_head_fits_viewport": false
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": false,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   }
+  ],
+  "raw": [
+   {
+    "file": "measures_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 511.5,
+      "answer": 598.5,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 348.5,
+     "nativeTop": 46,
+     "nativeHeight": 449.5,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "measures_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 580,
+      "answer": 647.5,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 290,
+     "nativeTop": 46,
+     "nativeHeight": 518,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 466.5,
+      "answer": 553.5,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 393.5,
+     "nativeTop": 46,
+     "nativeHeight": 404.5,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 580,
+      "answer": 647.5,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 290,
+     "nativeTop": 46,
+     "nativeHeight": 518,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 489,
+      "answer": 576,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 371,
+     "nativeTop": 46,
+     "nativeHeight": 427,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 580,
+      "answer": 647.5,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 290,
+     "nativeTop": 46,
+     "nativeHeight": 518,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 0,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 844,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 798,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -844,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": null,
+      "answer": null,
+      "apertures": null,
+      "value": null,
+      "records": null,
+      "native": 46
+     },
+     "recordsBottom": null,
+     "panelBottom": 854,
+     "panelHeight": 0,
+     "nativeTop": 46,
+     "nativeHeight": 808,
+     "gapRecordsToNative": null,
+     "controlCount": 0,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": false,
+     "controlAllPressedAttr": false,
+     "pressed": [],
+     "targets": [],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -854,
+     "keyboard": {
+      "reached": false,
+      "outline": null
+     }
+    }
+   }
+  ]
+ },
+ "rc06h": {
+  "commit": "e5322c9",
+  "not_rendered": [],
+  "cases": [
+   {
+    "case": "measures_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "measures_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": false,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": false,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": false,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": true,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": false,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": false,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": false,
+     "source_visible": true,
+     "targets_44": false,
+     "one_accessible_control": false,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": false,
+     "content_reachable": false,
+     "list_not_squeezed": false,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": false,
+     "value_band": false,
+     "font_14_12_10": false
+    }
+   }
+  ],
+  "raw": [
+   {
+    "file": "measures_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 431.875,
+      "native": 519.375
+     },
+     "recordsBottom": 470.375,
+     "panelBottom": 519.375,
+     "panelHeight": 473.375,
+     "nativeTop": 519.375,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 49,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -326,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 355.375,
+      "native": 442.875
+     },
+     "recordsBottom": 393.875,
+     "panelBottom": 442.875,
+     "panelHeight": 396.875,
+     "nativeTop": 442.875,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 49,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -412,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 740.375,
+      "native": 553.390625
+     },
+     "recordsBottom": 778.875,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -225.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -17,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 600.375,
+      "native": 559.390625
+     },
+     "recordsBottom": 638.875,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -79.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -167,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 1140.375,
+      "native": 553.390625
+     },
+     "recordsBottom": 1178.875,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -625.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "full text",
+       "w": 92,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "full text",
+       "w": 92,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "full text",
+       "w": 92,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "full text",
+       "w": 92,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "A measure stored by Mesh address",
+      "The job ships switched off; switching it",
+      "Empty: Door receipts and Measures. The M"
+     ],
+     "ellipsisCells": 3,
+     "cells": 16,
+     "sourceRows": 3,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 574,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 1017.875,
+      "native": 559.390625
+     },
+     "recordsBottom": 1056.375,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -496.984375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "A measure stored by Mesh address",
+      "The job ships switched off; switching it",
+      "Empty: Door receipts and Measures. The M"
+     ],
+     "ellipsisCells": 3,
+     "cells": 16,
+     "sourceRows": 3,
+     "sourceVisible": 3,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 274,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 476.875,
+      "native": 553.390625
+     },
+     "recordsBottom": 515.375,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 38.015625,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -281,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 355.375,
+      "native": 442.875
+     },
+     "recordsBottom": 393.875,
+     "panelBottom": 442.875,
+     "panelHeight": 396.875,
+     "nativeTop": 442.875,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 49,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -412,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 607.875,
+      "native": 553.390625
+     },
+     "recordsBottom": 646.375,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -92.984375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -150,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 486.375,
+      "native": 559.390625
+     },
+     "recordsBottom": 524.875,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 34.515625,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -281,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 986.375,
+      "native": 553.390625
+     },
+     "recordsBottom": 1024.875,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -471.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "Project meaning"
+     ],
+     "ellipsisCells": 1,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 229,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 842.875,
+      "native": 559.390625
+     },
+     "recordsBottom": 881.375,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -321.984375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "Project meaning"
+     ],
+     "ellipsisCells": 1,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 117,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 454.375,
+      "native": 541.875
+     },
+     "recordsBottom": 492.875,
+     "panelBottom": 541.875,
+     "panelHeight": 495.875,
+     "nativeTop": 541.875,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 49,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -303,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 355.375,
+      "native": 442.875
+     },
+     "recordsBottom": 393.875,
+     "panelBottom": 442.875,
+     "panelHeight": 396.875,
+     "nativeTop": 442.875,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": 49,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -412,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 975.875,
+      "native": 553.390625
+     },
+     "recordsBottom": 1014.375,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -460.984375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 218,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 726.375,
+      "native": 559.390625
+     },
+     "recordsBottom": 764.875,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -205.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -41,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 844,
+     "tops": {
+      "header": 105.375,
+      "answer": 192.375,
+      "apertures": null,
+      "value": null,
+      "records": 1478.375,
+      "native": 553.390625
+     },
+     "recordsBottom": 1516.875,
+     "panelBottom": 553.390625,
+     "panelHeight": 507.390625,
+     "nativeTop": 553.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -963.484375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 0,
+       "h": 0
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "Service meaning"
+     ],
+     "ellipsisCells": 1,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 726,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 854,
+     "tops": {
+      "header": 105.375,
+      "answer": 172.875,
+      "apertures": null,
+      "value": null,
+      "records": 1103.875,
+      "native": 559.390625
+     },
+     "recordsBottom": 1142.375,
+     "panelBottom": 559.390625,
+     "panelHeight": 513.390625,
+     "nativeTop": 559.390625,
+     "nativeHeight": 110.375,
+     "gapRecordsToNative": -582.984375,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "smallTargets": [
+      {
+       "t": "enable",
+       "w": 57,
+       "h": 26
+      },
+      {
+       "t": "enhance",
+       "w": 68,
+       "h": 26
+      },
+      {
+       "t": "enrich",
+       "w": 54,
+       "h": 26
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 18
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 18
+      }
+     ],
+     "scrollContainers": 1,
+     "truncated": [
+      "Service meaning"
+     ],
+     "ellipsisCells": 1,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": 336,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "auto",
+       "width": "1px"
+      }
+     }
+    }
+   }
+  ]
+ },
+ "rc06i": {
+  "commit": "working tree",
+  "not_rendered": [],
+  "cases": [
+   {
+    "case": "measures_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "measures_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "measures_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "noun_ruled_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "noun_ruled_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true,
+     "enable_head_fits_viewport": true
+    }
+   },
+   {
+    "case": "service_enable",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true
+    }
+   },
+   {
+    "case": "service_enhance",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 390,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true
+    }
+   },
+   {
+    "case": "service_enrich",
+    "w": 1024,
+    "checks": {
+     "dom_order": true,
+     "no_horizontal_scroll": true,
+     "no_truncated_cell": true,
+     "source_visible": true,
+     "targets_44": true,
+     "one_accessible_control": true,
+     "keyboard_focus_visible": true,
+     "no_nested_scroll": true,
+     "content_reachable": true,
+     "list_not_squeezed": true,
+     "records_adjacent_to_native": true,
+     "apertures_ffe": true,
+     "value_band": true,
+     "font_14_12_10": true
+    }
+   }
+  ],
+  "raw": [
+   {
+    "file": "measures_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1432,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 592.5,
+      "native": 634
+     },
+     "recordsBottom": 633,
+     "panelBottom": 634,
+     "panelHeight": 588,
+     "nativeTop": 634,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -799,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1324,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 474,
+      "native": 515.5
+     },
+     "recordsBottom": 514.5,
+     "panelBottom": 515.5,
+     "panelHeight": 469.5,
+     "nativeTop": 515.5,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -809,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1741,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 901,
+      "native": 942.5
+     },
+     "recordsBottom": 941.5,
+     "panelBottom": 942.5,
+     "panelHeight": 896.5,
+     "nativeTop": 942.5,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -799,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1569,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 719,
+      "native": 760.5
+     },
+     "recordsBottom": 759.5,
+     "panelBottom": 760.5,
+     "panelHeight": 714.5,
+     "nativeTop": 760.5,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -809,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 2744,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 1904,
+      "native": 1945.5
+     },
+     "recordsBottom": 1944.5,
+     "panelBottom": 1945.5,
+     "panelHeight": 1899.5,
+     "nativeTop": 1945.5,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "full text",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "full text",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 16,
+     "sourceRows": 3,
+     "sourceVisible": 3,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -556,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "measures_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 2167,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 1317.5,
+      "native": 1359
+     },
+     "recordsBottom": 1358,
+     "panelBottom": 1359,
+     "panelHeight": 1313,
+     "nativeTop": 1359,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "full text",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 16,
+     "sourceRows": 3,
+     "sourceVisible": 3,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -733,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1313,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 473.5,
+      "native": 515
+     },
+     "recordsBottom": 514,
+     "panelBottom": 515,
+     "panelHeight": 469,
+     "nativeTop": 515,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -799,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1202,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 352,
+      "native": 393.5
+     },
+     "recordsBottom": 392.5,
+     "panelBottom": 393.5,
+     "panelHeight": 347.5,
+     "nativeTop": 393.5,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -809,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1444,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 604.5,
+      "native": 646
+     },
+     "recordsBottom": 645,
+     "panelBottom": 646,
+     "panelHeight": 600,
+     "nativeTop": 646,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -799,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1333,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 483,
+      "native": 524.5
+     },
+     "recordsBottom": 523.5,
+     "panelBottom": 524.5,
+     "panelHeight": 478.5,
+     "nativeTop": 524.5,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -809,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1917,
+     "tops": {
+      "header": 62,
+      "answer": 149,
+      "apertures": null,
+      "value": null,
+      "records": 1077.5,
+      "native": 1119
+     },
+     "recordsBottom": 1118,
+     "panelBottom": 1119,
+     "panelHeight": 1073,
+     "nativeTop": 1119,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 308,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 358,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -795,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "noun_ruled_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1741,
+     "tops": {
+      "header": 62,
+      "answer": 129.5,
+      "apertures": null,
+      "value": null,
+      "records": 891.5,
+      "native": 933
+     },
+     "recordsBottom": 932,
+     "panelBottom": 933,
+     "panelHeight": 887,
+     "nativeTop": 933,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 1,
+     "controlCount": 1,
+     "controlInAnswerBand": false,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 75,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 87,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 72,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 992,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [],
+     "valueBand": false,
+     "fonts": {},
+     "unreachablePx": -741,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 1641,
+     "tops": {
+      "header": 71,
+      "answer": 91.390625,
+      "apertures": 227.375,
+      "value": 509.140625,
+      "records": 802.203125,
+      "native": 842.5
+     },
+     "recordsBottom": 837.5,
+     "panelBottom": 842.5,
+     "panelHeight": 796.5,
+     "nativeTop": 842.5,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 12,
+      "12px": 13,
+      "10px": 5
+     },
+     "unreachablePx": -803,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enable",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1412,
+     "tops": {
+      "header": 75,
+      "answer": 95.390625,
+      "apertures": 223.078125,
+      "value": 374.859375,
+      "records": 563.84375,
+      "native": 604.140625
+     },
+     "recordsBottom": 599.140625,
+     "panelBottom": 604.140625,
+     "panelHeight": 558.140625,
+     "nativeTop": 604.140625,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enable"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 12,
+      "12px": 13,
+      "10px": 5
+     },
+     "unreachablePx": -813,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 2074,
+     "tops": {
+      "header": 71,
+      "answer": 91.390625,
+      "apertures": 227.375,
+      "value": 942.5,
+      "records": 1235.5625,
+      "native": 1275.859375
+     },
+     "recordsBottom": 1270.859375,
+     "panelBottom": 1275.859375,
+     "panelHeight": 1229.859375,
+     "nativeTop": 1275.859375,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 15,
+      "12px": 45,
+      "10px": 5
+     },
+     "unreachablePx": -803,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enhance",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 1772,
+     "tops": {
+      "header": 75,
+      "answer": 95.390625,
+      "apertures": 223.078125,
+      "value": 734.9375,
+      "records": 923.921875,
+      "native": 964.21875
+     },
+     "recordsBottom": 959.21875,
+     "panelBottom": 964.21875,
+     "panelHeight": 918.21875,
+     "nativeTop": 964.21875,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enhance"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 0,
+     "sourceRows": 0,
+     "sourceVisible": 0,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 15,
+      "12px": 45,
+      "10px": 5
+     },
+     "unreachablePx": -813,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 390,
+    "h": 844,
+    "m": {
+     "docScrollW": 390,
+     "vw": 390,
+     "vh": 844,
+     "docH": 2520,
+     "tops": {
+      "header": 71,
+      "answer": 91.390625,
+      "apertures": 227.375,
+      "value": 1388.78125,
+      "records": 1681.84375,
+      "native": 1722.140625
+     },
+     "recordsBottom": 1717.140625,
+     "panelBottom": 1722.140625,
+     "panelHeight": 1676.140625,
+     "nativeTop": 1722.140625,
+     "nativeHeight": 798,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 320,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 336,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 17,
+      "12px": 73,
+      "10px": 5
+     },
+     "unreachablePx": -803,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   },
+   {
+    "file": "service_enrich",
+    "w": 1024,
+    "h": 854,
+    "m": {
+     "docScrollW": 1024,
+     "vw": 1024,
+     "vh": 854,
+     "docH": 2162,
+     "tops": {
+      "header": 75,
+      "answer": 95.390625,
+      "apertures": 223.078125,
+      "value": 1125.0625,
+      "records": 1314.046875,
+      "native": 1354.34375
+     },
+     "recordsBottom": 1349.34375,
+     "panelBottom": 1354.34375,
+     "panelHeight": 1308.34375,
+     "nativeTop": 1354.34375,
+     "nativeHeight": 808,
+     "gapRecordsToNative": 5,
+     "controlCount": 1,
+     "controlInAnswerBand": true,
+     "controlGroupLabelled": true,
+     "controlAllPressedAttr": true,
+     "pressed": [
+      "enrich"
+     ],
+     "targets": [
+      {
+       "t": "Enable",
+       "w": 68,
+       "h": 44
+      },
+      {
+       "t": "Enhance",
+       "w": 79,
+       "h": 44
+      },
+      {
+       "t": "Enrich",
+       "w": 66,
+       "h": 44
+      },
+      {
+       "t": "full citation",
+       "w": 224,
+       "h": 44
+      },
+      {
+       "t": "Technical details",
+       "w": 962,
+       "h": 44
+      }
+     ],
+     "smallTargets": [],
+     "scrollContainers": 0,
+     "truncated": [],
+     "ellipsisCells": 0,
+     "cells": 8,
+     "sourceRows": 1,
+     "sourceVisible": 1,
+     "apertures": [
+      "form",
+      "flow",
+      "evolve"
+     ],
+     "valueBand": true,
+     "fonts": {
+      "14px": 17,
+      "12px": 73,
+      "10px": 5
+     },
+     "unreachablePx": -813,
+     "keyboard": {
+      "reached": true,
+      "outline": {
+       "style": "solid",
+       "width": "3px"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

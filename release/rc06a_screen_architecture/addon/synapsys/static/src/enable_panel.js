@@ -3,9 +3,9 @@ import { rpc } from "@web/core/network/rpc";
 import { Component, proxy, markup, onWillDestroy } from "@odoo/owl";
 import { useBus, useService } from "@web/core/utils/hooks";
 
-// Read-only page head for a bound menu's native view (RC06g panel; RC06h: lens template with the shared Depth tabs).
+// Read-only page head for a bound menu's native view (RC06g panel; RC06h lens template; RC06i: one server-rendered Detail control).
 // It never replaces or edits the native view, action, menu or any record. It asks ONE read-only route about the window action now on screen
-// (by action id) at the shared presentation depth (the same Depth control as the Context page) and shows what the route returns, or nothing:
+// (by action id) at the shared presentation depth (the same shared lens-mode service as the Context page; no second depth state) and shows what the route returns, or nothing:
 // a refusal, an error or an action that is not bound leaves no panel and no tabs. It writes nothing and derives no id from a label.
 const MODES = ["enable", "enhance", "enrich"];
 
@@ -20,11 +20,12 @@ export class SynapsysEnablePanel extends Component {
         onWillDestroy(off);
         this.refresh();
     }
-    get modes() {
-        return MODES;
-    }
-    setMode(m) {
-        this.lm.setMode(m);
+    onClick(ev) {
+        // the one Detail control is rendered by the server inside the page; this single delegated handler is the only place a click becomes a depth change
+        const b = ev.target && ev.target.closest ? ev.target.closest("[data-control='detail'] [data-mode]") : null;
+        if (b && MODES.includes(b.dataset.mode)) {
+            this.lm.setMode(b.dataset.mode);
+        }
     }
     currentActionId() {
         const ctrl = this.action && this.action.currentController;

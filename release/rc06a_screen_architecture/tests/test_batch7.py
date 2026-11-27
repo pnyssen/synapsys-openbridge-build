@@ -25,16 +25,24 @@ class H1_ThreeTabsAndDepths(unittest.TestCase):
                 self.assertEqual(r["depth"], d)
                 h = r["html"]
                 self.assertEqual(re.findall(r'data-slot="(header|answer|trust|movement)"', h), ["header", "answer", "trust", "movement"], (b["menu_name"], d))
-                self.assertIn('data-depth="%s"' % d, h); self.assertIn("Depth: %s" % d.capitalize(), h)
+                self.assertIn('data-depth="%s"' % d, h)
+                if b["screen_id"] != "SCR.SERVICE.NOUN":  # RC06i: the Service projection states depth in its Detail control only
+                    self.assertIn("Depth: %s" % d.capitalize(), h)
                 self.assertEqual(h.count('data-slot="records"'), 1); self.assertTrue(h.rstrip().endswith('Records</h2></div>'))
                 self.assertNotIn("<script", h); self.assertNotIn('class="bk"', h)
 
     def test_enable_has_only_the_frame_enhance_adds_made_of_and_peers_enrich_adds_trust_table_open_questions_technical(self):
         for b in BOUND:
             got = {d: re.findall(r'data-slot="(\w+)"', page(b, d)["html"]) for d in PAGE_DEPTHS}
-            self.assertEqual(got["enable"], ["header", "answer", "trust", "movement", "binding", "records"], b["menu_name"])
-            self.assertEqual(got["enhance"], ["header", "answer", "trust", "movement", "made_of", "peers", "binding", "records"], b["menu_name"])
-            self.assertEqual(got["enrich"], ["header", "answer", "trust", "movement", "made_of", "peers", "trust_table", "open_questions", "technical", "binding", "records"], b["menu_name"])
+            if b["screen_id"] == "SCR.SERVICE.NOUN":  # RC06i: Form holds made_of, Flow holds movement and peers, Evolve holds the trust material, the Value band always
+                self.assertEqual(got["enable"], ["header", "answer", "trust", "movement", "value_definition", "value_records", "binding", "records"])
+                self.assertEqual(got["enhance"], ["header", "answer", "trust", "made_of", "movement", "peers", "value_definition", "value_records", "binding", "records"])
+                self.assertEqual(got["enrich"], ["header", "answer", "trust", "made_of", "movement", "peers", "open_questions", "trust_table", "technical", "value_definition", "value_records", "binding", "records"])
+                continue
+            extra = ["measures_scope"] if b["screen_id"] == "SCR.MESH_MEASURES.MENU" else []
+            self.assertEqual(got["enable"], ["header", "answer", "trust", "movement"] + extra + ["binding", "records"], b["menu_name"])
+            self.assertEqual(got["enhance"], ["header", "answer", "trust", "movement"] + extra + ["made_of", "peers", "binding", "records"], b["menu_name"])
+            self.assertEqual(got["enrich"], ["header", "answer", "trust", "movement"] + extra + ["made_of", "peers", "trust_table", "open_questions", "technical", "binding", "records"], b["menu_name"])
 
     def test_enhance_and_enrich_show_the_declarations_own_content_and_say_plainly_when_it_has_none(self):
         plain_made, plain_peers = [], []
@@ -127,22 +135,22 @@ class H2_Entitlement(unittest.TestCase):
 class H3_LayoutRules(unittest.TestCase):
     CSS = sr.PAGE_STYLE
 
-    def test_the_page_sits_above_the_native_view_by_flex_order_and_the_view_is_not_replaced(self):
-        self.assertIn(".o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 1 auto}", self.CSS)
-        self.assertIn(".o_web_client:has(.syn-pg)>.syn-enable-panel,.o_web_client:has(.syn-pg)>:has(>.syn-enable-panel){order:1;flex:0 0 auto}", self.CSS)
-        # the rules only exist while a page is on screen: the style block travels with the page html, so there is no global change
+    def test_the_page_is_ordered_above_the_native_view_and_the_web_client_grows_so_the_page_scrolls_as_one(self):
+        # rule text only; the real-browser proof is tests/test_layout_browser.py (the contract says a CSS regex is not a layout test)
+        self.assertIn(".o_web_client:has(.syn-pg){height:auto;min-height:100vh;overflow-y:auto}", self.CSS)
+        self.assertIn(".o_web_client:has(.syn-pg)>.o-main-components-container,.o_web_client:has(.syn-pg)>.syn-enable-panel{order:1;flex:0 0 auto}", self.CSS)
+        self.assertIn(".o_web_client:has(.syn-pg)>.o_action_manager{order:2;flex:0 0 auto;height:calc(100vh - 46px);min-height:24rem}", self.CSS)
         for r in BOUND[:3]:
-            self.assertIn(self.CSS, page(r, "enable")["html"])
+            self.assertIn(self.CSS, page(r, "enable")["html"])  # the style block travels with the page: no global change
         js = open(os.path.join(F.ADDON, "static", "src", "enable_panel.js"), encoding="utf-8").read()
         xml = open(os.path.join(F.ADDON, "static", "src", "enable_panel.xml"), encoding="utf-8").read()
         for bad in ("t-inherit", "patch(", "registry.category(\"actions\")", "registry.category(\"views\")"):
             self.assertNotIn(bad, js + xml)  # nothing replaces or extends the native action, view or a core template
 
-    def test_an_empty_list_has_no_tall_blank_band_rule_check_only(self):
-        self.assertIn(".o_view_nocontent{position:static;padding:8px 16px;margin:0;min-height:0}", self.CSS)
-        self.assertNotRegex(self.CSS, r"min-height:\s*\d+(vh|px|rem)")
-        self.assertNotRegex(self.CSS, r"(?<!max-)height:\s*\d+(vh|px)")
-        self.assertIn(".syn-enable-panel{max-height:60vh;overflow:auto}", self.CSS)  # a tall page scrolls inside itself and cannot push the list away
+    def test_there_is_no_scroll_container_rule_in_the_panel_and_no_guessed_empty_state_rule(self):
+        self.assertNotIn("max-height:60vh", self.CSS); self.assertNotIn(".syn-enable-panel{max-height", self.CSS)
+        self.assertNotIn("o_view_nocontent", self.CSS)  # RC06h guessed Odoo's empty-state class; the real-browser matrix measures the gap instead
+        self.assertIn(".syn-sc.syn-pg{padding-bottom:0}", self.CSS)  # no 48 px band between the Records heading and the view
 
     def test_the_records_heading_closes_the_definition_and_precedes_the_native_view(self):
         for b in BOUND:
@@ -150,7 +158,7 @@ class H3_LayoutRules(unittest.TestCase):
             self.assertEqual(h.count("<h2 class=\"syn-records\""), 1)
             self.assertLess(h.index('data-slot="header"'), h.index('data-slot="records"'))
             self.assertEqual(text(h.split('data-slot="records">')[1]), "Records")
-        self.assertIn(".syn-pg .syn-records{margin:18px 0 0;padding-top:12px;border-top:1px solid #e4e7eb}", self.CSS)
+        self.assertIn(".syn-pg .syn-records{margin:10px 0 0;padding-top:8px;padding-bottom:6px;border-top:1px solid #e4e7eb}", self.CSS)
 
     def test_trust_table_cells_after_the_claim_wrap_instead_of_clipping(self):
         css = sr.STYLE

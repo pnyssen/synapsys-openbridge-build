@@ -1,0 +1,9 @@
+RC06i real-browser layout matrix (MOCK SHELL: structural evidence only, not signed-in Odoo)
+Requires: node + playwright + Chromium (preinstalled in the build container), git objects for 88eb331 and e5322c9.
+From the repo root:
+  python3 release/rc06a_screen_architecture/verify/rc06i_service_1_3_1/run_matrix.py /tmp/rc06i_matrix
+Writes matrix.json, metrics_<version>.json, shell_<version>/*.html and screenshots_<version>/*.png (390x844 and 1024x854, Enable/Enhance/Enrich,
+Service action 297, Measures action 189, one RULED noun). The test that asserts the results: 
+  cd release/rc06a_screen_architecture/tests && python3 -m unittest test_layout_browser
+Shell shape comes from the DOM probe on dev: RETURN_COWORK_DOM_PROBE_RC06G_DEV_SERVICES_20261127_v1.md (sha256 f69e3c93a27e13c5df7bc883b20414b345f4d12e8cbc27ae147fcdac6076635f).
+Screenshots in evidence/ are the working tree (rc06i, all cases), plus RC06h Service Enable and Enrich and RC06g Service Enable for comparison.

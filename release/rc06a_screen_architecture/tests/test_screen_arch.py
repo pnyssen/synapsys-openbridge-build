@@ -397,7 +397,14 @@ class C15_to_C16_Declared(unittest.TestCase):
             tree = ast.parse(open(os.path.join(F.ADDON, f), encoding="utf-8").read())
             lits = [n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)]
             doc_nodes = {id(n.body[0].value) for n in ast.walk(tree) if isinstance(n, (ast.Module, ast.FunctionDef, ast.ClassDef)) and n.body and isinstance(n.body[0], ast.Expr) and isinstance(getattr(n.body[0], "value", None), ast.Constant)}
-            code_lits = [n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in doc_nodes]
+            # RC06i (contract R2): the Service 1-3-1 projection is the one declared exception; its own function bodies and constants are excluded, everything else is still checked
+            svc_nodes = set()
+            for n in ast.walk(tree):
+                if isinstance(n, ast.FunctionDef) and n.name in ("render_service_page", "_service_header", "_form_line", "_evolve_line"):
+                    svc_nodes |= {id(x) for x in ast.walk(n)}
+                if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id in ("SERVICE_SCREEN", "VALUE_CHAIN", "SERVICE_STYLE", "MEASURES_SCREEN") for t in n.targets):
+                    svc_nodes |= {id(x) for x in ast.walk(n)}
+            code_lits = [n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in doc_nodes and id(n) not in svc_nodes]
             for lit in code_lits:
                 self.assertIsNone(re.search(r"N\.(CONTEXT|CAPABILITY|SERVICE|ASSET)|H\.CTX|R\.CTX|Context scaffold|Capability|Service\b|Purpose|Rights holder", lit), (f, lit[:80]))
         self.assertFalse(hasattr(sv, "ROLE_PLAIN"))

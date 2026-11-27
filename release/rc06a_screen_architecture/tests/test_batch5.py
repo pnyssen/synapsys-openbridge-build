@@ -271,13 +271,20 @@ class G3_Route(unittest.TestCase):
             self.assertEqual(r["status"], direct["status"])
             self.assertEqual(all(x[0] != "write" for x in e.log), True)
 
-    def test_the_panel_holds_only_the_four_frame_slots_and_the_binding_line(self):
+    def test_the_page_holds_the_frame_the_binding_line_and_the_records_heading_and_one_depth_control(self):
         for b in BOUND:
             h = ok(b)["html"]
-            self.assertEqual(re.findall(r'data-slot="(\w+)"', h), ["header", "answer", "trust", "movement", "binding", "records"], b["menu_name"])  # RC06h: plus the Records heading
-            self.assertEqual(sorted(set(re.findall(r'data-label="(\w+)"', h))), ["depth", "stage"] if "neighbour" not in h else ["depth", "neighbour", "stage"])
-            self.assertNotIn("Depth: Enhance", h); self.assertNotIn("Depth: Enrich", h); self.assertIn("Depth: Enable", h)
-            self.assertNotIn("data-slot=\"trust_table\"", h)
+            slots = re.findall(r'data-slot="(\w+)"', h)
+            if b["screen_id"] == "SCR.SERVICE.NOUN":  # RC06i: the Service 1-3-1 projection
+                self.assertEqual(slots, ["header", "answer", "trust", "movement", "value_definition", "value_records", "binding", "records"], b["menu_name"])
+            elif b["screen_id"] == "SCR.MESH_MEASURES.MENU":  # RC06i R7: what the page does not know
+                self.assertEqual(slots, ["header", "answer", "trust", "movement", "measures_scope", "binding", "records"], b["menu_name"])
+            else:
+                self.assertEqual(slots, ["header", "answer", "trust", "movement", "binding", "records"], b["menu_name"])
+            self.assertEqual(h.count('data-control="detail"'), 1, b["menu_name"])  # exactly one depth control, rendered by the server
+            self.assertIn("Depth: Enable", h) if b["screen_id"] != "SCR.SERVICE.NOUN" else None
+            self.assertNotIn("Depth: Enhance", h); self.assertNotIn("Depth: Enrich", h)
+            self.assertNotIn('data-slot="trust_table"', h)
 
     def test_context_menu_188_is_served_by_its_noun_screen_and_the_goldens_are_not_involved(self):
         b = BY_MENU[188]
@@ -453,6 +460,8 @@ const tick = () => new Promise(r => setTimeout(r, 5));
   ctrl = { action: { type: 'ir.actions.act_window', id: 290 } }; reply = { result: 'OK', html: '<b>z</b>' }; calls.length = 0; await bus[0][1](); await tick();
   calls.length = 0; lm.setMode('enrich'); await tick(); r.mode = { calls: calls.slice(), html: c.state.html };
   calls.length = 0; lmMode = 'bogus'; lm.setMode('enhance'); await tick(); r.mode2 = { calls: calls.slice() };
+  calls.length = 0; lmMode = 'enable'; c.onClick({ target: { closest: (sel) => ({ dataset: { mode: 'enhance' }, sel }) } }); await tick(); r.click = { mode: lmMode, calls: calls.slice() };
+  c.onClick({ target: { closest: () => ({ dataset: { mode: 'evil' } }) } }); c.onClick({ target: { closest: () => null } }); c.onClick({ target: {} }); r.clickBad = lmMode;
   r.destroyed = typeof r0.destroy === 'function'; r0.destroy(); r.unsub = lmSubs.length;
   console.log(JSON.stringify(r));
 })();
@@ -484,12 +493,17 @@ const tick = () => new Promise(r => setTimeout(r, 5));
         self.assertEqual(self.r["mode2"]["calls"], [["/synapsys/menu/enable", {"action_id": 290, "depth": "enhance"}]])
         self.assertTrue(self.r["destroyed"]); self.assertEqual(self.r["unsub"], 0)
 
-    def test_the_tabs_are_enable_enhance_enrich_with_enable_by_default_and_use_the_shared_mode(self):
+    def test_a_click_on_a_detail_button_goes_to_the_shared_service_and_anything_else_is_ignored(self):
+        self.assertEqual(self.r["click"]["mode"], "enhance")
+        self.assertEqual(self.r["clickBad"], "enhance")  # an unknown mode, no button, or a target without closest changes nothing
+
+    def test_the_detail_control_is_server_rendered_once_and_the_client_has_one_delegated_handler(self):
         xml = open(os.path.join(F.ADDON, "static", "src", "enable_panel.xml"), encoding="utf-8").read()
         js = open(os.path.join(F.ADDON, "static", "src", "enable_panel.js"), encoding="utf-8").read()
         self.assertIn('const MODES = ["enable", "enhance", "enrich"];', js)
         self.assertIn('useService("synapsys_lens_mode")', js)
-        self.assertIn('role="group" aria-label="Presentation depth"', xml); self.assertIn('t-foreach="this.modes"', xml); self.assertIn("this.lm.mode === m", xml)
+        self.assertNotIn("syn-modebar", xml); self.assertNotIn("t-foreach", xml)  # RC06i R1: the duplicate modebar markup is gone from the client template
+        self.assertEqual(xml.count("t-on-click"), 1); self.assertEqual(js.count("this.lm.setMode("), 1)
         lens = open(os.path.join(F.ADDON, "static", "src", "lens_mode.js"), encoding="utf-8").read()
         self.assertIn('let mode = "enable";', lens)  # Enable is the default of the one shared mode
 
