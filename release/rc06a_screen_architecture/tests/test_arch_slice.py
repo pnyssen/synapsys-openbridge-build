@@ -151,4 +151,36 @@ class SourceGuards(unittest.TestCase):
         out = O.strip({"a.py": "1", "stray.py": "2", "arch_slice.py": "3", "controllers/arch_slice.py": "4"}, ADDON)
         self.assertEqual(set(out) - {O.CTRL_INIT}, {"a.py", "stray.py"})
     def test_matrix_row_count_still_61(self): self.assertEqual(GEN.build()["row_count_source"], 61)
+
+class ChainOBACollectCoverage(unittest.TestCase):
+    """Successor T4: the live slice collector must read the Outcome and Outcome-Benefit-Asset link models, else walk_chain can never pass Work Object."""
+    def _world(self):
+        w = world()
+        w["synapsys.method"] = {40: dict(code="M", name="m", context_id=pair(1, "c"))}
+        w["synapsys.service"][30]["method_id"] = pair(40, "m")
+        w["synapsys.work.object"][50]["method_id"] = pair(40, "m"); w["synapsys.work.object"][50]["progress_outcome_id"] = pair(60, "o")
+        w["synapsys.outcome"] = {60: dict(benefit_ids=[70])}
+        w["synapsys.benefit"] = {70: dict(service_id=pair(30, "a"))}
+        w["synapsys.oba.link"] = {80: dict(benefit_id=pair(70, "b"), asset_id=pair(90, "a"))}
+        w["synapsys.asset"] = {90: dict(name="A", context_id=pair(1, "c"))}
+        return w
+    def _chain(self, w, **kw):
+        for m in ("synapsys.outcome", "synapsys.oba.link"):
+            FIELDS.setdefault(m, {"id"} | set(S.SLICE_MODELS.get(m, ())))
+        g, a, n = S.collect(env_for(w, **kw), AccessError)
+        a["complete_view"] = set()
+        return G.walk_chain(g, a, 1), n
+    def test_models_collected(self):
+        self.assertIn("synapsys.outcome", S.SLICE_MODELS); self.assertIn("synapsys.oba.link", S.SLICE_MODELS)
+    def test_chain_reaches_asset_from_collected_graph(self):
+        r, n = self._chain(self._world())
+        self.assertIsNone(r["stopped_at"], r); self.assertEqual(r["steps"][-1]["step"], "Asset")
+    def test_restricted_oba_link_stops_unobserved_not_missing(self):
+        r, n = self._chain(self._world(), restricted=("synapsys.oba.link",))
+        self.assertEqual((r["stopped_at"], r["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR"))
+    def test_hidden_link_not_leaked(self):
+        r, n = self._chain(self._world(), hidden={"synapsys.oba.link": (80,)})
+        self.assertEqual(r["reason"], "UNOBSERVED_TO_ACTOR")
+
+
 if __name__ == "__main__": unittest.main()

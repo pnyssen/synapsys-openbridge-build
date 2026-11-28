@@ -226,4 +226,27 @@ class Reliability(unittest.TestCase):
         for f in ("arch_graph.py","build_matrix.py"):
             src = open(os.path.join(HERE, f)).read().replace("json.dump(out, open(p,\"w\")", "")
             for bad in ("odoo20_create","odoo20_write","unlink","execute_kw","requests."): self.assertNotIn(bad, src)
+
+class VerbCountScope(unittest.TestCase):
+    """Successor correction T6: nine action-filtered verb menus show 3 each (27 unique), never the model-wide 27."""
+    def test_each_verb_menu_counts_three(self):
+        rows = [r for r in ROWS if "verb_group" in r]
+        self.assertEqual(len(rows), 9)
+        for r in rows:
+            self.assertEqual(r["visible_count"], 3, r["path"])
+            self.assertEqual(r["domain_scoped_count"], 3)
+            self.assertEqual(r["model_global_count"], 27)
+    def test_nine_menus_sum_to_27_unique(self):
+        ids = [i for r in ROWS if "verb_group" in r for i in r["verb_ids"]]
+        self.assertEqual((len(ids), len(set(ids))), (27, 27))
+    def test_original_failure_would_be_caught(self):
+        # original behaviour: model-wide count under every filtered menu. Reproduce it and require the check to reject it.
+        bad = [dict(r, visible_count=r["model_global_count"]) for r in ROWS if "verb_group" in r]
+        self.assertTrue(any(r["visible_count"] != len(r["verb_ids"]) for r in bad))
+    def test_non_verb_rows_keep_model_count(self):
+        for r in ROWS:
+            if "verb_group" not in r and r["menu_kind"] == "ACT_WINDOW":
+                self.assertEqual(r["visible_count"], r["domain_scoped_count"])
+
+
 if __name__ == "__main__": unittest.main()

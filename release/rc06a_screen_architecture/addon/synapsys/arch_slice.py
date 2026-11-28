@@ -25,6 +25,9 @@ SLICE_MODELS = {
     "synapsys.asset": ("name", "context_id"),
     "synapsys.work.object": ("strategy_id", "service_id", "method_id", "progress_outcome_id"),
     "synapsys.benefit": ("service_id",),
+    # successor: Outcome and Outcome-Benefit-Asset link are read so the chain can continue past the Work Object (read-only, same rights path)
+    "synapsys.outcome": ("benefit_ids",),
+    "synapsys.oba.link": ("benefit_id", "asset_id"),
 }
 READ_LIMIT = 2000                          # bound the read; a truncated read is reported, never hidden
 

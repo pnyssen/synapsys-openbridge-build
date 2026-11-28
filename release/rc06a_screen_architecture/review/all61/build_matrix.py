@@ -77,6 +77,12 @@ def build(base, snap):
             st = G.record_state(model, counts, restricted, reference_only=(model in REF_MODELS), count_key=key)
         cap["record_state"] = st
         cap["visible_count"] = counts.get(key or model) if kind=="ACT_WINDOW" else None
+        # T-VERB-COUNT (successor correction): a verb-group menu is filtered by its action domain, so its count is the number of
+        # verbs in that group (3), NOT the model-wide count (27). Keep the three scopes separate: model-wide, domain-scoped, actor-visible.
+        cap["model_global_count"] = counts.get(model) if kind=="ACT_WINDOW" else None
+        if "verb_group" in cap:
+            cap["visible_count"] = len(cap["verb_ids"])
+        cap["domain_scoped_count"] = cap["visible_count"]
         # 9 actors
         cap["actors"] = {"observed": "jq003.readonly (res.users 5)",
                          "steward_only": model in restricted,
@@ -111,13 +117,13 @@ def main():
     snap = json.load(open(os.path.join(HERE,"fixtures","live_snapshot.json")))
     rows = build(base, snap)
     from collections import Counter
-    out = {"schema":"synapsys.all61.qa-matrix.v1","work_object":"WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001",
+    out = {"schema":"synapsys.all61.qa-matrix.v2","supersedes":"ALL61_MENU_IMPLEMENTATION_QA_MATRIX_20261128_v1.json (kept immutable)","correction":"T-VERB-COUNT: nine verb menus count 3 each (domain-scoped), model_global_count kept separately","work_object":"WO-SYNAPSYS-CANONICAL-REFERENCE-ARCHITECTURE-001",
            "built_from": {"baseline_sha256":"1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6"},
            "actor_note": snap["actor_note"], "row_count": len(rows),
            "status_counts": dict(Counter(r["status"] for r in rows)),
            "record_state_counts": dict(Counter(r["record_state"] for r in rows)),
            "rows": rows}
-    p = os.path.join(HERE,"ALL61_MENU_IMPLEMENTATION_QA_MATRIX_20261128_v1.json")
+    p = os.path.join(HERE,"ALL61_MENU_IMPLEMENTATION_QA_MATRIX_20261128_v2.json")
     json.dump(out, open(p,"w"), indent=1, sort_keys=True, ensure_ascii=False)
     print(p, len(rows), out["status_counts"], out["record_state_counts"])
 if __name__ == "__main__": main()
