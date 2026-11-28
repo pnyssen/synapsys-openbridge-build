@@ -40,9 +40,9 @@ def parts(world=None, **kw):
     return A.collect(T.env_for(world2() if world is None else world, **kw), T.AccessError, D)
 
 
-def page(section="overview", persp="Form", depth="enable", req="steward", role="steward", world=None, **kw):
+def page(section="overview", persp="Form", depth="enable", req="steward", role="steward", world=None, context_id=None, **kw):
     g, a, n = parts(world, **kw)
-    d = V.assemble(D, g, a, n, role, section, persp, depth, req, GROUPS, roles=A.load_roles())
+    d = V.assemble(D, g, a, n, role, section, persp, depth, req, GROUPS, context_id=context_id, roles=A.load_roles())
     return d, R.render_page(d)
 
 
@@ -330,6 +330,83 @@ assert.equal(s0.section, "overview"); assert.equal(s0.ov, "");                  
 console.log("NODE_NAV_OK");
 ''')
         r = subprocess.run(["node", test], capture_output=True, text=True); self.assertEqual(r.returncode, 0, r.stderr + r.stdout); self.assertIn("NODE_NAV_OK", r.stdout)
+
+
+
+class D009ArchitectureSuccessorRoute(unittest.TestCase):
+    """Source-level simulation of /synapsys/architecture/master/page -> collect -> assemble -> render.
+    No live Odoo, no signed-in browser and no Controller approval is implied.
+    These cases must fail on predecessor 23f7104 for F01 selected Context, then pass on corrected source.
+    """
+    def _route_evidence(self, world=None, context_id=1, **rights):
+        view, html = page("evidence", depth="enrich", world=world, context_id=context_id, **rights)
+        self.assertEqual((view["read_only"], view["writes"]), (True, 0))
+        self.assertIn('data-section="evidence"', html)
+        return view["evidence"]["chains"]
+
+    def _context_a(self, **rights):
+        return self._route_evidence(context_id=1, **rights)
+
+    def test_f01_selected_context_a_hides_readable_context_b(self):
+        all_visible = self._route_evidence(context_id=None)
+        self.assertGreater(len(all_visible), 1)
+        expected = [c for c in all_visible if c["context_id"] == 1]
+        self.assertEqual(len(expected), 1)
+        self.assertEqual(self._context_a(), expected)
+        self.assertNotIn("CTX-BASIN", json.dumps(self._context_a()))
+
+    def test_f01_selected_hidden_context_returns_zero_chains(self):
+        chains = self._route_evidence(context_id=2, hidden={"synapsys.context": {2}})
+        self.assertEqual(chains, [])
+        self.assertNotIn("2", json.dumps(chains))
+
+    def test_f01_restricted_context_model_is_non_disclosing(self):
+        chains = self._route_evidence(context_id=1, restricted={"synapsys.context"})
+        self.assertEqual(chains, [])
+
+    def test_f02_route_permitted_work_outcome_benefit_asset(self):
+        chains = self._context_a()
+        self.assertEqual(len(chains), 1)
+        chain = chains[0]
+        names = [step["step"] for step in chain["steps"]]
+        for item in ("Work Object", "Outcome", "Benefit", "Asset"):
+            self.assertIn(item, names)
+            self.assertEqual(chain["steps"][names.index(item)]["state"], "CONNECTED")
+        self.assertIsNone(chain["stopped_at"])
+
+    def test_f02_route_missing_oba_link_stops_without_claiming_absence(self):
+        w = world2()
+        w["synapsys.oba.link"] = {}
+        c = self._route_evidence(world=w)[0]
+        self.assertEqual((c["stopped_at"], c["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR"))
+
+    def test_f02_route_hidden_link_never_discloses_hidden_id(self):
+        c = self._context_a(hidden={"synapsys.oba.link": {80}})[0]
+        self.assertEqual((c["stopped_at"], c["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR"))
+        self.assertNotIn('"80"', json.dumps(c))
+
+    def test_f02_route_restricted_link_never_discloses_id(self):
+        c = self._context_a(restricted={"synapsys.oba.link"})[0]
+        self.assertEqual((c["stopped_at"], c["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR"))
+        self.assertNotIn('"80"', json.dumps(c))
+
+    def test_f02_route_foreign_asset_rejected_not_transferred(self):
+        w = world2()
+        w["synapsys.oba.link"][80]["asset_id"] = T.p(367)
+        c = self._route_evidence(world=w)[0]
+        self.assertEqual((c["stopped_at"], c["reason"]), ("Asset", "WRONG_CONTEXT"))
+        self.assertNotIn("367", json.dumps(c))
+        hidden = self._route_evidence(world=w, hidden={"synapsys.asset": {367}})[0]
+        self.assertEqual((hidden["stopped_at"], hidden["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR"))
+        self.assertNotIn("367", json.dumps(hidden))
+
+    def test_f02_controller_uses_same_existing_master_route_and_resolver(self):
+        ctrl = open(os.path.join(ADDON, "controllers", "arch_master.py"), encoding="utf-8").read()
+        self.assertIn("@http.route('/synapsys/architecture/master/page'", ctrl)
+        self.assertIn("arch_master.collect(request.env, AccessError, defn)", ctrl)
+        self.assertIn("arch_master_views.assemble(", ctrl)
+        self.assertIn("master_render.render_page(data)", ctrl)
+        self.assertIs(V.G, G)
 
 
 if __name__ == "__main__":
