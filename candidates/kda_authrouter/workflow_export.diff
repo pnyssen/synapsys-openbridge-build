@@ -1,0 +1,71 @@
+--- base_workflow_export.json	2026-11-29 00:08:42.762295898 +1000
++++ candidate_workflow.json	2026-11-29 00:09:52.785088001 +1000
+@@ -6,6 +6,17 @@
+     [
+      {
+       "index": 0,
++      "node": "Look Up Authority Record",
++      "type": "main"
++     }
++    ]
++   ]
++  },
++  "Look Up Authority Record": {
++   "main": [
++    [
++     {
++      "index": 0,
+       "node": "Validate Authority and Build Activation Envelope",
+       "type": "main"
+      }
+@@ -46,15 +57,39 @@
+    "webhookId": "synapsys-authority-activation-router-v1"
+   },
+   {
++   "id": "lookup-authority-record",
++   "name": "Look Up Authority Record",
++   "notes": "READ-ONLY search_read, limit 2, exact x_reference. URL/DB/credential are placeholders: D007 binds an existing read-only credential BY ID at release. Not wired live.",
++   "onError": "continueRegularOutput",
++   "parameters": {
++    "authentication": "genericCredentialType",
++    "genericAuthType": "httpHeaderAuth",
++    "jsonBody": "={{ JSON.stringify({jsonrpc:'2.0',method:'call',params:{service:'object',method:'execute_kw',args:['PLACEHOLDER_DB',0,'PLACEHOLDER','x_ss_change_request','search_read',[[['x_reference','=',String(($json.body||$json).authority_reference||'')]]],{fields:['x_reference','x_approval_status','x_active','x_approved_by','x_approval_route','x_context_id','x_execution_brief','x_description'],limit:2}]},id:1}) }}",
++    "method": "POST",
++    "options": {
++     "timeout": 5000
++    },
++    "sendBody": true,
++    "specifyBody": "json",
++    "url": "PLACEHOLDER__ODOO_JSONRPC_URL_BOUND_BY_D007_AT_RELEASE"
++   },
++   "position": [
++    260,
++    0
++   ],
++   "type": "n8n-nodes-base.httpRequest",
++   "typeVersion": 4.2
++  },
++  {
+    "id": "validate-route",
+    "name": "Validate Authority and Build Activation Envelope",
+    "parameters": {
+-    "jsCode": "const p=$input.first().json?.body||$input.first().json||{};\nconst req=['work_object_id','state_revision','authority_source','authority_reference','scope','requested_action','rollback','expected_return'];\nconst missing=req.filter(k=>p[k]===undefined||p[k]===null||p[k]==='');\nconst authoritySource=String(p.authority_source||'').toUpperCase();\nconst forbidden=['D007','D008','D009','AI','AGENT','COWORK','CODEX','GEMINI','CLAUDE'];\nconst selfAuth=forbidden.includes(authoritySource);\nconst decision=missing.length?'HOLD_MISSING_AUTHORITY_FIELDS':selfAuth?'HOLD_INVALID_AUTHORITY_SOURCE':'AUTHORITY_PACKET_VALID';\nconst activation=decision==='AUTHORITY_PACKET_VALID'?{\n D007:{role:'RELEASE_AND_BOUNDED_IMPLEMENTATION',decision_authority:false,instruction:'Validate authority identity/scope, rollback, replay and current state; execute only the authorised mutation envelope; return implementation/readback evidence; never expand scope or create authority.'},\n D008:{role:'INTELLIGENCE_AND_INTERPRETATION',decision_authority:false,instruction:'Provide evidence-backed intelligence, interpretation and options requested by Navigator; do not approve, release, mutate or decide go/no-go.'},\n D009:{role:'INDEPENDENT_ASSURANCE',decision_authority:false,instruction:'Return PASS, PASS_WITH_CONDITIONS or HOLD with evidence and conditions; do not authorise implementation. Navigator routes the result under the pre-existing authority envelope.'},\n Navigator:{role:'CONTROLLER',decision_authority:false,instruction:'Consume authority plus lane returns, preserve state/Goal Anchor, continue eligible work automatically, and return to authority source only for genuinely new or exceeded authority.'}\n}:null;\nreturn [{json:{control_marker:'SYNAPSYS_AUTHORITY_TO_ACTIVATION_ROUTER_V1',status:decision,missing_fields:missing,authority_source:p.authority_source||null,authority_reference:p.authority_reference||null,work_object_id:p.work_object_id||null,state_revision:p.state_revision||null,scope:p.scope||null,requested_action:p.requested_action||null,rollback:p.rollback||null,expected_return:p.expected_return||null,activation_layers:activation,authority_created:false,ppv_movement:false,canon_movement:false,replay_validity:decision==='AUTHORITY_PACKET_VALID'?'AUTHORITY_EXTERNAL__ACTIVATION_LAYERS_NON_AUTHORISING__FAIL_CLOSED':'HOLD__NO_ACTIVATION'}}];",
++    "jsCode": "// Candidate: fail-closed authority validation. Order: missing fields -> existing D007/AI denylist (unchanged, first) -> register checks (a)-(e).\nconst FWD = 'HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY';\n// Payload comes from the webhook node, NOT from $input (in this wiring $input is the register-lookup output).\nconst p=$('Authority Packet In').first().json?.body||$('Authority Packet In').first().json||{};\nconst req=['work_object_id','state_revision','authority_source','authority_reference','scope','requested_action','rollback','expected_return'];\nconst missing=req.filter(k=>p[k]===undefined||p[k]===null||p[k]==='');\nconst authoritySource=String(p.authority_source||'').toUpperCase();\nconst forbidden=['D007','D008','D009','AI','AGENT','COWORK','CODEX','GEMINI','CLAUDE'];\nconst selfAuth=forbidden.includes(authoritySource);\n\n// ---- authoritative register check: Odoo x_ss_change_request, looked up by x_reference == authority_reference ----\n// Seat map: the approval route that makes a signatory the holder of a seat. Anything unmapped fails closed.\nconst SEAT_BY_ROUTE = { d001_steward: 'STEWARD' };\nfunction marker(text, key) {            // machine-readable binding line, e.g. \"PERMITTED_ACTIONS: A, B\"\n  const m = String(text || '').match(new RegExp('^\\\\s*' + key + '\\\\s*:\\\\s*(.+)$', 'mi'));\n  return m ? m[1].split(',').map(s => s.trim()).filter(Boolean) : null;\n}\nfunction evaluateRegister() {\n  let L;\n  try { L = $('Look Up Authority Record').first().json; } catch (e) { return 'LOOKUP_UNAVAILABLE'; }\n  if (!L || L.error || L.__lookup_error) return 'LOOKUP_ERROR';\n  let rows = L.result;\n  if (rows === undefined && Array.isArray(L.records)) rows = L.records;\n  if (!Array.isArray(rows)) return 'LOOKUP_BAD_SHAPE';\n  if (rows.length === 0) return 'NO_MATCH';\n  if (rows.length !== 1) return 'AMBIGUOUS';\n  const r = rows[0];\n  if (String(r.x_reference || '') !== String(p.authority_reference)) return 'REFERENCE_MISMATCH';   // (a) exact, never fuzzy\n  if (r.x_approval_status !== 'approved' || r.x_active === false) return 'NOT_APPROVED_OR_REVOKED';  // (b)(d)\n  if (!r.x_approved_by) return 'NO_ATTRIBUTABLE_SIGNATORY';                                          // (b)\n  const seat = SEAT_BY_ROUTE[r.x_approval_route];\n  if (!seat || seat !== authoritySource) return 'SEAT_MISMATCH';                                      // (b)\n  const ctxField = Array.isArray(r.x_context_id) ? r.x_context_id[1] : r.x_context_id;\n  const payloadCtx = p.context_id || p.domain_context;\n  if (!payloadCtx || String(ctxField) !== String(payloadCtx)) return 'CONTEXT_MISMATCH';              // (c) payload must state its Context\n  const text = String(r.x_execution_brief || '') + '\\n' + String(r.x_description || '');\n  const actions = marker(text, 'PERMITTED_ACTIONS'), targets = marker(text, 'PERMITTED_TARGETS'), until = marker(text, 'VALID_UNTIL');\n  if (!actions || !actions.includes(String(p.requested_action))) return 'ACTION_OUT_OF_SCOPE';        // (c)\n  if (!targets || !targets.includes(String(p.work_object_id))) return 'TARGET_OUT_OF_SCOPE';          // (c)\n  if (!until) return 'NO_EXPIRY_BOUND';                                                               // (d) unbounded approval is not accepted\n  const t = Date.parse(until[0]);\n  if (!Number.isFinite(t) || new Date().getTime() > t) return 'EXPIRED';                              // (d)\n  const rev = marker(text, 'STATE_REVISION');\n  if (rev && String(rev[0]) !== String(p.state_revision)) return 'STATE_REVISION_MISMATCH';          // (d) only where bound\n  return 'OK';\n}\nlet regReason = null;\nlet decision;\nif (missing.length) decision = 'HOLD_MISSING_AUTHORITY_FIELDS';\nelse if (selfAuth) decision = 'HOLD_INVALID_AUTHORITY_SOURCE';\nelse {\n  try { regReason = evaluateRegister(); } catch (e) { regReason = 'EVALUATION_ERROR'; }              // (e) any error fails closed\n  decision = regReason === 'OK' ? 'AUTHORITY_PACKET_VALID' : FWD;\n}\nconst valid = decision === 'AUTHORITY_PACKET_VALID';\nconst activation = valid ? {\n D007:{role:'RELEASE_AND_BOUNDED_IMPLEMENTATION',decision_authority:false,instruction:'Validate authority identity/scope, rollback, replay and current state; execute only the authorised mutation envelope; return implementation/readback evidence; never expand scope or create authority.'},\n D008:{role:'INTELLIGENCE_AND_INTERPRETATION',decision_authority:false,instruction:'Provide evidence-backed intelligence, interpretation and options requested by Navigator; do not approve, release, mutate or decide go/no-go.'},\n D009:{role:'INDEPENDENT_ASSURANCE',decision_authority:false,instruction:'Return PASS, PASS_WITH_CONDITIONS or HOLD with evidence and conditions; do not authorise implementation. Navigator routes the result under the pre-existing authority envelope.'},\n Navigator:{role:'CONTROLLER',decision_authority:false,instruction:'Consume authority plus lane returns, preserve state/Goal Anchor, continue eligible work automatically, and return to authority source only for genuinely new or exceeded authority.'}\n} : null;\nreturn [{json:{control_marker:'SYNAPSYS_AUTHORITY_TO_ACTIVATION_ROUTER_V1',status:decision,hold_reason:valid?null:(regReason||null),missing_fields:missing,authority_source:p.authority_source||null,authority_reference:p.authority_reference||null,work_object_id:p.work_object_id||null,state_revision:p.state_revision||null,scope:p.scope||null,requested_action:p.requested_action||null,rollback:p.rollback||null,expected_return:p.expected_return||null,activation_layers:activation,authority_created:false,ppv_movement:false,canon_movement:false,replay_validity:valid?'AUTHORITY_REGISTER_RESOLVED__ACTIVATION_LAYERS_NON_AUTHORISING__FAIL_CLOSED':'HOLD__NO_ACTIVATION'}}];",
+     "language": "javaScript",
+     "mode": "runOnceForAllItems"
+    },
+    "position": [
+-    260,
++    520,
+     0
+    ],
+    "type": "n8n-nodes-base.code",
+@@ -71,7 +106,7 @@
+     "responseBody": "={{ $json }}"
+    },
+    "position": [
+-    520,
++    780,
+     0
+    ],
+    "type": "n8n-nodes-base.respondToWebhook",

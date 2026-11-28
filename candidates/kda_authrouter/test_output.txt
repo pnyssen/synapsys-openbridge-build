@@ -1,0 +1,47 @@
+== BASE (unpatched b35dbd2c)
+N1   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: invented STEWARD reference (exact 448037 input), no such record
+N2   PASS (control: base already behaves this way) status=HOLD_INVALID_AUTHORITY_SOURCE reason=- layers=null  :: D007 self-authorisation (exact 448038 input)
+N3   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: real approved record, wrong Context
+N4   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: real approved record, requested_action out of scope
+N5a  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record expired
+N5b  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record revoked (x_active=false)
+N5c  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record no longer approved (rejected)
+N6a  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: lookup error
+N6b  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: lookup returns nothing usable
+N6c  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: ambiguous: two records
+N7   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: signatory seat mismatch (record route is not Steward)
+N8   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record bound to a different state revision
+N9   FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record returned for a different reference (no fuzzy match)
+N10  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: no attributable signatory
+N11  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: record with no machine-readable scope or expiry (e.g. a real CHG as written today)
+N12  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: payload without Context
+N13  PASS (control: base already behaves this way) status=HOLD_MISSING_AUTHORITY_FIELDS reason=- layers=null  :: missing field still reported first
+N14  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: requested target (work_object_id) outside the record scope
+N15  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: scoped record with no VALID_UNTIL bound (unbounded approval not accepted)
+N16  FAIL AS EXPECTED (defect reproduced)       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: malformed lookup row (evaluation throws)
+P1   PASS (control: base already behaves this way) status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: genuine approved, in-scope, in-date TEST_ONLY fixture
+== CANDIDATE
+N1   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=NO_MATCH layers=null  :: invented STEWARD reference (exact 448037 input), no such record
+N2   PASS                                       status=HOLD_INVALID_AUTHORITY_SOURCE reason=- layers=null  :: D007 self-authorisation (exact 448038 input)
+N3   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=CONTEXT_MISMATCH layers=null  :: real approved record, wrong Context
+N4   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=ACTION_OUT_OF_SCOPE layers=null  :: real approved record, requested_action out of scope
+N5a  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=EXPIRED layers=null  :: record expired
+N5b  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=NOT_APPROVED_OR_REVOKED layers=null  :: record revoked (x_active=false)
+N5c  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=NOT_APPROVED_OR_REVOKED layers=null  :: record no longer approved (rejected)
+N6a  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=LOOKUP_ERROR layers=null  :: lookup error
+N6b  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=LOOKUP_UNAVAILABLE layers=null  :: lookup returns nothing usable
+N6c  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=AMBIGUOUS layers=null  :: ambiguous: two records
+N7   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=SEAT_MISMATCH layers=null  :: signatory seat mismatch (record route is not Steward)
+N8   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=STATE_REVISION_MISMATCH layers=null  :: record bound to a different state revision
+N9   PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=REFERENCE_MISMATCH layers=null  :: record returned for a different reference (no fuzzy match)
+N10  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=NO_ATTRIBUTABLE_SIGNATORY layers=null  :: no attributable signatory
+N11  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=ACTION_OUT_OF_SCOPE layers=null  :: record with no machine-readable scope or expiry (e.g. a real CHG as written today)
+N12  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=CONTEXT_MISMATCH layers=null  :: payload without Context
+N13  PASS                                       status=HOLD_MISSING_AUTHORITY_FIELDS reason=- layers=null  :: missing field still reported first
+N14  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=TARGET_OUT_OF_SCOPE layers=null  :: requested target (work_object_id) outside the record scope
+N15  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=NO_EXPIRY_BOUND layers=null  :: scoped record with no VALID_UNTIL bound (unbounded approval not accepted)
+N16  PASS                                       status=HOLD_UNKNOWN_OR_UNATTESTED_AUTHORITY reason=EVALUATION_ERROR layers=null  :: malformed lookup row (evaluation throws)
+P1   PASS                                       status=AUTHORITY_PACKET_VALID reason=- layers=NON_NULL  :: genuine approved, in-scope, in-date TEST_ONLY fixture
+DETERMINISM: 21 cases x2 identical runs -> byte-identical
+BASE FIDELITY vs recorded execution 448037 (AUTHORITY_PACKET_VALID, 4 activation layers): REPRODUCED
+RESULT: ALL AS EXPECTED
