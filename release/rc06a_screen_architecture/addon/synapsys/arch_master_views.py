@@ -258,11 +258,13 @@ def role_definitions(defn, roles):
 
 
 # ---------------------------------------------------------------------------------------------------------------- Evidence
-def evidence_view(defn, graph, actor, notes, depth="enable", acceptance=None):
+def evidence_view(defn, graph, actor, notes, depth="enable", acceptance=None, context_id=None):
     """Operational evidence beyond counts: per readable Context the actual chain walk (which hop is connected, supporting Work Objects, direct
     Service->Context labels), the definition pins, and the menu acceptance matrix (source facts, not role test results)."""
     chains = []
     for cid in _ids(graph, actor, "synapsys.context"):
+        if context_id is not None and cid != context_id:
+            continue
         w = G.walk_chain(graph, actor, cid)
         steps = []
         for s in w["steps"]:
@@ -308,7 +310,7 @@ def assemble(defn, graph, actor, notes, role="collaborator", section="overview",
     if section in ("overview", "mesh"):
         out["mesh"] = mesh_view(defn, graph, actor, notes, depth)
     if section in ("overview", "evidence"):
-        out["evidence"] = evidence_view(defn, graph, actor, notes, depth, acceptance)
+        out["evidence"] = evidence_view(defn, graph, actor, notes, depth, acceptance, context_id)
     if section == "drill":
         out["drill"] = DR.drill(defn, graph, actor, notes, drill, ctx, depth, ov)
     return out
