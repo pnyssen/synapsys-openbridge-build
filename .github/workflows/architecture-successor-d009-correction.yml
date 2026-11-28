@@ -44,6 +44,14 @@ jobs:
       - name: Exact corrected route-level tests
         working-directory: release/rc06a_screen_architecture
         run: PYTHONPATH=tests python -m unittest -v test_arch_master_views.D009ArchitectureSuccessorRoute
+      - name: Prepare browser regression dependencies
+        working-directory: release/rc06a_screen_architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install playwright
+          npm install --no-save playwright
+          python -m playwright install --with-deps chromium
       - name: Full offline source regression
         working-directory: release/rc06a_screen_architecture
         shell: bash
