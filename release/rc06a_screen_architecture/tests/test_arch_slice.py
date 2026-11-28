@@ -36,7 +36,11 @@ def world(steward=True):
     svc = {30: dict(code="A", name="a", context_id=pair(1, "c"), method_id=False), 31: dict(code="B", name="b", context_id=False, method_id=False),
            32: dict(code="C", name="c", context_id=pair(2, "c"), method_id=False)}
     return {"synapsys.context": ctx, "synapsys.strategy": strat, "synapsys.service": svc, "synapsys.purpose": {10: dict(code="P", name="p")},
-            "synapsys.method": {}, "synapsys.asset": {}, "synapsys.work.object": {}, "synapsys.benefit": {}}
+            "synapsys.method": {}, "synapsys.asset": {},
+            "synapsys.work.object": {50: dict(strategy_id=pair(20, "s"), service_id=pair(30, "a"), method_id=False, progress_outcome_id=False),
+                                     51: dict(strategy_id=pair(20, "s"), service_id=pair(31, "b"), method_id=False, progress_outcome_id=False),
+                                     52: dict(strategy_id=pair(20, "s"), service_id=pair(32, "c"), method_id=False, progress_outcome_id=False)},
+            "synapsys.benefit": {}}
 def env_for(data, restricted=(), absent=None, hidden=None):
     ms = {}
     for m, rows in data.items():
@@ -52,7 +56,7 @@ class Slice(unittest.TestCase):
         o = run(env_for(world())); self.assertEqual((o["read_only"], o["writes"]), (True, 0))
         c = [r for r in o["contexts"] if r["context"]["id"] == 1][0]
         self.assertEqual(c["strategies"]["ids"], [20]); items = {i["id"]: i["link"] for i in c["strategy_services"][0]["services"]["items"]}
-        self.assertEqual(items, {30: "LINKED_TO_THIS_CONTEXT", 31: "NO_DIRECT_SERVICE_CONTEXT", 32: "WRONG_CONTEXT"})
+        self.assertEqual(items, {30: "LINKED_TO_THIS_CONTEXT", 31: "NO_DIRECT_SERVICE_CONTEXT_FK", 32: "WRONG_CONTEXT"})
     def test_projections_are_distinct_and_audited(self):
         c = [r for r in run(env_for(world()))["contexts"] if r["context"]["id"] == 1][0]
         self.assertEqual(c["audit"], {"ok": True, "findings": []}); self.assertEqual(len({json.dumps([c["projection"][p]["nodes"], c["projection"][p]["edges"]], sort_keys=True) for p in G.PERSPECTIVES}), 3)
@@ -86,6 +90,21 @@ class Slice(unittest.TestCase):
         run(env_for(world()))                                              # any sudo/write/create/unlink on the fake raises AssertionError
     def test_deterministic(self):
         e = env_for(world()); self.assertEqual(json.dumps(run(e), sort_keys=True), json.dumps(run(e), sort_keys=True))
+    def test_service_shown_only_with_readable_supporting_work_object(self):
+        o = run(env_for(world(), hidden={"synapsys.work.object": {51, 52}})); c = [r for r in o["contexts"] if r["context"]["id"] == 1][0]
+        self.assertEqual([i["id"] for i in c["strategy_services"][0]["services"]["items"]], [30])
+        self.assertEqual(c["strategy_services"][0]["services"]["items"][0]["supporting_work_ids"], [50])
+        blob = json.dumps(c["strategy_services"]); self.assertNotIn('"id": 31', blob); self.assertNotIn("32", blob.replace("supporting", ""))
+    def test_no_readable_work_means_no_service_relationship_and_no_count(self):
+        o = run(env_for(world(), hidden={"synapsys.work.object": {50, 51, 52}})); c = [r for r in o["contexts"] if r["context"]["id"] == 1][0]
+        self.assertEqual(c["strategy_services"][0]["services"]["state"], "NONE_VISIBLE_TO_ACTOR"); self.assertEqual(c["strategy_services"][0]["services"]["items"], [])
+        self.assertEqual(c["audit"], {"ok": True, "findings": []})
+    def test_restricted_work_model_removes_computed_relation(self):
+        o = run(env_for(world(), restricted={"synapsys.work.object"})); c = [r for r in o["contexts"] if r["context"]["id"] == 1][0]
+        self.assertEqual(c["strategy_services"][0]["services"]["items"], [])
+    def test_old_label_never_emitted(self):
+        self.assertNotIn('"NO_DIRECT_SERVICE_CONTEXT"', json.dumps(run(env_for(world()))))
+
     def test_no_strategy_asset_edge_in_output(self):
         d = world(); d["synapsys.asset"] = {90: dict(name="a", context_id=pair(1, "c"))}
         for r in run(env_for(d))["contexts"]:

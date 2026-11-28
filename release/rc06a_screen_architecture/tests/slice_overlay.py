@@ -1,8 +1,16 @@
 """The ONE declared overlay of the read-only Context->Strategy->Service slice on the RC06 tree. The historical file-level guards (rc06f/g/h manifests)
 stay strict about everything else: they call strip() so that exactly these additions, and exactly one import line, are discounted - nothing more."""
 import hashlib, os
-SLICE_ADDED = {"arch_graph.py", "arch_slice.py", "controllers/arch_slice.py", "data/arch_slice_acceptance.json"}
+SLICE_ADDED = {"arch_graph.py", "arch_slice.py", "controllers/arch_slice.py", "data/arch_slice_acceptance.json",
+               # Master Architecture builder (source-only, RC01): pure module, read-only controller, versioned definition file
+               "arch_master.py", "controllers/arch_master.py", "data/arch_master_definition.json",
+               # Master Architecture interface (source-only, RC02): pure views and renderer, client action files (NOT in the manifest assets), unreleased candidates
+               "arch_master_views.py", "master_render.py", "static/src/master/master_nav.js", "static/src/master/master.js", "static/src/master/master.xml",
+               "candidates/synapsys_master_menu_candidate.xml", "candidates/MASTER_RELEASE_DELTA.md",
+               # RC03: drill-down, context builder (fail-closed probes), existing role definitions
+               "arch_master_drill.py", "arch_master_ctx.py", "data/arch_master_roles.json", "candidates/MASTER_MANIFEST_DELTA.patch"}
 SLICE_IMPORT_LINE = "from . import arch_slice\n"
+MASTER_IMPORT_LINE = "from . import arch_master\n"
 CTRL_INIT = "controllers/__init__.py"
 # Wave 1 row-scope hotfix parity overlay (declared; installed-dev hotfix brought into source). strip() discounts it ONLY while each file still has exactly
 # the installed-hotfix bytes, mapping it back to its pre-hotfix hash; any other edit to these files is still caught by the historical guards.
@@ -30,6 +38,8 @@ def strip(now, addon_dir):
             out[k] = pre
     p = os.path.join(addon_dir, CTRL_INIT)
     raw = open(p, "rb").read().decode("utf-8")
+    if raw.endswith(MASTER_IMPORT_LINE) and raw.count(MASTER_IMPORT_LINE) == 1:      # the Master import is the LAST line, after the slice import
+        raw = raw[: -len(MASTER_IMPORT_LINE)]
     if raw.endswith(SLICE_IMPORT_LINE) and raw.count(SLICE_IMPORT_LINE) == 1:
         out[CTRL_INIT] = _sha(raw[: -len(SLICE_IMPORT_LINE)].encode("utf-8"))
     return out

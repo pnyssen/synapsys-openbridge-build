@@ -1,0 +1,442 @@
+{
+ "access": {
+  "synapsys.asset": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": "['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.benefit": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.canon": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.context": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": "['|', ('steward_user_id', '=', user.id), ('member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.domain": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.fractal": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.fractal.benefit": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.gate.decision": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": "['|', '|', ('work_object_id.owner_id', '=', user.id), ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.industry.offering": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.intelligence": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": "[('personal_data', '=', False)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.intersection": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.learning": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.admit": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.binding": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.cluster": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.entry": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.measure": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mesh.registry": {
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.method": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.mode": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.oba.link": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.outcome": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.pattern": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.portfolio": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.programme": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.ptw.event": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.purpose": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": "['|', ('context_ids.steward_user_id', '=', user.id), ('context_ids.member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.service": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.service.standard": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.signal": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.strategy": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": "['|', ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  },
+  "synapsys.strategy.group.label": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.valuation": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.value.chain": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.value.chain.stage": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.verb": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "r",
+    "row_rule": null,
+    "row_scoped": false
+   }
+  },
+  "synapsys.work.object": {
+   "synapsys.group_synapsys_steward": {
+    "operations": "crud",
+    "row_rule": null,
+    "row_scoped": false
+   },
+   "synapsys.group_synapsys_user": {
+    "operations": "cru",
+    "row_rule": "['|', '|', ('owner_id', '=', user.id), ('context_id.steward_user_id', '=', user.id), ('context_id.member_ids', 'in', user.id)]",
+    "row_scoped": true
+   }
+  }
+ },
+ "authority": "read from installed security source; creates and changes nothing",
+ "client_group": null,
+ "client_note": "no Client group, privilege or access row exists in the installed security source",
+ "groups": {
+  "synapsys.group_synapsys_steward": {
+   "comment": "Rules Contexts, verbs, chains, Services, Methods and canon; accepts Benefits.",
+   "display_name": "Steward",
+   "implies": [
+    "synapsys.group_synapsys_user"
+   ]
+  },
+  "synapsys.group_synapsys_user": {
+   "comment": "Reads the Mesh and works on Outcomes, Signals and evidence.",
+   "display_name": "Collaborator",
+   "implies": [
+    "base.group_user"
+   ]
+  }
+ },
+ "schema": "synapsys.arch.master.roles.v1",
+ "source_pins": {
+  "ir_access_csv_sha256": "937eb38846cc3cf42d9338e23bcec07741589de37b8270b1f24304794d74be2a",
+  "security_xml_sha256": "8da5d54670ccf2cb5ed6a64603b3161f59c789062fe9388240b7f28cf9cd0085"
+ }
+}

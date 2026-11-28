@@ -52,6 +52,7 @@ class Source(unittest.TestCase):
         self.assertTrue(G.projection_audit(g, a, "synapsys.strategy", 20)["ok"])
     def test_cross_context_association_flagged_not_dropped_or_adopted(self):
         g, a = fixture(); g["records"]["synapsys.service"][31] = dict(context_id=2, method_id=None); g["records"]["synapsys.strategy"][20]["service_ids"] = [30, 31]
+        g["records"]["synapsys.work.object"][51] = dict(strategy_id=20, service_id=31, method_id=None, gate_ids=[], progress_outcome_id=None); a["visible"]["synapsys.work.object"].add(51)
         a["visible"]["synapsys.service"].add(31); r = G.project(g, a, "synapsys.context", 1, "Flow")
         x = [e for e in r["edges"] if e["to"] == ["synapsys.service", 31]]
         self.assertTrue(x and all(e.get("cross_context") for e in x)); self.assertTrue(G.projection_audit(g, a, "synapsys.context", 1)["ok"])

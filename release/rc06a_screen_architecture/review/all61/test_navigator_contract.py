@@ -11,7 +11,8 @@ def clean_live():
     menus, fields = {}, {}
     for mid, c in C['menus'].items():
         i = c['identity']
-        menus[mid] = {'name_path': i['name_path'], 'parent': i['parent_id'], 'action': i['action_ref'], 'model': c['view']['model'], 'domain': c['view']['domain']}
+        menus[mid] = {'name_path': i['name_path'], 'parent': i['parent_id'], 'action': i['action_ref'], 'model': c['view']['model'], 'domain': c['view']['domain'],
+                      'view_mode': c['view']['view_mode'], 'client_tag': N.PINNED_CLIENT_TAGS.get(i['action_id']) if i['kind'] == 'CLIENT_ACTION' else None}
         if c['view']['model']:
             fl = fields.setdefault(c['view']['model'], {})
             for e in c['relationships']:
@@ -117,6 +118,94 @@ class Reconcile(unittest.TestCase):
         same = [m for m, x in r['menus'].items() if 'cross_menu' in x and x['cross_menu']['model'] == 'synapsys.work.object']
         self.assertGreaterEqual(len(same), 2)
 
+
+class BlindSpots(unittest.TestCase):
+    """RC00 step 4: view_mode, client_tag and cardinality were never compared. Each injected defect must be detected; unread data is HOLD."""
+    def run_(self, live): return N.reconcile(C, live, pins=None, actor=ACTOR_OK)
+    def test_clean_fixture_has_no_new_defects_or_holds(self):
+        r = self.run_(clean_live())
+        self.assertEqual(r['summary']['RETURN_DEFECTS'], 0)
+        for x in r['menus'].values():
+            for h in x['holds']: self.assertNotIn(h['code'], ('VIEW_MODE_NOT_READ', 'CLIENT_TAG_NOT_READ', 'FIELD_TYPE_NOT_READ', 'CLIENT_TAG_UNPINNED'))
+    def test_view_mode_drift_detected(self):
+        live = clean_live(); mid = [m for m, c in C['menus'].items() if c['view']['view_mode']][0]
+        live['menus'][mid]['view_mode'] = 'kanban'
+        self.assertIn('VIEW_MODE_DRIFT', codes(self.run_(live), mid))
+    def test_view_mode_order_matters_spacing_does_not(self):
+        live = clean_live(); mid = [m for m, c in C['menus'].items() if c['view']['view_mode'] and ',' in c['view']['view_mode']][0]
+        modes = [x.strip() for x in C['menus'][mid]['view']['view_mode'].split(',')]
+        live['menus'][mid]['view_mode'] = ' , '.join(modes); self.assertNotIn('VIEW_MODE_DRIFT', codes(self.run_(live), mid))
+        live['menus'][mid]['view_mode'] = ','.join(reversed(modes)); self.assertIn('VIEW_MODE_DRIFT', codes(self.run_(live), mid))
+    def test_view_mode_unread_is_hold_not_pass(self):
+        live = clean_live(); mid = [m for m, c in C['menus'].items() if c['view']['view_mode']][0]; del live['menus'][mid]['view_mode']
+        r = self.run_(live); self.assertIn('VIEW_MODE_NOT_READ', [h['code'] for h in r['menus'][mid]['holds']]); self.assertNotEqual(r['menus'][mid]['verdict'], 'ACCEPT')
+    def test_client_tag_pins_and_drift(self):
+        self.assertEqual(N.PINNED_CLIENT_TAGS, {331: 'synapsys_home', 332: 'synapsys_architecture_map', 358: 'synapsys_lenses'})
+        for mid, tag in (('177', 'synapsys_home'), ('215', 'synapsys_architecture_map'), ('237', 'synapsys_lenses')):
+            live = clean_live(); self.assertEqual(live['menus'][mid]['client_tag'], tag); self.assertNotIn('CLIENT_TAG_DRIFT', codes(self.run_(live), mid))
+            live['menus'][mid]['client_tag'] = 'synapsys_other'; self.assertIn('CLIENT_TAG_DRIFT', codes(self.run_(live), mid))
+    def test_client_tag_unread_is_hold(self):
+        live = clean_live(); live['menus']['177']['client_tag'] = None
+        self.assertIn('CLIENT_TAG_NOT_READ', [h['code'] for h in self.run_(live)['menus']['177']['holds']])
+    def test_swapped_client_tags_between_menus_detected(self):
+        live = clean_live(); live['menus']['215']['client_tag'], live['menus']['237']['client_tag'] = live['menus']['237']['client_tag'], live['menus']['215']['client_tag']
+        r = self.run_(live); self.assertIn('CLIENT_TAG_DRIFT', codes(r, '215')); self.assertIn('CLIENT_TAG_DRIFT', codes(r, '237'))
+    def test_cardinality_drift_both_directions(self):
+        live = clean_live(); one = next((m, e['field']) for m, c in C['menus'].items() for e in c['relationships'] if e['cardinality'] == 'one' and c['view']['model'])
+        many = next((m, e['field']) for m, c in C['menus'].items() for e in c['relationships'] if e['cardinality'] == 'many' and c['view']['model'])
+        for (mid, field), bad in ((one, 'many2many'), (many, 'many2one')):
+            live = clean_live(); live['fields'][C['menus'][mid]['view']['model']][field]['type'] = bad
+            self.assertIn('CARDINALITY_DRIFT', codes(self.run_(live), mid), (mid, field))
+    def test_one2many_counts_as_many(self):
+        live = clean_live(); mid, field = next((m, e['field']) for m, c in C['menus'].items() for e in c['relationships'] if e['cardinality'] == 'many' and c['view']['model'])
+        live['fields'][C['menus'][mid]['view']['model']][field]['type'] = 'one2many'; self.assertNotIn('CARDINALITY_DRIFT', codes(self.run_(live), mid))
+    def test_field_type_unread_is_hold(self):
+        live = clean_live(); mid, field = next((m, e['field']) for m, c in C['menus'].items() for e in c['relationships'] if c['view']['model'])
+        del live['fields'][C['menus'][mid]['view']['model']][field]['type']
+        self.assertIn('FIELD_TYPE_NOT_READ', [h['code'] for h in self.run_(live)['menus'][mid]['holds']])
+    def test_unpinned_client_action_is_hold_never_invented_pin_or_drift(self):
+        c2 = copy.deepcopy(C); c2['menus']['177']['identity']['action_id'] = 999; c2['menus']['177']['identity']['action_ref'] = 'ir.actions.client,999'
+        live = clean_live(); live['menus']['177']['action'] = 'ir.actions.client,999'; live['menus']['177']['client_tag'] = 'some_new_tag'
+        r = N.reconcile(c2, live, pins=None, actor=ACTOR_OK)['menus']['177']
+        self.assertEqual([d for d in r['defects'] if d['code'].startswith('CLIENT_TAG')], [])
+        self.assertIn('CLIENT_TAG_UNPINNED', [h['code'] for h in r['holds']]); self.assertNotEqual(r['verdict'], 'ACCEPT')
+    def test_contract_bytes_unchanged_by_reconciler_fix(self):
+        import hashlib; self.assertEqual(hashlib.sha256(open(os.path.join(HERE, 'navigator_integration_contract.json'), 'rb').read()).hexdigest(), '445df39b809ba8785b0c17da2dfb1e60696c3a75358f33922f4e7f1b899e33c1')
+
+
+class Exhaustive(unittest.TestCase):
+    """RC00 step 4: every one of 61 rows, 27 verbs and 32 known relationships is individually perturbed and must be detected."""
+    def run_(self, live): return N.reconcile(C, live, pins=None, actor=ACTOR_OK)
+    def test_all_61_rows_each_detect_path_drift_and_missing(self):
+        n = 0
+        for mid in C['menus']:
+            live = clean_live(); live['menus'][mid]['name_path'] += '_x'; self.assertIn('IDENTITY_PATH_DRIFT', codes(self.run_(live), mid))
+            live = clean_live(); del live['menus'][mid]; self.assertIn('MENU_MISSING_LIVE', codes(self.run_(live), mid)); n += 1
+        self.assertEqual(n, 61)
+    def test_every_27_verb_removal_detected(self):
+        self.assertEqual(len(C['verbs']), 27)
+        for v in C['verbs']:
+            live = clean_live(); live['verbs'] = [x for x in live['verbs'] if x != v]
+            self.assertTrue(any('VERB_SET_DRIFT' in codes(self.run_(live), m) for m in C['menus']), v)
+    def test_every_one_of_32_relationships_detects_cardinality_target_and_missing_field(self):
+        seen = 0
+        for mid, c in C['menus'].items():
+            m = c['view']['model']
+            for e in c['relationships']:
+                if not m: continue
+                live = clean_live(); live['fields'][m][e['field']]['type'] = 'many2one' if e['cardinality'] == 'many' else 'many2many'
+                self.assertIn('CARDINALITY_DRIFT', codes(self.run_(live), mid), (mid, e['field']))
+                live = clean_live(); live['fields'][m][e['field']]['relation'] = 'res.users' if e['target_model'] == 'res.partner' else 'res.partner'  # always a DIFFERENT target
+                self.assertIn('RELATION_TARGET_DRIFT', codes(self.run_(live), mid), (mid, e['field']))
+                live = clean_live(); del live['fields'][m][e['field']]
+                self.assertIn('FIELD_MISSING_LIVE', codes(self.run_(live), mid), (mid, e['field'])); seen += 1
+        self.assertEqual(seen, 32)
+    def test_every_view_mode_bearing_row_detects_drift(self):
+        k = 0
+        for mid, c in C['menus'].items():
+            if c['view']['view_mode']:
+                live = clean_live(); live['menus'][mid]['view_mode'] = 'graph'; self.assertIn('VIEW_MODE_DRIFT', codes(self.run_(live), mid)); k += 1
+        self.assertGreater(k, 0)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,11 @@
+--- a/release/rc06a_screen_architecture/addon/synapsys/__manifest__.py
++++ b/release/rc06a_screen_architecture/addon/synapsys/__manifest__.py
+@@ -14,6 +14,7 @@
+         'views/synapsys_menus.xml',
+         'views/synapsys_enable_peers.xml',
++        'candidates/synapsys_master_menu_candidate.xml',
+     ],
+-    'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml', 'synapsys/static/src/navbar_dropdown.js', 'synapsys/static/src/lens_mode.js', 'synapsys/static/src/enable_panel.js', 'synapsys/static/src/enable_panel.xml']},
++    'assets': {'web.assets_backend': ['synapsys/static/src/home.js', 'synapsys/static/src/home.xml', 'synapsys/static/src/navbar_dropdown.js', 'synapsys/static/src/lens_mode.js', 'synapsys/static/src/enable_panel.js', 'synapsys/static/src/enable_panel.xml', 'synapsys/static/src/master/master_nav.js', 'synapsys/static/src/master/master.js', 'synapsys/static/src/master/master.xml']},
+     'post_init_hook': 'post_init_hook',
+     'application': True,

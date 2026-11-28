@@ -135,6 +135,14 @@ def _readable(graph, actor, model, rid):
     return (not _restricted(actor, model)) and _visible(actor, model, rid) and _rec(graph, model, rid) is not None
 
 
+def _edge_supported(graph, actor, fm, field, sid, tid):
+    """strategy.service_ids is a readonly COMPUTED relation derived from Work Objects: the edge exists for this actor only
+    if a Work Object the actor can read supports it. Every other typed edge is a stored field and needs no extra support."""
+    if (fm, field) == ("synapsys.strategy", "service_ids"):
+        return bool(_supporting_work(graph, actor, [sid], tid))
+    return True
+
+
 def _incoming(graph, actor, model, rid, perspective):
     """One hop of governed INCOMING typed edges: records elsewhere whose real field points at (model, rid)."""
     out = []
@@ -142,7 +150,7 @@ def _incoming(graph, actor, model, rid, perspective):
         if tm != model or _restricted(actor, fm):
             continue
         for sid, rec in graph.get("records", {}).get(fm, {}).items():
-            if rid in _targets(rec, field) and _readable(graph, actor, fm, sid):
+            if rid in _targets(rec, field) and _readable(graph, actor, fm, sid) and _edge_supported(graph, actor, fm, field, sid, rid):
                 out.append({"from": [fm, sid], "field": field, "type": typ, "to": [model, rid], "direction": "in"})
     return out
 
@@ -165,7 +173,7 @@ def _walk_out(graph, actor, start, perspective, nodes, edges, seen):
             if fm != cm:
                 continue
             for t in _targets(rec, field):
-                if _readable(graph, actor, tm, t):
+                if _readable(graph, actor, tm, t) and _edge_supported(graph, actor, cm, field, cid, t):
                     edges.append({"from": [cm, cid], "field": field, "type": typ, "to": [tm, t], "direction": "out"})
                     nodes.add((tm, t))
                     frontier.append((tm, t))
@@ -255,7 +263,8 @@ def projection_audit(graph, actor, model, rid, projector=None):
             for sid, rec in graph.get("records", {}).get(fm, {}).items():
                 for t in _targets(rec, field):
                     if (fm, sid) in anchors or (tm, t) in anchors:
-                        if _readable(graph, actor, fm, sid) and _readable(graph, actor, tm, t) and not _restricted(actor, fm) and not _restricted(actor, tm):
+                        if (_readable(graph, actor, fm, sid) and _readable(graph, actor, tm, t) and not _restricted(actor, fm) and not _restricted(actor, tm)
+                                and _edge_supported(graph, actor, fm, field, sid, t)):
                             truth.add((fm, sid, field, tm, t))
         got = {(e["from"][0], e["from"][1], e["field"], e["to"][0], e["to"][1]) for e in r.get("edges", [])}
         for miss in sorted(truth - got):
@@ -275,15 +284,34 @@ def projection_audit(graph, actor, model, rid, projector=None):
     return {"ok": not findings, "findings": findings}
 
 
+def _supporting_work(graph, actor, strategy_ids, service_id):
+    """Work Objects the ACTOR CAN READ that bind one of these Strategies to this Service. strategy.service_ids is a readonly
+    computed relation derived from Work Objects, so a Strategy->Service edge is shown only with a readable supporting Work Object."""
+    return sorted(wid for wid, w in graph.get("records", {}).get("synapsys.work.object", {}).items()
+                  if w.get("service_id") == service_id and w.get("strategy_id") in strategy_ids
+                  and _readable(graph, actor, "synapsys.work.object", wid))
+
+
+def service_context_link(graph, service_id, context_id):
+    """DIRECT Service->Context FK only. Distinct from the Work-mediated Strategy->Service relationship."""
+    sc = (_rec(graph, "synapsys.service", service_id) or {}).get("context_id")
+    return ("LINKED_TO_THIS_CONTEXT" if sc == context_id else
+            "NO_DIRECT_SERVICE_CONTEXT_FK" if sc in (None, False) else "WRONG_CONTEXT")
+
+
 def walk_chain(graph, actor, context_id):
     """Context -> Purpose -> Strategy -> Service -> Method -> Work -> Outcome -> Benefit -> Asset.
-    Stops truthfully at the first hop that is missing, unobserved, or not permitted."""
-    steps, cur = [], {"synapsys.context": context_id}
-    if not _visible(actor, "synapsys.context", context_id) or _rec(graph, "synapsys.context", context_id) is None:
+    Rights-first and non-disclosing: existence is judged ONLY over records the actor can read, so a hidden record, an absent record
+    and a foreign record are never told apart. When nothing readable continues the chain the step is UNOBSERVED_TO_ACTOR
+    (MISSING only where the caller attests complete visibility of that model via actor['complete_view']).
+    WRONG_CONTEXT is reported only for a record the actor can already read. Strategy->Service needs a readable supporting Work Object."""
+    steps = []
+    if not _readable(graph, actor, "synapsys.context", context_id):
         return {"stopped_at": "Context", "reason": "UNOBSERVED_TO_ACTOR", "steps": [
             {"step": "Context", "state": "UNOBSERVED_TO_ACTOR"}]}
     steps.append({"step": "Context", "state": "CONNECTED", "id": context_id})
-    prev_model, prev_ids = "synapsys.context", [context_id]
+    prev_ids = [context_id]
+    complete = set(actor.get("complete_view", ()))
     for name, model, how in CHAIN[1:]:
         found = []
         fm, field, mode = how
@@ -298,24 +326,34 @@ def walk_chain(graph, actor, context_id):
                     found.append(rid)
         elif mode == "via_benefit":
             for rid, rec in graph.get("records", {}).get("synapsys.oba.link", {}).items():
-                if rec.get("benefit_id") in prev_ids and rec.get("asset_id") is not None:
+                if rec.get("benefit_id") in prev_ids and rec.get("asset_id") is not None and _readable(graph, actor, "synapsys.oba.link", rid):
                     found.append(rec["asset_id"])
-        have = [i for i in found if _rec(graph, model, i) is not None]
-        ok = [i for i in have if _visible(actor, model, i)]
-        if not have:
-            steps.append({"step": name, "state": "MISSING"})
-            return {"stopped_at": name, "reason": "MISSING", "steps": steps}
+        ok = sorted({i for i in found if _readable(graph, actor, model, i)})
+        support = {}
+        if model == "synapsys.service":            # Work-mediated: no readable supporting Work Object, no relationship shown
+            for i in list(ok):
+                w = _supporting_work(graph, actor, prev_ids, i)
+                if w:
+                    support[i] = w
+                else:
+                    ok.remove(i)
         if not ok:
-            steps.append({"step": name, "state": "DENIED_REDACTED"})
-            return {"stopped_at": name, "reason": "DENIED_REDACTED", "steps": steps}
-        # Cross-Context association is never accepted as a Strategy/Asset of this Context.
+            state = "MISSING" if model in complete else "UNOBSERVED_TO_ACTOR"
+            steps.append({"step": name, "state": state})
+            return {"stopped_at": name, "reason": state, "steps": steps}
+        # Cross-Context association is never accepted as a Strategy/Asset of this Context (readable records only).
         if model in ("synapsys.asset", "synapsys.strategy"):
             ctx = [i for i in ok if _rec(graph, model, i).get("context_id") == context_id]
             if not ctx:
                 steps.append({"step": name, "state": "WRONG_CONTEXT"})
                 return {"stopped_at": name, "reason": "WRONG_CONTEXT", "steps": steps}
             ok = ctx
-        steps.append({"step": name, "state": "CONNECTED", "ids": sorted(ok)})
+        step = {"step": name, "state": "CONNECTED", "ids": ok}
+        if model == "synapsys.service":
+            step["relationship_basis"] = "STRATEGY_SERVICE_IDS_VIA_WORK_OBJECTS"
+            step["supporting_work_ids"] = {str(i): support[i] for i in ok}
+            step["service_context_link"] = {str(i): service_context_link(graph, i, context_id) for i in ok}
+        steps.append(step)
         prev_ids = ok
     return {"stopped_at": None, "reason": None, "steps": steps}
 

@@ -4,3 +4,4 @@ from . import lenses
 from . import scaffold
 from . import menu_binding
 from . import arch_slice
+from . import arch_master

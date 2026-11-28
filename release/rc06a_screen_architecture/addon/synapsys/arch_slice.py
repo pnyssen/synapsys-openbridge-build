@@ -5,7 +5,7 @@ environment so Odoo's ACL and record rules decide what is visible; this module n
 (byte-identical to review/all61/arch_graph.py, checked by a test) supplies the typed edges, the Form/Flow/Evolve projection and the audit.
 
 Honest states only: RESTRICTED (access refused), NONE_VISIBLE_TO_ACTOR (zero rows seen; never called EMPTY), FIELD_NOT_PRESENT
-(the installed model does not declare the field), REAL_ACTOR_VISIBLE, plus WRONG_CONTEXT / NO_DIRECT_SERVICE_CONTEXT for Services.
+(the installed model does not declare the field), REAL_ACTOR_VISIBLE, plus WRONG_CONTEXT / NO_DIRECT_SERVICE_CONTEXT_FK for Services (Strategy->Service shown only with a readable supporting Work Object).
 """
 import json
 import os
@@ -101,7 +101,8 @@ def build_slice(graph, actor, notes, context_id=None):
             srec = graph["records"]["synapsys.strategy"][sid]
             if not svc_field_ok:
                 sv_rows.append({"strategy": sid, "services": {"state": "FIELD_NOT_PRESENT", "ids": []}}); continue
-            targets = [t for t in G._targets(srec, "service_ids")]
+            # strategy.service_ids is computed from Work Objects: a Service is shown only if the actor can read a supporting Work Object.
+            targets = [t for t in G._targets(srec, "service_ids") if G._supporting_work(graph, actor, [sid], t)]
             svc = _tier("synapsys.service", graph, actor, targets)
             items = []
             for t in svc["ids"]:
@@ -109,8 +110,9 @@ def build_slice(graph, actor, notes, context_id=None):
                 items.append({
                     "id": t,
                     "relationship_basis": "STRATEGY_SERVICE_IDS_VIA_WORK_OBJECTS",
+                    "supporting_work_ids": G._supporting_work(graph, actor, [sid], t),
                     "link": "LINKED_TO_THIS_CONTEXT" if sc == cid else
-                            "NO_DIRECT_SERVICE_CONTEXT" if not sc else "WRONG_CONTEXT",
+                            "NO_DIRECT_SERVICE_CONTEXT_FK" if not sc else "WRONG_CONTEXT",
                     # source-record lineage for the shared depth resolver (lens_contract.mode_for): only a DIRECT Service->Context
                     # binding inherits a Context-level depth override; a wrong or missing Context inherits nothing.
                     "lens_element": "svc:%s" % t,

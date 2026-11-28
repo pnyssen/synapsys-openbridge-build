@@ -97,6 +97,16 @@ def build_contract(rows, snapshot, baseline_sha256, source_pins):
 
 
 # ---------------------------------------------------------------------------------------------------------------- reconcile
+# Live client-action tags pinned by RC00 step 4 (fresh V20 read, 28 Nov 2026). The contract file stays byte-identical; pins live here.
+PINNED_CLIENT_TAGS = {331: 'synapsys_home', 332: 'synapsys_architecture_map', 358: 'synapsys_lenses'}
+CARDINALITY_OF_TYPE = {'many2one': 'one', 'one2many': 'many', 'many2many': 'many'}
+
+
+def _modes(v):
+    """view_mode compares as an ordered list: 'list, form' == 'list,form'; order is part of the contract (first mode opens)."""
+    return [x.strip() for x in str(v).split(',') if x.strip()] if v else []
+
+
 def _d(code, owner, evidence, label=None):
     return {'code': code, 'owner': OWNERS[owner], 'evidence': evidence, 'label': label or 'DEFECT'}
 
@@ -126,6 +136,12 @@ def reconcile(contract, live, pins=None, actor=None):
                 if (L.get('domain') or None) != (c['view']['domain'] or None):
                     defects.append(_d('DOMAIN_DRIFT', 'live_drift', {'expected': c['view']['domain'], 'live': L.get('domain')}))
                 seen_model.setdefault(m, []).append(mid)
+                cvm = c['view'].get('view_mode')
+                if cvm:                                           # view_mode blind spot: previously never compared
+                    if L.get('view_mode') in (None, ''):
+                        holds.append({'code': 'VIEW_MODE_NOT_READ', 'owner': OWNERS['read_contract'], 'evidence': {'expected': cvm}})
+                    elif _modes(L.get('view_mode')) != _modes(cvm):
+                        defects.append(_d('VIEW_MODE_DRIFT', 'live_drift', {'expected': cvm, 'live': L.get('view_mode')}))
                 fl = (live.get('fields') or {}).get(m)
                 for e in c['relationships']:
                     if fl is None:
@@ -135,6 +151,19 @@ def reconcile(contract, live, pins=None, actor=None):
                         defects.append(_d('FIELD_MISSING_LIVE', 'live_drift', {'model': m, 'field': e['field']}))
                     elif f.get('relation') != e['target_model']:
                         defects.append(_d('RELATION_TARGET_DRIFT', 'live_drift', {'field': e['field'], 'expected': e['target_model'], 'live': f.get('relation')}))
+                    elif f.get('type') in (None, ''):             # cardinality blind spot: previously never compared
+                        holds.append({'code': 'FIELD_TYPE_NOT_READ', 'owner': OWNERS['read_contract'], 'evidence': {'model': m, 'field': e['field']}})
+                    elif CARDINALITY_OF_TYPE.get(f['type']) != e.get('cardinality'):
+                        defects.append(_d('CARDINALITY_DRIFT', 'live_drift', {'field': e['field'], 'expected': e.get('cardinality'), 'live_type': f.get('type')}))
+        if L is not None and c['identity']['kind'] == 'CLIENT_ACTION':   # client_tag blind spot: previously a placeholder, never compared
+            pin = PINNED_CLIENT_TAGS.get(c['identity']['action_id'])
+            lt = L.get('client_tag')
+            if lt in (None, ''):
+                holds.append({'code': 'CLIENT_TAG_NOT_READ', 'owner': OWNERS['read_contract'], 'evidence': {'action_id': c['identity']['action_id'], 'pinned': pin}})
+            elif pin is None:
+                holds.append({'code': 'CLIENT_TAG_UNPINNED', 'owner': OWNERS['semantic'], 'evidence': {'action_id': c['identity']['action_id'], 'live': lt}})
+            elif lt != pin:
+                defects.append(_d('CLIENT_TAG_DRIFT', 'live_drift', {'expected': pin, 'live': lt}))
         if not verbs_ok:
             defects.append(_d('VERB_SET_DRIFT', 'source', {'expected': len(contract['verbs']), 'live': len(live.get('verbs') or [])}))
         if pins and pins.get('contract_sha256_over_menus') not in (None, contract['contract_sha256_over_menus']):

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="synapsys.MasterArchitecture">
+        <div class="o_action h-100 overflow-auto bg-view" t-on-click="this.onClick">
+            <div t-if="this.state.error" class="alert alert-warning m-3" role="status">Master Architecture is not available: <t t-out="this.state.error"/>.</div>
+            <t t-out="this.state.html"/>
+        </div>
+    </t>
+</templates>

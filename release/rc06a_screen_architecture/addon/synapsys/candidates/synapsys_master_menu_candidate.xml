@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- UNRELEASED CANDIDATE. NOT listed in __manifest__.py and NOT loaded by any install or upgrade. Preparing this file is not installing it.
+     To release (exact D007 scope, RUN_LOCK, prestate, backup, rollback, readback): add this file to 'data', add the three static/src/master files to
+     web.assets_backend, upgrade the module, then add the menu. The Steward has ruled: no Master menu yet; its semantic home is still open (HOLD H03).
+     The action below only registers a client action; the menu is the only thing that makes it reachable. Access: any logged-in user reaches the
+     endpoint, which applies that user's own rights; nothing here widens a right or creates a group. -->
+<odoo>
+<record id="action_master_architecture" model="ir.actions.client"><field name="name">Master Architecture</field><field name="tag">synapsys_master_architecture</field></record>
+<!-- Candidate home: first entry of Architecture (menu_config), before Lenses. The home is a Steward decision; change parent/sequence there, not in code. -->
+<menuitem id="menu_arch_master" name="Master" parent="menu_config" sequence="45" action="action_master_architecture"/>
+</odoo>

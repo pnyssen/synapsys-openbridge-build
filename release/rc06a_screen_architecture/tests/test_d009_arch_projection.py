@@ -13,11 +13,13 @@ def specimen(service_context=2, visible_strategy=True):
         "synapsys.context": {1: {"code": "CTX-A"}, 2: {"code": "CTX-B"}},
         "synapsys.strategy": {10: {"context_id": 1, "service_ids": [30]}},
         "synapsys.service": {30: {"context_id": service_context}},
+        "synapsys.work.object": {50: {"strategy_id": 10, "service_id": 30}},
     }}
     actor = {"visible": {
         "synapsys.context": {1, 2},
         "synapsys.strategy": {10} if visible_strategy else set(),
         "synapsys.service": {30},
+        "synapsys.work.object": {50},
     }, "restricted_models": set()}
     return graph, actor
 
@@ -53,7 +55,7 @@ class CrossContextD009Tests(unittest.TestCase):
         out = S.build_slice(graph, actor, notes, context_id=1)
         entry = out["contexts"][0]["strategy_services"][0]["services"]
         self.assertEqual(entry["state"], "REAL_ACTOR_VISIBLE")
-        self.assertEqual(entry["items"][0]["link"], "NO_DIRECT_SERVICE_CONTEXT")
+        self.assertEqual(entry["items"][0]["link"], "NO_DIRECT_SERVICE_CONTEXT_FK")
         self.assertEqual(entry["items"][0]["relationship_basis"], "STRATEGY_SERVICE_IDS_VIA_WORK_OBJECTS")
 
 

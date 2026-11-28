@@ -20,7 +20,7 @@ M = [  # (name, file, old, new)
  ("missing model crashes", "scaffold_wire.py", "            except KeyError:\n                notes.append('%s: model not present in this database' % ref)\n                continue\n", ""),
  ("D009 service-root cross-Context unflagged", "arch_graph.py", "or (root_context not in (None, False) and any(c != root_context for c in contexts))", "or False"),
  ("D009 flag never set", "arch_graph.py", 'e["cross_context"] = True\n    return', 'pass\n    return'),
- ("D009 old label restored", "arch_slice.py", '"NO_DIRECT_SERVICE_CONTEXT" if not sc', '"UNLINKED_CONTEXT" if not sc'),
+ ("D009 old label restored", "arch_slice.py", '"NO_DIRECT_SERVICE_CONTEXT_FK" if not sc', '"UNLINKED_CONTEXT" if not sc'),
 ]
 killed = survived = 0
 for name, rel, old, new in M:

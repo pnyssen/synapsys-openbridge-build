@@ -2,12 +2,15 @@
 import importlib.util
 import os
 import re
+import sys
 import unittest
 
 BASE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'addon', 'synapsys')
 
 
 def _load(n):
+    if BASE not in sys.path:       # arch_slice falls back to a top-level `import arch_graph` outside a package; make that independent of run order
+        sys.path.insert(0, BASE)
     spec = importlib.util.spec_from_file_location(n, os.path.join(BASE, n + '.py'))
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
@@ -145,7 +148,8 @@ class Lineage(unittest.TestCase):                                     # shared i
         A = _load('arch_slice')
         graph = {'records': {'synapsys.context': {1: {'code': 'C', 'kind': None, 'kind_ruling': None}},
                              'synapsys.strategy': {10: {'context_id': 1, 'service_ids': [5, 6]}},
-                             'synapsys.service': {5: {'context_id': 1}, 6: {'context_id': 2}}}}
+                             'synapsys.service': {5: {'context_id': 1}, 6: {'context_id': 2}},
+                             'synapsys.work.object': {50: {'strategy_id': 10, 'service_id': 5}, 51: {'strategy_id': 10, 'service_id': 6}}}}  # computed relation needs readable Work
         actor = {'visible': {m: set(t) for m, t in graph['records'].items()}, 'restricted_models': set()}
         out = A.build_slice(graph, actor, {'field_absent': {}, 'truncated': [], 'restricted': []})
         items = {i['id']: i for i in out['contexts'][0]['strategy_services'][0]['services']['items']}

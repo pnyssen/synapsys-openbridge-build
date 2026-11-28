@@ -122,13 +122,17 @@ class Chain(unittest.TestCase):
         self.assertIsNone(w["stopped_at"]); self.assertEqual([s["step"] for s in w["steps"]][-1], "Asset")
     def test_stops_at_missing_service(self):
         g, a = fixture(); g["records"]["synapsys.strategy"][20]["service_ids"] = []
+        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Service", "UNOBSERVED_TO_ACTOR"))  # absent == hidden to a plain actor
+        a["complete_view"] = {"synapsys.service"}                                                                  # MISSING only when completeness is attested
         w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Service", "MISSING"))
     def test_stops_at_missing_method(self):
         g, a = fixture(); g["records"]["synapsys.service"][30]["method_id"] = None
         self.assertEqual(G.walk_chain(g, a, 1)["stopped_at"], "Method")
     def test_stops_at_denied_edge(self):
         g, a = fixture(); a["visible"]["synapsys.benefit"].discard(70)
-        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Benefit", "DENIED_REDACTED"))
+        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Benefit", "UNOBSERVED_TO_ACTOR"))
+        g2, a2 = fixture(); g2["records"]["synapsys.outcome"][60]["benefit_ids"] = []        # genuinely absent: the SAME answer, nothing disclosed
+        self.assertEqual(G.walk_chain(g2, a2, 1)["steps"][-1], w["steps"][-1])
     def test_cross_context_asset_not_accepted(self):
         g, a = fixture(); g["records"]["synapsys.oba.link"][80]["asset_id"] = 91
         w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Asset", "WRONG_CONTEXT"))
@@ -142,6 +146,48 @@ class Chain(unittest.TestCase):
     def test_live_chain_stops_truthfully(self):
         """Live fact read 28 Nov: Services visible=49 with 0 context/method links, so no live path can pass Service."""
         self.assertEqual(SNAP["counts"]["synapsys.service"], 49)
+
+class RightsFirstChain(unittest.TestCase):
+    """Post-rowscope items 1-2: Work-mediated Strategy->Service, direct Service->Context FK kept distinct, non-disclosing hops."""
+    def svc_step(self, w): return [s for s in w["steps"] if s["step"] == "Service"][0]
+    def test_service_needs_readable_supporting_work_object(self):
+        g, a = fixture(); a["visible"]["synapsys.work.object"].discard(50)
+        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Service", "UNOBSERVED_TO_ACTOR"))
+        self.assertNotIn("30", json.dumps(w)); self.assertNotIn("50", json.dumps(w))
+    def test_unsupported_computed_relation_not_projected(self):
+        g, a = fixture(); a["visible"]["synapsys.work.object"].discard(50)
+        r = G.project(g, a, "synapsys.strategy", 20, "Flow")
+        self.assertFalse([e for e in r["edges"] if e["field"] == "service_ids"]); self.assertTrue(G.projection_audit(g, a, "synapsys.strategy", 20)["ok"])
+        g, a = fixture(); self.assertTrue([e for e in G.project(g, a, "synapsys.strategy", 20, "Flow")["edges"] if e["field"] == "service_ids"])
+    def test_blank_service_context_fk_is_labelled_not_asserted_absent(self):
+        g, a = fixture(); g["records"]["synapsys.service"][30]["context_id"] = None
+        s = self.svc_step(G.walk_chain(g, a, 1)); self.assertEqual(s["state"], "CONNECTED")                 # Work-mediated relationship still real
+        self.assertEqual(s["service_context_link"], {"30": "NO_DIRECT_SERVICE_CONTEXT_FK"}); self.assertEqual(s["supporting_work_ids"], {"30": [50]})
+    def test_direct_and_wrong_context_link_labels(self):
+        g, a = fixture(); self.assertEqual(self.svc_step(G.walk_chain(g, a, 1))["service_context_link"], {"30": "LINKED_TO_THIS_CONTEXT"})
+        g["records"]["synapsys.service"][30]["context_id"] = 2
+        self.assertEqual(self.svc_step(G.walk_chain(g, a, 1))["service_context_link"], {"30": "WRONG_CONTEXT"})
+    def test_hidden_foreign_asset_indistinguishable_from_absent(self):
+        g, a = fixture(); g["records"]["synapsys.oba.link"][80]["asset_id"] = 91; a["visible"]["synapsys.asset"].discard(91)
+        hidden = G.walk_chain(g, a, 1)
+        g2, a2 = fixture(); g2["records"]["synapsys.oba.link"][80]["asset_id"] = None
+        self.assertEqual((hidden["stopped_at"], hidden["reason"]), ("Asset", "UNOBSERVED_TO_ACTOR")); self.assertEqual(hidden["steps"][-1], G.walk_chain(g2, a2, 1)["steps"][-1])
+        self.assertNotIn("WRONG_CONTEXT", json.dumps(hidden)); self.assertNotIn("91", json.dumps(hidden))
+    def test_wrong_context_only_for_asset_actor_can_read(self):
+        g, a = fixture(); g["records"]["synapsys.oba.link"][80]["asset_id"] = 91
+        self.assertEqual(G.walk_chain(g, a, 1)["reason"], "WRONG_CONTEXT")                                    # Steward-like: readable, so labelled
+    def test_hidden_oba_link_not_followed(self):
+        g, a = fixture(); a["visible"]["synapsys.oba.link"].discard(80)
+        self.assertEqual(G.walk_chain(g, a, 1)["reason"], "UNOBSERVED_TO_ACTOR")
+    def test_restricted_context_model_is_unobserved_not_walked(self):
+        g, a = fixture(); a["restricted_models"] = {"synapsys.context"}
+        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"], len(w["steps"])), ("Context", "UNOBSERVED_TO_ACTOR", 1))
+    def test_context_visible_id_without_source_record_is_unobserved(self):
+        g, a = fixture(); a["visible"]["synapsys.context"].add(999)
+        self.assertEqual(G.walk_chain(g, a, 999)["reason"], "UNOBSERVED_TO_ACTOR")
+    def test_restricted_model_never_continues_chain(self):
+        g, a = fixture(); a["restricted_models"] = {"synapsys.method"}
+        w = G.walk_chain(g, a, 1); self.assertEqual((w["stopped_at"], w["reason"]), ("Method", "UNOBSERVED_TO_ACTOR"))
 
 class Negatives(unittest.TestCase):
     def test_offering_k6_filter(self):
