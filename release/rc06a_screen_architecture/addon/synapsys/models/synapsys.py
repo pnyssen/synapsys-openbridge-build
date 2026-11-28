@@ -1061,7 +1061,8 @@ class SynapsysService(models.Model):
             r.inherited_html = Markup('').join(out) if out else False
 
     @api.depends('context_id', 'kind_proposed', 'perspective', 'method_id', 'canon_ids', 'owner_name',
-                 'entry_point', 'approval_category', 'execution_outcome_schema', 'sla_value', 'benefit_ids',
+                 'entry_point', 'approval_category', 'execution_outcome_schema', 'return_acceptance_schema',
+                 'sla_value', 'benefit_ids',
                  'asset_ids', 'observation_learning_contract', 'obligations', 'name')
     def _compute_health(self):
         for r in self:

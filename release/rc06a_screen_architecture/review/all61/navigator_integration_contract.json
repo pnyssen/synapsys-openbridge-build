@@ -1,0 +1,4809 @@
+{
+ "contract_sha256_over_menus": "ad7aa000ce124f54ca734f673a8fc85dee6aa69b3fba5f52ceecbe8f4fa50767",
+ "counts": {
+  "act_window": 49,
+  "client": 3,
+  "container": 9,
+  "menus": 61,
+  "verbs": 27
+ },
+ "menus": {
+  "177": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "NOT_TESTED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "NOT_TESTED"
+   },
+   "exceptions": [
+    "client action: JS source read; no 390/1024/1440 browser render in this run",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 331,
+    "action_ref": "ir.actions.client,331",
+    "action_type": "ir.actions.client",
+    "client_tag": "UNREAD_FROM_V20_RC1_REQUIRED",
+    "kind": "CLIENT_ACTION",
+    "menu_id": 177,
+    "name_path": "SynapSys",
+    "parent_id": null
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "178": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 178,
+    "name_path": "SynapSys/Navigator",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "179": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "NEG-SAMEOBJ: Navigator>Progress and Architecture>Work are the same synapsys.work.object, not two controllers."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "strategy_id",
+    "service_id",
+    "method_id",
+    "gate_ids",
+    "progress_outcome_id",
+    "progress_benefit_id",
+    "progress_asset_id"
+   ],
+   "identity": {
+    "action_id": 290,
+    "action_ref": "ir.actions.act_window,290",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 179,
+    "name_path": "SynapSys/Navigator/Progress",
+    "parent_id": 178
+   },
+   "operating": {
+    "method_links": [
+     "method_id"
+    ],
+    "outcome_links": [
+     "progress_outcome_id"
+    ],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [
+     "service_id"
+    ],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "strategy_id",
+     "target_model": "synapsys.strategy"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "service_id",
+     "target_model": "synapsys.service"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "method_id",
+     "target_model": "synapsys.method"
+    },
+    {
+     "cardinality": "many",
+     "direction": "out",
+     "field": "gate_ids",
+     "target_model": "synapsys.gate.decision"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_outcome_id",
+     "target_model": "synapsys.outcome"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_benefit_id",
+     "target_model": "synapsys.benefit"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_asset_id",
+     "target_model": "synapsys.asset"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.work.object",
+    "view_mode": "list,form"
+   }
+  },
+  "180": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 328,
+    "action_ref": "ir.actions.act_window,328",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 180,
+    "name_path": "SynapSys/Navigator/Inbox",
+    "parent_id": 178
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('state', '=', 'new')]",
+    "model": "synapsys.signal",
+    "view_mode": "list,form"
+   }
+  },
+  "181": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 329,
+    "action_ref": "ir.actions.act_window,329",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 181,
+    "name_path": "SynapSys/Navigator/Learning",
+    "parent_id": 178
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('admission', '=', 'steward_gate')]",
+    "model": "synapsys.fractal",
+    "view_mode": "list,form"
+   }
+  },
+  "182": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "NEG-IDENTITY: second Strategy entry (group != False) shares the synapsys.strategy identity; no duplicate controller."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "context_id",
+    "purpose_id",
+    "service_ids"
+   ],
+   "identity": {
+    "action_id": 325,
+    "action_ref": "ir.actions.act_window,325",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 182,
+    "name_path": "SynapSys/Strategies",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [
+     "service_ids"
+    ],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "context_id",
+     "target_model": "synapsys.context"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "purpose_id",
+     "target_model": "synapsys.purpose"
+    },
+    {
+     "cardinality": "many",
+     "direction": "out",
+     "field": "service_ids",
+     "target_model": "synapsys.service"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('group', '!=', False)]",
+    "model": "synapsys.strategy",
+    "view_mode": "kanban,list,form"
+   }
+  },
+  "183": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 183,
+    "name_path": "SynapSys/Architecture",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "184": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 184,
+    "name_path": "SynapSys/Architecture/Form",
+    "parent_id": 183
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "185": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 316,
+    "action_ref": "ir.actions.act_window,316",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 185,
+    "name_path": "SynapSys/Architecture/Form/Purpose",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.PURPOSE",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.purpose",
+    "view_mode": "list,form"
+   }
+  },
+  "186": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-IDENTITY: top-level Strategies and Architecture>Strategy share one synapsys.strategy identity (menus 182/186 pair)."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "context_id",
+    "purpose_id",
+    "service_ids"
+   ],
+   "identity": {
+    "action_id": 295,
+    "action_ref": "ir.actions.act_window,295",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 186,
+    "name_path": "SynapSys/Architecture/Form/Strategy",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [
+     "service_ids"
+    ],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "context_id",
+     "target_model": "synapsys.context"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "purpose_id",
+     "target_model": "synapsys.purpose"
+    },
+    {
+     "cardinality": "many",
+     "direction": "out",
+     "field": "service_ids",
+     "target_model": "synapsys.service"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.STRATEGY",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.strategy",
+    "view_mode": "list,form"
+   }
+  },
+  "187": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 306,
+    "action_ref": "ir.actions.act_window,306",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 187,
+    "name_path": "SynapSys/Architecture/Form/Portfolio",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.PORTFOLIO",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.portfolio",
+    "view_mode": "list,form"
+   }
+  },
+  "188": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "purpose_id"
+   ],
+   "identity": {
+    "action_id": 291,
+    "action_ref": "ir.actions.act_window,291",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 188,
+    "name_path": "SynapSys/Architecture/Form/Context",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "purpose_id",
+     "target_model": "synapsys.purpose"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.CONTEXT",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.context",
+    "view_mode": "list,kanban,form"
+   }
+  },
+  "189": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-OFFERING: Offering is a filtered K-6 synapsys.context projection, not a new model; a non-K-6 Context must not appear."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "purpose_id"
+   ],
+   "identity": {
+    "action_id": 296,
+    "action_ref": "ir.actions.act_window,296",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 189,
+    "name_path": "SynapSys/Architecture/Form/Offering",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "purpose_id",
+     "target_model": "synapsys.purpose"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.OFFERING",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('kind','=','K-6')]",
+    "model": "synapsys.context",
+    "view_mode": "list,form"
+   }
+  },
+  "190": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-REFMODEL: Capability is a filtered mesh.entry (N.CAPABILITY%), not a controller."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 190,
+    "action_ref": "ir.actions.act_window,190",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 190,
+    "name_path": "SynapSys/Architecture/Form/Capability",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.CAPABILITY",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('code', '=like', 'N.CAPABILITY%')]",
+    "model": "synapsys.mesh.entry",
+    "view_mode": "list,form"
+   }
+  },
+  "191": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 315,
+    "action_ref": "ir.actions.act_window,315",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 191,
+    "name_path": "SynapSys/Architecture/Form/Chain",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.CHAIN",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.value.chain",
+    "view_mode": "list,form"
+   }
+  },
+  "192": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 314,
+    "action_ref": "ir.actions.act_window,314",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 192,
+    "name_path": "SynapSys/Architecture/Form/Shape",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.SHAPE",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.mode",
+    "view_mode": "list,form"
+   }
+  },
+  "193": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 309,
+    "action_ref": "ir.actions.act_window,309",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 193,
+    "name_path": "SynapSys/Architecture/Form/Domain",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.DOMAIN",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.domain",
+    "view_mode": "list,form"
+   }
+  },
+  "194": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 299,
+    "action_ref": "ir.actions.act_window,299",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 194,
+    "name_path": "SynapSys/Architecture/Form/Canonical",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.CANONICAL",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.canon",
+    "view_mode": "list,form"
+   }
+  },
+  "195": {
+   "evidence_maturity": {
+    "definition_state": "SOURCE_OPEN_NOT_INVENTED",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "OPEN",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status OPEN; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 322,
+    "action_ref": "ir.actions.act_window,322",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 195,
+    "name_path": "SynapSys/Architecture/Form/Industry",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "SOURCE_OPEN_NOT_INVENTED",
+    "source_element_id": "N.INDUSTRY",
+    "status": "OPEN"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.industry.offering",
+    "view_mode": "list,form"
+   }
+  },
+  "196": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 326,
+    "action_ref": "ir.actions.act_window,326",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 196,
+    "name_path": "SynapSys/Architecture/Form/Partner",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.PARTNER",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('is_company', '=', True)]",
+    "model": "res.partner",
+    "view_mode": "list,form"
+   }
+  },
+  "197": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 197,
+    "name_path": "SynapSys/Architecture/Flow",
+    "parent_id": 183
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "198": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 301,
+    "action_ref": "ir.actions.act_window,301",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 198,
+    "name_path": "SynapSys/Architecture/Flow/Programme",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.PROGRAMME",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.programme",
+    "view_mode": "list,form"
+   }
+  },
+  "199": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 302,
+    "action_ref": "ir.actions.act_window,302",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 199,
+    "name_path": "SynapSys/Architecture/Flow/Project",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.PROJECT",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('synapsys_context_id','!=',False)]",
+    "model": "project.project",
+    "view_mode": "list,form"
+   }
+  },
+  "200": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RELEASE_BLOCKED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RELEASE_BLOCKED"
+   },
+   "exceptions": [
+    "Service->Context/Method links absent; need exact D007 release",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-SERVICE: 49 Services visible; 0 have context_id or method_id (read this run). 19 CTX-SS bindings need their own D007 release."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "context_id",
+    "method_id"
+   ],
+   "identity": {
+    "action_id": 297,
+    "action_ref": "ir.actions.act_window,297",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 200,
+    "name_path": "SynapSys/Architecture/Flow/Service",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [
+     "method_id"
+    ],
+    "outcome_links": [],
+    "record_state": "REAL_ACTOR_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "context_id",
+     "target_model": "synapsys.context"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "method_id",
+     "target_model": "synapsys.method"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.SERVICE",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REAL_ACTOR_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.service",
+    "view_mode": "list,form"
+   }
+  },
+  "201": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-WORKFLOW: Workflow is the native synapsys.gate.decision view; no second workflow model."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 327,
+    "action_ref": "ir.actions.act_window,327",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 201,
+    "name_path": "SynapSys/Architecture/Flow/Workflow",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.WORKFLOW",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.gate.decision",
+    "view_mode": "list,form"
+   }
+  },
+  "202": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "context_id",
+    "canon_id"
+   ],
+   "identity": {
+    "action_id": 298,
+    "action_ref": "ir.actions.act_window,298",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 202,
+    "name_path": "SynapSys/Architecture/Flow/Method",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "context_id",
+     "target_model": "synapsys.context"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "canon_id",
+     "target_model": "synapsys.canon"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.METHOD",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.method",
+    "view_mode": "list,form"
+   }
+  },
+  "203": {
+   "evidence_maturity": {
+    "definition_state": "SOURCE_OPEN_NOT_INVENTED",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "OPEN",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status OPEN; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-REFMODEL: Product is a filtered mesh.entry (N.PRODUCT%); source status OPEN, definition not invented."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 191,
+    "action_ref": "ir.actions.act_window,191",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 203,
+    "name_path": "SynapSys/Architecture/Flow/Product",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "SOURCE_OPEN_NOT_INVENTED",
+    "source_element_id": "N.PRODUCT",
+    "status": "OPEN"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('code', '=like', 'N.PRODUCT%')]",
+    "model": "synapsys.mesh.entry",
+    "view_mode": "list,form"
+   }
+  },
+  "204": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-SAMEOBJ: Navigator>Progress and Architecture>Work are the same synapsys.work.object, not two controllers."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "strategy_id",
+    "service_id",
+    "method_id",
+    "gate_ids",
+    "progress_outcome_id",
+    "progress_benefit_id",
+    "progress_asset_id"
+   ],
+   "identity": {
+    "action_id": 292,
+    "action_ref": "ir.actions.act_window,292",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 204,
+    "name_path": "SynapSys/Architecture/Flow/Work",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [
+     "method_id"
+    ],
+    "outcome_links": [
+     "progress_outcome_id"
+    ],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [
+     "service_id"
+    ],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "strategy_id",
+     "target_model": "synapsys.strategy"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "service_id",
+     "target_model": "synapsys.service"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "method_id",
+     "target_model": "synapsys.method"
+    },
+    {
+     "cardinality": "many",
+     "direction": "out",
+     "field": "gate_ids",
+     "target_model": "synapsys.gate.decision"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_outcome_id",
+     "target_model": "synapsys.outcome"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_benefit_id",
+     "target_model": "synapsys.benefit"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "progress_asset_id",
+     "target_model": "synapsys.asset"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.WORK",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.work.object",
+    "view_mode": "list,form"
+   }
+  },
+  "205": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "benefit_ids"
+   ],
+   "identity": {
+    "action_id": 304,
+    "action_ref": "ir.actions.act_window,304",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 205,
+    "name_path": "SynapSys/Architecture/Flow/Outcome",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "many",
+     "direction": "out",
+     "field": "benefit_ids",
+     "target_model": "synapsys.benefit"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.OUTCOME",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.outcome",
+    "view_mode": "list,form"
+   }
+  },
+  "206": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "service_id"
+   ],
+   "identity": {
+    "action_id": 307,
+    "action_ref": "ir.actions.act_window,307",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 206,
+    "name_path": "SynapSys/Architecture/Flow/Benefit",
+    "parent_id": 197
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [
+     "service_id"
+    ],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "service_id",
+     "target_model": "synapsys.service"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.BENEFIT",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.benefit",
+    "view_mode": "list,form"
+   }
+  },
+  "207": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 207,
+    "name_path": "SynapSys/Architecture/Evolve",
+    "parent_id": 183
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "208": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-ASSET367: Asset 367 belongs to CTX-BASIN; must not be shown under another Context; historical cross-Context Strategy-Asset links are quarantined, not accepted or deleted."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "context_id",
+    "rights_holder_id"
+   ],
+   "identity": {
+    "action_id": 308,
+    "action_ref": "ir.actions.act_window,308",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 208,
+    "name_path": "SynapSys/Architecture/Evolve/Asset",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "context_id",
+     "target_model": "synapsys.context"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "rights_holder_id",
+     "target_model": "res.partner"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.ASSET",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.asset",
+    "view_mode": "list,form"
+   }
+  },
+  "209": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 321,
+    "action_ref": "ir.actions.act_window,321",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 209,
+    "name_path": "SynapSys/Architecture/Evolve/Pattern",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.PATTERN",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.pattern",
+    "view_mode": "list,form"
+   }
+  },
+  "210": {
+   "evidence_maturity": {
+    "definition_state": "RULED_DEFINITION",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "RULED",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 318,
+    "action_ref": "ir.actions.act_window,318",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 210,
+    "name_path": "SynapSys/Architecture/Evolve/Fractal",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "RULED_DEFINITION",
+    "source_element_id": "N.FRACTAL",
+    "status": "RULED"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.fractal",
+    "view_mode": "list,form"
+   }
+  },
+  "211": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 330,
+    "action_ref": "ir.actions.act_window,330",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 211,
+    "name_path": "SynapSys/Architecture/Evolve/Signal",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.SIGNAL",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.signal",
+    "view_mode": "list,form"
+   }
+  },
+  "212": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "NEG-REFMODEL: Change is a filtered mesh.entry (N.CHANGE%), not a controller."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 192,
+    "action_ref": "ir.actions.act_window,192",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 212,
+    "name_path": "SynapSys/Architecture/Evolve/Change",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.CHANGE",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('code', '=like', 'N.CHANGE%')]",
+    "model": "synapsys.mesh.entry",
+    "view_mode": "list,form"
+   }
+  },
+  "213": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "HOLD",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "PROPOSAL",
+    "status": "HONEST_HOLD"
+   },
+   "exceptions": [
+    "source status PROPOSAL; definition not invented",
+    "NONE_REGISTRY_CANDIDATE_SOURCE"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 305,
+    "action_ref": "ir.actions.act_window,305",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 213,
+    "name_path": "SynapSys/Architecture/Evolve/Market",
+    "parent_id": 207
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NONE_REGISTRY_CANDIDATE_SOURCE",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": "N.MARKET",
+    "status": "PROPOSAL"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.ptw.event",
+    "view_mode": "list,form"
+   }
+  },
+  "214": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 214,
+    "name_path": "SynapSys/Architecture/Mesh",
+    "parent_id": 183
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "215": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "NOT_TESTED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "NOT_TESTED"
+   },
+   "exceptions": [
+    "client action: JS source read; no 390/1024/1440 browser render in this run",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 332,
+    "action_ref": "ir.actions.client,332",
+    "action_type": "ir.actions.client",
+    "client_tag": "UNREAD_FROM_V20_RC1_REQUIRED",
+    "kind": "CLIENT_ACTION",
+    "menu_id": 215,
+    "name_path": "SynapSys/Architecture/Mesh/Map",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "216": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 185,
+    "action_ref": "ir.actions.act_window,185",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 216,
+    "name_path": "SynapSys/Architecture/Mesh/Registry",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.mesh.registry",
+    "view_mode": "list,form"
+   }
+  },
+  "217": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 186,
+    "action_ref": "ir.actions.act_window,186",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 217,
+    "name_path": "SynapSys/Architecture/Mesh/Elements",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.mesh.entry",
+    "view_mode": "list,form"
+   }
+  },
+  "218": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 187,
+    "action_ref": "ir.actions.act_window,187",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 218,
+    "name_path": "SynapSys/Architecture/Mesh/Clusters",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.mesh.cluster",
+    "view_mode": "list,form"
+   }
+  },
+  "219": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 313,
+    "action_ref": "ir.actions.act_window,313",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 219,
+    "name_path": "SynapSys/Architecture/Mesh/Verbs",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.verb",
+    "view_mode": "list,form"
+   }
+  },
+  "220": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [
+    "benefit_id",
+    "asset_id"
+   ],
+   "identity": {
+    "action_id": 319,
+    "action_ref": "ir.actions.act_window,319",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 220,
+    "name_path": "SynapSys/Architecture/Mesh/Benefit\u2013Asset links",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "SOURCE_UNVERIFIED",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "SOURCE_UNVERIFIED",
+   "relationships": [
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "benefit_id",
+     "target_model": "synapsys.benefit"
+    },
+    {
+     "cardinality": "one",
+     "direction": "out",
+     "field": "asset_id",
+     "target_model": "synapsys.asset"
+    }
+   ],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[]",
+    "model": "synapsys.oba.link",
+    "view_mode": "list,form"
+   }
+  },
+  "221": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 188,
+    "action_ref": "ir.actions.act_window,188",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 221,
+    "name_path": "SynapSys/Architecture/Mesh/Door receipts",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.mesh.admit",
+    "view_mode": "list,form"
+   }
+  },
+  "222": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "0 visible to read-only actor; cannot distinguish empty from restricted",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 189,
+    "action_ref": "ir.actions.act_window,189",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 222,
+    "name_path": "SynapSys/Architecture/Mesh/Measures",
+    "parent_id": 214
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "UNOBSERVED_ZERO_VISIBLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-UNOBSERVED_ZERO_VISIBLE"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.mesh.measure",
+    "view_mode": "list,form"
+   }
+  },
+  "223": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 223,
+    "name_path": "SynapSys/Form",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "224": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 340,
+    "action_ref": "ir.actions.act_window,340",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 224,
+    "name_path": "SynapSys/Form/Orient",
+    "parent_id": 223
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Orient')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "225": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 341,
+    "action_ref": "ir.actions.act_window,341",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 225,
+    "name_path": "SynapSys/Form/Canonicalise",
+    "parent_id": 223
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Canonicalise')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "226": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 342,
+    "action_ref": "ir.actions.act_window,342",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 226,
+    "name_path": "SynapSys/Form/Structure",
+    "parent_id": 223
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Structure')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "227": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 227,
+    "name_path": "SynapSys/Flow",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "228": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 343,
+    "action_ref": "ir.actions.act_window,343",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 228,
+    "name_path": "SynapSys/Flow/Assure",
+    "parent_id": 227
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Assure')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "229": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 344,
+    "action_ref": "ir.actions.act_window,344",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 229,
+    "name_path": "SynapSys/Flow/Navigate",
+    "parent_id": 227
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Navigate')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "230": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 345,
+    "action_ref": "ir.actions.act_window,345",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 230,
+    "name_path": "SynapSys/Flow/Compose",
+    "parent_id": 227
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Compose')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "231": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "PASS"
+   },
+   "exceptions": [
+    "container resolves in live tree and baseline",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": null,
+    "action_ref": false,
+    "action_type": null,
+    "client_tag": null,
+    "kind": "CONTAINER",
+    "menu_id": 231,
+    "name_path": "SynapSys/Evolve",
+    "parent_id": 177
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  },
+  "232": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 346,
+    "action_ref": "ir.actions.act_window,346",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 232,
+    "name_path": "SynapSys/Evolve/Activate",
+    "parent_id": 231
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Activate')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "233": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 347,
+    "action_ref": "ir.actions.act_window,347",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 233,
+    "name_path": "SynapSys/Evolve/Transform",
+    "parent_id": 231
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Transform')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "234": {
+   "evidence_maturity": {
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "installed": "NOT_ASSERTED",
+    "level": "SOURCE_READY",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "DECLARATION_CANDIDATE",
+    "status": "REUSED_PASS"
+   },
+   "exceptions": [
+    "existing live action; model/domain match baseline; reference/real data visible",
+    "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 348,
+    "action_ref": "ir.actions.act_window,348",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 234,
+    "name_path": "SynapSys/Evolve/Project",
+    "parent_id": 231
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "REFERENCE_ONLY",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "DECLARATION_DOC_REQUIRES_FULL_SOURCE_RESOLUTION",
+    "definition_state": "CANDIDATE_OR_PROPOSAL",
+    "source_element_id": null,
+    "status": "DECLARATION_CANDIDATE"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-REFERENCE_ONLY",
+    "T-VERB-GROUP",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": "[('action', '=', 'Project')]",
+    "model": "synapsys.verb",
+    "view_mode": "list"
+   }
+  },
+  "235": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "HTTP 403 for non-Steward actor",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "NEG-RESTRICTED: Architecture register is a restricted (Steward) register; a 403 is RESTRICTED, never EMPTY."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 335,
+    "action_ref": "ir.actions.act_window,335",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 235,
+    "name_path": "SynapSys/Architecture/Form/Architecture register",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "RESTRICTED",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": true,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": true
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-RESTRICTED",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.architecture",
+    "view_mode": "list,form"
+   }
+  },
+  "236": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "RESTRICTED_NOT_OBSERVED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "RESTRICTED"
+   },
+   "exceptions": [
+    "HTTP 403 for non-Steward actor",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "NEG-RESTRICTED: Lexicon is a restricted (Steward) register; a 403 is RESTRICTED, never EMPTY."
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 336,
+    "action_ref": "ir.actions.act_window,336",
+    "action_type": "ir.actions.act_window",
+    "client_tag": null,
+    "kind": "ACT_WINDOW",
+    "menu_id": 236,
+    "name_path": "SynapSys/Architecture/Form/Lexicon",
+    "parent_id": 184
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "RESTRICTED",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": true,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": true
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH",
+    "T-STATE-RESTRICTED",
+    "T-FFE-PROJECTION"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": false,
+    "model": "synapsys.lexicon",
+    "view_mode": "list"
+   }
+  },
+  "237": {
+   "evidence_maturity": {
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "installed": "NOT_ASSERTED",
+    "level": "NOT_TESTED",
+    "operationally_verified": "NOT_VERIFIED",
+    "role_tested": "NOT_TESTED",
+    "source": "NATIVE_OR_NAVIGATION",
+    "status": "NOT_TESTED"
+   },
+   "exceptions": [
+    "client action: JS source read; no 390/1024/1440 browser render in this run",
+    "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN"
+   ],
+   "ffe": {
+    "state": "NOT_PROJECTED_IN_ROW",
+    "via": "arch_graph.project (shared resolver)"
+   },
+   "fields": [],
+   "identity": {
+    "action_id": 358,
+    "action_ref": "ir.actions.client,358",
+    "action_type": "ir.actions.client",
+    "client_tag": "UNREAD_FROM_V20_RC1_REQUIRED",
+    "kind": "CLIENT_ACTION",
+    "menu_id": 237,
+    "name_path": "SynapSys/Architecture/Lenses",
+    "parent_id": 183
+   },
+   "operating": {
+    "method_links": [],
+    "outcome_links": [],
+    "record_state": "NOT_APPLICABLE",
+    "service_links": [],
+    "work_links": []
+   },
+   "qualification": {
+    "operating": "NOT_VERIFIED",
+    "relationship": "NOT_APPLICABLE",
+    "structural": "FROM_SOURCE"
+   },
+   "relationship_states_default": "NOT_APPLICABLE",
+   "relationships": [],
+   "rights": {
+    "model_restricted_for_observer": false,
+    "redaction": "counts/ids of invisible rows must not appear",
+    "role_sessions": "NOT_TESTED",
+    "steward_only": false
+   },
+   "source": {
+    "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+    "definition_gap": "NO_ELEMENT_DEFINITION_FOUND; BIND TO CORRECT SOURCE OR MARK OPEN",
+    "definition_state": "NAVIGATION_OR_NATIVE",
+    "source_element_id": null,
+    "status": "NATIVE_OR_NAVIGATION"
+   },
+   "tests": [
+    "T-CENSUS",
+    "T-SOURCE-HASH"
+   ],
+   "verbs": {
+    "applicable": "UNBOUND_NO_SOURCE_MAPPING",
+    "governed_set_size": 27,
+    "note": "no per-menu verb mapping is in source; none invented"
+   },
+   "view": {
+    "domain": null,
+    "model": null,
+    "view_mode": null
+   }
+  }
+ },
+ "not_asserted": [
+  "installation",
+  "role tests",
+  "Realisation",
+  "Outcome acceptance",
+  "any endpoint named here being active"
+ ],
+ "read_contracts": [
+  {
+   "id": "RC-1",
+   "need": "ir.ui.menu + ir.actions.act_window/client rows (identity, parent, action, model, domain, view_mode)",
+   "owner": null,
+   "state": "ACTIVE_VERIFIED_THIS_SESSION_READONLY",
+   "via": "V20 MCP odoo20_search_read"
+  },
+  {
+   "id": "RC-2",
+   "need": "ir.model.fields per model (field presence/type/relation/cardinality)",
+   "owner": null,
+   "state": "ACTIVE_VERIFIED_THIS_SESSION_READONLY",
+   "via": "V20 MCP odoo20_fields_get"
+  },
+  {
+   "id": "RC-3",
+   "need": "ir.rule and ir.model.access rows (actual rights, record rules)",
+   "owner": "D007 (connector read scope) on Steward word",
+   "state": "MISSING_READ_CONTRACT",
+   "via": "none verified: V20 MCP cannot read them"
+  },
+  {
+   "id": "RC-4",
+   "need": "actor-specific counts and menu visibility for Steward, Collaborator and Client sessions",
+   "owner": "D007 (connector read scope) on Steward word",
+   "state": "MISSING_READ_CONTRACT",
+   "via": "none: only jq003.readonly exists; no role sessions"
+  },
+  {
+   "id": "RC-5",
+   "need": "privileged record census (administrator counts, to tell empty from hidden)",
+   "owner": "D007 (connector read scope) on Steward word",
+   "state": "MISSING_READ_CONTRACT",
+   "via": "none authorised"
+  },
+  {
+   "id": "RC-6",
+   "need": "pinned GitHub source at a frozen commit + WM contract/hash",
+   "owner": null,
+   "state": "ACTIVE_VERIFIED_THIS_SESSION_READONLY",
+   "via": "GitHub connector; SharePoint MCP sp_read/sp_read_bytes"
+  }
+ ],
+ "read_only": true,
+ "schema": "synapsys.navigator.integration-contract.v1",
+ "source_pins": {
+  "baseline_sha256": "1f11c61c4f724a99d7076d6e57c5fa43a6bf1594a9292da967bfd5f0123e15b6",
+  "live_snapshot_sha256": "f86d8ebeedf31285c66ee0f09d22ccf2824fa79dde15bbdc466b6365e23fa7ff",
+  "source_checkpoint_commit": "7873234a3e45989f16b59b6b8d3836aec417299a"
+ },
+ "status": "SOURCE_READY_NOT_INSTALLED",
+ "verbs": [
+  "sense",
+  "map",
+  "capture",
+  "derive",
+  "instantiates",
+  "compound",
+  "composes",
+  "consumes",
+  "route",
+  "engage",
+  "balance",
+  "evidences",
+  "join",
+  "commit",
+  "execute",
+  "parent",
+  "succeed",
+  "package",
+  "seize",
+  "transform",
+  "supersedes",
+  "filter",
+  "requires",
+  "implements_candidate",
+  "validates",
+  "challenge",
+  "verify"
+ ],
+ "writes": 0
+}

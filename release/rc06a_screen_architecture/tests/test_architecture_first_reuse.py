@@ -261,13 +261,15 @@ class NativeServiceBinding(unittest.TestCase):
             (field, op, code), = domain
             return NativeServiceBinding.R(self.vals) if self.vals.get(field) == code else []
 
-    def env(self, vals=None, exc=None):
+    def env(self, vals=None, exc=None, ctxs=None):
         class E(NoSudoEnv):
             def __getitem__(s, m):
                 if exc:
                     raise exc
                 if m == "synapsys.service":
                     return NativeServiceBinding.M(vals or self.VALUES)
+                if m == "synapsys.context" and ctxs is not None:
+                    return CtxModel(ctxs)
                 raise KeyError(m)                                  # legacy catalogue absent in this fake database
         return E(Actor(7), {})
 
@@ -291,9 +293,32 @@ class NativeServiceBinding(unittest.TestCase):
         self.assertNotEqual(idx["synapsys.service:SB-02"]["sha256"], e["sha256"])
 
     def test_context_binding_alone_does_not_make_it_ready(self):
-        _, idx, _ = sw.collect_evidence(self.env(dict(self.VALUES, context_id=1)))
+        _, idx, _ = sw.collect_evidence(self.env(dict(self.VALUES, context_id=1), ctxs=[Rec(1, members=[Actor(7)])]))
         d = idx["synapsys.service:SB-02"]["detail"]["binding_state"]
         self.assertEqual((d["context"], d["status"]), ("BOUND", "UNBOUND/HOLD"))
+
+    def test_foreign_context_service_is_withheld_and_indistinguishable_from_not_found(self):
+        # H-NONDISCLOSE: Service bound to Context 9; actor 7 is only in Context 1.
+        foreign = dict(self.VALUES, context_id=9)
+        a = sw.collect_evidence(self.env(foreign, ctxs=[Rec(1, members=[Actor(7)])]))
+        b = sw.collect_evidence(self.env(dict(self.VALUES, code="NOT-SB-02")))      # genuinely not found
+        self.assertEqual(a, b)                                                       # same evidence, index, notes
+        self.assertEqual(a[:2], ([], {}))
+        self.assertEqual([n for n in a[2] if "SB-02" in n], [])
+        self.assertNotIn("9", repr(a))
+
+    def test_actor_with_no_context_fails_closed_for_bound_service(self):
+        self.assertEqual(sw.collect_evidence(self.env(dict(self.VALUES, context_id=9)))[1], {})
+
+    def test_health_projection_is_in_the_screen_evidence_and_not_ready_by_flag(self):
+        v = dict(self.VALUES, context_id=1, plug_in_ready=True, answer_accepted=True)
+        _, idx, _ = sw.collect_evidence(self.env(v, ctxs=[Rec(1, members=[Actor(7)])]))
+        h = idx["synapsys.service:SB-02"]["detail"]["health"]
+        self.assertEqual(h["operating"]["state"], "HELD")
+        self.assertEqual(h["operating"]["answer_accepted_flag"], "FLAG_ONLY_NOT_EVIDENCE")
+        self.assertEqual(h["relationships"]["edges"]["context"]["state"], "BOUND")
+        self.assertEqual(h["relationships"]["edges"]["method"]["state"], "SOURCE_UNVERIFIED")
+        self.assertTrue(any("operating qualification: HELD" in q for q in idx["synapsys.service:SB-02"]["detail"]["qualifiers"]))
 
     def test_actor_without_read_right_gets_no_evidence(self):
         ev, idx, notes = sw.collect_evidence(self.env(exc=AccessError("x")))

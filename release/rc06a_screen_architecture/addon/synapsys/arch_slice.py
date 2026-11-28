@@ -111,10 +111,14 @@ def build_slice(graph, actor, notes, context_id=None):
                     "relationship_basis": "STRATEGY_SERVICE_IDS_VIA_WORK_OBJECTS",
                     "link": "LINKED_TO_THIS_CONTEXT" if sc == cid else
                             "NO_DIRECT_SERVICE_CONTEXT" if not sc else "WRONG_CONTEXT",
+                    # source-record lineage for the shared depth resolver (lens_contract.mode_for): only a DIRECT Service->Context
+                    # binding inherits a Context-level depth override; a wrong or missing Context inherits nothing.
+                    "lens_element": "svc:%s" % t,
+                    "lens_ancestors": ["ctx:%s" % cid] if sc == cid else [],
                 })
             svc["items"] = items
             sv_rows.append({"strategy": sid, "services": svc})
-        rows.append({"context": {"id": cid, "code": crec.get("code"), "kind": crec.get("kind"),
+        rows.append({"context": {"id": cid, "code": crec.get("code"), "kind": crec.get("kind"), "lens_element": "ctx:%s" % cid,
                                  "kind_ruled": bool(crec.get("kind") and crec.get("kind_ruling"))},
                      "strategies": strat, "strategy_services": sv_rows,
                      "projection": {p: _proj_summary(graph, actor, "synapsys.context", cid, p) for p in G.PERSPECTIVES},

@@ -14,9 +14,11 @@ ROWSCOPE_CHANGED = {  # relpath: (installed hotfix sha256, pre-hotfix sha256)
 }
 
 ROWSCOPE_CHANGED.update({  # SB-02 source correction (declared): shared lens inheritance + own-rights actor Context ids + native SB-02 binding; same rule as above
-    "lens_contract.py": ("e5fca4b7f0c360f2dfb404e876d73f44d16d0c063d3c3da6f5a542874393b89f", "c101592a687bfefcb55f0c94b1eb12826ef6edf1d3ecc69e0e662aa873d91600"),
-    "scaffold_wire.py": ("0e59d17cda618c2f0463f25bfad07c2711061403451efa2676ef3767533257ce", "f6a64c5012c66ca38547479fa8e9e91753a6e89198efd7a30f7f041c353347a5"),
+    "lens_contract.py": ("ec6557ec203f5ea423f6fba3882a52c92401cc1f408629cb34aa76ba47ebbd05", "c101592a687bfefcb55f0c94b1eb12826ef6edf1d3ecc69e0e662aa873d91600"),
+    "scaffold_wire.py": ("b8f3dd01ef3bbf0322aa7a82151f464765f46e477bcf6289e6b1382ecdada25d", "f6a64c5012c66ca38547479fa8e9e91753a6e89198efd7a30f7f041c353347a5"),
+    "models/synapsys.py": ("909e55c0289ddd4890f23cb07cb960399d69d510972e2724762b044e30446456", "2b64d40f51ff5fb03ee07ba166aa496dadf3937d7a6823c4c8f0c9fcb9a66085"),  # v2: return_acceptance_schema added to _compute_health depends
 })
+ROWSCOPE_ADDED.add("service_health.py")                                                   # v2: pure Service Health projection (no Odoo import)
 
 def _sha(b): return hashlib.sha256(b).hexdigest()
 

@@ -115,6 +115,27 @@ def render_element(el, mode='enable', overrides=None, obj_link=False):
                 _e(str(el.get('label') or eid)), ''.join(rows), btn))
 
 
+PARENT_LABELS = ('part_of', 'contained_in', 'belongs_to')       # declared source relationship labels that mean "parent"
+
+
+def lineage(parent_of, start, limit=16):
+    """Source-record lineage, nearest first, from a {child: parent} map built from real records. Cycle-safe and bounded; never
+    derived from a name or id prefix. Unknown start gives ()."""
+    out, seen, cur = [], {start}, parent_of.get(start)
+    while cur is not None and cur not in seen and len(out) < limit:
+        out.append(cur); seen.add(cur); cur = parent_of.get(cur)
+    return tuple(out)
+
+
+def graph_lineage(graph, noun_id):
+    """Ancestors of a registry noun from its declared parent-labelled relationships (first parent wins). () when none is declared."""
+    parent = {}
+    for r in graph.rels:
+        if (r.get('label') or '') in PARENT_LABELS and r['from'] not in parent:
+            parent[r['from']] = r['to']
+    return lineage(parent, noun_id)
+
+
 def from_lens(lens):
     k, n, c, v, st = lens
     return element('lens:%s' % n.replace(' ', '_'), n, noun=c, status=st, definition='Lens kind: %s' % k,
@@ -122,7 +143,7 @@ def from_lens(lens):
                    ffe=n if k == 'Movement' else None)
 
 
-def from_noun(graph, noun_id):
+def from_noun(graph, noun_id, with_lineage=True):
     """Build an element from the live candidate registry graph (synapsys_mesh.journey.Graph). Nothing is invented."""
     e = graph.els.get(noun_id)
     if not e:
@@ -140,4 +161,5 @@ def from_noun(graph, noun_id):
                    definition=e.get('definition'), source=e.get('definition_source'),
                    kind=e.get('kind') or None, kind_via=', '.join(roles.get('kind_via', [])) or None,
                    relationships=rels, ffe=e.get('menu'), open_questions=len(e.get('open_questions') or ()) or None,
-                   verbs=None, evidence=None, oba=None, service=None, method=None)
+                   verbs=None, evidence=None, oba=None, service=None, method=None,
+                   ancestors=list(graph_lineage(graph, noun_id)) if with_lineage else [])

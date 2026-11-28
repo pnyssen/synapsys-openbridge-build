@@ -16,11 +16,13 @@ try:  # inside Odoo
     from . import screen_decl as sd
     from . import screen_binding as sb
     from . import screen_render as sr
+    from . import service_health as sh
 except ImportError:  # offline tests load the module by path
     import scaffold_lens as sl
     import screen_decl as sd
     import screen_binding as sb
     import screen_render as sr
+    import service_health as sh
 
 GROUPS = (('synapsys.group_synapsys_steward', 'steward'), ('synapsys.group_synapsys_user', 'collaborator'))
 DEFAULT_ROLE_MAX_DEPTH = {'steward': 'enrich', 'collaborator': 'enrich'}
@@ -117,6 +119,14 @@ def qualifiers(values):
     return q
 
 
+def _opt(rec, f):
+    """Read an optional health field; an absent field is None (never invented, never an error)."""
+    try:
+        return rec[f]
+    except (KeyError, AttributeError):
+        return None
+
+
 def native_state(state):
     """Truthful binding state for a native Service: UNBOUND/HOLD when Context or Method is absent. Never inferred."""
     ctx, mth = bool(state.get('context_id')), bool(state.get('method_id'))
@@ -150,6 +160,9 @@ def collect_evidence(env):
                     continue
                 values = {f: rec[f] for f in flds}
                 state = {f: rec[f] for f in b.get('state_fields', ())}
+                if b.get('fields') and state.get('context_id') and _rid(state['context_id']) not in actor_context_ids(env, env.user.id):
+                    continue                          # native record bound to a Context this actor is not entitled to: withheld, and
+                                                      # indistinguishable from not-found (no note, no id, no hash, no count)
             except KeyError:
                 notes.append('%s: model not present in this database' % ref)
                 continue
@@ -161,7 +174,13 @@ def collect_evidence(env):
             if b.get('fields'):
                 label = '%s %s' % (values.get('code'), values.get('name'))
                 quals = native_qualifiers(state)
-                detail = {'fields': {k: (values.get(k) or None) for k in flds}, 'binding_state': native_state(state), 'qualifiers': quals}
+                hv = {f: _opt(rec, f) for f in sh.HEALTH_DEPENDS + ('pattern_ids', 'answer_accepted')}
+                health = sh.project(hv, actor_context_ids(env, env.user.id), answer_accepted_flag=hv.get('answer_accepted'))
+                quals.append('relationship coverage: %s (per-edge states in detail)' % health['relationships']['summary'])
+                quals.append('operating qualification: %s (slots, plug_in_ready and answer_accepted are not operating evidence)'
+                             % health['operating']['state'])
+                detail = {'fields': {k: (values.get(k) or None) for k in flds}, 'binding_state': native_state(state), 'qualifiers': quals,
+                          'health': health}
             else:
                 label = '%s %s' % (values.get('x_service_code'), values.get('x_service_name'))
                 detail = {'fields': {k: (values.get(k) or None) for k in SOURCE_FIELDS}, 'qualifiers': qualifiers(values)}

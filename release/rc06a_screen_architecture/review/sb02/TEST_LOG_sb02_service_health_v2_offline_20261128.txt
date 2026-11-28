@@ -1,0 +1,21 @@
+# OFFLINE TEST LOG v2 - Service Health / non-disclosure / lineage / Navigator contract (offline; no Odoo, no network, no writes)
+# base commit 7873234a3e45989f16b59b6b8d3836aec417299a; python Python 3.13.18
+
+## A. FAILED-BEFORE: new tests against UNCHANGED tracked source (HEAD 7873234a; new files present)
+FAILED test_service_health.py::Depends::test_compute_health_depends_on_return_acceptance_schema
+FAILED test_service_health.py::Lineage::test_lineage_is_nearest_first_cycle_safe_and_source_only
+FAILED test_service_health.py::Lineage::test_registry_screen_element_gets_declared_parent_lineage
+FAILED test_service_health.py::Lineage::test_slice_screen_carries_lineage_from_source_records
+4 failed, 46 passed, 1 xfailed, 2 subtests passed in 0.10s
+
+## B. PASSED-AFTER: full offline suite (tests/)
+356 passed, 6 skipped, 1 xfailed, 2 subtests passed in 5.37s
+
+## C. review/all61 + navigator contract
+88 passed in 0.10s
+
+## A2. FAILED-BEFORE for scaffold_wire changes: NEW tests in test_architecture_first_reuse.py against OLD addon source (only addon/ stashed)
+FAILED test_architecture_first_reuse.py::NativeServiceBinding::test_actor_with_no_context_fails_closed_for_bound_service
+FAILED test_architecture_first_reuse.py::NativeServiceBinding::test_foreign_context_service_is_withheld_and_indistinguishable_from_not_found
+FAILED test_architecture_first_reuse.py::NativeServiceBinding::test_health_projection_is_in_the_screen_evidence_and_not_ready_by_flag
+3 failed, 1 passed, 29 deselected in 0.05s
