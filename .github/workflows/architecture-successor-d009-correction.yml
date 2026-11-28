@@ -1,0 +1,68 @@
+name: Architecture successor D009 corrective regression
+on:
+  push:
+    branches:
+      - review/arch-successor-d009-f01-f02-20261128
+    paths:
+      - 'release/rc06a_screen_architecture/**'
+      - '.github/workflows/architecture-successor-d009-correction.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Original F01 failure reproduction on pinned predecessor
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/architecture_prestate 23f7104014440cf12d0ce30f0c97373794b6e1ca
+          cp release/rc06a_screen_architecture/tests/test_arch_master_views.py /tmp/architecture_prestate/release/rc06a_screen_architecture/tests/test_arch_master_views.py
+          set +e
+          (cd /tmp/architecture_prestate/release/rc06a_screen_architecture && PYTHONPATH=tests python -m unittest test_arch_master_views.D009ArchitectureSuccessorRoute.test_f01_selected_context_a_hides_readable_context_b) > /tmp/f01_fail_first.log 2>&1
+          result=$?
+          set -e
+          cat /tmp/f01_fail_first.log
+          if [ "$result" -eq 0 ]; then
+            echo "FAIL-FIRST PROOF MISSING: predecessor unexpectedly passed"
+            exit 1
+          fi
+          grep -q 'FAIL:' /tmp/f01_fail_first.log || { echo "Not the expected assertion failure"; exit 1; }
+          grep -q 'AssertionError' /tmp/f01_fail_first.log || { echo "Not the expected assertion"; exit 1; }
+          echo "F01_FAIL_FIRST_REPRODUCED"
+      - name: Exact corrected route-level tests
+        working-directory: release/rc06a_screen_architecture
+        run: PYTHONPATH=tests python -m unittest -v test_arch_master_views.D009ArchitectureSuccessorRoute
+      - name: Full offline source regression
+        working-directory: release/rc06a_screen_architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -v -s tests -p 'test_*.py'
+          python -m unittest discover -v -s review/all61 -p 'test_*.py'
+      - name: Matrix v1 and v2 integrity
+        working-directory: release/rc06a_screen_architecture/review/all61
+        run: |
+          python -m unittest -v test_all61.VerbCountScope
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("ALL61_MENU_IMPLEMENTATION_QA_MATRIX_20261128_v1.json").read_text())
+          b=json.loads(Path("ALL61_MENU_IMPLEMENTATION_QA_MATRIX_20261128_v2.json").read_text())
+          assert len(a["rows"])==len(b["rows"])==61
+          rows=[r for r in b["rows"] if "verb_group" in r]
+          assert len(rows)==9 and all(r["visible_count"]==r["domain_scoped_count"]==3 and r["model_global_count"]==27 for r in rows)
+          assert len(set(i for r in rows for i in r["verb_ids"]))==27
+          print("VERB_COUNTS_AND_MATRIX_INTEGRITY_PASS")
+          PY
