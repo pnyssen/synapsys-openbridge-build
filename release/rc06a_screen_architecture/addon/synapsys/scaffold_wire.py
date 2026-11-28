@@ -34,15 +34,47 @@ _BINDINGS = {}
 # hash of the record's meaningful fields, so any edit of the record shows as SOURCE_HASH_MISMATCH until re-pinned by a patch.
 SOURCE_FIELDS = ('x_service_code', 'x_service_name', 'x_service_status', 'x_lifecycle_gate', 'x_validation_status',
                  'x_source_document', 'x_source_version', 'x_primary_governing_domain', 'x_processability_state')
+# Native V20 Service record (synapsys.service), bound by stable Service code. Source-specific fields only; Context and Method are
+# reported as binding STATE (UNBOUND when absent), never invented and never part of the pin. Historical V19 ids are not V20 identities.
+NATIVE_SERVICE_FIELDS = ('code', 'name', 'lifecycle', 'validation_status_v19', 'ffe_state_v19')
 EVIDENCE_BINDINGS = {
     'N.SERVICE': [{'model': 'x_service_catalogue', 'code_field': 'x_service_code', 'code': 'SP-01',
-                   'pinned_sha256': '608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c'}],
+                   'pinned_sha256': '608938cd399ef7b5694658dc6e34db063f9317d950439de537be0f5d663fe17c'},
+                  {'model': 'synapsys.service', 'code_field': 'code', 'code': 'SB-02', 'fields': NATIVE_SERVICE_FIELDS,
+                   'state_fields': ('context_id', 'method_id', 'plug_in_ready'),
+                   'pinned_sha256': 'e489d825e505089a761aa8c12c3794203a08385736251a59f6be04f116e2e0e3'}],
 }
+
+
+def _rid(x):
+    return getattr(x, 'id', x)
+
+
+def _entitled(rec, uid):
+    """Belt and braces on top of the record rule: the Context must name this user as steward or member in the record itself."""
+    if _rid(getattr(rec, 'steward_user_id', None)) == uid:
+        return True
+    return uid in [_rid(m) for m in (getattr(rec, 'member_ids', None) or ())]
+
+
+def actor_context_ids(env, uid):
+    """Context ids this actor may act in, from the native ORM with the CALLER'S OWN rights (no sudo). Fail closed: no access,
+    no model, or no membership means no Context ids, never a guess."""
+    try:
+        recs = env['synapsys.context'].search(['|', ('steward_user_id', '=', uid), ('member_ids', 'in', uid)])
+        return set(_rid(r) for r in recs if _entitled(r, uid))
+    except KeyError:
+        return set()
+    except Exception as exc:  # noqa: BLE001
+        if _is_access_error(exc) or exc.__class__.__name__ == 'MissingError':
+            return set()
+        raise
 
 
 def actor_from_env(env):
     groups = set(role for xmlid, role in GROUPS if env.user.has_group(xmlid))
-    return {'uid': env.user.id, 'groups': groups, 'context_ids': set()}
+    uid = env.user.id
+    return {'uid': uid, 'groups': groups, 'context_ids': actor_context_ids(env, uid) if groups else set()}
 
 
 def _is_access_error(exc):
@@ -69,8 +101,8 @@ def load_registry(env, version=None):
         raise
 
 
-def canonical_hash(values):
-    c = json.dumps({k: (values.get(k) or None) for k in SOURCE_FIELDS}, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+def canonical_hash(values, fields=SOURCE_FIELDS):
+    c = json.dumps({k: (values.get(k) or None) for k in fields}, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
     return hashlib.sha256(c.encode('utf-8')).hexdigest()
 
 
@@ -85,25 +117,55 @@ def qualifiers(values):
     return q
 
 
+def native_state(state):
+    """Truthful binding state for a native Service: UNBOUND/HOLD when Context or Method is absent. Never inferred."""
+    ctx, mth = bool(state.get('context_id')), bool(state.get('method_id'))
+    return {'context': 'BOUND' if ctx else 'UNBOUND', 'method': 'BOUND' if mth else 'UNBOUND',
+            'plug_in_ready': bool(state.get('plug_in_ready')), 'status': 'BOUND' if (ctx and mth) else 'UNBOUND/HOLD'}
+
+
+def native_qualifiers(state):
+    q = ['native Service record: existence is not operation']
+    if not state.get('context_id'):
+        q.append('not bound to a Context (UNBOUND/HOLD)')
+    if not state.get('method_id'):
+        q.append('no Method anchored (UNBOUND/HOLD)')
+    if not state.get('plug_in_ready'):
+        q.append('plug_in_ready is false')
+    return q
+
+
 def collect_evidence(env):
     """Read each bound catalogue record with the CALLER'S rights. Returns (evidence, library_index, notes)."""
     evidence, index, notes = [], {}, []
     for noun, bindings in EVIDENCE_BINDINGS.items():
         for b in bindings:
             ref = '%s:%s' % (b['model'], b['code'])
+            flds = b.get('fields') or SOURCE_FIELDS
             try:
                 rec = env[b['model']].search([(b['code_field'], '=', b['code'])], limit=1)
                 if not rec:
-                    notes.append('%s: record not found' % ref)
+                    if not b.get('fields'):          # native bindings: an absent or invisible record is simply not evidence (no new note)
+                        notes.append('%s: record not found' % ref)
                     continue
-                values = {f: rec[f] for f in SOURCE_FIELDS}
+                values = {f: rec[f] for f in flds}
+                state = {f: rec[f] for f in b.get('state_fields', ())}
+            except KeyError:
+                notes.append('%s: model not present in this database' % ref)
+                continue
             except Exception as exc:  # noqa: BLE001
                 if _is_access_error(exc):
                     notes.append('%s: not readable with your rights' % ref)
                     continue
                 raise
-            index[ref] = {'sha256': canonical_hash(values), 'label': '%s %s' % (values.get('x_service_code'), values.get('x_service_name')),
-                          'detail': {'fields': {k: (values.get(k) or None) for k in SOURCE_FIELDS}, 'qualifiers': qualifiers(values)}}
+            if b.get('fields'):
+                label = '%s %s' % (values.get('code'), values.get('name'))
+                quals = native_qualifiers(state)
+                detail = {'fields': {k: (values.get(k) or None) for k in flds}, 'binding_state': native_state(state), 'qualifiers': quals}
+            else:
+                label = '%s %s' % (values.get('x_service_code'), values.get('x_service_name'))
+                detail = {'fields': {k: (values.get(k) or None) for k in SOURCE_FIELDS}, 'qualifiers': qualifiers(values)}
+            index[ref] = {'sha256': canonical_hash(values, flds), 'label': label, 'detail': detail}
             evidence.append({'id': 'EV:%s' % ref, 'noun_id': noun, 'scope': 'catalogue', 'kind': 'library',
                              'source_ref': ref, 'sha256': b['pinned_sha256']})
     return evidence, index, notes

@@ -1,0 +1,113 @@
+# OFFLINE TEST LOG - SB-02 Architecture reuse source correction (offline; no Odoo, no network, no writes)
+# 2026-11-28T00:13:51Z Python 3.13.18
+## 0. input hashes: handoff ece85b49b3df37857292ccfd3a0630358caa23e4f34206f65ca717b219cc0171 (verified, 6328 B); nine-test file 3716b92bd204e94b5a679466480769b140319e07fd910fa20ef332f8d70a7798 (verified on disk); D009 patch 1c5ac43d52faf083e2cda63d06e1c23dd0e2f2b17c6dfa1c5f2e418d493066c9 (verified, git apply --check OK on 3627bfa)
+
+## A. original nine tests on UNCHANGED branch 3627bfa: 5 PASS / 4 FAIL
+=================================== FAILURES ===================================
+FAILED test_architecture_first_reuse.py::ReuseContract::test_context_membership_is_derived_from_current_actor_source
+FAILED test_architecture_first_reuse.py::ReuseContract::test_parent_override_inherits_to_source_bound_descendant
+FAILED test_architecture_first_reuse.py::ReuseContract::test_presentation_depth_is_not_a_kinematic_kind_stage
+FAILED test_architecture_first_reuse.py::ReuseContract::test_primary_service_contract_uses_native_v20_catalogue
+4 failed, 5 passed, 2 subtests passed in 0.04s
+PASSED test_architecture_first_reuse.py::ReuseContract::test_ancestor_override_does_not_change_unrelated_branch
+PASSED test_architecture_first_reuse.py::ReuseContract::test_child_override_wins_over_ancestor_override
+PASSED test_architecture_first_reuse.py::ReuseContract::test_local_exact_override_is_preserved
+PASSED test_architecture_first_reuse.py::ReuseContract::test_rights_cap_still_limits_presentation_depth
+PASSED test_architecture_first_reuse.py::ReuseContract::test_shared_global_depth_changes_two_element_types
+FAILED test_architecture_first_reuse.py::ReuseContract::test_context_membership_is_derived_from_current_actor_source
+FAILED test_architecture_first_reuse.py::ReuseContract::test_parent_override_inherits_to_source_bound_descendant
+FAILED test_architecture_first_reuse.py::ReuseContract::test_presentation_depth_is_not_a_kinematic_kind_stage
+FAILED test_architecture_first_reuse.py::ReuseContract::test_primary_service_contract_uses_native_v20_catalogue
+
+## B. all new+existing SB-02 and D009 tests on OLD source (4 source files reverted): failed-before
+FAILED tests/test_architecture_first_reuse.py::ReuseContract::test_context_membership_is_derived_from_current_actor_source
+FAILED tests/test_architecture_first_reuse.py::ReuseContract::test_parent_override_inherits_to_source_bound_descendant
+FAILED tests/test_architecture_first_reuse.py::ReuseContract::test_primary_service_contract_uses_native_v20_catalogue
+FAILED tests/test_architecture_first_reuse.py::TwoContextInheritance::test_clearing_returns_to_parent_then_global
+FAILED tests/test_architecture_first_reuse.py::TwoContextInheritance::test_closest_ancestor_wins
+FAILED tests/test_architecture_first_reuse.py::TwoContextInheritance::test_context_a_override_reaches_only_its_own_service_record
+FAILED tests/test_architecture_first_reuse.py::TwoContextInheritance::test_inherited_state_is_labelled_not_claimed_as_local
+FAILED tests/test_architecture_first_reuse.py::TwoContextInheritance::test_same_behaviour_repeats_in_second_context
+FAILED tests/test_architecture_first_reuse.py::ContextRights::test_member_of_a_sees_only_a
+FAILED tests/test_architecture_first_reuse.py::ContextRights::test_member_of_b_sees_only_b_second_context
+FAILED tests/test_architecture_first_reuse.py::ContextRights::test_overbroad_search_result_is_filtered_fail_closed
+FAILED tests/test_architecture_first_reuse.py::ContextRights::test_steward_of_context_is_entitled
+FAILED tests/test_architecture_first_reuse.py::ContextRights::test_unexpected_error_is_not_swallowed
+FAILED tests/test_architecture_first_reuse.py::NativeServiceBinding::test_binding_is_pinned_to_source_fields_and_matches
+FAILED tests/test_architecture_first_reuse.py::NativeServiceBinding::test_context_and_method_absent_reports_unbound_hold
+FAILED tests/test_architecture_first_reuse.py::NativeServiceBinding::test_context_binding_alone_does_not_make_it_ready
+FAILED tests/test_architecture_first_reuse.py::NativeServiceBinding::test_missing_model_is_a_note_not_a_crash
+FAILED tests/test_architecture_first_reuse.py::NativeServiceBinding::test_source_edit_shows_as_hash_mismatch_not_silent
+FAILED tests/test_d009_arch_projection.py::CrossContextD009Tests::test_blank_direct_service_context_keeps_computed_relation
+FAILED tests/test_d009_arch_projection.py::CrossContextD009Tests::test_service_root_flags_visible_cross_context_incoming_edge
+20 failed, 14 passed, 1 xfailed, 2 subtests passed in 0.18s
+
+## C. same tests on CORRECTED source
+tests/test_architecture_first_reuse.py::ReuseContract::test_ancestor_override_does_not_change_unrelated_branch PASSED [  2%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_child_override_wins_over_ancestor_override PASSED [  5%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_context_membership_is_derived_from_current_actor_source PASSED [  8%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_local_exact_override_is_preserved PASSED [ 11%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_parent_override_inherits_to_source_bound_descendant PASSED [ 14%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_presentation_depth_is_not_a_kinematic_kind_stage XFAIL [ 17%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_primary_service_contract_uses_native_v20_catalogue PASSED [ 20%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_rights_cap_still_limits_presentation_depth PASSED [ 22%]
+tests/test_architecture_first_reuse.py::ReuseContract::test_shared_global_depth_changes_two_element_types PASSED [ 25%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_clearing_returns_to_parent_then_global PASSED [ 28%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_closest_ancestor_wins PASSED [ 31%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_context_a_override_reaches_only_its_own_service_record PASSED [ 34%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_exact_descendant_override_beats_context_override PASSED [ 37%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_inherited_state_is_labelled_not_claimed_as_local PASSED [ 40%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_no_lineage_means_no_inheritance_even_with_matching_name_prefix PASSED [ 42%]
+tests/test_architecture_first_reuse.py::TwoContextInheritance::test_same_behaviour_repeats_in_second_context PASSED [ 45%]
+tests/test_architecture_first_reuse.py::ContextRights::test_access_error_fails_closed PASSED [ 48%]
+tests/test_architecture_first_reuse.py::ContextRights::test_member_of_a_sees_only_a PASSED [ 51%]
+tests/test_architecture_first_reuse.py::ContextRights::test_member_of_b_sees_only_b_second_context PASSED [ 54%]
+tests/test_architecture_first_reuse.py::ContextRights::test_missing_model_fails_closed PASSED [ 57%]
+tests/test_architecture_first_reuse.py::ContextRights::test_overbroad_search_result_is_filtered_fail_closed PASSED [ 60%]
+tests/test_architecture_first_reuse.py::ContextRights::test_steward_of_context_is_entitled PASSED [ 62%]
+tests/test_architecture_first_reuse.py::ContextRights::test_unexpected_error_is_not_swallowed PASSED [ 65%]
+tests/test_architecture_first_reuse.py::ContextRights::test_wrong_role_user_gets_no_contexts_and_no_query PASSED [ 68%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_actor_without_read_right_gets_no_evidence PASSED [ 71%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_binding_is_pinned_to_source_fields_and_matches PASSED [ 74%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_context_and_method_absent_reports_unbound_hold PASSED [ 77%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_context_binding_alone_does_not_make_it_ready PASSED [ 80%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_missing_model_is_a_note_not_a_crash PASSED [ 82%]
+tests/test_architecture_first_reuse.py::NativeServiceBinding::test_source_edit_shows_as_hash_mismatch_not_silent PASSED [ 85%]
+tests/test_d009_arch_projection.py::CrossContextD009Tests::test_blank_direct_service_context_keeps_computed_relation PASSED [ 88%]
+tests/test_d009_arch_projection.py::CrossContextD009Tests::test_context_root_preserves_existing_cross_context_detection PASSED [ 91%]
+tests/test_d009_arch_projection.py::CrossContextD009Tests::test_hidden_strategy_not_exposed_to_service_root PASSED [ 94%]
+tests/test_d009_arch_projection.py::CrossContextD009Tests::test_service_root_flags_visible_cross_context_incoming_edge PASSED [ 97%]
+tests/test_d009_arch_projection.py::CrossContextD009Tests::test_service_root_same_context_does_not_false_flag PASSED [100%]
+=============== 34 passed, 1 xfailed, 2 subtests passed in 0.09s ===============
+
+## D. full offline RC06 suite (tests/)
+.....................................................                    [100%]
+332 passed, 6 skipped, 1 xfailed, 2 subtests passed in 5.31s
+
+## E. review/kda_route
+157 passed in 0.75s
+## E. review/all61
+76 passed in 0.06s
+## E. review/wave1
+26 passed in 0.02s
+
+## F. mutation controls
+KILLED   ancestors ignored
+KILLED   ancestor beats exact override
+KILLED   farthest ancestor wins
+KILLED   inherited labelled as local
+KILLED   membership filter removed
+KILLED   wrong role still queries
+KILLED   steward match dropped
+KILLED   access error not failing closed
+KILLED   all errors swallowed
+KILLED   sudo used
+KILLED   binding always BOUND
+KILLED   context alone makes it ready
+KILLED   pin ignores source
+KILLED   native binding removed
+KILLED   missing model crashes
+SURVIVED D009 service-root cross-Context unflagged
+KILLED   D009 flag never set
+KILLED   D009 old label restored
+killed=17 survived=1 total=18

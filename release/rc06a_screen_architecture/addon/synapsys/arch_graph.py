@@ -218,12 +218,18 @@ def project(graph, actor, model, rid, perspective):
     for e in edges:                                                      # direction is relative to the element being projected
         e["direction"] = "out" if e["from"] == [model, rid] else "in" if e["to"] == [model, rid] else "via"
     edges = sorted(edges, key=json.dumps)
-    for e in edges:                                                      # flag, never drop, a cross-Context association
-        if model == "synapsys.context":
-            for end in (e["from"], e["to"]):
-                c = _rec(graph, end[0], end[1]).get("context_id") if end[0] != "synapsys.context" else end[1]
-                if c is not None and c != rid:
-                    e["cross_context"] = True
+    root_rec = _rec(graph, model, rid) or {}
+    root_context = rid if model == "synapsys.context" else root_rec.get("context_id")
+    for e in edges:                                                      # flag governed cross-Context relationships at every root
+        contexts = []
+        for end in (e["from"], e["to"]):
+            rec = _rec(graph, end[0], end[1]) or {}
+            ctx = end[1] if end[0] == "synapsys.context" else rec.get("context_id")
+            if ctx not in (None, False):
+                contexts.append(ctx)
+        if ((len(contexts) == 2 and contexts[0] != contexts[1])
+                or (root_context not in (None, False) and any(c != root_context for c in contexts))):
+            e["cross_context"] = True
     return {"state": "PROJECTED", "perspective": perspective,
             "nodes": sorted(map(list, nodes)), "edges": edges,
             "coverage": coverage(graph, actor, model, rid, perspective, edges)}

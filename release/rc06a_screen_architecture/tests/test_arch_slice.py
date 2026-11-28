@@ -52,7 +52,7 @@ class Slice(unittest.TestCase):
         o = run(env_for(world())); self.assertEqual((o["read_only"], o["writes"]), (True, 0))
         c = [r for r in o["contexts"] if r["context"]["id"] == 1][0]
         self.assertEqual(c["strategies"]["ids"], [20]); items = {i["id"]: i["link"] for i in c["strategy_services"][0]["services"]["items"]}
-        self.assertEqual(items, {30: "LINKED_TO_THIS_CONTEXT", 31: "UNLINKED_CONTEXT", 32: "WRONG_CONTEXT"})
+        self.assertEqual(items, {30: "LINKED_TO_THIS_CONTEXT", 31: "NO_DIRECT_SERVICE_CONTEXT", 32: "WRONG_CONTEXT"})
     def test_projections_are_distinct_and_audited(self):
         c = [r for r in run(env_for(world()))["contexts"] if r["context"]["id"] == 1][0]
         self.assertEqual(c["audit"], {"ok": True, "findings": []}); self.assertEqual(len({json.dumps([c["projection"][p]["nodes"], c["projection"][p]["edges"]], sort_keys=True) for p in G.PERSPECTIVES}), 3)

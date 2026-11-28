@@ -13,6 +13,11 @@ ROWSCOPE_CHANGED = {  # relpath: (installed hotfix sha256, pre-hotfix sha256)
     "tests/__init__.py": ("9831a3d9233db89423d338f7b139386154ab98cec7860f616337bea6944555ff", "e306074a66839477ddfbb4b5d79d0c10ca4ca02eebfb575ef94df2bd2bae0350"),
 }
 
+ROWSCOPE_CHANGED.update({  # SB-02 source correction (declared): shared lens inheritance + own-rights actor Context ids + native SB-02 binding; same rule as above
+    "lens_contract.py": ("e5fca4b7f0c360f2dfb404e876d73f44d16d0c063d3c3da6f5a542874393b89f", "c101592a687bfefcb55f0c94b1eb12826ef6edf1d3ecc69e0e662aa873d91600"),
+    "scaffold_wire.py": ("0e59d17cda618c2f0463f25bfad07c2711061403451efa2676ef3767533257ce", "f6a64c5012c66ca38547479fa8e9e91753a6e89198efd7a30f7f041c353347a5"),
+})
+
 def _sha(b): return hashlib.sha256(b).hexdigest()
 
 def strip(now, addon_dir):

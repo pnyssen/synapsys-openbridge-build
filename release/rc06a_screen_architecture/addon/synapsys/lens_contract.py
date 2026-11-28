@@ -39,7 +39,7 @@ def parse_overrides(text):
 
 
 def element(eid, label, **kw):
-    """Element contract. Keys other than id/label are optional: noun, verbs, ffe, kind, kind_via, service, method,
+    """Element contract. Keys other than id/label are optional: ancestors (source-record lineage, nearest first), noun, verbs, ffe, kind, kind_via, service, method,
     oba, source, definition, status, evidence, relationships [(label, direction, other_id, other_label)], open_questions."""
     d = {'id': eid, 'label': label}
     d.update(kw)
@@ -58,16 +58,28 @@ def _row(k, v):
     return '<div class="kv"><span>%s</span><span>%s</span></div>' % (_e(k), _e(_v(v)))
 
 
-def mode_for(eid, mode, overrides):
-    return normalise((overrides or {}).get(eid, mode))
+def mode_for(eid, mode, overrides, ancestors=()):
+    """Effective depth. Exact override on this element wins; else the CLOSEST ancestor override; else the global mode.
+    `ancestors` is source-record lineage supplied by the caller, nearest first (e.g. the Context record a Service record
+    belongs to). It is never derived from a name or id prefix. Clearing an override falls back to the parent, then global."""
+    ov = overrides or {}
+    if eid in ov:
+        return normalise(ov[eid])
+    for a in (ancestors or ()):
+        if a in ov:
+            return normalise(ov[a])
+    return normalise(mode)
 
 
 def render_element(el, mode='enable', overrides=None, obj_link=False):
     """Return an HTML fragment for ONE element at the effective mode. Pure; does not mutate el."""
     eid = el['id']
     glob = normalise(mode)
-    eff = mode_for(eid, glob, overrides)
-    local = eff != glob
+    anc = tuple(el.get('ancestors') or ())
+    eff = mode_for(eid, glob, overrides, anc)
+    exact = eid in (overrides or {})
+    local = exact and eff != glob
+    inherited = (not exact) and eff != glob
     rows = [_row('Noun', el.get('noun')), _row('Source state', el.get('status')),
             _row('Definition', el.get('definition'))]
     if eff in ('enhance', 'enrich'):
@@ -99,7 +111,7 @@ def render_element(el, mode='enable', overrides=None, obj_link=False):
         btn += '<a class="tg" data-ovel="%s" data-ovmode="">Reset to global</a>' % _e(eid, quote=True)
     return (STYLE + '<div class="cd bx syn-el" data-element="%s" data-mode="%s" data-global="%s" data-override="%s">'
             '<span class="tg">%s</span><span class="tg">%s</span><h3>%s</h3>%s<div class="nt">%s</div></div>' % (
-                _e(eid, quote=True), eff, glob, 'yes' if local else 'no', _e(LABEL[eff]), _e(DEPTH[eff]),
+                _e(eid, quote=True), eff, glob, 'yes' if local else 'inherited' if inherited else 'no', _e(LABEL[eff]), _e(DEPTH[eff]),
                 _e(str(el.get('label') or eid)), ''.join(rows), btn))
 
 

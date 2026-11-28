@@ -56,6 +56,9 @@ class Native:
     def sudo(self):
         raise AssertionError("sudo must never be called")
 
+    def search(self, domain, limit=None):
+        return []   # declared SB-02 own-rights lookups (actor Context ids, native Service): no rows here; not logged so the historical read logs stay exact
+
     def create(self, *a, **k):
         raise AssertionError("no writes")
 

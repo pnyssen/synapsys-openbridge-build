@@ -5,7 +5,7 @@ environment so Odoo's ACL and record rules decide what is visible; this module n
 (byte-identical to review/all61/arch_graph.py, checked by a test) supplies the typed edges, the Form/Flow/Evolve projection and the audit.
 
 Honest states only: RESTRICTED (access refused), NONE_VISIBLE_TO_ACTOR (zero rows seen; never called EMPTY), FIELD_NOT_PRESENT
-(the installed model does not declare the field), REAL_ACTOR_VISIBLE, plus WRONG_CONTEXT / UNLINKED_CONTEXT for Services.
+(the installed model does not declare the field), REAL_ACTOR_VISIBLE, plus WRONG_CONTEXT / NO_DIRECT_SERVICE_CONTEXT for Services.
 """
 import json
 import os
@@ -106,7 +106,12 @@ def build_slice(graph, actor, notes, context_id=None):
             items = []
             for t in svc["ids"]:
                 sc = graph["records"]["synapsys.service"][t].get("context_id")
-                items.append({"id": t, "link": "LINKED_TO_THIS_CONTEXT" if sc == cid else "UNLINKED_CONTEXT" if not sc else "WRONG_CONTEXT"})
+                items.append({
+                    "id": t,
+                    "relationship_basis": "STRATEGY_SERVICE_IDS_VIA_WORK_OBJECTS",
+                    "link": "LINKED_TO_THIS_CONTEXT" if sc == cid else
+                            "NO_DIRECT_SERVICE_CONTEXT" if not sc else "WRONG_CONTEXT",
+                })
             svc["items"] = items
             sv_rows.append({"strategy": sid, "services": svc})
         rows.append({"context": {"id": cid, "code": crec.get("code"), "kind": crec.get("kind"),

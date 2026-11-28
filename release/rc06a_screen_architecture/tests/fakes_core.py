@@ -86,6 +86,12 @@ class RecModel:
         s.log.append(("search_rec", s.name, tuple(map(tuple, domain)), limit))
         if s.ra:
             raise AccessError("no record read")
+        if any(isinstance(t, str) for t in domain):   # OR domain (actor Context lookup): list of rows matching any term
+            terms = [t for t in domain if not isinstance(t, str)]
+            def hit(r, f, op, v):
+                x = r.get(f)
+                return (v in [getattr(m, "id", m) for m in (x or ())]) if op == "in" else (getattr(x, "id", x) == v)
+            return [r for r in s.rows if any(hit(r, *t) for t in terms)]
         for r in s.rows:
             if all(r.get(f) == v for f, op, v in domain):
                 return r
@@ -103,6 +109,21 @@ class RecModel:
 STEW, COLL = "synapsys.group_synapsys_steward", "synapsys.group_synapsys_user"
 
 
+class NativeEmpty:
+    """Own-rights native lookup with no rows. Logs the call; any write-like or sudo call still fails the test."""
+    native_log = []
+
+    def __init__(s, log, name):
+        s.log, s.name = log, name
+
+    def search(s, domain, limit=None):
+        s.native_log.append(("search_native", s.name, repr(domain), limit))   # declared SB-02 reads: asserted in test_architecture_first_reuse, kept out of the historical read logs
+        return []
+
+    def sudo(s):
+        raise AssertionError("sudo must never be called")
+
+
 class Env:
     def __init__(s, groups, records=None, rec=None, cat=None, ra_models=()):
         s.user = User(groups); s.log = []
@@ -116,6 +137,8 @@ class Env:
             return s.m
         if k == "x_service_catalogue":
             return s.cat
+        if k in ("synapsys.context", "synapsys.service") and k not in s.records and k not in s.ra_models:
+            return NativeEmpty(s.log, k)   # SB-02 source correction: the actor Context/native Service lookups exist; this fake database has none
         assert k in s.records or k in s.ra_models, k
         return RecModel(s.records.get(k, []), s.log, k, ra=k in s.ra_models)
 

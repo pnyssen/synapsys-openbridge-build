@@ -1,0 +1,19 @@
+KILLED   ancestors ignored
+KILLED   ancestor beats exact override
+KILLED   farthest ancestor wins
+KILLED   inherited labelled as local
+KILLED   membership filter removed
+KILLED   wrong role still queries
+KILLED   steward match dropped
+KILLED   access error not failing closed
+KILLED   all errors swallowed
+KILLED   sudo used
+KILLED   binding always BOUND
+KILLED   context alone makes it ready
+KILLED   pin ignores source
+KILLED   native binding removed
+KILLED   missing model crashes
+SURVIVED D009 service-root cross-Context unflagged
+KILLED   D009 flag never set
+KILLED   D009 old label restored
+killed=17 survived=1 total=18
